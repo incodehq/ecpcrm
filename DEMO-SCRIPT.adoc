@@ -48,7 +48,7 @@ There's no need to disable shiro; we can use the `DomainAppAppManifestWithFixtur
 +
 [source,bash]
 ----
---manifest domainapp.app.DomainAppAppManifestWithFixturesBypassSecurity --port 8080
+--manifest DomainAppAppManifestWithFixturesBypassSecurity --port 8080
 ----
 
 ** alternatively, can build a WAR file from Maven.

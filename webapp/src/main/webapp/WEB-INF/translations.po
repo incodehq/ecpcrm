@@ -453,7 +453,7 @@ msgid "Domain Objects"
 msgstr ""
 
 
-#: domainapp.app.services.homepage.HomePageViewModel#downloadLayout()
+#: HomePageViewModel#downloadLayout()
 #: domainapp.dom.simple.SimpleObject#downloadLayout()
 #: org.apache.isis.applib.fixturescripts.FixtureResult#downloadLayout()
 #: org.apache.isis.core.metamodel.spec.FreeStandingList#downloadLayout()
@@ -727,7 +727,7 @@ msgid "Has Password"
 msgstr ""
 
 
-#: domainapp.app.services.homepage.HomePageService#homePage()
+#: HomePageService#homePage()
 msgid "Home Page"
 msgstr ""
 
@@ -1087,7 +1087,7 @@ msgid "Object: {name}"
 msgstr ""
 
 
-#: domainapp.app.services.homepage.HomePageViewModel#objects
+#: HomePageViewModel#objects
 msgid "Objects"
 msgstr ""
 

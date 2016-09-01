@@ -141,7 +141,7 @@
                         <artifactId>isis-maven-plugin</artifactId>
                         <version>${isis.version}</version>
                         <configuration>
-                            <appManifest>domainapp.dom.DomainAppDomManifest</appManifest>
+                            <appManifest>org.incode.eurocommercial.ecpcrm.dom.DomainAppDomManifest</appManifest>
                         </configuration>
                         <dependencies>
                             <dependency>
