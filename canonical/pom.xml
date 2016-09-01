@@ -22,12 +22,12 @@
 
     <parent>
         <groupId>org.isisaddons.app</groupId>
-        <artifactId>quickstart</artifactId>
+        <artifactId>ecpcrm</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quickstart-canonical</artifactId>
-    <name>Isis Addons quickstart Canonical Data</name>
+    <artifactId>ecpcrm-canonical</artifactId>
+    <name>Eurocommercial CRM System Canonical Data</name>
 
 
     <build>

@@ -21,12 +21,12 @@
 
     <parent>
         <groupId>org.isisaddons.app</groupId>
-        <artifactId>quickstart</artifactId>
+        <artifactId>ecpcrm</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quickstart-webapp</artifactId>
-    <name>Isis Addons quickstart Webapp</name>
+    <artifactId>ecpcrm-webapp</artifactId>
+    <name>Eurocommercial CRM System Webapp</name>
 
     <description>This module runs both the Wicket viewer and the Restfulobjects viewer in a single webapp configured to run using the datanucleus object store.  It combines a number of the Isis addons.</description>
 
@@ -59,7 +59,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>quickstart-app</artifactId>
+            <artifactId>ecpcrm-app</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>
@@ -104,7 +104,7 @@
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
-                            <warName>quickstart</warName>
+                            <warName>ecpcrm</warName>
                             <archive>
                                 <manifest>
                                     <addClasspath>false</addClasspath>

@@ -23,12 +23,12 @@
 
     <parent>
         <groupId>org.isisaddons.app</groupId>
-        <artifactId>quickstart</artifactId>
+        <artifactId>ecpcrm</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quickstart-fixture</artifactId>
-    <name>Isis Addons quickstart Fixtures</name>
+    <artifactId>ecpcrm-fixture</artifactId>
+    <name>Eurocommercial CRM System Fixtures</name>
 
     <build>
         <resources>
@@ -52,7 +52,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>quickstart-dom</artifactId>
+            <artifactId>ecpcrm-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->

@@ -22,12 +22,12 @@
 
     <parent>
         <groupId>org.isisaddons.app</groupId>
-        <artifactId>quickstart</artifactId>
+        <artifactId>ecpcrm</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quickstart-dom</artifactId>
-    <name>Isis Addons quickstart DOM</name>
+    <artifactId>ecpcrm-dom</artifactId>
+    <name>Eurocommercial CRM System DOM</name>
 
     <build>
         <resources>
@@ -49,7 +49,7 @@
     </build>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>

@@ -27,7 +27,7 @@ public class DomainAppFixtureServiceRoleAndPermissions extends AbstractRoleAndPe
     public static final String ROLE_NAME = "domainapp-fixture-scripts";
 
     public DomainAppFixtureServiceRoleAndPermissions() {
-        super(ROLE_NAME, "Execute the Quickstart fixture scripts");
+        super(ROLE_NAME, "Execute the ecpcrm fixture scripts");
     }
 
     @Override

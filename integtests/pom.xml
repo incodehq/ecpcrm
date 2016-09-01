@@ -23,12 +23,12 @@
 
     <parent>
         <groupId>org.isisaddons.app</groupId>
-        <artifactId>quickstart</artifactId>
+        <artifactId>ecpcrm</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quickstart-integtests</artifactId>
-    <name>Isis Addons quickstart Integration Tests</name>
+    <artifactId>ecpcrm-integtests</artifactId>
+    <name>Eurocommercial CRM System Integration Tests</name>
 
     <build>
         <testResources>
@@ -54,7 +54,7 @@
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>quickstart-app</artifactId>
+            <artifactId>ecpcrm-app</artifactId>
         </dependency>
 
         <dependency>
