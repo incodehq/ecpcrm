@@ -22,11 +22,11 @@ import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFix
 
 import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObject;
 
-public class DomainAppVetoSelectedMembersPermissions extends AbstractRoleAndPermissionsFixtureScript {
+public class EcpCrmVetoSelectedMembersPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-simpleobject-veto-selected-members-role";
+    public static final String ROLE_NAME = "ecpcrm-simpleobject-veto-selected-members-role";
 
-    public DomainAppVetoSelectedMembersPermissions() {
+    public EcpCrmVetoSelectedMembersPermissions() {
         super(ROLE_NAME, "Veto 'updateName' for SimpleObject");
     }
 

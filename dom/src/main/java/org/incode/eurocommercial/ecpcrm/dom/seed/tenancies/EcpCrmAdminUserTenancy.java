@@ -18,12 +18,12 @@ package org.incode.eurocommercial.ecpcrm.dom.seed.tenancies;
 
 import org.isisaddons.module.security.seed.scripts.AbstractTenancyFixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.seed.users.DomainAppAdminUser;
+import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 
-public class DomainAppAdminUserTenancy extends AbstractTenancyFixtureScript {
+public class EcpCrmAdminUserTenancy extends AbstractTenancyFixtureScript {
 
-    public static final String TENANCY_NAME = DomainAppAdminUser.USER_NAME;
-    public static final String TENANCY_PATH = DomainAppAdminUser.TENANCY_PATH;
+    public static final String TENANCY_NAME = EcpCrmAdminUser.USER_NAME;
+    public static final String TENANCY_PATH = EcpCrmAdminUser.TENANCY_PATH;
 
     @Override
     protected void execute(ExecutionContext executionContext) {

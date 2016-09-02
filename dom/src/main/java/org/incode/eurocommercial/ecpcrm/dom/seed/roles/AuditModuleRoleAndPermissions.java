@@ -22,7 +22,7 @@ import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFix
 
 public class AuditModuleRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-auditing-admin";
+    public static final String ROLE_NAME = "ecpcrm-auditing-admin";
 
     public AuditModuleRoleAndPermissions() {
         super(ROLE_NAME, "Admin access to audit module");

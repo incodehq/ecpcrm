@@ -16,24 +16,26 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.integtests.tests;
+package org.incode.eurocommercial.ecpcrm.integtests.bootstrap;
 
-import org.junit.BeforeClass;
+import org.apache.isis.core.integtestsupport.IsisSystemForTest;
+import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
-import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+import org.incode.eurocommercial.ecpcrm.app.EcpCrmAppManifest;
 
-import org.incode.eurocommercial.ecpcrm.integtests.bootstrap.DomainAppSystemInitializer;
+public class EcpCrmSystemInitializer {
 
-public abstract class DomainAppIntegTest extends IntegrationTestAbstract {
-
-    @BeforeClass
-    public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        DomainAppSystemInitializer.initIsft();
-
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
+    public static void initIsft() {
+        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
+        if(isft == null) {
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(org.apache.log4j.Level.INFO)
+                    .with(new EcpCrmAppManifest())
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build();
+            isft.setUpSystem();
+            IsisSystemForTest.set(isft);
+        }
     }
 
 }

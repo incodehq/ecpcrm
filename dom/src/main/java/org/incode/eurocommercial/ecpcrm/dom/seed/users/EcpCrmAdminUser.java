@@ -23,28 +23,28 @@ import org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureSc
 import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions;
 
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.AuditModuleRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DomainAppFixtureServiceRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DomainAppRegularRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TranslationServicePoMenuRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.DomainAppAdminUserTenancy;
+import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.EcpCrmAdminUserTenancy;
 import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.UsersTenancy;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.CommandModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DevUtilsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TogglzModuleAdminRole;
 
-public class DomainAppAdminUser extends AbstractUserAndRolesFixtureScript {
+public class EcpCrmAdminUser extends AbstractUserAndRolesFixtureScript {
 
-    public static final String USER_NAME = "domainapp-admin";
+    public static final String USER_NAME = "ecpcrm-admin";
     public static final String TENANCY_PATH = UsersTenancy.TENANCY_PATH + USER_NAME;
 
     private static final String PASSWORD = "pass";
 
-    public DomainAppAdminUser() {
+    public EcpCrmAdminUser() {
         super(USER_NAME, PASSWORD, null,
-                DomainAppAdminUserTenancy.TENANCY_PATH, AccountType.LOCAL,
+                EcpCrmAdminUserTenancy.TENANCY_PATH, AccountType.LOCAL,
                 Arrays.asList(IsisModuleSecurityAdminRoleAndPermissions.ROLE_NAME,
                               TogglzModuleAdminRole.ROLE_NAME,
                               AuditModuleRoleAndPermissions.ROLE_NAME,
@@ -53,8 +53,8 @@ public class DomainAppAdminUser extends AbstractUserAndRolesFixtureScript {
                               SettingsModuleRoleAndPermissions.ROLE_NAME,
                               PublishingModuleRoleAndPermissions.ROLE_NAME,
                               DevUtilsModuleRoleAndPermissions.ROLE_NAME,
-                              DomainAppRegularRoleAndPermissions.ROLE_NAME,
-                              DomainAppFixtureServiceRoleAndPermissions.ROLE_NAME,
+                              EcpCrmRegularRoleAndPermissions.ROLE_NAME,
+                              EcpCrmFixtureServiceRoleAndPermissions.ROLE_NAME,
                               TranslationServicePoMenuRoleAndPermissions.ROLE_NAME
                         ));
     }

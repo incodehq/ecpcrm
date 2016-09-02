@@ -16,54 +16,33 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom;
+package org.incode.eurocommercial.ecpcrm.app;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.isis.applib.AppManifest;
+import com.google.common.collect.Lists;
+
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-/**
- * Provided for <tt>isis-maven-plugin</tt>.
- */
-public class DomainAppDomManifest implements AppManifest {
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.<Class<?>>asList(
-                DomainAppDomainModule.class // domain (entities and repositories)
-        );
-    }
+public class EcpCrmAppManifestWithFixtures extends EcpCrmAppManifest {
 
-    @Override
-    public List<Class<?>> getAdditionalServices() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public String getAuthenticationMechanism() {
-        return null;
-    }
-
-    @Override
-    public String getAuthorizationMechanism() {
-        return null;
-    }
-
+    /**
+     * Fixtures to be installed.
+     */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return null;
+        return Lists.newArrayList(DemoFixture.class);
     }
 
     /**
-     * No overrides.
+     * Force fixtures to be loaded.
      */
     @Override
-    public Map<String, String> getConfigurationProperties() {
-        return null;
+    protected void appendConfigurationProperties(final Map<String, String> props) {
+        super.appendConfigurationProperties(props);
+        props.put("isis.persistor.datanucleus.install-fixtures","true");
     }
-
 }

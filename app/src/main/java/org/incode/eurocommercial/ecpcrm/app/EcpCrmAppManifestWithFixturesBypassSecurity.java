@@ -18,6 +18,18 @@
  */
 package org.incode.eurocommercial.ecpcrm.app;
 
-public final class DomainAppAppModule {
-    private DomainAppAppModule(){}
+/**
+ * Bypasses security, meaning any user/password combination can be used to login.
+ */
+public class EcpCrmAppManifestWithFixturesBypassSecurity extends EcpCrmAppManifestWithFixtures {
+
+    @Override
+    public String getAuthenticationMechanism() {
+        return "bypass";
+    }
+
+    @Override
+    public String getAuthorizationMechanism() {
+        return "bypass";
+    }
 }

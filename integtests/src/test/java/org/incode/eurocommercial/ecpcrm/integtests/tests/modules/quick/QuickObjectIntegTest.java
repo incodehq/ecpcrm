@@ -34,10 +34,10 @@ import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleu
 
 import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObject;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
-import org.incode.eurocommercial.ecpcrm.integtests.tests.DomainAppIntegTest;
+import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class QuickObjectIntegTest extends DomainAppIntegTest {
+public class QuickObjectIntegTest extends EcpCrmIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;

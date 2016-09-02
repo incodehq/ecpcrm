@@ -22,7 +22,7 @@ import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFix
 
 public class SessionLoggerModuleRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-sessionlogger-admin";
+    public static final String ROLE_NAME = "ecpcrm-sessionlogger-admin";
 
     public SessionLoggerModuleRoleAndPermissions() {
         super(ROLE_NAME, "Admin access to sessionlogger module");

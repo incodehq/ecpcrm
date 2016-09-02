@@ -16,26 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.integtests.bootstrap;
+package org.incode.eurocommercial.ecpcrm.fixture;
 
-import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+public final class EcpCrmFixtureModule {
 
-import org.incode.eurocommercial.ecpcrm.app.DomainAppAppManifest;
-
-public class DomainAppSystemInitializer {
-
-    public static void initIsft() {
-        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
-        if(isft == null) {
-            isft = new IsisSystemForTest.Builder()
-                    .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new DomainAppAppManifest())
-                    .with(new IsisConfigurationForJdoIntegTests())
-                    .build();
-            isft.setUpSystem();
-            IsisSystemForTest.set(isft);
-        }
-    }
 
 }

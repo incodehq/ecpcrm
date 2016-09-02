@@ -46,7 +46,7 @@ import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
         named = "Prototyping",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "500.10")
-public class DomainAppPrototypingExtensions {
+public class EcpCrmPrototypingExtensions {
 
     @Action(
             restrictTo = RestrictTo.PROTOTYPING

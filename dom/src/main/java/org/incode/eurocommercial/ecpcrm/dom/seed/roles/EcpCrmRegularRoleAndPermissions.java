@@ -20,14 +20,14 @@ import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.DomainAppDomainModule;
+import org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomainModule;
 
-public class DomainAppRegularRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
+public class EcpCrmRegularRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-regular-role";
+    public static final String ROLE_NAME = "ecpcrm-regular-role";
 
-    public DomainAppRegularRoleAndPermissions() {
-        super(ROLE_NAME, "Read/write access to domainapp dom");
+    public EcpCrmRegularRoleAndPermissions() {
+        super(ROLE_NAME, "Read/write access to ecpcrm dom");
     }
 
     @Override
@@ -35,8 +35,8 @@ public class DomainAppRegularRoleAndPermissions extends AbstractRoleAndPermissio
         newPackagePermissions(
                 ApplicationPermissionRule.ALLOW,
                 ApplicationPermissionMode.CHANGING,
-                "domainapp.app",
-                DomainAppDomainModule.class.getPackage().getName()
+                "ecpcrm.app",
+                EcpCrmDomainModule.class.getPackage().getName()
                 );
     }
 

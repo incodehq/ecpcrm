@@ -1,1 +1,1 @@
-domainapp.webapp.custom.CustomTogglzModuleFeatureManagerProvider
+org.incode.eurocommercial.ecpcrm.webapp.custom.EcpCrmTogglzModuleFeatureManagerProvider

@@ -22,7 +22,7 @@ import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFix
 
 public class PublishingModuleRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-publishing-admin";
+    public static final String ROLE_NAME = "ecpcrm-publishing-admin";
 
     public PublishingModuleRoleAndPermissions() {
         super(ROLE_NAME, "Admin access to publishing module");

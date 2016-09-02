@@ -37,11 +37,11 @@ import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObject;
 import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObjectMenu;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.quick.QuickObjectsTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
-import org.incode.eurocommercial.ecpcrm.integtests.tests.DomainAppIntegTest;
+import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class QuickObjectMenuIntegTest extends DomainAppIntegTest {
+public class QuickObjectMenuIntegTest extends EcpCrmIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;

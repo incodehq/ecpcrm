@@ -22,7 +22,7 @@ import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFix
 
 public class SettingsModuleRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-settings-admin";
+    public static final String ROLE_NAME = "ecpcrm-settings-admin";
 
     public SettingsModuleRoleAndPermissions() {
         super(ROLE_NAME, "Admin access to settings module");

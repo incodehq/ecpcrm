@@ -16,9 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.fixture;
+package org.incode.eurocommercial.ecpcrm.dom;
 
-public final class DomainAppFixtureModule {
+public final class EcpCrmDomainModule {
 
 
 }

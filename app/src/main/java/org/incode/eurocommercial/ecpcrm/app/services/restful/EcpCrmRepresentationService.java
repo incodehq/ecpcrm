@@ -34,7 +34,7 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationSer
 @DomainServiceLayout(
         menuOrder = "1" // override the framework-provided service
 )
-public class DomainAppRepresentationService extends RepresentationServiceForRestfulObjects {
+public class EcpCrmRepresentationService extends RepresentationServiceForRestfulObjects {
 
     @Override
     protected Response buildResponse(Response.ResponseBuilder responseBuilder) {

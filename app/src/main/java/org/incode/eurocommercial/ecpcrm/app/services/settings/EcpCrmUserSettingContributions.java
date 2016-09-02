@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
 @DomainService(nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY)
-public class DomainAppUserSettingContributions {
+public class EcpCrmUserSettingContributions {
 
     //region > settings
     @Action(
@@ -54,7 +54,7 @@ public class DomainAppUserSettingContributions {
 
     //region > injected services
     @javax.inject.Inject
-    private DomainAppSettingsService settingsService;
+    private EcpCrmSettingsService settingsService;
 
     //endregion
 

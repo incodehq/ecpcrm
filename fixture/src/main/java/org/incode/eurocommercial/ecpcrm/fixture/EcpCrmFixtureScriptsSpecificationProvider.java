@@ -30,11 +30,11 @@ import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
  * Specifies where to find fixtures, and other settings.
  */
 @DomainService(nature = NatureOfService.DOMAIN)
-public class DomainAppFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
+public class EcpCrmFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder(DomainAppFixtureScriptsSpecificationProvider.class)
+                .builder(EcpCrmFixtureScriptsSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
                 .withRunScriptDefault(DemoFixture.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)

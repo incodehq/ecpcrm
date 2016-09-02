@@ -21,7 +21,7 @@ package org.incode.eurocommercial.ecpcrm.app;
 /**
  * Bypasses security, meaning any user/password combination can be used to login.
  */
-public class DomainAppAppManifestBypassSecurity extends DomainAppAppManifest {
+public class EcpCrmAppManifestBypassSecurity extends EcpCrmAppManifest {
 
     @Override
     public String getAuthenticationMechanism() {

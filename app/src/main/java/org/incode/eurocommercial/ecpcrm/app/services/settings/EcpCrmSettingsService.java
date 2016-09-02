@@ -43,7 +43,7 @@ import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
         named = "Settings",
         menuOrder = "500"
 )
-public class DomainAppSettingsService {
+public class EcpCrmSettingsService {
 
     //region > listAllSettings (for application)
     @Action(semantics = SemanticsOf.SAFE)

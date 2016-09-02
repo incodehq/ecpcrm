@@ -29,17 +29,17 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.AuditModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.CommandModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DevUtilsModuleRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DomainAppFixtureServiceRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DomainAppRegularRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DomainAppVetoSelectedMembersPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmVetoSelectedMembersPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TogglzModuleAdminRole;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TranslationServicePoMenuRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.DomainAppAdminUserTenancy;
+import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.EcpCrmAdminUserTenancy;
 import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.UsersTenancy;
-import org.incode.eurocommercial.ecpcrm.dom.seed.users.DomainAppAdminUser;
+import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
@@ -47,7 +47,7 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.users.DomainAppAdminUser;
 @DomainServiceLayout(
         menuOrder = "1100" // not visible, but determines the order initialized (must come after security module's seed service)
 )
-public class DomainAppRolesAndPermissionsSeedService {
+public class EcpCrmRolesAndPermissionsSeedService {
 
     //region > init
     @Programmatic
@@ -69,9 +69,9 @@ public class DomainAppRolesAndPermissionsSeedService {
 
             executionContext.executeChild(this, new UsersTenancy());
 
-            executionContext.executeChild(this, new DomainAppRegularRoleAndPermissions());
-            executionContext.executeChild(this, new DomainAppVetoSelectedMembersPermissions());
-            executionContext.executeChild(this, new DomainAppFixtureServiceRoleAndPermissions());
+            executionContext.executeChild(this, new EcpCrmRegularRoleAndPermissions());
+            executionContext.executeChild(this, new EcpCrmVetoSelectedMembersPermissions());
+            executionContext.executeChild(this, new EcpCrmFixtureServiceRoleAndPermissions());
 
             executionContext.executeChild(this, new TogglzModuleAdminRole());
             executionContext.executeChild(this, new AuditModuleRoleAndPermissions());
@@ -83,8 +83,8 @@ public class DomainAppRolesAndPermissionsSeedService {
 
             executionContext.executeChild(this, new TranslationServicePoMenuRoleAndPermissions());
 
-            executionContext.executeChild(this, new DomainAppAdminUserTenancy());
-            executionContext.executeChild(this, new DomainAppAdminUser());
+            executionContext.executeChild(this, new EcpCrmAdminUserTenancy());
+            executionContext.executeChild(this, new EcpCrmAdminUser());
         }
 
     }

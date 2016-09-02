@@ -16,20 +16,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.app;
+package org.incode.eurocommercial.ecpcrm.integtests.tests;
 
-/**
- * Bypasses security, meaning any user/password combination can be used to login.
- */
-public class DomainAppAppManifestWithFixturesBypassSecurity extends DomainAppAppManifestWithFixtures {
+import org.junit.BeforeClass;
 
-    @Override
-    public String getAuthenticationMechanism() {
-        return "bypass";
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
+import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+
+import org.incode.eurocommercial.ecpcrm.integtests.bootstrap.EcpCrmSystemInitializer;
+
+public abstract class EcpCrmIntegTest extends IntegrationTestAbstract {
+
+    @BeforeClass
+    public static void initClass() {
+        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        EcpCrmSystemInitializer.initIsft();
+
+        // instantiating will install onto ThreadLocal
+        new ScenarioExecutionForIntegration();
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }

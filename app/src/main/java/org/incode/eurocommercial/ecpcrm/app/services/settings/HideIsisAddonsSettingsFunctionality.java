@@ -32,7 +32,7 @@ import org.isisaddons.module.settings.SettingsModule;
  * {@link org.isisaddons.module.settings.dom.UserSettingsService} implementations.
  *
  * <p>
- *     Instead we expose settings using the {@link DomainAppSettingsService} wrapper.
+ *     Instead we expose settings using the {@link EcpCrmSettingsService} wrapper.
  * </p>
  */
 @DomainService(

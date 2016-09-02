@@ -57,13 +57,13 @@ import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchThemeProvid
  *    &lt;filter-class>org.apache.wicket.protocol.http.WicketFilter&lt;/filter-class>
  *    &lt;init-param>
  *      &lt;param-name>applicationClassName&lt;/param-name>
- *      &lt;param-value>DomainApplication&lt;/param-value>
+ *      &lt;param-value>EcpCrmApplication&lt;/param-value>
  *    &lt;/init-param>
  * &lt;/filter>
  * </pre>
  * 
  */
-public class DomainApplication extends IsisWicketApplication {
+public class EcpCrmApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
@@ -84,7 +84,7 @@ public class DomainApplication extends IsisWicketApplication {
         final IBootstrapSettings settings = Bootstrap.getSettings();
         settings.setThemeProvider(new BootswatchThemeProvider(BootswatchTheme.Flatly));
 
-        settings.setActiveThemeProvider(new DomainAppUserSettingsThemeProvider(settings));
+        settings.setActiveThemeProvider(new EcpCrmUserSettingsThemeProvider(settings));
     }
 
 

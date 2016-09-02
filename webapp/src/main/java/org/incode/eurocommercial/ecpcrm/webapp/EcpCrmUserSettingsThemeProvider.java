@@ -16,13 +16,13 @@ import de.agilecoders.wicket.core.settings.ITheme;
 import de.agilecoders.wicket.core.settings.SessionThemeProvider;
 import de.agilecoders.wicket.core.settings.ThemeProvider;
 
-public class DomainAppUserSettingsThemeProvider implements ActiveThemeProvider {
+public class EcpCrmUserSettingsThemeProvider implements ActiveThemeProvider {
 
     static final String ACTIVE_THEME = "activeTheme";
 
     private final IBootstrapSettings settings;
 
-    public DomainAppUserSettingsThemeProvider(final IBootstrapSettings settings) {
+    public EcpCrmUserSettingsThemeProvider(final IBootstrapSettings settings) {
         this.settings = settings;
     }
 

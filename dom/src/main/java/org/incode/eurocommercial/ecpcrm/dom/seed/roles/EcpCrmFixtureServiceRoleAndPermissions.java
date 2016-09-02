@@ -22,11 +22,11 @@ import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
-public class DomainAppFixtureServiceRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
+public class EcpCrmFixtureServiceRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-fixture-scripts";
+    public static final String ROLE_NAME = "ecpcrm-fixture-scripts";
 
-    public DomainAppFixtureServiceRoleAndPermissions() {
+    public EcpCrmFixtureServiceRoleAndPermissions() {
         super(ROLE_NAME, "Execute the ecpcrm fixture scripts");
     }
 
@@ -36,7 +36,7 @@ public class DomainAppFixtureServiceRoleAndPermissions extends AbstractRoleAndPe
                 ApplicationPermissionRule.ALLOW,
                 ApplicationPermissionMode.CHANGING,
                 FixtureScriptsDefault.class.getPackage().getName(),
-                "domainapp.fixture");
+                "ecpcrm.fixture");
     }
 
 }

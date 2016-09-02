@@ -62,7 +62,7 @@ public class HideContributionForSettings extends AbstractSubscriber {
     private DomainObjectContainer container;
 
     @javax.inject.Inject
-    private DomainAppSettingsService applicationSettingsService;
+    private EcpCrmSettingsService applicationSettingsService;
     //endregion
 
 }

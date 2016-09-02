@@ -16,9 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom;
+package org.incode.eurocommercial.ecpcrm.app;
 
-public final class DomainAppDomainModule {
-
-
+public final class EcpCrmAppModule {
+    private EcpCrmAppModule(){}
 }

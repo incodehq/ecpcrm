@@ -22,7 +22,7 @@ import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFix
 
 public class DevUtilsModuleRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
-    public static final String ROLE_NAME = "domainapp-devutils-admin";
+    public static final String ROLE_NAME = "ecpcrm-devutils-admin";
 
     public DevUtilsModuleRoleAndPermissions() {
         super(ROLE_NAME, "Admin access to developer utilities module");

@@ -4,7 +4,7 @@ import org.togglz.core.annotation.EnabledByDefault;
 import org.togglz.core.annotation.Label;
 import org.togglz.core.context.FeatureContext;
 
-public enum DomainAppFeature implements org.togglz.core.Feature {
+public enum EcpCrmFeature implements org.togglz.core.Feature {
 
     /**
      * Use typesafe queries (rather than JDOQL).
