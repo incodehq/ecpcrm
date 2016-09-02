@@ -1,3 +1,7 @@
 = Eurocommercial CRM System
 
+image:https://img.shields.io/travis/incodehq/ecpcrm.svg["Build Status", link="https://travis-ci.org/incodehq/ecpcrm"]
+image:https://img.shields.io/badge/license-Apache%202-blue.svg["License", link="http://www.apache.org/licenses/LICENSE-2.0"]
 
+== Domain Model
+image:http://yuml.me/ae91e420.svg["Domain Model", link="http://yuml.me/edit/ae91e420"]
