@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
+  Copyright 2015-2016 Eurocommercial Properties NV
+
+  Licensed under the Apache License, Version 2.0 (the
   "License"); you may not use this file except in compliance
   with the License.  You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+        http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing,
   software distributed under the License is distributed on an
@@ -17,33 +15,33 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:cpt="http://isis.apache.org/applib/layout/component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <bs3:row>
-        <bs3:col span="2">
-            <bs3:sizeSpan size="LG" span="2" offset="true"/>
-            <bs3:row>
-                <bs3:col span="12" unreferencedActions="true">
-                    <domainObject/>
-                    <action id="clearHints" hidden="EVERYWHERE"/>
-                    <action id="downloadLayoutXml" hidden="EVERYWHERE"/>
-                    <action id="rebuildMetamodel" hidden="EVERYWHERE"/>
-                </bs3:col>
-            </bs3:row>
-        </bs3:col>
-        <bs3:col span="4" unreferencedCollections="true">
-            <bs3:row>
-                <bs3:col span="12">
-                    <collection id="objects" defaultView="table"/>
-                </bs3:col>
-            </bs3:row>
+        <bs3:col span="8">
+            <bs3:sizeSpan size="MD" span="2" offset="true" />
+            <cpt:domainObject/>
         </bs3:col>
     </bs3:row>
     <bs3:row>
-
+        <bs3:col span="12">
+            <cpt:fieldSet name="Other" id="other" unreferencedProperties="true"/>
+        </bs3:col>
     </bs3:row>
     <bs3:row>
-        <bs3:col span="0">
-            <fieldSet name="General" id="general" unreferencedProperties="true"/>
+        <bs3:col span="2" unreferencedActions="true">
+            <cpt:action id="recentActivity" hidden="EVERYWHERE"/>
+            <cpt:action id="clearHints" hidden="EVERYWHERE"/>
+            <cpt:action id="downloadLayoutXml" hidden="EVERYWHERE"/>
+            <cpt:action id="rebuildMetamodel" hidden="EVERYWHERE"/>
         </bs3:col>
+        <bs3:col span="8" unreferencedCollections="true">
+            <cpt:collection id="customers" defaultView="table">
+                <cpt:action id="createCustomer"/>
+                <cpt:action id="deleteCustomer"/>
+            </cpt:collection>
+        </bs3:col>
+        <bs3:col span="2"/>
     </bs3:row>
 </bs3:grid>
+
+

@@ -17,33 +17,45 @@
 package org.incode.eurocommercial.ecpcrm.dom.customer;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
-import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.eurocommercial.ecpcrm.dom.person.Person;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@PersistenceCapable
+@PersistenceCapable(
+        identityType = IdentityType.DATASTORE
+)
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@Queries({})
+@Queries({
+        @Query(
+                name = "findByExactName", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.contactapp.dom.contacts.Contact "
+                        + "WHERE name == :name "),
+        @Query(
+                name = "findByNameContains", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.contactapp.dom.contacts.Contact "
+                        + "WHERE name.indexOf(:name) >= 0 ")
+})
 @DomainObject(
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
         paged = 1000
 )
-@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class Customer extends Person implements Comparable<Customer> {
 
     @Override
@@ -55,7 +67,7 @@ public class Customer extends Person implements Comparable<Customer> {
         return getName();
     }
 
-    @Column(allowsNull = "true")
+    @Column(allowsNull = "false")
     @Property
     @Getter @Setter
     private String number;
@@ -65,7 +77,7 @@ public class Customer extends Person implements Comparable<Customer> {
     @Getter @Setter
     private String email;
 
-    @Column(allowsNull = "true")
+    @Column(allowsNull = "false")
     @Property
     @Getter @Setter
     private boolean promotionalEmails;
