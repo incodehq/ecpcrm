@@ -254,7 +254,7 @@
     <!-- used by RestEasy to determine the JAX-RS resources and other related configuration -->
     <context-param>
         <param-name>javax.ws.rs.Application</param-name>
-        <param-value>org.apache.isis.viewer.restfulobjects.server.RestfulObjectsApplication</param-value>
+        <param-value>org.incode.eurocommercial.ecpcrm.restapi.EcpCrmRestfulApplication</param-value>
     </context-param>
     
     <context-param>
