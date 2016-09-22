@@ -34,57 +34,57 @@ public class CardCheckTest {
     @Test
     @Ignore
     /* When the device type is not app and the card number contains 3922 */
-    public void whenCardDoesNotExistAndIsOutdatedWeExpect319Error() throws Exception {
+    public void when_card_does_not_exist_and_is_outdated_we_expect_319_error() throws Exception {
     }
 
     @Test
     @Ignore
     /* When the card number does not match the required pattern */
-    public void whenCardDoesNotExistAndCardNumberIsInvalidWeExpect312Error() throws Exception {
+    public void when_card_does_not_exist_and_card_number_is_invalid_we_expect_312_error() throws Exception {
     }
 
     @Test
     @Ignore
     /* When the card status is "tochange" */
-    public void whenCardExistsButIsOutdatedWeExpect319Error() throws Exception {
+    public void when_card_exists_but_is_outdated_we_expect_319_error() throws Exception {
     }
 
     @Test
     @Ignore
     /* When the card status is not "enabled" */
-    public void whenCardExistsButIsNotEnabledWeExpect303Error() throws Exception {
+    public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButIsNotTheSameCenterAsDeviceWeExpect317Error() throws Exception {
+    public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_317_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardDoesNotExistAndANewUserCantBeCreatedForItWeExpect313Error() throws Exception {
+    public void when_card_does_not_exist_and_a_new_user_cant_be_created_for_it_we_expect_313_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardDoesNotExistAndANewUserIsCreatedForItButTheyCantBeLinkedWeExpect314Error() throws Exception {
+    public void when_card_does_not_exist_and_a_new_user_is_created_for_it_but_they_cant_be_linked_we_expect_314_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButCardUserIsInvalidWeExpect304Error() throws Exception {
+    public void when_card_exists_but_card_user_is_invalid_we_expect_304_error() throws Exception {
     }
 
     /* These two give regular responses */
 
     @Test
     @Ignore
-    public void whenCardExistsButCantPlayGameWeExpectSadResponse() throws Exception {
+    public void when_card_exists_but_cant_play_game_we_expect_sad_response() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsAndCanPlayGameWeExpectHappyResponse() throws Exception {
+    public void when_card_exists_and_can_play_game_we_expect_happy_response() throws Exception {
     }
 
 

@@ -33,37 +33,37 @@ public class CardGameTest {
 
     @Test
     @Ignore
-    public void whenCardDoesNotExistWeExpect303Error() throws Exception {
+    public void when_card_does_not_exist_we_expect_303_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButIsNotEnabledWeExpect303Error() throws Exception {
+    public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButIsNotTheSameCenterAsDeviceWeExpect303Error() throws Exception {
+    public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_303_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButHasNoUserWeExpect303Error() throws Exception {
+    public void when_card_exists_but_has_no_user_we_expect_303_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButCardUserIsInvalidWeExpect304Error() throws Exception {
+    public void when_card_exists_but_card_user_is_invalid_we_expect_304_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsButHasAlreadyPlayedWeExpect315Error() throws Exception {
+    public void when_card_exists_but_has_already_played_we_expect_315_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void whenCardExistsAndCanPlayGameWeExpectHappyResponse() throws Exception {
+    public void when_card_exists_and_can_play_game_we_expect_happy_response() throws Exception {
     }
 
 }
