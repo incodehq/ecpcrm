@@ -25,7 +25,7 @@ public class UserCreateTest {
     public void setUp() throws Exception {
     }
 
-
+    /* These are from CardCheckUnbound */
     @Test
     @Ignore
     public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
@@ -45,6 +45,7 @@ public class UserCreateTest {
     @Ignore
     public void when_card_exists_but_is_already_bound_to_user_we_expect_308_error() throws Exception {
     }
+    /* //////////////////////////////// */
 
     @Test
     @Ignore
