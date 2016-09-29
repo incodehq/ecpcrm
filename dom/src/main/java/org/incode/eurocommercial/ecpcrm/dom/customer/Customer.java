@@ -42,12 +42,12 @@ import lombok.Setter;
         @Query(
                 name = "findByExactName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.contactapp.dom.contacts.Contact "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.customer.Customer "
                         + "WHERE name == :name "),
         @Query(
                 name = "findByNameContains", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.contactapp.dom.contacts.Contact "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.customer.Customer "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @DomainObject(
