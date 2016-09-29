@@ -32,7 +32,27 @@
 
     <packaging>war</packaging>
 
+    <properties>
+        <junit-servers-jetty.version>0.4.2</junit-servers-jetty.version>
+    </properties>
+
     <build>
+        <testResources>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -87,6 +107,19 @@
         <dependency>
             <groupId>org.isisaddons.metamodel.paraname8</groupId>
             <artifactId>isis-metamodel-paraname8-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client</artifactId>
+            <version>1.22.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.mjeanroy</groupId>
+            <artifactId>junit-servers-jetty</artifactId>
+            <version>${junit-servers-jetty.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
