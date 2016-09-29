@@ -239,6 +239,33 @@
                 </dependency>
             </dependencies>
         </profile>
+
+
+        <profile>
+            <id>approval-tests</id>
+            <activation>
+                <property>
+                    <name>!skip.approval-tests</name>
+                </property>
+            </activation>
+
+        <!--
+            mvn install:install-file -Dfile=lib/ApprovalTests.jar \
+                                     -DgroupId=org.approvaltests \
+                                     -DartifactId=approvals-java \
+                                     -Dversion=0.017 \
+                                     -Dpackaging=jar
+        -->
+
+            <dependencies>
+               <dependency>
+                   <groupId>org.approvaltests</groupId>
+                   <artifactId>approvals-java</artifactId>
+                   <version>0.017</version>
+               </dependency>
+            </dependencies>
+        </profile>
+
     </profiles>
 
 </project>
