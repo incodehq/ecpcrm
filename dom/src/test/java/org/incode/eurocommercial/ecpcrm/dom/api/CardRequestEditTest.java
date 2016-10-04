@@ -19,7 +19,7 @@ package org.incode.eurocommercial.ecpcrm.dom.api;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardRequestEditTest extends EcpCrmTest {
+public class CardRequestEditTest extends CardCheckUnboundErrorsTest {
     /* These are from CardRequestDetail */
     @Test
     @Ignore
@@ -44,28 +44,6 @@ public class CardRequestEditTest extends EcpCrmTest {
     @Test
     @Ignore
     public void when_user_is_invalid_we_expect_304_error() throws Exception {
-    }
-    /* //////////////////////////////// */
-
-    /* These are from CardCheckUnbound */
-    @Test
-    @Ignore
-    public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
-    }
-
-    @Test
-    @Ignore
-    public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
-    }
-
-    @Test
-    @Ignore
-    public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_317_error() throws Exception {
-    }
-
-    @Test
-    @Ignore
-    public void when_card_exists_but_is_already_bound_to_user_we_expect_308_error() throws Exception {
     }
     /* //////////////////////////////// */
 

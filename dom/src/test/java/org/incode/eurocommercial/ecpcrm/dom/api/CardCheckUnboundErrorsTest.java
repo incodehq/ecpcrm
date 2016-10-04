@@ -19,14 +19,24 @@ package org.incode.eurocommercial.ecpcrm.dom.api;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardCheckUnboundTest extends CardCheckUnboundErrorsTest {
+public abstract class CardCheckUnboundErrorsTest extends EcpCrmTest {
     @Test
     @Ignore
-    public void when_card_exists_and_is_unbound_we_expect_happy_response_existing_card() throws Exception {
+    public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
     }
 
     @Test
     @Ignore
-    public void when_card_does_not_exist_but_has_valid_number_we_expect_happy_response_non_existing_card() throws Exception {
+    public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
+    }
+
+    @Test
+    @Ignore
+    public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_317_error() throws Exception {
+    }
+
+    @Test
+    @Ignore
+    public void when_card_exists_but_is_already_bound_to_user_we_expect_308_error() throws Exception {
     }
 }
