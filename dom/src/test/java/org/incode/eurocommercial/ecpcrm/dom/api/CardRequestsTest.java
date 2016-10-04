@@ -16,16 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardRequestsTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
-
+public class CardRequestsTest extends EcpCrmTest {
     @Test
     @Ignore
     public void we_expect_list_of_requests() throws Exception {

@@ -16,16 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardRequestDetailTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
-
+public class CardRequestDetailTest extends EcpCrmTest {
     @Test
     @Ignore
     public void when_request_id_is_invalid_we_expect_311_error() throws Exception {

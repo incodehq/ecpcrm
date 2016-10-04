@@ -16,21 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardRequestTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
-
-    @Test
-    @Ignore
-    public void when() throws Exception {
-    }
-
+public class CardRequestTest extends EcpCrmTest {
     @Test
     @Ignore
     public void when_email_exists_and_user_is_invalid_we_expect_304_error() throws Exception {
@@ -38,7 +27,7 @@ public class CardRequestTest {
 
     @Test
     @Ignore
-    public void when_email_exists_and_check_is_valid_xxx_we_expect_318_error() throws Exception { // I don't understand 318
+    public void when_email_exists_and_check_is_valid_and_XXX_we_expect_318_error() throws Exception { // I don't understand 318
     }
 
     @Test

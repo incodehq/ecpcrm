@@ -16,21 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardCheckTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
-
-    @Test
-    @Ignore
-    public void when() throws Exception {
-    }
-
+public class CardCheckTest extends EcpCrmTest {
     @Test
     @Ignore
     /* When the device type is not app and the card number contains 3922 */

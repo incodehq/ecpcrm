@@ -16,21 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CardGameTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
-
-    @Test
-    @Ignore
-    public void when() throws Exception {
-    }
-
+public class CardGameTest extends EcpCrmTest {
     @Test
     @Ignore
     public void when_card_does_not_exist_we_expect_303_error() throws Exception {

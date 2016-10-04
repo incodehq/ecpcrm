@@ -16,15 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class UserCreateTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
+public class UserCreateTest extends EcpCrmTest {
     /* These are from CardCheckUnbound */
     @Test
     @Ignore
