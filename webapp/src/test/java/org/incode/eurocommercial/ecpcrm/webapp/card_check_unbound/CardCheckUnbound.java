@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.webapp;
+package org.incode.eurocommercial.ecpcrm.webapp.card_check_unbound;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +23,9 @@ import com.google.common.io.Resources;
 import org.approvaltests.Approvals;
 import org.approvaltests.reporters.UseReporter;
 import org.approvaltests.reporters.macosx.P4MergeReporter;
+import org.junit.Before;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 //@UseReporter(MyBeyondCompare3Reporter.class)
@@ -36,34 +38,60 @@ public class CardCheckUnbound {
 
     @ClassRule
     public static JettyServerRule server = new JettyServerRule(new EmbeddedJetty());
+    private GenericUrl url = new GenericUrl(server.getUrl() + "restful/crm/api/6.0/card-check-unbound");
 
     static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
+    private HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
+        @Override public void initialize(final HttpRequest httpRequest) throws IOException {
+            httpRequest.setHeaders(new HttpHeaders() {
+                {
+                    setBasicAuthentication("ecpcrm-admin","pass");
+                }
+            });
+        }
+    });
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
     @Test
-    public void sadCase() throws Exception
-    {
-        final URL resource = Resources.getResource(CardCheckUnbound.class, "CardCheckUnbound.sadCase.json");
+    @Ignore
+    public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
+    }
+
+    @Test
+    @Ignore
+    public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
+    }
+
+    @Test
+    @Ignore
+    public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_317_error() throws Exception {
+    }
+
+    @Test
+    public void when_card_exists_but_is_already_bound_to_user_we_expect_308_error() throws Exception {
+        final URL resource = Resources.getResource(CardCheckUnbound.class, "CardCheckUnbound.when_card_exists_but_is_already_bound_to_user_we_expect_308_error.json");
         final String json = Resources.toString(resource, Charsets.UTF_8);
 
-        final String serverUrl = server.getUrl() + "restful/crm/api/6.0/card-check-unbound";
-
-        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
-            @Override public void initialize(final HttpRequest httpRequest) throws IOException {
-                httpRequest.setHeaders(new HttpHeaders() {
-                    {
-                        setBasicAuthentication("ecpcrm-admin","pass");
-                    }
-                });
-            }
-        });
-
-        GenericUrl url = new GenericUrl(serverUrl);
         HttpContent content = ByteArrayContent.fromString("application/json", json);
         HttpRequest request = requestFactory.buildPostRequest(url, content);
         HttpResponse response = request.execute();
         final String responseString = CharStreams.toString(new InputStreamReader(response.getContent()));
 
         Approvals.verifyJson(responseString);
+    }
+
+    @Test
+    @Ignore
+    public void when_card_exists_and_is_unbound_we_expect_happy_response_existing_card() throws Exception {
+    }
+
+    @Test
+    @Ignore
+    public void when_card_does_not_exist_but_has_valid_number_we_expect_happy_response_non_existing_card() throws Exception {
     }
 
 }
