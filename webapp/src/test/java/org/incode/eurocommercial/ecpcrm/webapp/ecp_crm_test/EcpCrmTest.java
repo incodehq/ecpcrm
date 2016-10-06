@@ -67,10 +67,7 @@ public abstract class EcpCrmTest {
         }
     });
 
-    protected String sendRequest(URL resource) throws Exception {
-
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-
+    protected String sendRequest(String json) throws Exception {
         HttpContent content = ByteArrayContent.fromString("application/json", json);
         HttpRequest request = requestFactory.buildPostRequest(url, content);
         HttpResponse response = request.execute();
@@ -96,7 +93,8 @@ public abstract class EcpCrmTest {
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         final URL resource = Resources.getResource(EcpCrmTest.class, "EcpCrmTest.when_required_parameter_is_missing_we_expect_302_error.json");
-        Approvals.verifyJson(sendRequest(resource));
+        final String json = Resources.toString(resource, Charsets.UTF_8);
+        Approvals.verifyJson(sendRequest(json));
     }
 
     @Test
