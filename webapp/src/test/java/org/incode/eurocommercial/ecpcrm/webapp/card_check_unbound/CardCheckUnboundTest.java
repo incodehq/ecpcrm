@@ -1,5 +1,9 @@
 package org.incode.eurocommercial.ecpcrm.webapp.card_check_unbound;
 
+import java.net.URL;
+
+import com.google.common.io.Resources;
+
 import org.approvaltests.Approvals;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -9,7 +13,8 @@ import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 public class CardCheckUnboundTest extends EcpCrmTest {
     @Test
     public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
-        Approvals.verifyJson(sendRequest("CardCheckUnboundTest.when_card_does_not_exist_and_has_invalid_number_we_expect_312_error.json"));
+        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_does_not_exist_and_has_invalid_number_we_expect_312_error.json");
+        Approvals.verifyJson(sendRequest(resource));
     }
 
     @Test
@@ -24,7 +29,8 @@ public class CardCheckUnboundTest extends EcpCrmTest {
 
     @Test
     public void when_card_exists_but_is_already_bound_to_user_we_expect_308_error() throws Exception {
-        Approvals.verifyJson(sendRequest("CardCheckUnboundTest.when_card_exists_but_is_already_bound_to_user_we_expect_308_error.json"));
+        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_exists_but_is_already_bound_to_user_we_expect_308_error.json");
+        Approvals.verifyJson(sendRequest(resource));
     }
 
     @Test

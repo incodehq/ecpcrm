@@ -36,13 +36,12 @@ import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.common.io.Resources;
 
+import org.approvaltests.Approvals;
 import org.approvaltests.reporters.UseReporter;
 import org.approvaltests.reporters.macosx.P4MergeReporter;
 import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import org.incode.eurocommercial.ecpcrm.webapp.card_check_unbound.CardCheckUnboundTest;
 
 //@UseReporter(MyBeyondCompare3Reporter.class)
 @UseReporter(P4MergeReporter.class)
@@ -68,8 +67,8 @@ public abstract class EcpCrmTest {
         }
     });
 
-    protected String sendRequest(String resourceFile) throws Exception {
-        final URL resource = Resources.getResource(CardCheckUnboundTest.class, resourceFile);
+    protected String sendRequest(URL resource) throws Exception {
+
         final String json = Resources.toString(resource, Charsets.UTF_8);
 
         HttpContent content = ByteArrayContent.fromString("application/json", json);
@@ -95,8 +94,9 @@ public abstract class EcpCrmTest {
     }
 
     @Test
-    @Ignore
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        final URL resource = Resources.getResource(EcpCrmTest.class, "EcpCrmTest.when_required_parameter_is_missing_we_expect_302_error.json");
+        Approvals.verifyJson(sendRequest(resource));
     }
 
     @Test
