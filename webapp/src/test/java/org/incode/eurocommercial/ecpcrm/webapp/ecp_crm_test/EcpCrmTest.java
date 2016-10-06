@@ -53,7 +53,6 @@ public abstract class EcpCrmTest {
 
     @ClassRule
     public static JettyServerRule server = new JettyServerRule(new EmbeddedJetty());
-    private GenericUrl url = new GenericUrl(server.getUrl() + "restful/crm/api/6.0/card-check-unbound");
 
     private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
@@ -67,7 +66,8 @@ public abstract class EcpCrmTest {
         }
     });
 
-    protected String sendRequest(String json) throws Exception {
+    protected String sendRequest(String json, String endpoint) throws Exception {
+        GenericUrl url = new GenericUrl(server.getUrl() + "restful/crm/api/6.0/" + endpoint);
         HttpContent content = ByteArrayContent.fromString("application/json", json);
         HttpRequest request = requestFactory.buildPostRequest(url, content);
         HttpResponse response = request.execute();
@@ -94,7 +94,7 @@ public abstract class EcpCrmTest {
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         final URL resource = Resources.getResource(EcpCrmTest.class, "EcpCrmTest.when_required_parameter_is_missing_we_expect_302_error.json");
         final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        Approvals.verifyJson(sendRequest(json, "card-check-unbound"));
     }
 
     @Test
