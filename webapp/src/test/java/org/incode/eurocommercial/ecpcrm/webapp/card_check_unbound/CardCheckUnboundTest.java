@@ -13,6 +13,10 @@ import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
 public class CardCheckUnboundTest extends EcpCrmTest {
 
+    public CardCheckUnboundTest() {
+        super.endpoint = "card-check-unbound";
+    }
+
     private String sendRequest(String json) throws Exception {
         return super.sendRequest(json, "card-check-unbound");
     }
@@ -56,6 +60,14 @@ public class CardCheckUnboundTest extends EcpCrmTest {
     @Test
     public void when_card_does_not_exist_but_has_valid_number_we_expect_happy_response_non_existing_card() throws Exception {
         final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_does_not_exist_but_has_valid_number_we_expect_happy_response_non_existing_card.json");
+        final String json = Resources.toString(resource, Charsets.UTF_8);
+        Approvals.verifyJson(sendRequest(json));
+    }
+
+    @Test
+    @Override
+    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_required_parameter_is_missing_we_expect_302_error.json");
         final String json = Resources.toString(resource, Charsets.UTF_8);
         Approvals.verifyJson(sendRequest(json));
     }
