@@ -52,6 +52,24 @@ public class EcpCrmResource extends ResourceAbstract  {
                 .build();
     }
 
+    @POST
+    @Path("/card-check")
+    @Consumes({ MediaType.APPLICATION_JSON })
+    @Produces({
+            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+    })
+    @PrettyPrinting
+    public Response cardCheck(InputStream body) {
+        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+
+        return Response
+                .ok()
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(String.format("{ \"domainType\": \"foo\", \"instanceId\": \"bar\" }"))
+                .build();
+    }
+
 
     private QuickObjectViewModel asVm(final QuickObject x) {
         return QuickObjectViewModel.create(x.getName(), x.getInteger(), asPattern(x.getLocalDate()));

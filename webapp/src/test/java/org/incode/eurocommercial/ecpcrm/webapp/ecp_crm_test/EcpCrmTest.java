@@ -94,7 +94,7 @@ public abstract class EcpCrmTest {
 
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
-        final URL resource = Resources.getResource(EcpCrmTest.class, "CardCheckUnboundTest.when_required_parameter_is_missing_we_expect_302_error.json");
+        final URL resource = Resources.getResource(EcpCrmTest.class, "EcpCrmTest.when_required_parameter_is_missing_we_expect_302_error.json");
         final String json = Resources.toString(resource, Charsets.UTF_8);
         Approvals.verifyJson(sendRequest(json, endpoint));
     }

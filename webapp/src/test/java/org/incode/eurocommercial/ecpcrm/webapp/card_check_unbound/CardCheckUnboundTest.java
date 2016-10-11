@@ -37,7 +37,7 @@ public class CardCheckUnboundTest extends EcpCrmTest {
 
     @Test
     @Ignore
-    /* Not sure how to test this yet,  */
+    // TODO: Not sure how to test this yet
     public void when_card_exists_but_is_not_the_same_center_as_crm_user_we_expect_317_error() throws Exception {
     }
 
