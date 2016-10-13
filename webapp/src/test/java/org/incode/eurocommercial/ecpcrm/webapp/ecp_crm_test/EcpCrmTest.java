@@ -18,7 +18,6 @@ package org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 import com.github.mjeanroy.junit.servers.jetty.EmbeddedJetty;
 import com.github.mjeanroy.junit.servers.rules.JettyServerRule;
@@ -32,11 +31,8 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
-import com.google.common.io.Resources;
 
-import org.approvaltests.Approvals;
 import org.approvaltests.reporters.UseReporter;
 import org.approvaltests.reporters.macosx.P4MergeReporter;
 import org.junit.ClassRule;
@@ -50,8 +46,6 @@ public abstract class EcpCrmTest {
     //    static {
     //        System.setProperty("isis.appManifest", "...");
     //    }
-
-    protected String endpoint = "endpoint";
 
     @ClassRule
     public static JettyServerRule server = new JettyServerRule(new EmbeddedJetty());
@@ -79,28 +73,25 @@ public abstract class EcpCrmTest {
 
     @Test
     @Ignore
+    // TODO: Not sure how to test this
     public void when_request_is_invalid_we_expect_300_error() throws Exception {
     }
 
     @Test
     @Ignore
+    // TODO: Not sure how to test this
     public void when_request_is_unauthenticated_we_expect_310_error() throws Exception {
     }
 
     @Test
     @Ignore
+    // TODO: Not sure how to test this
     public void when_device_is_invalid_we_expect_301_error() throws Exception {
     }
 
     @Test
-    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
-        final URL resource = Resources.getResource(EcpCrmTest.class, "EcpCrmTest.when_required_parameter_is_missing_we_expect_302_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json, endpoint));
-    }
-
-    @Test
     @Ignore
+    // TODO: Can't seem to find a case in which a parameter would be invalid
     public void when_parameter_is_invalid_we_expect_302_error() throws Exception {
     }
 }

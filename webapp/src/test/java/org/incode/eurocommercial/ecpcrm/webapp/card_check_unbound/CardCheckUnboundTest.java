@@ -11,41 +11,52 @@ import org.junit.Test;
 
 import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
+import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+
 public class CardCheckUnboundTest extends EcpCrmTest {
 
-    public CardCheckUnboundTest() {
-        super.endpoint = "card-check-unbound";
+    private String endpoint = "card-check-unbound";
+
+    private String sendRequest(String cardNumber) throws Exception {
+        String request = "{\"card\": \"" + cardNumber +"\"}";
+        return super.sendRequest(request, endpoint);
     }
 
-    private String sendRequest(String json) throws Exception {
-        return super.sendRequest(json, "card-check-unbound");
+    @Test
+    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        String cardNumber = "";
+        assertThatJson(sendRequest(cardNumber))
+                .node("status").isEqualTo(302);
     }
 
     @Test
     public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_does_not_exist_and_has_invalid_number_we_expect_312_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(312);
     }
 
     @Test
     public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_exists_but_is_not_enabled_we_expect_303_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        String cardNumber = "2037000090418";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(303);
     }
 
     @Test
     @Ignore
     // TODO: Not sure how to test this yet
     public void when_card_exists_but_is_not_the_same_center_as_crm_user_we_expect_317_error() throws Exception {
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(317);
     }
 
     @Test
     public void when_card_exists_but_is_already_bound_to_user_we_expect_308_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_exists_but_is_already_bound_to_user_we_expect_308_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        String cardNumber = "2037000029999";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(308);
     }
 
     @Test
@@ -60,14 +71,6 @@ public class CardCheckUnboundTest extends EcpCrmTest {
     @Test
     public void when_card_does_not_exist_but_has_valid_number_we_expect_happy_response_non_existing_card() throws Exception {
         final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_card_does_not_exist_but_has_valid_number_we_expect_happy_response_non_existing_card.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
-    }
-
-    @Test
-    @Override
-    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckUnboundTest.class, "CardCheckUnboundTest.when_required_parameter_is_missing_we_expect_302_error.json");
         final String json = Resources.toString(resource, Charsets.UTF_8);
         Approvals.verifyJson(sendRequest(json));
     }

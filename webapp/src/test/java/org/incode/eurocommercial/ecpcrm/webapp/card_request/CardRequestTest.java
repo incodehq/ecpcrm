@@ -22,6 +22,12 @@ import org.junit.Test;
 import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
 public class CardRequestTest extends EcpCrmTest {
+
+    @Test
+    @Ignore
+    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+    }
+
     @Test
     @Ignore
     public void when_email_exists_and_user_is_invalid_we_expect_304_error() throws Exception {

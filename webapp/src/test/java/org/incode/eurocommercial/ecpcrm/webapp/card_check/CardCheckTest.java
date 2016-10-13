@@ -16,25 +16,28 @@
  */
 package org.incode.eurocommercial.ecpcrm.webapp.card_check;
 
-import java.net.URL;
-
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
-
-import org.approvaltests.Approvals;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
+import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+
 public class CardCheckTest extends EcpCrmTest {
 
-    public CardCheckTest() {
-        super.endpoint = "card-check";
+    private String endpoint = "card-check";
+
+    private String sendRequest(String cardNumber) throws Exception {
+        String request = "{\"card\": \"" + cardNumber +"\", "
+                       + "\"origin\": \"borne\"}";
+        return super.sendRequest(request, endpoint);
     }
 
-    private String sendRequest(String json) throws Exception {
-        return super.sendRequest(json, "card-check");
+    @Test
+    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        String cardNumber = "";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(302);
     }
 
     @Test
@@ -42,54 +45,69 @@ public class CardCheckTest extends EcpCrmTest {
     /* When the device type is not app and the card number contains 3922 */
     // TODO: Hard to test, need to find a nonexisting valid cardnumber that starts with 3922
     public void when_card_does_not_exist_and_is_outdated_we_expect_319_error() throws Exception {
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(319);
     }
 
     @Test
     /* When the card number does not match the required pattern */
     public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckTest.class, "CardCheckTest.when_card_does_not_exist_and_has_invalid_number_we_expect_312_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(312);
     }
 
     @Test
     /* When the card status is "tochange" */
     public void when_card_exists_but_is_outdated_we_expect_319_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckTest.class, "CardCheckTest.when_card_exists_but_is_outdated_we_expect_319_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        String cardNumber = "3922071977845";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(319);
     }
 
     @Test
     /* When the card status is not "enabled" */
     public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
-        final URL resource = Resources.getResource(CardCheckTest.class, "CardCheckTest.when_card_exists_but_is_not_enabled_we_expect_303_error.json");
-        final String json = Resources.toString(resource, Charsets.UTF_8);
-        Approvals.verifyJson(sendRequest(json));
+        String cardNumber = "2037000090418";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(303);
     }
 
     @Test
     @Ignore
     // TODO: Not sure how to test this
     public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_317_error() throws Exception {
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(317);
     }
 
     @Test
     @Ignore
     // TODO: Need to find an unused valid card number, which is not too easy by itself, but also for some reason a user can't be created for it
     public void when_card_does_not_exist_and_a_new_user_cant_be_created_for_it_we_expect_313_error() throws Exception {
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(312);
     }
 
     @Test
     @Ignore
     // TODO: Have to think of a reason why a new card would be created but can't be linked to an - also new - user
     public void when_card_does_not_exist_and_a_new_user_is_created_for_it_but_they_cant_be_linked_we_expect_314_error() throws Exception {
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(314);
     }
 
     @Test
     @Ignore
     // TODO: Can't even find status field in user table, which is what is checked in the source code
     public void when_card_exists_but_card_user_is_invalid_we_expect_304_error() throws Exception {
+        String cardNumber = "1";
+        assertThatJson(sendRequest(cardNumber))
+            .node("status").isEqualTo(304);
     }
 
     /* These two give regular responses */

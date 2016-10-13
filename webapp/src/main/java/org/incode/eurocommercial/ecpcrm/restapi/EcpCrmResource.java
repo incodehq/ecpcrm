@@ -66,7 +66,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         return Response
                 .ok()
                 .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(String.format("{ \"domainType\": \"foo\", \"instanceId\": \"bar\" }"))
+                .entity(String.format("{ \"status\": 200, \"message\": \"test\"}"))
                 .build();
     }
 
