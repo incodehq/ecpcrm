@@ -21,41 +21,59 @@ import org.junit.Test;
 
 import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
+import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+
 public class CardRequestDetailTest extends EcpCrmTest {
 
+    private String endpoint = "card-request-detail";
+
+    private String sendRequest(String id) throws Exception {
+        String request = "{\"id\": \"" + id + "\"}";
+        return super.sendRequest(request, endpoint);
+    }
+
     @Test
-    @Ignore
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        String id = "";
+        assertThatJson(sendRequest(id))
+            .node("status").isEqualTo(302);
     }
 
     @Test
-    @Ignore
     public void when_request_id_is_invalid_we_expect_311_error() throws Exception {
+        String id = "-1";
+        assertThatJson(sendRequest(id))
+            .node("status").isEqualTo(311);
     }
 
     @Test
-    @Ignore
     public void when_status_is_not_new_we_expect_311_error() throws Exception {
+        String id = "4";
+        assertThatJson(sendRequest(id))
+            .node("status").isEqualTo(311);
     }
 
     @Test
     @Ignore
-    public void when_request_type_is_not_card_request_we_expect_311_error() throws Exception {
-    }
-
-    @Test
-    @Ignore
+    // TODO: Not sure how to test this
     public void when_request_center_id_is_not_current_user_center_id_we_expect_311_error() throws Exception {
+        String id = "";
+        assertThatJson(sendRequest(id))
+            .node("status").isEqualTo(311);
     }
 
     @Test
-    @Ignore
     public void when_user_is_invalid_we_expect_304_error() throws Exception {
+        String id = "778";
+        assertThatJson(sendRequest(id))
+            .node("status").isEqualTo(304);
     }
 
     @Test
-    @Ignore
     public void when_request_is_valid_and_user_is_valid_we_expect_happy_response() throws Exception {
+        String id = "3181";
+        assertThatJson(sendRequest(id))
+            .node("status").isEqualTo(200);
     }
 
 }

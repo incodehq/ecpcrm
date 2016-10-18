@@ -63,7 +63,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = "";
         String lost = "";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(302);
+            .node("status").isEqualTo(302);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = "";
         String lost = "";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(304);
+            .node("status").isEqualTo(304);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = firstName + " " + lastName;
         String lost = "false";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(318);
+            .node("status").isEqualTo(318);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = "XXX";
         String lost = "false";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(306);
+            .node("status").isEqualTo(306);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = "";
         String lost = "false";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(305);
+            .node("status").isEqualTo(305);
     }
 
     @Test
@@ -128,7 +128,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = "";
         String lost = "false";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(318);
+            .node("status").isEqualTo(318);
     }
 
     @Test
@@ -165,7 +165,7 @@ public class CardRequestTest extends EcpCrmTest {
         String checkItem = "";
         String lost = "false";
         assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-                .node("status").isEqualTo(200);
+            .node("status").isEqualTo(200);
         // TODO: Check that a request has been created
     }
 }
