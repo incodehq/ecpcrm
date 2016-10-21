@@ -34,6 +34,7 @@
 
     <properties>
         <junit-servers-jetty.version>0.4.2</junit-servers-jetty.version>
+        <google-http-client.version>1.22.0</google-http-client.version>
     </properties>
 
     <build>
@@ -112,7 +113,7 @@
         <dependency>
             <groupId>com.google.http-client</groupId>
             <artifactId>google-http-client</artifactId>
-            <version>1.22.0</version>
+            <version>${google-http-client.version}</version>
         </dependency>
 
         <dependency>
@@ -216,6 +217,24 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <profile>
+            <id>jdbc-mysql</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-mysql</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+
+
         <profile>
             <id>jdbc-logging</id>
             <activation>
@@ -250,30 +269,6 @@
                     <artifactId>postgresql</artifactId>
                     <version>9.1-901.jdbc4</version>
                 </dependency>
-            </dependencies>
-        </profile>
-        -->
-        <!--
-        <profile>
-            <id>jdbc-mssql</id>
-            <activation>
-                <property>
-                    <name>!skip.jdbc-mssql</name>
-                </property>
-            </activation>
-
-            mvn install:install-file -Dfile=sqljdbc4.jar \
-                                     -DgroupId=com.microsoft.sqlserver \
-                                     -DartifactId=jdbc \
-                                     -Dversion=4.0 \
-                                     -Dpackaging=jar
-
-            <dependencies>
-               <dependency>
-                   <groupId>com.microsoft.sqlserver</groupId>
-                   <artifactId>sqljdbc4</artifactId>
-                   <version>4.0</version>
-               </dependency>
             </dependencies>
         </profile>
         -->
