@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom.customer;
+package org.incode.eurocommercial.ecpcrm.dom.user;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.person.Person;
 
 import lombok.Getter;
@@ -40,15 +41,15 @@ import lombok.Setter;
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
         @Query(
-                name = "findByExactName", language = "JDOQL",
+                name = "findByExactEmail", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.customer.Customer "
-                        + "WHERE name == :name "),
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
+                        + "WHERE email == :email "),
         @Query(
-                name = "findByNameContains", language = "JDOQL",
+                name = "findByEmailContains", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.customer.Customer "
-                        + "WHERE name.indexOf(:name) >= 0 ")
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
+                        + "WHERE email.indexOf(:email) >= 0 ")
 })
 @DomainObject(
         editing = Editing.DISABLED
@@ -56,23 +57,23 @@ import lombok.Setter;
 @DomainObjectLayout(
         paged = 1000
 )
-public class Customer extends Person implements Comparable<Customer> {
+public class User extends Person implements Comparable<User> {
 
     @Override
-    public int compareTo(final Customer other) {
-        return ObjectContracts.compare(this, other, "name");
+    public int compareTo(final User other) {
+        return ObjectContracts.compare(this, other, "email");
     }
 
     public String title() {
-        return getName();
+        return super.title();
     }
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
-    private String number;
+    private boolean enabled;
 
-    @Column(allowsNull = "true")
+    @Column(allowsNull = "false")
     @Property
     @Getter @Setter
     private String email;
@@ -80,12 +81,23 @@ public class Customer extends Person implements Comparable<Customer> {
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
-    private boolean promotionalEmails;
+    private Center center;
 
     @Column(allowsNull = "true")
     @Property
     @Getter @Setter
-    private String hasCar;
+    private String card;
+
+    @Column(allowsNull = "false")
+    @Property
+    @Getter @Setter
+    private Boolean promotionalEmails;
+
+    /* This is in Biggerband's domain model, but not implemented */
+    @Column(allowsNull = "true")
+    @Property
+    @Getter @Setter
+    private Boolean hasCar;
 
 
 

@@ -27,8 +27,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.ViewModel;
 
-import org.incode.eurocommercial.ecpcrm.dom.customer.Customer;
-import org.incode.eurocommercial.ecpcrm.dom.customer.CustomerRepository;
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
 @ViewModel
 public class HomePageViewModel {
@@ -41,41 +41,31 @@ public class HomePageViewModel {
     @Collection(editing = Editing.DISABLED)
     @CollectionLayout(paged=200)
     @org.apache.isis.applib.annotation.HomePage
-    public List<Customer> getCustomers() {
-        return customerRepository.listAll();
-    }
-
-
-    @Action(semantics = SemanticsOf.IDEMPOTENT)
-    @ActionLayout(named = "Create")
-    @MemberOrder(name = "customers", sequence = "1")
-    public HomePageViewModel createCustomer(
-            final String name) {
-        customerRepository.findOrCreate(name);
-        return this;
+    public List<User> getCustomers() {
+        return userRepository.listAll();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
     @ActionLayout(named = "Delete")
     @MemberOrder(name = "customers", sequence = "2")
     public HomePageViewModel deleteCustomer(
-            final Customer customer,
+            final User user,
             final boolean delete) {
         if (delete) {
-            customerRepository.delete(customer);
+            userRepository.delete(user);
         }
         return this;
     }
 
-    public String validateDeleteCustomer(final Customer customer, final boolean delete) {
+    public String validateDeleteCustomer(final User user, final boolean delete) {
         return delete ? null : "You have to agree";
     }
 
-    public List<Customer> choices0DeleteCustomer() {
-        return customerRepository.listAll();
+    public List<User> choices0DeleteCustomer() {
+        return userRepository.listAll();
     }
-    public Customer default0DeleteCustomer() {
-        final List<Customer> choices = choices0DeleteCustomer();
+    public User default0DeleteCustomer() {
+        final List<User> choices = choices0DeleteCustomer();
         return choices.isEmpty()? null: choices.get(0);
     }
 
@@ -84,7 +74,7 @@ public class HomePageViewModel {
     }
 
     @javax.inject.Inject
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
 
 }

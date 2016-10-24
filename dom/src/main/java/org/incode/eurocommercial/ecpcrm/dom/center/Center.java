@@ -4,12 +4,28 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Queries({
+        @Query(
+                name = "findByExactName", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.centerReference.Center "
+                        + "WHERE name == :name "),
+        @Query(
+                name = "findByNameContains", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.centerReference.Center "
+                        + "WHERE name.indexOf(:name) >= 0 "),
+        @Query(
+        name = "findByReference", language = "JDOQL",
+        value = "SELECT "
+                + "FROM org.incode.eurocommercial.ecpcrm.dom.centerReference.Center "
+                + "WHERE reference == :reference ")
 })
 public class Center {
 

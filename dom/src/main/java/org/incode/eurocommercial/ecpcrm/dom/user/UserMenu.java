@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom.customer;
+package org.incode.eurocommercial.ecpcrm.dom.user;
 
 import java.util.List;
 
@@ -31,6 +31,10 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
+import org.incode.eurocommercial.ecpcrm.dom.Gender;
+import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
 )
@@ -38,36 +42,45 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
         menuOrder = "10",
         named = "Customers"
 )
-public class CustomerMenu {
+public class UserMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<Customer> listAll() {
-        return customerRepository.listAll();
+    public List<User> listAll() {
+        return userRepository.listAll();
     }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<Customer> findByName(
-            @ParameterLayout(named = "Name")
-            final String name
+    public List<User> findByDmail(
+            @ParameterLayout(named = "Email")
+            final String email
     ) {
-        return customerRepository.findByNameContains(name);
+        return userRepository.findByEmailContains(email);
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<CustomerMenu> {}
+    public static class CreateDomainEvent extends ActionDomainEvent<UserMenu> {}
 
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
-    public Customer create(
-            @ParameterLayout(named = "Name")
-            final String name) {
-        return customerRepository.create(name);
+    public User newUser(
+            final boolean enabled,
+            final Gender gender,
+            final Title title,
+            final String firstName,
+            final String lastName,
+            final String email,
+            final Center center,
+            final String card,
+            final boolean promotionalEmails
+    ) {
+        return userRepository.newUser(
+                enabled, gender, title, firstName, lastName, email, center, card, promotionalEmails);
     }
 
 
     @javax.inject.Inject
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 }

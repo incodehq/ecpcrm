@@ -16,14 +16,15 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom;
 
-public enum Gender {
-    MALE("m"),
-    FEMALE("f"),
+public enum Title {
+    MR("mr"),
+    MRS("mrs"),
+    MISS("miss"),
     UNKNOWN("Unknown");
 
     private String value;
 
-    Gender(final String value) {
+    Title(final String value) {
         this.value = value;
     }
 }

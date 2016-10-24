@@ -36,6 +36,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.value.Date;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
+import org.incode.eurocommercial.ecpcrm.dom.Title;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -67,14 +68,20 @@ public class Person {
 
 
     public String title() {
-        return getName();
+        return getFirstName() + " " + getLastName();
     }
 
     @Column(allowsNull="false", length = 40)
     @Property
     @Getter @Setter
     @MemberOrder(sequence = "1")
-    private String name;
+    private String firstName;
+
+    @Column(allowsNull="false", length = 40)
+    @Property
+    @Getter @Setter
+    @MemberOrder(sequence = "1")
+    private String lastName;
 
     @Column(allowsNull = "false")
     @Property
@@ -84,7 +91,12 @@ public class Person {
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
-    private Date birthDate;
+    private Title title;
 
+    /* This is in Biggerband's domain model, but not implemented */
+    @Column(allowsNull = "true")
+    @Property
+    @Getter @Setter
+    private Date birthDate;
 
 }
