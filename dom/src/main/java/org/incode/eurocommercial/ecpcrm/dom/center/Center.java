@@ -14,17 +14,17 @@ import lombok.Setter;
         @Query(
                 name = "findByExactName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.centerReference.Center "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
                         + "WHERE name == :name "),
         @Query(
                 name = "findByNameContains", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.centerReference.Center "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
                         + "WHERE name.indexOf(:name) >= 0 "),
         @Query(
         name = "findByReference", language = "JDOQL",
         value = "SELECT "
-                + "FROM org.incode.eurocommercial.ecpcrm.dom.centerReference.Center "
+                + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
                 + "WHERE reference == :reference ")
 })
 public class Center {

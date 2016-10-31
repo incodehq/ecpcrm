@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.value.Date;
@@ -60,9 +59,6 @@ import lombok.Setter;
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
-)
-@MemberGroupLayout(
-        columnSpans = { 6, 0, 0, 6 }
 )
 public class Person {
 

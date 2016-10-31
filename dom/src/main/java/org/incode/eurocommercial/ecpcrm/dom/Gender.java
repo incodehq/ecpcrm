@@ -19,7 +19,7 @@ package org.incode.eurocommercial.ecpcrm.dom;
 public enum Gender {
     MALE("m"),
     FEMALE("f"),
-    UNKNOWN("Unknown");
+    UNKNOWN_IMPORT("Unknown");
 
     private String value;
 

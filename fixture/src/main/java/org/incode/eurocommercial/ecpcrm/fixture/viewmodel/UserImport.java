@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -77,20 +79,29 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
         Gender gender = Gender.valueOf(getGender());
         Title title = Title.valueOf(getTitle());
-        Center center = centerRepository.findByRreference(getCenterReference());
+        Center center = centerRepository.findByReference(getCenterReference());
         //TODO Find or create card
 
-        userRepository.newUser(asBoolean(getEnabled()), gender, title, getFirstName(), getLastName(), getEmail(), center, null, asBoolean(getPromotionalEmails()));
+        userRepository.newUser(
+                asBoolean(getEnabled()),
+                gender,
+                title,
+                StringUtils.trim(getFirstName()),
+                StringUtils.trim(getLastName()),
+                StringUtils.trim(getEmail()),
+                center,
+                null,
+                asBoolean(getPromotionalEmails()));
 
 
         return null;
     }
 
-    private boolean asBoolean(final String enabled1) {
-        if (enabled1 == null){
+    private boolean asBoolean(final String booleanString) {
+        if (booleanString == null){
             return false;
         }
-        return Integer.parseInt(enabled1) != 0;
+        return Integer.parseInt(booleanString) != 0;
     }
 
     @Inject

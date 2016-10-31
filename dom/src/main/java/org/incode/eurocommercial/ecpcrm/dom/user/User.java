@@ -86,7 +86,7 @@ public class User extends Person implements Comparable<User> {
     @Column(allowsNull = "true")
     @Property
     @Getter @Setter
-    private String card;
+    private String cardNumber;
 
     @Column(allowsNull = "false")
     @Property

@@ -84,7 +84,7 @@ public class UserRepository {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setCenter(center);
-        user.setCard(card);
+        user.setCardNumber(card);
         user.setPromotionalEmails(promotionalEmails);
         repositoryService.persist(user);
         return user;

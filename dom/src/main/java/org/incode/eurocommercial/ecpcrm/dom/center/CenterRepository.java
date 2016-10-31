@@ -46,7 +46,7 @@ public class CenterRepository {
     }
 
     @Programmatic
-    public Center findByRreference(
+    public Center findByReference(
             final String reference
     ) {
         return repositoryService.uniqueMatch(
