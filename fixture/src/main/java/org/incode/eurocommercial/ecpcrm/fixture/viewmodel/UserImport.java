@@ -74,9 +74,6 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-
-        System.out.println(getEmail());
-
         Gender gender = Gender.valueOf(getGender());
         Title title = Title.valueOf(getTitle());
         Center center = centerRepository.findByReference(getCenterReference());
@@ -92,7 +89,6 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
                 center,
                 null,
                 asBoolean(getPromotionalEmails()));
-
 
         return null;
     }

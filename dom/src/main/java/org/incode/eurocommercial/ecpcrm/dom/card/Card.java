@@ -14,9 +14,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom.user;
+package org.incode.eurocommercial.ecpcrm.dom.card;
 
-import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
@@ -25,15 +24,12 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.person.Person;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,63 +42,47 @@ import lombok.Setter;
         @Query(
                 name = "findByExactNumber", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
-                        + "WHERE email == :email "),
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
+                        + "WHERE number == :number "),
         @Query(
                 name = "findByNumberContains", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
-                        + "WHERE email.indexOf(:email) >= 0 ")
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
+                        + "WHERE number.indexOf(:number) >= 0 ")
 })
 @DomainObject(
-        editing = Editing.DISABLED
+        editing = Editing.DISABLED,
+        bounded = true
 )
-@DomainObjectLayout(
-        paged = 1000
-)
-public class User extends Person implements Comparable<User> {
+public class Card implements Comparable<Card> {
 
     @Override
-    public int compareTo(final User other) {
+    public int compareTo(final Card other) {
         return ObjectContracts.compare(this, other, "email");
     }
 
     public String title() {
-        return super.title();
+        return getNumber();
     }
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
-    private boolean enabled;
+    private String number;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
-    private String email;
+    private CardStatus status;
+
+    @Column(allowsNull = "true")
+    @Property
+    @Getter @Setter
+    private String clientId;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
     private Center center;
-
-    @Column(allowsNull = "true")
-    @Property
-    @Getter @Setter
-    private Card card;
-
-    @Column(allowsNull = "false")
-    @Property
-    @Getter @Setter
-    private Boolean promotionalEmails;
-
-    /* This is in Biggerband's domain model, but not implemented */
-    @Column(allowsNull = "true")
-    @Property
-    @Getter @Setter
-    private Boolean hasCar;
-
-    @Inject
-    CardRepository cardRepository;
 
 }

@@ -20,11 +20,12 @@ package org.incode.eurocommercial.ecpcrm.dom.user;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -33,14 +34,12 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
-)
-@DomainServiceLayout(
-        menuOrder = "10",
-        named = "Customers"
 )
 public class UserMenu {
 
@@ -54,7 +53,7 @@ public class UserMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<User> findByDmail(
+    public List<User> findByEmail(
             @ParameterLayout(named = "Email")
             final String email
     ) {
@@ -66,21 +65,23 @@ public class UserMenu {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public User newUser(
-            final boolean enabled,
-            final Gender gender,
-            final Title title,
-            final String firstName,
-            final String lastName,
-            final String email,
-            final Center center,
-            final String card,
-            final boolean promotionalEmails
+            final @ParameterLayout(named = "Enabled") boolean enabled,
+            final @ParameterLayout(named = "Gender") Gender gender,
+            final @ParameterLayout(named = "Title") Title title,
+            final @ParameterLayout(named = "First Name") String firstName,
+            final @ParameterLayout(named = "Last Name") String lastName,
+            final @ParameterLayout(named = "Email") String email,
+            final @ParameterLayout(named = "Center") Center center,
+            final @ParameterLayout(named = "Card") Card card,
+            final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails
     ) {
-        return userRepository.newUser(
+        return userRepository.findOrCreate(
                 enabled, gender, title, firstName, lastName, email, center, card, promotionalEmails);
     }
 
-
-    @javax.inject.Inject
+    @Inject
     UserRepository userRepository;
+
+    @Inject
+    CenterRepository centerRepository;
 }

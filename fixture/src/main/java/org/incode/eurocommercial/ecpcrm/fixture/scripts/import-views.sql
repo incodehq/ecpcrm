@@ -29,9 +29,14 @@ SELECT
  FROM `crm`.`eurocommercial_crm_user` AS u
  INNER JOIN `center` AS c ON c.id = u.center_id;
  
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`center` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS
 SELECT
- center.id AS id,
- center.label AS name,
- ifnull(center.code,concat('0',cast(center.id as char(2) charset utf8))) AS reference
- FROM `crm`.`eurocommercial_center` AS center;
+ card.id AS id,
+ card.number AS number,
+ card.status AS status,
+ card.status AS userId,
+ card.client_id AS clientId,
+ center.reference AS centerReference
+ 
+ FROM `crm`.`eurocommercial_crm_user_card` AS card
+ INNER JOIN `center` AS center ON center.id = card.center_id;

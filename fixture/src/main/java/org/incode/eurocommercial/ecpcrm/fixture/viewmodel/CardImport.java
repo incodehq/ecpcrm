@@ -13,20 +13,35 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class CenterImport implements ExcelFixtureRowHandler, Importable {
+public class CardImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String reference;
+    private String number;
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String name;
+    private String status;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String userId;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String clientId;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String centerReference;
 
     @Override
     public List<Class> importAfter() {
@@ -40,10 +55,21 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-        centerRepository.newCenter(getReference(), getName());
+        CardStatus status = CardStatus.valueOf(getStatus());
+        Center center = centerRepository.findByReference(getCenterReference());
+
+        cardRepository.newCard(
+                getNumber(),
+                status,
+                getClientId(),
+                center
+        );
 
         return null;
     }
+
+    @Inject
+    private CardRepository cardRepository;
 
     @Inject
     private CenterRepository centerRepository;

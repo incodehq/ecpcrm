@@ -13,6 +13,10 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Center.class)
 public class CenterRepository {
 
+    @Programmatic
+    public List<Center> listAll() {
+        return repositoryService.allInstances(Center.class);
+    }
 
     @Programmatic
     public Center newCenter(final String reference, final String name){

@@ -16,78 +16,63 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom.quick;
+package org.incode.eurocommercial.ecpcrm.dom.card;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
+
 @DomainService(
-        nature = NatureOfService.DOMAIN
+        nature = NatureOfService.VIEW_MENU_ONLY
 )
-@DomainServiceLayout(
-        menuOrder = "10",
-        named = "Quick Objects"
-)
-public class QuickObjectMenu {
+public class CardMenu {
 
-    //region > listAll (action)
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<QuickObject> listAll() {
-        return quickObjectRepository.listAll();
+    public List<Card> listAll() {
+        return cardRepository.listAll();
     }
-    //endregion
 
-    //region > findByName (action)
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<QuickObject> findByName(
-            @ParameterLayout(named="Name")
-            final String name
+    public List<Card> findByNumber(
+            @ParameterLayout(named = "Number") final String number
     ) {
-        return quickObjectRepository.findByNameContains(name);
+        return cardRepository.findByNumberContains(number);
     }
-    //endregion
 
-    //region > create (action)
-    public static class CreateDomainEvent extends ActionDomainEvent<QuickObjectMenu> { }
+    public static class CreateDomainEvent extends ActionDomainEvent<CardMenu> {}
 
-    @Action(
-            domainEvent = CreateDomainEvent.class
-    )
+    @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "3")
-    public QuickObject create(
-            @ParameterLayout(named="Name")
-            final String name) {
-        return quickObjectRepository.create(name);
+    public Card newCard(
+            final @ParameterLayout(named = "Number") String number,
+            final @ParameterLayout(named = "Status") CardStatus status,
+            final @ParameterLayout(named = "Client ID") String clientId,
+            final @ParameterLayout(named = "Center") Center center
+    ) {
+        return cardRepository.findOrCreate(number, status, clientId, center);
     }
 
-    //endregion
+    @Inject
+    CardRepository cardRepository;
 
-    //region > injected services
-
-    @javax.inject.Inject
-    QuickObjectRepository quickObjectRepository;
-
-    //endregion
+    @Inject
+    CenterRepository centerRepository;
 }

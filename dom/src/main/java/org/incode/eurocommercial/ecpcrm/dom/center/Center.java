@@ -6,6 +6,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
+import org.apache.isis.applib.annotation.DomainObject;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,12 +24,17 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
                         + "WHERE name.indexOf(:name) >= 0 "),
         @Query(
-        name = "findByReference", language = "JDOQL",
-        value = "SELECT "
-                + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
-                + "WHERE reference == :reference ")
+                name = "findByReference", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
+                        + "WHERE reference == :reference ")
 })
+@DomainObject(bounded = true)
 public class Center {
+
+    public String title() {
+        return getName();
+    }
 
     @Getter @Setter
     @Column(allowsNull = "false")

@@ -28,6 +28,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
 @DomainService(
@@ -48,7 +49,7 @@ public class UserRepository {
         return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         User.class,
-                        "findByExactEmail",
+                        "findByExactNumber",
                         "email", email));
     }
 
@@ -59,7 +60,7 @@ public class UserRepository {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         User.class,
-                        "findByEmailContains",
+                        "findByNumberContains",
                         "email", email));
     }
 
@@ -73,7 +74,7 @@ public class UserRepository {
             final String lastName,
             final String email,
             final Center center,
-            final String card,
+            final Card card,
             final boolean promotionalEmails
     ) {
         final User user = repositoryService.instantiate(User.class);
@@ -84,7 +85,7 @@ public class UserRepository {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setCenter(center);
-        user.setCardNumber(card);
+        user.setCard(card);
         user.setPromotionalEmails(promotionalEmails);
         repositoryService.persist(user);
         return user;
@@ -99,7 +100,7 @@ public class UserRepository {
             final String lastName,
             final String email,
             final Center center,
-            final String card,
+            final Card card,
             final boolean promotionalEmails
     ) {
         User user = findByExactEmail(email);
