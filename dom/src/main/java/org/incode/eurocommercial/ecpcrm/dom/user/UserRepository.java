@@ -20,15 +20,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Strings;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
 @DomainService(
@@ -49,7 +55,7 @@ public class UserRepository {
         return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         User.class,
-                        "findByExactNumber",
+                        "findByExactEmail",
                         "email", email));
     }
 
@@ -60,8 +66,19 @@ public class UserRepository {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         User.class,
-                        "findByNumberContains",
+                        "findByEmailContains",
                         "email", email));
+    }
+
+    @Programmatic
+    public List<User> findByNameContains(
+            final String name
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        User.class,
+                        "findByNameContains",
+                        "name", name));
     }
 
 
@@ -100,10 +117,13 @@ public class UserRepository {
             final String lastName,
             final String email,
             final Center center,
-            final Card card,
+            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails
     ) {
         User user = findByExactEmail(email);
+        Card card = null;
+        if(!Strings.isNullOrEmpty(cardNumber))
+            card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, null, center);
         if(user == null) {
             user = newUser(
                     enabled,
@@ -126,5 +146,8 @@ public class UserRepository {
 
     @Inject
     RepositoryService repositoryService;
+
+    @Inject
+    CardRepository cardRepository;
 
 }

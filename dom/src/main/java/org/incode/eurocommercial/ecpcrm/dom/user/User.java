@@ -24,12 +24,15 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -44,15 +47,21 @@ import lombok.Setter;
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
         @Query(
-                name = "findByExactNumber", language = "JDOQL",
+                name = "findByExactEmail", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
                         + "WHERE email == :email "),
         @Query(
-                name = "findByNumberContains", language = "JDOQL",
+                name = "findByEmailContains", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
-                        + "WHERE email.indexOf(:email) >= 0 ")
+                        + "WHERE email.indexOf(:email) >= 0 "),
+        @Query(
+                name = "findByNameContains", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
+                        + "WHERE firstName.indexOf(:name) >= 0 "
+                        + "|| lastName.indexOf(:name) >= 0")
 })
 @DomainObject(
         editing = Editing.DISABLED
@@ -74,35 +83,47 @@ public class User extends Person implements Comparable<User> {
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "8")
     private boolean enabled;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "5")
     private String email;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "7")
     private Center center;
 
     @Column(allowsNull = "true")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "6")
     private Card card;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "9")
     private Boolean promotionalEmails;
 
+    @Action
+    public User giveCard(String cardNumber) {
+        card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, null, getCenter());
+        setCard(card);
+        return this;
+    }
+
     /* This is in Biggerband's domain model, but not implemented */
-    @Column(allowsNull = "true")
-    @Property
-    @Getter @Setter
-    private Boolean hasCar;
+//    @Column(allowsNull = "true")
+//    @Property
+//    @Getter @Setter
+//    private Boolean hasCar;
 
     @Inject
-    CardRepository cardRepository;
+    private CardRepository cardRepository;
 
 }

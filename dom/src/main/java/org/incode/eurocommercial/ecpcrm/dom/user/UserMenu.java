@@ -34,7 +34,6 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
@@ -60,10 +59,20 @@ public class UserMenu {
         return userRepository.findByEmailContains(email);
     }
 
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "3")
+    public List<User> findByName(
+            @ParameterLayout(named = "Name")
+            final String name
+    ) {
+        return userRepository.findByNameContains(name);
+    }
+
     public static class CreateDomainEvent extends ActionDomainEvent<UserMenu> {}
 
     @Action(domainEvent = CreateDomainEvent.class)
-    @MemberOrder(sequence = "3")
+    @MemberOrder(sequence = "4")
     public User newUser(
             final @ParameterLayout(named = "Enabled") boolean enabled,
             final @ParameterLayout(named = "Gender") Gender gender,
@@ -72,11 +81,11 @@ public class UserMenu {
             final @ParameterLayout(named = "Last Name") String lastName,
             final @ParameterLayout(named = "Email") String email,
             final @ParameterLayout(named = "Center") Center center,
-            final @ParameterLayout(named = "Card") Card card,
+            final @ParameterLayout(named = "Card") String cardNumber,
             final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails
     ) {
         return userRepository.findOrCreate(
-                enabled, gender, title, firstName, lastName, email, center, card, promotionalEmails);
+                enabled, gender, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
     }
 
     @Inject
