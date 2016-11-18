@@ -131,10 +131,6 @@
     </filter>
     <filter-mapping>
         <filter-name>ResourceCachingFilter</filter-name>
-        <url-pattern>*.js</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>ResourceCachingFilter</filter-name>
         <url-pattern>*.css</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -147,7 +143,19 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>ResourceCachingFilter</filter-name>
+        <url-pattern>*.jpeg</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ResourceCachingFilter</filter-name>
         <url-pattern>*.gif</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ResourceCachingFilter</filter-name>
+        <url-pattern>*.svg</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ResourceCachingFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>ResourceCachingFilter</filter-name>
@@ -176,7 +184,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Resource</servlet-name>
+        <url-pattern>*.jpeg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Resource</servlet-name>
         <url-pattern>*.gif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Resource</servlet-name>
+        <url-pattern>*.svg</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Resource</servlet-name>
@@ -190,7 +206,26 @@
         <servlet-name>Resource</servlet-name>
         <url-pattern>*.swf</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>Resource</servlet-name>
+        <url-pattern>*.yml</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>WebjarsServlet</servlet-name>
+        <servlet-class>org.webjars.servlet.WebjarsServlet</servlet-class>
+        <init-param>
+            <param-name>disableCache</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebjarsServlet</servlet-name>
+        <url-pattern>/webjars/*</url-pattern>
+    </servlet-mapping>
+
 
 
     <!--
@@ -275,7 +310,12 @@
         <init-param>
             <!-- what to do if no session was found; we indicate to issue a 401 basic authentication challenge -->
             <param-name>whenNoSession</param-name>
-            <param-value>basicAuthChallenge</param-value>
+            <!-- ... 401 and a basic authentication challenge if request originates from web browser -->
+            <param-value>auto</param-value>
+        </init-param>
+        <init-param>
+            <param-name>passThru</param-name>
+            <param-value>/restful/swagger</param-value>
         </init-param>
     </filter>
     <filter-mapping>
