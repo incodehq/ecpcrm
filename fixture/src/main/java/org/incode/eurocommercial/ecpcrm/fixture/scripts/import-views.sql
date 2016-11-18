@@ -33,8 +33,8 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DE
 SELECT
  card.id AS id,
  card.number AS number,
- card.status AS status,
- card.status AS userId,
+ UCASE(card.status) AS status,
+ card.user_id AS userId,
  card.client_id AS clientId,
  center.reference AS centerReference
  
