@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -39,6 +40,9 @@ import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
 )
+@DomainServiceLayout(
+        named = "Cards"
+)
 public class CardMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
@@ -46,6 +50,13 @@ public class CardMenu {
     @MemberOrder(sequence = "1")
     public List<Card> listAll() {
         return cardRepository.listAll();
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "1")
+    public List<Card> listEnabledCards() {
+        return cardRepository.listEnabledCards();
     }
 
     @Action(semantics = SemanticsOf.SAFE)

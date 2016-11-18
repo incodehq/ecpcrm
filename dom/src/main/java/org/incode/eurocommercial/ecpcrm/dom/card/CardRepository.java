@@ -41,6 +41,15 @@ public class CardRepository {
     }
 
     @Programmatic
+    public List<Card> listEnabledCards() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Card.class,
+                        "findByStatus",
+                        "status", CardStatus.ENABLED));
+    }
+
+    @Programmatic
     public Card findByExactNumber(
             final String number
     ) {

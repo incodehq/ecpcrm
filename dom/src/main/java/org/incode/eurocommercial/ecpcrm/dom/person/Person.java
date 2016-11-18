@@ -70,23 +70,25 @@ public class Person {
     @Column(allowsNull="false", length = 40)
     @Property
     @Getter @Setter
-    @MemberOrder(sequence = "1")
+    @MemberOrder(sequence = "2")
     private String firstName;
 
     @Column(allowsNull="false", length = 40)
     @Property
     @Getter @Setter
-    @MemberOrder(sequence = "1")
+    @MemberOrder(sequence = "3")
     private String lastName;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "4")
     private Gender gender;
 
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    @MemberOrder(sequence = "1")
     private Title title;
 
     /* This is in Biggerband's domain model, but not implemented */

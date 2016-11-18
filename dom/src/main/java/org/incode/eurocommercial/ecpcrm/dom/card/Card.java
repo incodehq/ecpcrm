@@ -23,6 +23,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
@@ -48,7 +49,12 @@ import lombok.Setter;
                 name = "findByNumberContains", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
-                        + "WHERE number.indexOf(:number) >= 0 ")
+                        + "WHERE number.indexOf(:number) >= 0 "),
+        @Query(
+                name = "findByStatus", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
+                        + "WHERE status == :status ")
 })
 @DomainObject(
         editing = Editing.DISABLED,
@@ -84,5 +90,11 @@ public class Card implements Comparable<Card> {
     @Property
     @Getter @Setter
     private Center center;
+
+    @Action
+    public Card disable() {
+        this.setStatus(CardStatus.DISABLED);
+        return this;
+    }
 
 }
