@@ -4,167 +4,150 @@ info:
   version: "0.0.0"
   title: "ECPCRM API"
 basePath: "/restful"
+consumes:
+  - application/json
+produces:
+  - application/json
 paths:
-  /:
+  /user-detail:
     get:
       tags:
-      - "> restful objects supporting resources"
-      description: "RO Spec v1.0, section 5.1"
-      produces:
-      - "application/json"
-      - "application/json;profile=urn:org.restfulobjects:repr-types/home-page"
-      parameters: []
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RestfulObjectsSupportingHomePageRepr"
-          headers:
-            Cache-Control:
-              type: "integer"
-              format: "int32"
-              description: "RO Spec v1.0, section 2.13"
-              default: 86400
-  /objects/org.incode.eurocommercial.ecpcrm.dom.card.Card/{objectId}:
-    get:
-      tags:
-      - "card"
-      description: "RO Spec v1.0, section 14.1"
-      produces:
-      - "application/json;profile=urn:org.apache.isis/v1"
-      - "application/json;profile=urn:org.apache.isis/v1;suppress=true"
-      - "application/json;profile=urn:org.restfulobjects:repr-types/object"
+      - user
+      description: RO Spec v1.0, section 14.1
       parameters:
-      - name: "objectId"
-        in: "path"
+      - name: id
+        in: header
+        description: ID of the user
         required: true
-        type: "string"
+        type: integer
+        format: int64
       responses:
         200:
-          description: "org.incode.eurocommercial.ecpcrm.dom.card.Card , if Accept:\
-            \ application/json;profile=urn:org.apache.isis/v1"
+          description: Success
           schema:
-            $ref: "#/definitions/org.incode.eurocommercial.ecpcrm.dom.card.CardRepr"
+            type: object
+            properties:
+              status:
+                type: integer
+              response:
+                $ref: "#/definitions/User"
+        300:
+          $ref: "#/responses/InvalidRequest"
+        302:
+          $ref: "#/responses/InvalidParam"
+        304:
+          $ref: "#/responses/InvalidUser"
+        310:
+          $ref: "#/responses/InvalidAccess"
+
 definitions:
-  org.incode.eurocommercial.ecpcrm.dom.card.CardRepr:
-    type: "object"
+  Error:
+    type: object
     properties:
-      datanucleusIdLong:
-        type: "integer"
-        format: "int64"
-      datanucleusVersionLong:
-        type: "integer"
-        format: "int64"
-      datanucleusVersionTimestamp:
-        type: "integer"
-        format: "int64"
-      center:
-        $ref: "#/definitions/HrefRepr"
-      clientId:
-        type: "string"
-      number:
-        type: "string"
       status:
-        type: "string"
-        enum:
-        - "ENABLED"
-        - "DISABLED"
-        - "LOST"
-        - "TOCHANGE"
-    description: "org.incode.eurocommercial.ecpcrm.dom.card.Card (org.incode.eurocommercial.ecpcrm.dom.card.Card)"
-  org.incode.eurocommercial.ecpcrm.dom.center.CenterRepr:
-    type: "object"
+        type: integer
+      message:
+        type: string
+  User:
+    type: object
     properties:
-      datanucleusIdLong:
-        type: "integer"
-        format: "int64"
-      datanucleusVersionLong:
-        type: "integer"
-        format: "int64"
-      datanucleusVersionTimestamp:
-        type: "integer"
-        format: "int64"
+      id:
+        type: string
       name:
-        type: "string"
-      reference:
-        type: "string"
-    description: "org.incode.eurocommercial.ecpcrm.dom.center.Center (org.incode.eurocommercial.ecpcrm.dom.center.Center)"
-  org.incode.eurocommercial.ecpcrm.dom.person.PersonRepr:
-    type: "object"
-    properties:
-      title:
-        type: "string"
-        enum:
-        - "MR"
-        - "MRS"
-        - "MISS"
-        - "UNKNOWN_IMPORT"
-      firstName:
-        type: "string"
-      lastName:
-        type: "string"
-      gender:
-        type: "string"
-        enum:
-        - "MALE"
-        - "FEMALE"
-        - "UNKNOWN_IMPORT"
-      datanucleusIdLong:
-        type: "integer"
-        format: "int64"
-      datanucleusVersionLong:
-        type: "integer"
-        format: "int64"
-      datanucleusVersionTimestamp:
-        type: "integer"
-        format: "int64"
-      birthDate:
-        type: "string"
-        format: "date"
-    description: "org.incode.eurocommercial.ecpcrm.dom.person.Person (org.incode.eurocommercial.ecpcrm.dom.person.Person)"
-  org.incode.eurocommercial.ecpcrm.dom.user.UserRepr:
-    type: "object"
-    properties:
-      lastName:
-        type: "string"
-      datanucleusVersionLong:
-        type: "integer"
-        format: "int64"
-      gender:
-        type: "string"
-        enum:
-        - "MALE"
-        - "FEMALE"
-        - "UNKNOWN_IMPORT"
-      center:
-        $ref: "#/definitions/HrefRepr"
-      datanucleusVersionTimestamp:
-        type: "integer"
-        format: "int64"
-      title:
-        type: "string"
-        enum:
-        - "MR"
-        - "MRS"
-        - "MISS"
-        - "UNKNOWN_IMPORT"
-      datanucleusIdLong:
-        type: "integer"
-        format: "int64"
-      birthDate:
-        type: "string"
-        format: "date"
-      enabled:
-        type: "boolean"
-      firstName:
-        type: "string"
-      promotionalEmails:
-        type: "boolean"
+        type: string
       email:
-        type: "string"
-      card:
-        $ref: "#/definitions/HrefRepr"
-    description: "org.incode.eurocommercial.ecpcrm.dom.user.User (org.incode.eurocommercial.ecpcrm.dom.user.User)"      names:
+        type: string
+      title:
+        type: string
+        enum:
+        - mr
+        - mrs
+        - miss
+        - unknown
+      first_name:
+        type: string
+      last_name:
+        type: string
+      birthdate:
+        type: string
+        format: date
+      optin:
+        type: boolean
+      car:
+        type: boolean
+      boutiques:
+        type: array
+        items:
+          type: string
+      address:
+        type: string
+      zipcode:
+        type: string
+      city:
+        type: string
+      full_address:
+        type: string
+      phone:
+        type: string
+      haschildren:
+        type: boolean
+      no_children:
+        type: integer
+      children:
+        type: array
+        items:
+          type: object
+          $ref: "#/definitions/Child"
+      cards:
+        type: array
+        items:
+          $ref: "#/definitions/Card"
+      child_cares:
+        type: array
+        items:
+          $ref: "#/definitions/ChildCare"
+    description: User
+  Card:
+    type: object
+    properties:
+      number:
+        type: integer
+      status:
+        type: string
+        enum:
+        - enabled
+        - disabled
+        - lost
+        - tochange
+      created_at:
+        type: string
+        format: date
+      given_at:
+        type: string
+        format: date
+      sent_at:
+        type: string
+        format: date
+    description: Card
+  Child:
+    type: object
+    properties:
+      age:
+        type: integer
+      birthdate:
+        type: string
+        format: date
+      genre:
+        type: string
+        enum:
+        - m
+        - f
+        - unknown
+    description: Child
+  ChildCare:
+    type: object
+    properties:
+      names:
         type: string
       count:
         type: integer
@@ -249,3 +232,9 @@ responses:
       $ref: "#/definitions/Error"
   CardOutdated: # 319
     description: This card is outdated, it needs to be replaced
+    schema:
+      $ref: "#/definitions/Error"
+  CardAlreadyBound: # 320 -- TODO: This seems duplicate
+    description: This card is already bound
+    schema:
+      $ref: "#/definitions/Error"
