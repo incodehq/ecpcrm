@@ -164,4 +164,88 @@ definitions:
         type: "string"
       card:
         $ref: "#/definitions/HrefRepr"
-    description: "org.incode.eurocommercial.ecpcrm.dom.user.User (org.incode.eurocommercial.ecpcrm.dom.user.User)"
+    description: "org.incode.eurocommercial.ecpcrm.dom.user.User (org.incode.eurocommercial.ecpcrm.dom.user.User)"      names:
+        type: string
+      count:
+        type: integer
+    description: ChildCare
+
+responses:
+  InvalidRequest: # 300
+    description: Invalid request
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidDevice: # 301
+    description: Invalid device
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidParam: # 302
+    description: A required parameter is missing or invalid
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidCard: # 303
+    description: Invalid card
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidUser: # 304
+    description: Invalid user
+    schema:
+      $ref: "#/definitions/Error"
+  EmailExists: # 305, 309, (306)
+    description: Email already exists in our system
+    schema:
+      $ref: "#/definitions/Error"
+  EmailExistsInvalidCheck: # 306 -- TODO: This seems duplicate
+    description: Email already exists in our system, user doesn't match
+    schema:
+      $ref: "#/definitions/Error"
+  CardRequestHandled: # 307
+    description: User already requested a card, which has been handled
+    schema:
+      $ref: "#/definitions/Error"
+  CardAlreadyBoundAnotherUser: # 308
+    description: Card is already bound to another user
+    schema:
+      $ref: "#/definitions/Error"
+  EmailExistsWhenCreatingOrUpdating: # 309 -- TODO: This seems duplicate
+    description: Email already exists in our system
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidAccess: # 310
+    description: Invalid access
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidCardRequest: # 311
+    description: Invalid card request
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidCardNumber: # 312
+    description: Invalid card number
+    schema:
+      $ref: "#/definitions/Error"
+  FailedUserCardCreate: # 313
+    description: Failed to create user for card
+    schema:
+      $ref: "#/definitions/Error"
+  FailedUserCardBind: # 314
+    description: Failed to bind user to card
+    schema:
+      $ref: "#/definitions/Error"
+  UserAlreadyPlayed: # 315
+    description: User has already played
+    schema:
+      $ref: "#/definitions/Error"
+  FailedUserUpdateCreate: # 316
+    description: Failed to create or update user
+    schema:
+      $ref: "#/definitions/Error"
+  InvalidCenterCard: # 317
+    description: This card is not valid for this center
+    schema:
+      $ref: "#/definitions/Error"
+  CardLost: # 318
+    description: Email exists, and is linked to this user, perhaps the card is lost
+    schema:
+      $ref: "#/definitions/Error"
+  CardOutdated: # 319
+    description: This card is outdated, it needs to be replaced
