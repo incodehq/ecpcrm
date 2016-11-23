@@ -13,7 +13,7 @@ paths:
     get:
       tags:
       - user
-      description: RO Spec v1.0, section 14.1
+      description: Gets user details
       parameters:
       - name: id
         in: header
@@ -39,6 +39,90 @@ paths:
           $ref: "#/responses/InvalidUser"
         310:
           $ref: "#/responses/InvalidAccess"
+  /user-create:
+    post:
+      tags:
+      - user
+      description: Creates a new user
+      parameters:
+      - name: card
+        in: header
+        description: Card number of the new user
+        required: false
+        type: integer
+        format: int64
+      - name: title
+        in: header
+        description: Title of the new user
+        required: true
+        type: string
+        enum:
+        - mr
+        - mrs
+        - miss
+      - name: first_name
+        in: header
+        description: First name of the new user
+        required: true
+        type: string
+      - name: last_name
+        in: header
+        description: Last name of the new user
+        required: true
+        type: string
+      - name: address
+        in: header
+        description: Address of the new user
+        required: false
+        type: string
+      - name: zipcode
+        in: header
+        description: Zipcode of the new user
+        required: false
+        type: string
+      - name: city
+        in: header
+        description: City of the new user
+        required: false
+        type: string
+      - name: email
+        in: header
+        description: Email address of the new user
+        required: false
+        type: string
+      - name: optin
+        in: header
+        description: Promotional emails optin
+        required: false
+        type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+        300:
+          $ref: "#/responses/InvalidRequest"
+        302:
+          $ref: "#/responses/InvalidParam"
+        303:
+          $ref: "#/responses/InvalidCard"
+        308:
+          $ref: "#/responses/CardAlreadyBoundAnotherUser"
+        309:
+          $ref: "#/responses/EmailExistsWhenCreatingOrUpdating"
+        310:
+          $ref: "#/responses/InvalidAccess"
+        312:
+          $ref: "#/responses/InvalidCardNumber"
+        314:
+          $ref: "#/responses/FailedUserCardBind"
+        316:
+          $ref: "#/responses/FailedUserUpdateCreate"
+        317: # -- TODO: This is not sent form a specific device/center?
+          $ref: "#/responses/InvalidCenterCard"
 
 definitions:
   Error:
