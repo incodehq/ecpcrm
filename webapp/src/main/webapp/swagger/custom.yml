@@ -205,10 +205,24 @@ paths:
           $ref: "#/responses/FailedUserUpdateCreate"
         317: # -- TODO: This is not sent form a specific device/center?
           $ref: "#/responses/InvalidCenterCard"
+  /user-authentication:
+    post:
+      tags:
+        - user
+      description: Authenticate a user
+      parameters:
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
   /card-request:
     post:
       tags:
-        - card-request
+        - card
       description: Requests a card for a user
       parameters:
         - name: origin
