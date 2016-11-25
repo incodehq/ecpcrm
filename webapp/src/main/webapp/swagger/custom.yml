@@ -12,15 +12,15 @@ paths:
   /user-detail:
     get:
       tags:
-      - user
+        - user
       description: Gets user details
       parameters:
-      - name: id
-        in: header
-        description: ID of the user
-        required: true
-        type: integer
-        format: int64
+        - name: id
+          in: header
+          description: ID of the user
+          required: true
+          type: integer
+          format: int64
       responses:
         200:
           description: Success
@@ -42,58 +42,58 @@ paths:
   /user-create:
     post:
       tags:
-      - user
+        - user
       description: Creates a new user
       parameters:
-      - name: card
-        in: header
-        description: Card number of the new user
-        required: false
-        type: string
-      - name: title
-        in: header
-        description: Title of the new user
-        required: true
-        type: string
-        enum:
-        - mr
-        - mrs
-        - miss
-      - name: first_name
-        in: header
-        description: First name of the new user
-        required: true
-        type: string
-      - name: last_name
-        in: header
-        description: Last name of the new user
-        required: true
-        type: string
-      - name: address
-        in: header
-        description: Address of the new user
-        required: false
-        type: string
-      - name: zipcode
-        in: header
-        description: Zipcode of the new user
-        required: false
-        type: string
-      - name: city
-        in: header
-        description: City of the new user
-        required: false
-        type: string
-      - name: email
-        in: header
-        description: Email address of the new user
-        required: false
-        type: string
-      - name: optin
-        in: header
-        description: Promotional emails optin
-        required: false
-        type: integer
+        - name: card
+          in: header
+          description: Card number of the new user
+          required: false
+          type: string
+        - name: title
+          in: header
+          description: Title of the new user
+          required: true
+          type: string
+          enum:
+            - mr
+            - mrs
+            - miss
+        - name: first_name
+          in: header
+          description: First name of the new user
+          required: true
+          type: string
+        - name: last_name
+          in: header
+          description: Last name of the new user
+          required: true
+          type: string
+        - name: address
+          in: header
+          description: Address of the new user
+          required: false
+          type: string
+        - name: zipcode
+          in: header
+          description: Zipcode of the new user
+          required: false
+          type: string
+        - name: city
+          in: header
+          description: City of the new user
+          required: false
+          type: string
+        - name: email
+          in: header
+          description: Email address of the new user
+          required: false
+          type: string
+        - name: optin
+          in: header
+          description: Promotional emails optin
+          required: false
+          type: integer
       responses:
         200:
           description: Success
@@ -125,58 +125,58 @@ paths:
   /user-update:
     post:
       tags:
-      - user
+        - user
       description: Updates an existing user
       parameters:
-      - name: card
-        in: header
-        description: Card number of the user
-        required: true
-        type: string
-      - name: title
-        in: header
-        description: Title of the user
-        required: true
-        type: string
-        enum:
-        - mr
-        - mrs
-        - miss
-      - name: first_name
-        in: header
-        description: First name of the user
-        required: true
-        type: string
-      - name: last_name
-        in: header
-        description: Last name of the user
-        required: true
-        type: string
-      - name: address
-        in: header
-        description: Address of the user
-        required: false
-        type: string
-      - name: zipcode
-        in: header
-        description: Zipcode of the user
-        required: false
-        type: string
-      - name: city
-        in: header
-        description: City of the user
-        required: false
-        type: string
-      - name: email
-        in: header
-        description: Email address of the user
-        required: true
-        type: string
-      - name: optin
-        in: header
-        description: Promotional emails optin
-        required: false
-        type: integer
+        - name: card
+          in: header
+          description: Card number of the user
+          required: true
+          type: string
+        - name: title
+          in: header
+          description: Title of the user
+          required: true
+          type: string
+          enum:
+            - mr
+            - mrs
+            - miss
+        - name: first_name
+          in: header
+          description: First name of the user
+          required: true
+          type: string
+        - name: last_name
+          in: header
+          description: Last name of the user
+          required: true
+          type: string
+        - name: address
+          in: header
+          description: Address of the user
+          required: false
+          type: string
+        - name: zipcode
+          in: header
+          description: Zipcode of the user
+          required: false
+          type: string
+        - name: city
+          in: header
+          description: City of the user
+          required: false
+          type: string
+        - name: email
+          in: header
+          description: Email address of the user
+          required: true
+          type: string
+        - name: optin
+          in: header
+          description: Promotional emails optin
+          required: false
+          type: integer
       responses:
         200:
           description: Success
@@ -205,6 +205,131 @@ paths:
           $ref: "#/responses/FailedUserUpdateCreate"
         317: # -- TODO: This is not sent form a specific device/center?
           $ref: "#/responses/InvalidCenterCard"
+  /card-request:
+    post:
+      tags:
+        - card-request
+      description: Requests a card for a user
+      parameters:
+        - name: origin
+          in: header
+          description: Origin of the request?
+          required: true
+          type: string
+          enum:
+            - borne
+            - site
+        - name: hostess
+          in: header
+          description: "?"
+          required: false
+          type: string
+        - name: title
+          in: header
+          description: Title of the user
+          required: true
+          type: string
+          enum:
+            - mr
+            - mrs
+            - miss
+        - name: first_name
+          in: header
+          description: First name of the user
+          required: true
+          type: string
+        - name: last_name
+          in: header
+          description: Last name of the user
+          required: true
+          type: string
+        - name: email
+          in: header
+          description: Email address of the user
+          required: true
+          type: string
+        - name: birthdate
+          in: header
+          description: Birthdate of the user
+          required: false
+          type: string
+          format: date
+        - name: children
+          in: header
+          description: "?"
+          required: false
+          type: string
+        - name: nb_children
+          in: header
+          description: Number of children
+          required: false
+          type: integer
+        - name: car
+          in: header
+          description: Does the user have a car
+          required: false
+          type: string
+        - name: address
+          in: header
+          description: Address of the user
+          required: false
+          type: string
+        - name: zipcode
+          in: header
+          description: Zipcode of the user
+          required: false
+          type: string
+        - name: city
+          in: header
+          description: City of the user
+          required: false
+          type: string
+        - name: phone
+          in: header
+          description: Phone number of the user
+          required: true
+          type: string
+        - name: optin
+          in: header
+          description: Promotional emails optin
+          required: false
+          type: integer
+        - name: check_item
+          in: header
+          description: User validation check item
+          required: false
+          type: string
+        - name: lost
+          in: header
+          description: Is the card lost?
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+        300:
+          $ref: "#responses/InvalidRequest"
+        301:
+          $ref: "#/responses/InvalidDevice"
+        302:
+          $ref: "#/responses/InvalidParam"
+        304:
+          $ref: "#/responses/InvalidUser"
+        305:
+          $ref: "#/responses/EmailExists"
+        306:
+          $ref: "#/responses/EmailExistsInvalidCheck"
+        307:
+          $ref: "#/responses/CardRequestHandled"
+        316:
+          $ref: "#/responses/FailedUserUpdateCreate"
+        318:
+          $ref: "#/responses/CardLost"
 
 definitions:
   Error:
@@ -226,10 +351,10 @@ definitions:
       title:
         type: string
         enum:
-        - mr
-        - mrs
-        - miss
-        - unknown
+          - mr
+          - mrs
+          - miss
+          - unknown
       first_name:
         type: string
       last_name:
@@ -281,10 +406,10 @@ definitions:
       status:
         type: string
         enum:
-        - enabled
-        - disabled
-        - lost
-        - tochange
+          - enabled
+          - disabled
+          - lost
+          - tochange
       created_at:
         type: string
         format: date
@@ -306,9 +431,9 @@ definitions:
       genre:
         type: string
         enum:
-        - m
-        - f
-        - unknown
+          - m
+          - f
+          - unknown
     description: Child
   ChildCare:
     type: object
