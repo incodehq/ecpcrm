@@ -19,15 +19,6 @@ public class CenterRepository {
     }
 
     @Programmatic
-    public Center newCenter(final String reference, final String name){
-        Center center = repositoryService.instantiate(Center.class);
-        center.setReference(reference);
-        center.setName(name);
-        repositoryService.persist(center);
-        return center;
-    }
-
-    @Programmatic
     public Center findByExactName(
             final String name
     ) {
@@ -59,6 +50,26 @@ public class CenterRepository {
                         "findByReference",
                         "reference", reference));
     }
+
+    @Programmatic
+    public Center newCenter(final String reference, final String name){
+        Center center = repositoryService.instantiate(Center.class);
+        center.setReference(reference);
+        center.setName(name);
+        repositoryService.persist(center);
+        return center;
+    }
+
+    @Programmatic
+    public Center findOrCreate(final String reference, final String name) {
+        Center center = findByReference(reference);
+        if(center == null) {
+            center = newCenter(reference, name);
+        }
+        return center;
+    }
+
+
 
     @Inject
     private RepositoryService repositoryService;
