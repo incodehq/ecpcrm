@@ -25,20 +25,25 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
-import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
+)
+@DomainObjectLayout(
+        named = "Users"
 )
 public class UserMenu {
 
@@ -75,17 +80,16 @@ public class UserMenu {
     @MemberOrder(sequence = "4")
     public User newUser(
             final @ParameterLayout(named = "Enabled") boolean enabled,
-            final @ParameterLayout(named = "Gender") Gender gender,
             final @ParameterLayout(named = "Title") Title title,
             final @ParameterLayout(named = "First Name") String firstName,
             final @ParameterLayout(named = "Last Name") String lastName,
             final @ParameterLayout(named = "Email") String email,
             final @ParameterLayout(named = "Center") Center center,
-            final @ParameterLayout(named = "Card") String cardNumber,
+            final @ParameterLayout(named = "Card") @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
             final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails
     ) {
         return userRepository.findOrCreate(
-                enabled, gender, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
+                enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
     }
 
     @Inject

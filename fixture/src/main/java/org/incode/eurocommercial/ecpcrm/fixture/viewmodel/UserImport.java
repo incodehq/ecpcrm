@@ -15,7 +15,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
-import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
@@ -29,10 +28,6 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
     private String enabled;
-
-    @Getter @Setter
-    @Property(optionality = Optionality.MANDATORY)
-    private String gender;
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
@@ -74,14 +69,12 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-        Gender gender = Gender.valueOf(getGender());
         Title title = Title.valueOf(getTitle());
         Center center = centerRepository.findByReference(getCenterReference());
         //TODO Find or create card
 
         userRepository.newUser(
                 asBoolean(getEnabled()),
-                gender,
                 title,
                 StringUtils.trim(getFirstName()),
                 StringUtils.trim(getLastName()),

@@ -31,12 +31,13 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
+import org.apache.isis.applib.value.Date;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
+import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.person.Person;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -69,7 +70,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         paged = 1000
 )
-public class User extends Person implements Comparable<User> {
+public class User implements Comparable<User> {
 
     @Override
     public int compareTo(final User other) {
@@ -77,40 +78,66 @@ public class User extends Person implements Comparable<User> {
     }
 
     public String title() {
-        return super.title();
+        return getFirstName() + " " + getLastName();
     }
 
     @Column(allowsNull = "false")
     @Property
+    @MemberOrder(sequence = "1")
     @Getter @Setter
-    @MemberOrder(sequence = "8")
-    private boolean enabled;
+    private Title title;
+
+    @Column(allowsNull="false", length = 40)
+    @Property
+    @MemberOrder(sequence = "2")
+    @Getter @Setter
+    private String firstName;
+
+    @Column(allowsNull="false", length = 40)
+    @Property
+    @MemberOrder(sequence = "3")
+    @Getter @Setter
+    private String lastName;
 
     @Column(allowsNull = "false")
     @Property
+    @MemberOrder(sequence = "4")
     @Getter @Setter
-    @MemberOrder(sequence = "5")
     private String email;
 
-    @Column(allowsNull = "false")
+    /* This is in Biggerband's domain model, but not implemented */
+    @Column(allowsNull = "true")
     @Property
+    @MemberOrder(sequence = "5")
     @Getter @Setter
-    @MemberOrder(sequence = "7")
-    private Center center;
+    private Date birthDate;
 
     @Column(allowsNull = "true")
     @Property
-    @Getter @Setter
     @MemberOrder(sequence = "6")
+    @Getter @Setter
     private Card card;
 
     @Column(allowsNull = "false")
     @Property
+    @MemberOrder(sequence = "7")
     @Getter @Setter
+    private Center center;
+
+    @Column(allowsNull = "false")
+    @Property
+    @MemberOrder(sequence = "8")
+    @Getter @Setter
+    private boolean enabled;
+
+    @Column(allowsNull = "false")
+    @Property
     @MemberOrder(sequence = "9")
+    @Getter @Setter
     private Boolean promotionalEmails;
 
     @Action
+    @MemberOrder(name = "card", sequence = "1")
     public User giveCard(String cardNumber) {
         card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, null, getCenter());
         setCard(card);

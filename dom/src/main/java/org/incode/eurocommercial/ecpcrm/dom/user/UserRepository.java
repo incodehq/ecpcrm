@@ -31,7 +31,6 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
-import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -85,7 +84,6 @@ public class UserRepository {
     @Programmatic
     public User newUser(
             final boolean enabled,
-            final Gender gender,
             final Title title,
             final String firstName,
             final String lastName,
@@ -96,7 +94,6 @@ public class UserRepository {
     ) {
         final User user = repositoryService.instantiate(User.class);
         user.setEnabled(enabled);
-        user.setGender(gender);
         user.setTitle(title);
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -111,7 +108,6 @@ public class UserRepository {
     @Programmatic
     public User findOrCreate(
             final boolean enabled,
-            final Gender gender,
             final Title title,
             final String firstName,
             final String lastName,
@@ -127,7 +123,6 @@ public class UserRepository {
         if(user == null) {
             user = newUser(
                     enabled,
-                    gender,
                     title,
                     firstName,
                     lastName,
