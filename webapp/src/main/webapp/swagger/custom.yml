@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "0.0.0"
+  version: "0.1.0"
   title: "ECPCRM API"
 basePath: "/restful"
 consumes:
@@ -219,6 +219,95 @@ paths:
             properties:
               status:
                 type: integer
+  /card-check:
+    get:
+      tags:
+        - card
+      description: Checks if a card exists, and is valid
+      parameters:
+        - name: card
+          in: header
+          description: Card Number to be checked
+          required: true
+          type: string
+        - name: origin
+          in: header
+          description: Origin of the request?
+          required: true
+          type: string
+          enum:
+            - borne
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              response:
+                $ref: "#/definitions/CardCheck"
+        300:
+          $ref: "#/responses/InvalidRequest"
+        301:
+          $ref: "#/responses/InvalidDevice"
+        302:
+          $ref: "#/responses/InvalidParam"
+        303:
+          $ref: "#/responses/InvalidCard"
+        304:
+          $ref: "#/responses/InvalidUser"
+        312:
+          $ref: "#/responses/InvalidCardNumber"
+        313:
+          $ref: "#/responses/FailedUserUpdateCreate"
+        314:
+          $ref: "#/responses/FailedUserCardBind"
+        317:
+          $ref: "#/responses/InvalidCenterCard"
+        319:
+          $ref: "#/responses/CardOutdated"
+  /card-game:
+    post:
+      tags:
+        - card
+      description: Plays a card game if it is possible
+      parameters:
+        - name: card
+          in: header
+          description: Card to play a card game with
+          required: true
+          type: string
+        - name: win
+          in: header
+          description: "?"
+          required: false
+          type: string
+        - name: desc
+          in: header
+          description: "?"
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+        300:
+          $ref: "#/responses/InvalidRequest"
+        301:
+          $ref: "#/responses/InvalidDevice"
+        302:
+          $ref: "#/responses/InvalidParam"
+        303:
+          $ref: "#/responses/InvalidCard"
+        304:
+          $ref: "#/responses/InvalidUser"
+        315:
+          $ref: "#/responses/UserAlreadyPlayed"
   /card-request:
     post:
       tags:
@@ -434,6 +523,35 @@ definitions:
         type: string
         format: date
     description: Card
+  CardCheck:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      email:
+        type: string
+      title:
+        type: string
+        enum:
+          - mr
+          - mrs
+          - miss
+      first_name:
+        type: string
+      last_name:
+        type: string
+      birthdate:
+        type: string
+        format: date
+      optin:
+        type: boolean
+      game:
+        type: boolean
+      card_image:
+        type: string
   Child:
     type: object
     properties:
