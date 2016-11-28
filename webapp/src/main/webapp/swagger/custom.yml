@@ -464,11 +464,13 @@ definitions:
         type: string
       birthdate:
         type: string
-        format: date
+        # format: date
       optin:
-        type: boolean
+        type: string
+        # type: boolean
       car:
-        type: boolean
+        type: string
+        # type: boolean
       boutiques:
         type: array
         items:
@@ -484,9 +486,11 @@ definitions:
       phone:
         type: string
       haschildren:
-        type: boolean
+        type: string
+        # type: boolean
       no_children:
-        type: integer
+        type: string
+        # type: integer
       children:
         type: array
         items:
@@ -505,7 +509,8 @@ definitions:
     type: object
     properties:
       number:
-        type: integer
+        type: string
+        # type: integer
       status:
         type: string
         enum:
@@ -515,20 +520,21 @@ definitions:
           - tochange
       created_at:
         type: string
-        format: date
+        # format: date
       given_at:
         type: string
-        format: date
+        # format: date
       sent_at:
         type: string
-        format: date
+        # format: date
     description: Card
   CardCheck:
     type: object
     properties:
       id:
-        type: integer
-        format: int64
+        type: string
+        # type: integer
+        # format: int64
       name:
         type: string
       email:
@@ -545,9 +551,10 @@ definitions:
         type: string
       birthdate:
         type: string
-        format: date
+        # format: date
       optin:
-        type: boolean
+        type: string
+        # type: boolean
       game:
         type: boolean
       card_image:
@@ -556,10 +563,11 @@ definitions:
     type: object
     properties:
       age:
-        type: integer
+        type: string
+        # type: integer
       birthdate:
         type: string
-        format: date
+        # format: date
       genre:
         type: string
         enum:
