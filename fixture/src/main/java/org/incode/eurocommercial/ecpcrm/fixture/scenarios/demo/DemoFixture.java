@@ -19,20 +19,19 @@
 
 package org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo;
 
-import java.net.URL;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
-import com.google.common.io.Resources;
 
+import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.excel.dom.ExcelFixture;
+import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObject;
-import org.incode.eurocommercial.ecpcrm.fixture.dom.quick.QuickObjectsTearDown;
-import org.incode.eurocommercial.ecpcrm.fixture.dom.quick.QuickObjectRowHandler;
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterTearDown;
 
 import lombok.Getter;
 
@@ -42,35 +41,30 @@ public class DemoFixture extends FixtureScript {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-    /**
-     * The quick objects created by this fixture (output).
-     */
+    public final int NUM_CENTERS = 5;
+    public final int NUM_USERS   = 5;
+    public final int NUM_CARDS   = 5;
+
     @Getter
-    private final List<QuickObject> quickObjects = Lists.newArrayList();
+    private final List<Center> centers = Lists.newArrayList();
+
+    private FakeDataService faker;
 
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
         // zap everything
-        ec.executeChild(this, new QuickObjectsTearDown());
+        ec.executeChild(this, new CenterTearDown());
 
-        // load data from spreadsheet
-        final URL spreadsheet = Resources.getResource(DemoFixture.class, "DemoFixture.xlsx");
-        final ExcelFixture fs = new ExcelFixture(spreadsheet, getHandlers());
-        ec.executeChild(this, fs);
-
-        // make objects created by ExcelFixture available to our caller.
-        final Map<Class, List<Object>> objectsByClass = fs.getObjectsByClass();
-
-        getQuickObjects().addAll((List)objectsByClass.get(QuickObject.class));
-        getQuickObjects().addAll((List)objectsByClass.get(QuickObjectRowHandler.class));
-    }
-
-    private Class[] getHandlers() {
-        return new Class[]{
-                QuickObject.class,
-                QuickObjectRowHandler.class
-        };
+        for(int i = 0; i < NUM_CENTERS; i++) {
+            ec.executeChild(this, new CenterCreate());
+        }
+        
+        getCenters().addAll(ec.getResults().stream()
+                .map(FixtureResult::getObject)
+                .filter(c -> c instanceof Center)
+                .map(c -> (Center) c)
+                .collect(Collectors.toList()));
     }
 }
