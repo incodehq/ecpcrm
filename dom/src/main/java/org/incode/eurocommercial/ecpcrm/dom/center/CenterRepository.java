@@ -62,7 +62,7 @@ public class CenterRepository {
 
     @Programmatic
     public Center findOrCreate(final String reference, final String name) {
-        Center center = findByReference(reference);
+        Center center = findByExactName(name);
         if(center == null) {
             center = newCenter(reference, name);
         }

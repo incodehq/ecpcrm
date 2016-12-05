@@ -29,9 +29,12 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterTearDown;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserCreate;
 
 import lombok.Getter;
 
@@ -48,6 +51,12 @@ public class DemoFixture extends FixtureScript {
     @Getter
     private final List<Center> centers = Lists.newArrayList();
 
+    @Getter
+    private final List<Card> cards = Lists.newArrayList();
+
+    @Getter
+    private final List<User> users = Lists.newArrayList();
+
     private FakeDataService faker;
 
 
@@ -60,11 +69,22 @@ public class DemoFixture extends FixtureScript {
         for(int i = 0; i < NUM_CENTERS; i++) {
             ec.executeChild(this, new CenterCreate());
         }
-        
-        getCenters().addAll(ec.getResults().stream()
+
+        for(int i = 0; i < NUM_USERS; i++) {
+            ec.executeChild(this, new UserCreate());
+        }
+
+        List<Object> results  = ec.getResults().stream()
                 .map(FixtureResult::getObject)
+                .collect(Collectors.toList());
+
+        getCenters().addAll(results.stream()
                 .filter(c -> c instanceof Center)
                 .map(c -> (Center) c)
+                .collect(Collectors.toList()));
+        getUsers().addAll(results.stream()
+                .filter(u -> u instanceof User)
+                .map(u -> (User) u)
                 .collect(Collectors.toList()));
     }
 }
