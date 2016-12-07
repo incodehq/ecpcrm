@@ -92,6 +92,19 @@ public class UserMenu {
                 enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
     }
 
+    public String validateNewUser(
+            final boolean enabled,
+            final Title title,
+            final String firstName,
+            final String lastName,
+            final String email,
+            final Center center,
+            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final boolean promotionalEmails
+    ) {
+        return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
+    }
+
     @Inject
     UserRepository userRepository;
 

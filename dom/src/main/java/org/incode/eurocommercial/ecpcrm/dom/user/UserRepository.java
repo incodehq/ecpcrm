@@ -20,8 +20,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.google.common.base.Strings;
-
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
@@ -30,9 +28,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
@@ -89,7 +85,6 @@ public class UserRepository {
             final String lastName,
             final String email,
             final Center center,
-            final Card card,
             final boolean promotionalEmails
     ) {
         final User user = repositoryService.instantiate(User.class);
@@ -99,7 +94,6 @@ public class UserRepository {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setCenter(center);
-        user.setCard(card);
         user.setPromotionalEmails(promotionalEmails);
         repositoryService.persist(user);
         return user;
@@ -117,9 +111,6 @@ public class UserRepository {
             final boolean promotionalEmails
     ) {
         User user = findByExactEmail(email);
-        Card card = null;
-        if(!Strings.isNullOrEmpty(cardNumber))
-            card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, null, center);
         if(user == null) {
             user = newUser(
                     enabled,
@@ -128,10 +119,26 @@ public class UserRepository {
                     lastName,
                     email,
                     center,
-                    card,
                     promotionalEmails);
         }
+        if(cardNumber != null) {
+            user.giveCard(cardNumber);
+        }
         return user;
+    }
+
+    @Programmatic
+    public String validateFindOrCreate(
+            final boolean enabled,
+            final Title title,
+            final String firstName,
+            final String lastName,
+            final String email,
+            final Center center,
+            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final boolean promotionalEmails
+    ) {
+        return cardRepository.checkCardNumber(cardNumber);
     }
 
     @Programmatic

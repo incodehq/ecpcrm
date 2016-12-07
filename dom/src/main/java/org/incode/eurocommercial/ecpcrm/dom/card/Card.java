@@ -31,6 +31,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +55,17 @@ import lombok.Setter;
                 name = "findByStatus", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
-                        + "WHERE status == :status ")
+                        + "WHERE status == :status "),
+        @Query(
+                name = "findByOwner", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
+                        + "WHERE owner == :owner "),
+        @Query(
+                name = "findByCenter", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
+                        + "WHERE center == :center ")
 })
 @DomainObject(
         editing = Editing.DISABLED,
@@ -76,15 +87,15 @@ public class Card implements Comparable<Card> {
     @Getter @Setter
     private String number;
 
+    @Column(allowsNull = "true")
+    @Property
+    @Getter @Setter
+    private User owner;
+
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
     private CardStatus status;
-
-    @Column(allowsNull = "true")
-    @Property
-    @Getter @Setter
-    private String clientId;
 
     @Column(allowsNull = "false")
     @Property
@@ -96,5 +107,7 @@ public class Card implements Comparable<Card> {
         this.setStatus(CardStatus.DISABLED);
         return this;
     }
+
+
 
 }

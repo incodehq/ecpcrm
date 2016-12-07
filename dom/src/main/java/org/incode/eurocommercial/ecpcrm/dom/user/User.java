@@ -33,7 +33,6 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Date;
 
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -139,9 +138,14 @@ public class User implements Comparable<User> {
     @Action
     @MemberOrder(name = "card", sequence = "1")
     public User giveCard(String cardNumber) {
-        card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, null, getCenter());
+        Card card = cardRepository.findByExactNumber(cardNumber);
         setCard(card);
+        card.setOwner(this);
         return this;
+    }
+
+    public String validateGiveCard(String cardNumber) {
+        return cardNumber == null ? "No number entered" : cardRepository.checkCardNumber(cardNumber);
     }
 
     /* This is in Biggerband's domain model, but not implemented */

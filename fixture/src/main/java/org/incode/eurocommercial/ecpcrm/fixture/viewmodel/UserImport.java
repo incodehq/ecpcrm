@@ -73,24 +73,21 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
         Center center = centerRepository.findByReference(getCenterReference());
         //TODO Find or create card
 
-        userRepository.newUser(
+        userRepository.findOrCreate(
                 asBoolean(getEnabled()),
                 title,
                 StringUtils.trim(getFirstName()),
                 StringUtils.trim(getLastName()),
                 StringUtils.trim(getEmail()),
                 center,
-                null,
+                StringUtils.trim(getCardNumber()),
                 asBoolean(getPromotionalEmails()));
 
         return null;
     }
 
     private boolean asBoolean(final String booleanString) {
-        if (booleanString == null){
-            return false;
-        }
-        return Integer.parseInt(booleanString) != 0;
+        return booleanString != null && Integer.parseInt(booleanString) != 0;
     }
 
     @Inject

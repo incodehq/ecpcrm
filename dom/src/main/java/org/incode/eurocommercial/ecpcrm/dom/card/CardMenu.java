@@ -61,6 +61,13 @@ public class CardMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "1")
+    public List<Card> listUnassignedCards() {
+        return cardRepository.listUnassignedCards();
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<Card> findByNumber(
             @ParameterLayout(named = "Number") final String number
@@ -75,10 +82,9 @@ public class CardMenu {
     public Card newCard(
             final @ParameterLayout(named = "Number") String number,
             final @ParameterLayout(named = "Status") CardStatus status,
-            final @ParameterLayout(named = "Client ID") String clientId,
             final @ParameterLayout(named = "Center") Center center
     ) {
-        return cardRepository.findOrCreate(number, status, clientId, center);
+        return cardRepository.findOrCreate(number, status, center);
     }
 
     @Inject

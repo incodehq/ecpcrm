@@ -37,10 +37,6 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String clientId;
-
-    @Getter @Setter
-    @Property(optionality = Optionality.MANDATORY)
     private String centerReference;
 
     @Override
@@ -61,7 +57,6 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
         cardRepository.newCard(
                 getNumber(),
                 status,
-                getClientId(),
                 center
         );
 

@@ -41,6 +41,15 @@ public class CardRepository {
     }
 
     @Programmatic
+    public List<Card> listUnassignedCards() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Card.class,
+                        "findByOwner",
+                        "owner", null));
+    }
+
+    @Programmatic
     public List<Card> listEnabledCards() {
         return repositoryService.allMatches(
                 new QueryDefault<>(
@@ -71,18 +80,27 @@ public class CardRepository {
                         "number", number));
     }
 
+    @Programmatic
+    public List<Card> findByCenter(
+            final Center center
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Card.class,
+                        "findByCenter",
+                        "center", center));
+    }
+
 
     @Programmatic
     public Card newCard(
             final String number,
             final CardStatus status,
-            final String clientId,
             final Center center
     ) {
         final Card card = repositoryService.instantiate(Card.class);
         card.setNumber(number);
         card.setStatus(status);
-        card.setClientId(clientId);
         card.setCenter(center);
         repositoryService.persist(card);
         return card;
@@ -92,7 +110,6 @@ public class CardRepository {
     public Card findOrCreate(
             final String number,
             final CardStatus status,
-            final String clientId,
             final Center center
     ) {
         Card card = findByExactNumber(number);
@@ -100,7 +117,6 @@ public class CardRepository {
             card = newCard(
                     number,
                     status,
-                    clientId,
                     center
             );
         }
@@ -110,6 +126,17 @@ public class CardRepository {
     @Programmatic
     public void delete(final Card card) {
         repositoryService.remove(card);
+    }
+
+    public String checkCardNumber(String cardNumber) {
+        if(cardNumber == null) {
+            return null;
+        }
+        Card card = findByExactNumber(cardNumber);
+        if(card == null) {
+            return "Card with number " + cardNumber + " doesn't exist";
+        }
+        return null;
     }
 
     @Inject
