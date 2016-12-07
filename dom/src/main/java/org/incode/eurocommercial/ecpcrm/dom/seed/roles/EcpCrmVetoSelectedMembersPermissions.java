@@ -16,11 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.seed.roles;
 
-import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
-import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
-
-import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObject;
 
 public class EcpCrmVetoSelectedMembersPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
@@ -32,12 +28,7 @@ public class EcpCrmVetoSelectedMembersPermissions extends AbstractRoleAndPermiss
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        // regular members
-        newMemberPermissions(
-                ApplicationPermissionRule.VETO,
-                ApplicationPermissionMode.VIEWING,
-                QuickObject.class,
-                "updateName");
+
     }
 
 }

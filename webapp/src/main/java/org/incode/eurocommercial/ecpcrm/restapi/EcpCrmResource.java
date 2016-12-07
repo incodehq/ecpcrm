@@ -2,7 +2,6 @@ package org.incode.eurocommercial.ecpcrm.restapi;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,17 +9,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.applib.RestfulMediaType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService;
 import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrinting;
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
-
-import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObject;
-import org.incode.eurocommercial.ecpcrm.dom.quick.QuickObjectRepository;
 
 @Path("/crm/api/6.0")
 public class EcpCrmResource extends ResourceAbstract  {
@@ -197,14 +191,14 @@ public class EcpCrmResource extends ResourceAbstract  {
     }
 
 
-    private QuickObjectViewModel asVm(final QuickObject x) {
-        return QuickObjectViewModel.create(x.getName(), x.getInteger(), asPattern(x.getLocalDate()));
-    }
-
-    private static String asPattern(final LocalDate localDate) {
-        return localDate == null ? null : localDate.toString();
-    }
-
-    @Inject
-    QuickObjectRepository quickObjectRepository;
+//    private QuickObjectViewModel asVm(final QuickObject x) {
+//        return QuickObjectViewModel.create(x.getName(), x.getInteger(), asPattern(x.getLocalDate()));
+//    }
+//
+//    private static String asPattern(final LocalDate localDate) {
+//        return localDate == null ? null : localDate.toString();
+//    }
+//
+//    @Inject
+//    QuickObjectRepository quickObjectRepository;
 }
