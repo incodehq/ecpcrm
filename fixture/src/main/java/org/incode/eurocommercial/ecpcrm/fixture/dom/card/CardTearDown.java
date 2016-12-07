@@ -17,19 +17,20 @@
  *  under the License.
  */
 
-package org.incode.eurocommercial.ecpcrm.fixture.dom.user;
+package org.incode.eurocommercial.ecpcrm.fixture.dom.card;
 
 import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class UserTearDown extends FixtureScript {
+public class CardTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"User\"");
+        isisJdoSupport.executeUpdate("delete from \"Card\"");
     }
+
 
     @Inject
     private IsisJdoSupport isisJdoSupport;

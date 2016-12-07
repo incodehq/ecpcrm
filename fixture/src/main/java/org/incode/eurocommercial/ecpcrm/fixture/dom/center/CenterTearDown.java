@@ -19,6 +19,8 @@
 
 package org.incode.eurocommercial.ecpcrm.fixture.dom.center;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
@@ -30,7 +32,7 @@ public class CenterTearDown extends FixtureScript {
     }
 
 
-    @javax.inject.Inject
+    @Inject
     private IsisJdoSupport isisJdoSupport;
 
 }

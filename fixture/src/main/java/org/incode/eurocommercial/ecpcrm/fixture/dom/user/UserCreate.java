@@ -1,16 +1,18 @@
 package org.incode.eurocommercial.ecpcrm.fixture.dom.user;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import com.github.javafaker.Faker;
 
-import org.apache.wicket.util.string.Strings;
-
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -60,7 +62,15 @@ public class UserCreate extends FixtureScript {
         lastName = defaultParam("lastName", ec, faker.name().lastName());
         email = defaultParam("email", ec, faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase());
         center = defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
-        cardNumber = defaultParam("cardNumber", ec, Strings.toString(faker.number().randomNumber(13, true)));
+
+        cardNumber = null;
+        List<Card> availableCards = cardRepository.findByCenter(center()).stream()
+                .filter(c -> c.getOwner() == null)
+                .collect(Collectors.toList());
+        if(availableCards.size() > 0) {
+            cardNumber = defaultParam("cardNumber", ec, availableCards.get(ThreadLocalRandom.current().nextInt(0, availableCards.size())).getNumber());
+        }
+
         promotionalEmails = defaultParam("promotionalEmails", ec, faker.bool().bool());
 
         this.user = wrap(menu).newUser(enabled(), title(), firstName(), lastName(), email(), center(), cardNumber(), promotionalEmails());
@@ -73,4 +83,6 @@ public class UserCreate extends FixtureScript {
 
     @Inject
     CenterRepository centerRepository;
+
+    @Inject CardRepository cardRepository;
 }
