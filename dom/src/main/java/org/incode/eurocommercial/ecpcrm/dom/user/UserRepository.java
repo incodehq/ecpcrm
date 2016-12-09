@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.user;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,6 +32,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -76,6 +79,17 @@ public class UserRepository {
                         "name", name));
     }
 
+    @Programmatic
+    public User findByReference(
+            final String reference
+    ) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(
+                        User.class,
+                        "findByReference",
+                        "reference", reference));
+    }
+
 
     @Programmatic
     public User newUser(
@@ -85,8 +99,11 @@ public class UserRepository {
             final String lastName,
             final String email,
             final Center center,
-            final boolean promotionalEmails
+            final boolean promotionalEmails,
+            String reference
     ) {
+        Numerator userNumerator = numeratorRepository.findOrCreateNumerator("userNumerator", "%d", BigInteger.ZERO);
+
         final User user = repositoryService.instantiate(User.class);
         user.setEnabled(enabled);
         user.setTitle(title);
@@ -95,6 +112,17 @@ public class UserRepository {
         user.setEmail(email);
         user.setCenter(center);
         user.setPromotionalEmails(promotionalEmails);
+
+        if(reference == null) {
+            reference = userNumerator.nextIncrementStr();
+        }
+        user.setReference(reference);
+
+        BigInteger ref = new BigInteger(reference);
+        if(ref.compareTo(userNumerator.getLastIncrement()) == 1) {
+            userNumerator.setLastIncrement(ref);
+        }
+
         repositoryService.persist(user);
         return user;
     }
@@ -108,7 +136,8 @@ public class UserRepository {
             final String email,
             final Center center,
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
-            final boolean promotionalEmails
+            final boolean promotionalEmails,
+            final String reference
     ) {
         User user = findByExactEmail(email);
         if(user == null) {
@@ -119,7 +148,8 @@ public class UserRepository {
                     lastName,
                     email,
                     center,
-                    promotionalEmails);
+                    promotionalEmails,
+                    reference);
         }
         if(cardNumber != null) {
             user.giveCard(cardNumber);
@@ -136,9 +166,10 @@ public class UserRepository {
             final String email,
             final Center center,
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
-            final boolean promotionalEmails
+            final boolean promotionalEmails,
+            final String reference
     ) {
-        return cardRepository.checkCardNumber(cardNumber);
+        return cardRepository.cardExists(cardNumber);
     }
 
     @Programmatic
@@ -151,5 +182,7 @@ public class UserRepository {
 
     @Inject
     CardRepository cardRepository;
+
+    @Inject NumeratorRepository numeratorRepository;
 
 }

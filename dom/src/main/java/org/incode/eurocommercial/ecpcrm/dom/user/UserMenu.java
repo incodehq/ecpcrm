@@ -47,12 +47,12 @@ import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 )
 public class UserMenu {
 
-    @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    @MemberOrder(sequence = "1")
-    public List<User> listAll() {
-        return userRepository.listAll();
-    }
+//    @Action(semantics = SemanticsOf.SAFE)
+//    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+//    @MemberOrder(sequence = "1")
+//    public List<User> listAll() {
+//        return userRepository.listAll();
+//    }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
@@ -74,6 +74,16 @@ public class UserMenu {
         return userRepository.findByNameContains(name);
     }
 
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "3")
+    public User findByReference(
+            @ParameterLayout(named = "Reference")
+            final String reference
+    ) {
+        return userRepository.findByReference(reference);
+    }
+
     public static class CreateDomainEvent extends ActionDomainEvent<UserMenu> {}
 
     @Action(domainEvent = CreateDomainEvent.class)
@@ -89,7 +99,7 @@ public class UserMenu {
             final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails
     ) {
         return userRepository.findOrCreate(
-                enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
+                enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails, null);
     }
 
     public String validateNewUser(
@@ -102,7 +112,7 @@ public class UserMenu {
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails
     ) {
-        return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails);
+        return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails, null);
     }
 
     @Inject

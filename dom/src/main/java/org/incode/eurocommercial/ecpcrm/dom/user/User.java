@@ -19,7 +19,6 @@ package org.incode.eurocommercial.ecpcrm.dom.user;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
@@ -44,7 +43,6 @@ import lombok.Setter;
 @PersistenceCapable(
         identityType = IdentityType.DATASTORE
 )
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
         @Query(
                 name = "findByExactEmail", language = "JDOQL",
@@ -61,7 +59,12 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
                         + "WHERE firstName.indexOf(:name) >= 0 "
-                        + "|| lastName.indexOf(:name) >= 0")
+                        + "|| lastName.indexOf(:name) >= 0"),
+        @Query(
+                name = "findByReference", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
+                        + "WHERE reference == :reference")
 })
 @DomainObject(
         editing = Editing.DISABLED
@@ -79,6 +82,12 @@ public class User implements Comparable<User> {
     public String title() {
         return getFirstName() + " " + getLastName();
     }
+
+    @Column(allowsNull = "false")
+    @Property
+    @MemberOrder(sequence = "12")
+    @Getter @Setter
+    private String reference;
 
     @Column(allowsNull = "false")
     @Property
@@ -139,13 +148,15 @@ public class User implements Comparable<User> {
     @MemberOrder(name = "card", sequence = "1")
     public User giveCard(String cardNumber) {
         Card card = cardRepository.findByExactNumber(cardNumber);
-        setCard(card);
-        card.setOwner(this);
+        if(card != null) {
+            setCard(card);
+            card.setOwner(this);
+        }
         return this;
     }
 
     public String validateGiveCard(String cardNumber) {
-        return cardNumber == null ? "No number entered" : cardRepository.checkCardNumber(cardNumber);
+        return cardNumber == null ? "No number entered" : cardRepository.cardExists(cardNumber);
     }
 
     /* This is in Biggerband's domain model, but not implemented */

@@ -128,15 +128,54 @@ public class CardRepository {
         repositoryService.remove(card);
     }
 
-    public String checkCardNumber(String cardNumber) {
+    public String cardExists(String cardNumber) {
         if(cardNumber == null) {
             return null;
         }
+        if(cardNumberIsValid(cardNumber)) {
+            return "Card number " + cardNumber + " is invalid";
+        }
+
         Card card = findByExactNumber(cardNumber);
         if(card == null) {
             return "Card with number " + cardNumber + " doesn't exist";
         }
         return null;
+    }
+
+    public boolean cardNumberIsValid(String cardNumber) {
+        /* Number has 13 digits */
+        if(cardNumber.length() != 13) {
+            return false;
+        }
+
+        /* Number starts with 20 */
+        if(!cardNumber.startsWith("20")) {
+            return false;
+        }
+
+        /* Number starts with center code */
+        // TODO: check center
+
+        /* Checksum */
+        int[] digits = cardNumber.chars()
+                .map(Character::getNumericValue)
+                .toArray();
+        int[] multipliers = {1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3};
+
+        int sum = 0;
+
+        for(int i = 0; i < digits.length - 1; i++) {
+            sum += digits[i] * multipliers[i];
+        }
+
+        int key = (10 - sum % 10) % 10;
+
+        if(digits[digits.length - 1] != key) {
+            return false;
+        }
+
+        return true;
     }
 
     @Inject
