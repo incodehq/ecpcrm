@@ -23,6 +23,7 @@ import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
 
+@Ignore
 public class CardRequestTest extends EcpCrmTest {
 
     private String endpoint = "card-request";

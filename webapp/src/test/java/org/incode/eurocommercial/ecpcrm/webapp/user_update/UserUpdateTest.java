@@ -16,8 +16,11 @@
  */
 package org.incode.eurocommercial.ecpcrm.webapp.user_update;
 
+import org.junit.Ignore;
+
 import org.incode.eurocommercial.ecpcrm.webapp.user_create.UserCreateTest;
 
+@Ignore
 public class UserUpdateTest extends UserCreateTest {
 
 }
