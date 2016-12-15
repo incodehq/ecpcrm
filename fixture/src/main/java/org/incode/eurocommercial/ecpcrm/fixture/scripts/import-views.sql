@@ -13,6 +13,7 @@ SELECT
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`user` AS
 SELECT
  u.user_id AS id,
+ u.user_id AS reference,
  u.enabled AS enabled,
  CASE u.genre
  WHEN "m" THEN "MALE"
@@ -23,11 +24,16 @@ SELECT
  IFNULL(u.first_name,"UNKNOWN_IMPORT") AS firstName,
  IFNULL(u.last_name,"UNKNOWN_IMPORT") AS lastName,
  IFNULL(u.email,"UNKNOWN_IMPORT") AS email,
+ IFNULL(u.address, "UNKNOWN_IMPORT") AS address,
+ IFNULL(u.zipcode, "UNKNOWN_IMPORT") AS zipcode,
+ IFNULL(u.city, "UNKNOWN_IMPORT") AS city,
+ IFNULL(p.field_phone_value, "UNKNOWN_IMPORT") AS phoneNumber,
  IFNULL(u.card_number,"UNKNOWN_IMPORT") AS cardNumber,
  u.optin AS promotionalEmails,
  c.reference AS centerReference
- FROM `crm`.`eurocommercial_crm_user` AS u
- INNER JOIN `center` AS c ON c.id = u.center_id;
+ FROM `crm`.`eurocommercial_crm_user_view5` AS u
+ INNER JOIN `center` AS c ON c.id = u.center_id
+ INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id;
  
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS
 SELECT
