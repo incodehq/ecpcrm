@@ -52,7 +52,7 @@ public class CenterRepository {
     }
 
     @Programmatic
-    public Center newCenter(final String reference, final String name){
+    private Center newCenter(final String reference, final String name){
         Center center = repositoryService.instantiate(Center.class);
         center.setReference(reference);
         center.setName(name);
@@ -69,9 +69,5 @@ public class CenterRepository {
         return center;
     }
 
-
-
-    @Inject
-    private RepositoryService repositoryService;
-
+    @Inject private RepositoryService repositoryService;
 }

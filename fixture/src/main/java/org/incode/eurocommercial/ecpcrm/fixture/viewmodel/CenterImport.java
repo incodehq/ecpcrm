@@ -40,7 +40,7 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-        centerRepository.newCenter(getReference(), getName());
+        centerRepository.findOrCreate(getReference(), getName());
 
         return null;
     }

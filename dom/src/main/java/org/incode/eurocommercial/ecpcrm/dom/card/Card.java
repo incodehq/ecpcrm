@@ -22,6 +22,7 @@ import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
+import javax.jdo.annotations.Unique;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -75,7 +76,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public int compareTo(final Card other) {
-        return ObjectContracts.compare(this, other, "email");
+        return ObjectContracts.compare(this, other, "number");
     }
 
     public String title() {
@@ -83,6 +84,7 @@ public class Card implements Comparable<Card> {
     }
 
     @Column(allowsNull = "false")
+    @Unique
     @Property
     @Getter @Setter
     private String number;
@@ -107,7 +109,5 @@ public class Card implements Comparable<Card> {
         this.setStatus(CardStatus.DISABLED);
         return this;
     }
-
-
 
 }

@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Strings;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
@@ -92,7 +94,7 @@ public class UserRepository {
 
 
     @Programmatic
-    public User newUser(
+    private User newUser(
             final boolean enabled,
             final Title title,
             final String firstName,
@@ -169,7 +171,16 @@ public class UserRepository {
             final boolean promotionalEmails,
             final String reference
     ) {
-        return cardRepository.cardExists(cardNumber);
+        if(Strings.isNullOrEmpty(cardNumber)) {
+            return null;
+        }
+        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+            return "Card number " + cardNumber + " is invalid";
+        }
+        if(!cardRepository.cardExists(cardNumber)) {
+            return "Card with number " + cardNumber + " doesn't exist";
+        }
+        return null;
     }
 
     @Programmatic
@@ -177,12 +188,7 @@ public class UserRepository {
         repositoryService.remove(user);
     }
 
-    @Inject
-    RepositoryService repositoryService;
-
-    @Inject
-    CardRepository cardRepository;
-
+    @Inject RepositoryService repositoryService;
+    @Inject CardRepository cardRepository;
     @Inject NumeratorRepository numeratorRepository;
-
 }

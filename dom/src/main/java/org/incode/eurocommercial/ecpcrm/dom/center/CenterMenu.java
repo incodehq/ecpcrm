@@ -56,6 +56,5 @@ public class CenterMenu {
         return centerRepository.findOrCreate(reference, name);
     }
 
-    @Inject
-    CenterRepository centerRepository;
+    @Inject CenterRepository centerRepository;
 }

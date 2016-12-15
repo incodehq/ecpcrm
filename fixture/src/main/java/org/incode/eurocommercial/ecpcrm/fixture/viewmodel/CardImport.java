@@ -54,7 +54,7 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
         CardStatus status = CardStatus.valueOf(getStatus());
         Center center = centerRepository.findByReference(getCenterReference());
 
-        cardRepository.newCard(
+        cardRepository.findOrCreate(
                 getNumber(),
                 status,
                 center

@@ -115,9 +115,6 @@ public class UserMenu {
         return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, center, cardNumber, promotionalEmails, null);
     }
 
-    @Inject
-    UserRepository userRepository;
-
-    @Inject
-    CenterRepository centerRepository;
+    @Inject UserRepository userRepository;
+    @Inject CenterRepository centerRepository;
 }

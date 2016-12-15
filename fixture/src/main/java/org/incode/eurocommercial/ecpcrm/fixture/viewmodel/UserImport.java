@@ -18,7 +18,6 @@ import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
 import lombok.Getter;
@@ -76,9 +75,8 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
     public List<Object> importData(Object previousRow) {
         Title title = Title.valueOf(getTitle());
         Center center = centerRepository.findByReference(getCenterReference());
-        //TODO Find or create card
 
-        User user = userRepository.findOrCreate(
+        userRepository.findOrCreate(
                 asBoolean(getEnabled()),
                 title,
                 StringUtils.trim(getFirstName()),

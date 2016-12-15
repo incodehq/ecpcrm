@@ -29,6 +29,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
@@ -80,16 +82,17 @@ public class CardMenu {
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "3")
     public Card newCard(
-            final @ParameterLayout(named = "Number") String number,
+            final @ParameterLayout(named = "Number") @Parameter(optionality = Optionality.OPTIONAL) String number,
             final @ParameterLayout(named = "Status") CardStatus status,
             final @ParameterLayout(named = "Center") Center center
     ) {
         return cardRepository.findOrCreate(number, status, center);
     }
 
-    @Inject
-    CardRepository cardRepository;
+    public String validateNewCard(String number, CardStatus status, Center center) {
+        return cardRepository.validateFindOrCreate(number, status, center);
+    }
 
-    @Inject
-    CenterRepository centerRepository;
+    @Inject CardRepository cardRepository;
+    @Inject CenterRepository centerRepository;
 }

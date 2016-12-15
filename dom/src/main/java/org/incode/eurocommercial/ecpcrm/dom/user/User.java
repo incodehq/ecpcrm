@@ -156,7 +156,17 @@ public class User implements Comparable<User> {
     }
 
     public String validateGiveCard(String cardNumber) {
-        return cardNumber == null ? "No number entered" : cardRepository.cardExists(cardNumber);
+        if(cardNumber == null) {
+            return "No number entered";
+        }
+        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+            return "Card number " + cardNumber + " is invalid";
+        }
+        if(!cardRepository.cardExists(cardNumber)) {
+            return "Card with number " + cardNumber + " doesn't exist";
+        }
+
+        return null;
     }
 
     /* This is in Biggerband's domain model, but not implemented */
@@ -165,7 +175,6 @@ public class User implements Comparable<User> {
 //    @Getter @Setter
 //    private Boolean hasCar;
 
-    @Inject
-    private CardRepository cardRepository;
+    @Inject private CardRepository cardRepository;
 
 }

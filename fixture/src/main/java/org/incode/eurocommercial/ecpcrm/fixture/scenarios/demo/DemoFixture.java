@@ -19,8 +19,11 @@
 
 package org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.inject.Inject;
 
 import com.google.common.collect.Lists;
 
@@ -30,7 +33,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardTearDown;
@@ -65,6 +71,8 @@ public class DemoFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
+        Numerator cardNumerator = numeratorRepository.newNumerator("cardNumerator", "%d", new BigInteger("2000000000000"));
+        String cardNumber;
 
         // zap everything
         ec.executeChild(this, new UserTearDown());
@@ -76,7 +84,13 @@ public class DemoFixture extends FixtureScript {
         }
 
         for(int i = 0; i < NUM_CARDS; i++) {
+            do {
+                cardNumber = cardNumerator.nextIncrementStr();
+            } while(!cardRepository.cardNumberIsValid(cardNumber));
+
+            ec.setParameter("number", cardNumber);
             ec.executeChild(this, new CardCreate());
+
         }
 
         for(int i = 0; i < NUM_USERS; i++) {
@@ -102,4 +116,7 @@ public class DemoFixture extends FixtureScript {
                 .map(c -> (Card) c)
                 .collect(Collectors.toList()));
     }
+
+    @Inject NumeratorRepository numeratorRepository;
+    @Inject CardRepository cardRepository;
 }

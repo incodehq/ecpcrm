@@ -16,9 +16,12 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.card;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import com.google.common.base.Strings;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -28,6 +31,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -93,15 +98,30 @@ public class CardRepository {
 
 
     @Programmatic
-    public Card newCard(
-            final String number,
+    private Card newCard(
+            String number,
             final CardStatus status,
             final Center center
     ) {
+        Numerator cardNumerator = numeratorRepository.findOrCreateNumerator("cardNumerator", "%d", BigInteger.ZERO);
+
         final Card card = repositoryService.instantiate(Card.class);
+
+        if(Strings.isNullOrEmpty(number)) {
+            while(!cardNumberIsValid(number)) {
+                number = cardNumerator.nextIncrementStr();
+            }
+        }
         card.setNumber(number);
+
         card.setStatus(status);
         card.setCenter(center);
+
+        BigInteger num = new BigInteger(number);
+        if(num.compareTo(cardNumerator.getLastIncrement()) == 1) {
+            cardNumerator.setLastIncrement(num);
+        }
+
         repositoryService.persist(card);
         return card;
     }
@@ -124,26 +144,25 @@ public class CardRepository {
     }
 
     @Programmatic
+    public String validateFindOrCreate(final String number, final CardStatus status, final Center center) {
+        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number) ? null : "Card number is invalid";
+    }
+
+    @Programmatic
     public void delete(final Card card) {
         repositoryService.remove(card);
     }
 
-    public String cardExists(String cardNumber) {
-        if(cardNumber == null) {
-            return null;
-        }
-        if(cardNumberIsValid(cardNumber)) {
-            return "Card number " + cardNumber + " is invalid";
-        }
-
-        Card card = findByExactNumber(cardNumber);
-        if(card == null) {
-            return "Card with number " + cardNumber + " doesn't exist";
-        }
-        return null;
+    @Programmatic
+    public boolean cardExists(String cardNumber) {
+        return findByExactNumber(cardNumber) != null;
     }
 
+    @Programmatic
     public boolean cardNumberIsValid(String cardNumber) {
+        if(Strings.isNullOrEmpty(cardNumber)) {
+            return false;
+        }
         /* Number has 13 digits */
         if(cardNumber.length() != 13) {
             return false;
@@ -178,7 +197,7 @@ public class CardRepository {
         return true;
     }
 
-    @Inject
-    RepositoryService repositoryService;
+    @Inject RepositoryService repositoryService;
+    @Inject NumeratorRepository numeratorRepository;
 
 }
