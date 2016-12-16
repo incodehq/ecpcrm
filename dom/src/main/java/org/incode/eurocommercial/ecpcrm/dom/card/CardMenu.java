@@ -93,6 +93,17 @@ public class CardMenu {
         return cardRepository.validateFindOrCreate(number, status, center);
     }
 
+    @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
+    @MemberOrder(sequence = "4")
+    public List<Card> newBatch(
+            final @ParameterLayout(named = "Start Number") String startNumber,
+            final @ParameterLayout(named = "End Number") String endNumber,
+            final @ParameterLayout(named = "Status") CardStatus status,
+            final @ParameterLayout(named = "Center") Center center
+    ) {
+        return cardRepository.newBatch(startNumber, endNumber, status, center);
+    }
+
     @Inject CardRepository cardRepository;
     @Inject CenterRepository centerRepository;
 }

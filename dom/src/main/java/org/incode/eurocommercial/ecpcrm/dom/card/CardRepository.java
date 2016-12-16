@@ -17,6 +17,7 @@
 package org.incode.eurocommercial.ecpcrm.dom.card;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -124,6 +125,25 @@ public class CardRepository {
 
         repositoryService.persist(card);
         return card;
+    }
+
+    @Programmatic
+    public List<Card> newBatch(
+            final String startNumber,
+            final String endNumber,
+            final CardStatus status,
+            final Center center
+    ) {
+        BigInteger start = new BigInteger(startNumber);
+        BigInteger end = new BigInteger(endNumber);
+        List<Card> results = new ArrayList<>();
+        for(BigInteger i = start; i.compareTo(end) <= 0; i = i.add(BigInteger.ONE)) {
+            String cardNumber = i.toString();
+            if(cardNumberIsValid(cardNumber)) {
+                results.add(findOrCreate(cardNumber, status, center));
+            }
+        }
+        return results;
     }
 
     @Programmatic
