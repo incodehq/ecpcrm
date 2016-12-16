@@ -27,7 +27,6 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Date;
@@ -85,91 +84,76 @@ public class User implements Comparable<User> {
 
     @Column(allowsNull = "false")
     @Property
-    @MemberOrder(sequence = "12")
     @Getter @Setter
     private String reference;
 
     @Column(allowsNull = "false")
     @Property
-    @MemberOrder(sequence = "1")
     @Getter @Setter
     private Title title;
 
     @Column(allowsNull="false", length = 40)
     @Property
-    @MemberOrder(sequence = "2")
     @Getter @Setter
     private String firstName;
 
     @Column(allowsNull="false", length = 40)
     @Property
-    @MemberOrder(sequence = "3")
     @Getter @Setter
     private String lastName;
 
     @Column(allowsNull = "false")
     @Property
-    @MemberOrder(sequence = "4")
     @Getter @Setter
     private String email;
 
     @Column(allowsNull = "true")
     @Property
-    @MemberOrder(sequence = "4")
     @Getter @Setter
     private String address;
 
     @Column(allowsNull = "true")
     @Property
-    @MemberOrder(sequence = "4")
     @Getter @Setter
     private String zipcode;
 
     @Column(allowsNull = "true")
     @Property
-    @MemberOrder(sequence = "4")
     @Getter @Setter
     private String city;
 
     @Column(allowsNull = "true")
     @Property
-    @MemberOrder(sequence = "4")
     @Getter @Setter
     private String phoneNumber;
 
     /* This is in Biggerband's domain model, but not implemented */
     @Column(allowsNull = "true")
     @Property
-    @MemberOrder(sequence = "5")
     @Getter @Setter
     private Date birthDate;
 
     @Column(allowsNull = "true")
     @Property
-    @MemberOrder(sequence = "6")
     @Getter @Setter
     private Card card;
 
     @Column(allowsNull = "false")
     @Property
-    @MemberOrder(sequence = "7")
     @Getter @Setter
     private Center center;
 
     @Column(allowsNull = "false")
     @Property
-    @MemberOrder(sequence = "8")
     @Getter @Setter
     private boolean enabled;
 
     @Column(allowsNull = "false")
     @Property
-    @MemberOrder(sequence = "9")
     @Getter @Setter
     private boolean promotionalEmails;
 
     @Action
-    @MemberOrder(name = "card", sequence = "1")
     public User giveCard(String cardNumber) {
         Card card = cardRepository.findByExactNumber(cardNumber);
         if(card != null) {
