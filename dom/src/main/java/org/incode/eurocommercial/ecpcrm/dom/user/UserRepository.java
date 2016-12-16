@@ -100,6 +100,10 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final String address,
+            final String zipcode,
+            final String city,
+            final String phoneNumber,
             final Center center,
             final boolean promotionalEmails,
             String reference
@@ -112,6 +116,10 @@ public class UserRepository {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setAddress(address);
+        user.setZipcode(zipcode);
+        user.setCity(city);
+        user.setPhoneNumber(phoneNumber);
         user.setCenter(center);
         user.setPromotionalEmails(promotionalEmails);
 
@@ -136,6 +144,10 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final String address,
+            final String zipcode,
+            final String city,
+            final String phoneNumber,
             final Center center,
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails,
@@ -149,6 +161,10 @@ public class UserRepository {
                     firstName,
                     lastName,
                     email,
+                    address,
+                    zipcode,
+                    city,
+                    phoneNumber,
                     center,
                     promotionalEmails,
                     reference);
@@ -166,6 +182,10 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final String address,
+            final String zipcode,
+            final String city,
+            final String phoneNumber,
             final Center center,
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails,

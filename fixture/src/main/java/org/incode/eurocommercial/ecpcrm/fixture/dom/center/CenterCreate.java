@@ -39,7 +39,5 @@ public class CenterCreate extends FixtureScript {
         ec.addResult(this, center);
     }
 
-
-    @Inject
-    CenterMenu menu;
+    @Inject CenterMenu menu;
 }

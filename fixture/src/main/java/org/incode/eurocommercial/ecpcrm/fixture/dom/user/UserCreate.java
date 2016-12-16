@@ -41,6 +41,18 @@ public class UserCreate extends FixtureScript {
     private String email;
 
     @Getter @Setter
+    private String address;
+
+    @Getter @Setter
+    private String zipcode;
+
+    @Getter @Setter
+    private String city;
+
+    @Getter @Setter
+    private String phoneNumber;
+
+    @Getter @Setter
     private Center center;
 
     @Getter @Setter
@@ -61,6 +73,10 @@ public class UserCreate extends FixtureScript {
         firstName = defaultParam("firstName", ec, faker.name().firstName());
         lastName = defaultParam("lastName", ec, faker.name().lastName());
         email = defaultParam("email", ec, faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase());
+        address = defaultParam("address", ec, faker.address().streetAddress());
+        zipcode = defaultParam("zipcode", ec, faker.address().zipCode());
+        city = defaultParam("city", ec, faker.address().city());
+        phoneNumber = defaultParam("phoneNumber", ec, faker.phoneNumber().cellPhone());
         center = defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
 
         cardNumber = null;
@@ -73,16 +89,12 @@ public class UserCreate extends FixtureScript {
 
         promotionalEmails = defaultParam("promotionalEmails", ec, faker.bool().bool());
 
-        this.user = wrap(menu).newUser(enabled(), title(), firstName(), lastName(), email(), center(), cardNumber(), promotionalEmails());
+        this.user = wrap(menu).newUser(enabled(), title(), firstName(), lastName(), email(), address(), zipcode(), city(), phoneNumber(), center(), cardNumber(), promotionalEmails());
         ec.addResult(this, user);
     }
 
 
-    @Inject
-    UserMenu menu;
-
-    @Inject
-    CenterRepository centerRepository;
-
+    @Inject UserMenu menu;
+    @Inject CenterRepository centerRepository;
     @Inject CardRepository cardRepository;
 }

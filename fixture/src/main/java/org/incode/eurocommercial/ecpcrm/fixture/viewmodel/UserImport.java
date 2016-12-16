@@ -51,6 +51,22 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
+    private String address;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String zipcode;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String city;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String phoneNumber;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
     private String centerReference;
 
     @Getter @Setter
@@ -82,6 +98,10 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
                 StringUtils.trim(getFirstName()),
                 StringUtils.trim(getLastName()),
                 StringUtils.trim(getEmail()),
+                StringUtils.trim(getAddress()),
+                StringUtils.trim(getZipcode()),
+                StringUtils.trim(getCity()),
+                StringUtils.trim(getPhoneNumber()),
                 center,
                 StringUtils.trim(getCardNumber()),
                 asBoolean(getPromotionalEmails()),
@@ -94,9 +114,6 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
         return booleanString != null && Integer.parseInt(booleanString) != 0;
     }
 
-    @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private CenterRepository centerRepository;
+    @Inject private UserRepository userRepository;
+    @Inject private CenterRepository centerRepository;
 }

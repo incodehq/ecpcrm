@@ -44,8 +44,6 @@ public class CardCreate extends FixtureScript {
     }
 
 
-    @Inject
-    CardMenu menu;
-
+    @Inject CardMenu menu;
     @Inject CenterRepository centerRepository;
 }

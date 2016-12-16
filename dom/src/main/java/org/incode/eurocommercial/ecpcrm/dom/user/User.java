@@ -113,6 +113,30 @@ public class User implements Comparable<User> {
     @Getter @Setter
     private String email;
 
+    @Column(allowsNull = "true")
+    @Property
+    @MemberOrder(sequence = "4")
+    @Getter @Setter
+    private String address;
+
+    @Column(allowsNull = "true")
+    @Property
+    @MemberOrder(sequence = "4")
+    @Getter @Setter
+    private String zipcode;
+
+    @Column(allowsNull = "true")
+    @Property
+    @MemberOrder(sequence = "4")
+    @Getter @Setter
+    private String city;
+
+    @Column(allowsNull = "true")
+    @Property
+    @MemberOrder(sequence = "4")
+    @Getter @Setter
+    private String phoneNumber;
+
     /* This is in Biggerband's domain model, but not implemented */
     @Column(allowsNull = "true")
     @Property
@@ -142,7 +166,7 @@ public class User implements Comparable<User> {
     @Property
     @MemberOrder(sequence = "9")
     @Getter @Setter
-    private Boolean promotionalEmails;
+    private boolean promotionalEmails;
 
     @Action
     @MemberOrder(name = "card", sequence = "1")

@@ -63,9 +63,6 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
         return null;
     }
 
-    @Inject
-    private CardRepository cardRepository;
-
-    @Inject
-    private CenterRepository centerRepository;
+    @Inject private CardRepository cardRepository;
+    @Inject private CenterRepository centerRepository;
 }

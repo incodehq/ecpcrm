@@ -45,6 +45,5 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
         return null;
     }
 
-    @Inject
-    private CenterRepository centerRepository;
+    @Inject private CenterRepository centerRepository;
 }
