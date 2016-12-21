@@ -16,7 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.card;
 
-import java.time.LocalDate;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -36,6 +35,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
@@ -127,7 +127,7 @@ public class Card implements Comparable<Card> {
 
     @Programmatic
     public boolean canPlay() {
-        return cardGameRepository.findByCardAndDate(this, LocalDate.now()) == null;
+        return cardGameRepository.findByCardAndDate(this, clockService.now()) == null;
     }
 
 //    @Programmatic
@@ -136,8 +136,10 @@ public class Card implements Comparable<Card> {
         if(!canPlay()) {
             return null;
         }
-        return cardGameRepository.newCardGame(this, LocalDate.now(), new Random().nextBoolean());
+        return cardGameRepository.newCardGame(this, clockService.now(), new Random().nextBoolean());
     }
 
     @Inject CardGameRepository cardGameRepository;
+
+    @Inject ClockService clockService;
 }

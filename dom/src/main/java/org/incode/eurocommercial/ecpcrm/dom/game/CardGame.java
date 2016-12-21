@@ -16,8 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.game;
 
-import java.time.LocalDate;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -30,11 +28,14 @@ import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
@@ -62,7 +63,7 @@ import lombok.Setter;
         editing = Editing.DISABLED
 )
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
-public class CardGame {
+public class CardGame implements Comparable<CardGame> {
     @Column(allowsNull = "false")
     @Property
     @PropertyLayout(hidden = Where.REFERENCES_PARENT)
@@ -79,4 +80,9 @@ public class CardGame {
     @Property
     @Getter @Setter
     private boolean outcome;
+
+    @Override
+    public int compareTo(final CardGame o) {
+        return ObjectContracts.compare(this, o, "card", "date");
+    }
 }
