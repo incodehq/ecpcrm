@@ -16,22 +16,32 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.card;
 
+import java.time.LocalDate;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Unique;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.game.CardGame;
+import org.incode.eurocommercial.ecpcrm.dom.game.CardGameRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Getter;
@@ -40,7 +50,6 @@ import lombok.Setter;
 @PersistenceCapable(
         identityType = IdentityType.DATASTORE
 )
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
         @Query(
                 name = "findByExactNumber", language = "JDOQL",
@@ -104,10 +113,31 @@ public class Card implements Comparable<Card> {
     @Getter @Setter
     private Center center;
 
+    @Persistent(mappedBy = "card", dependentElement = "true")
+    @Collection
+//    @CollectionLayout(hidden = Where.EVERYWHERE)
+    @Getter @Setter
+    private SortedSet<CardGame> cardGames = new TreeSet<>();
+
     @Action
     public Card disable() {
         this.setStatus(CardStatus.DISABLED);
         return this;
     }
 
+    @Programmatic
+    public boolean canPlay() {
+        return cardGameRepository.findByCardAndDate(this, LocalDate.now()) == null;
+    }
+
+//    @Programmatic
+    @Action
+    public CardGame play() {
+        if(!canPlay()) {
+            return null;
+        }
+        return cardGameRepository.newCardGame(this, LocalDate.now(), new Random().nextBoolean());
+    }
+
+    @Inject CardGameRepository cardGameRepository;
 }
