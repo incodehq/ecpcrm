@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.game;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
@@ -33,6 +35,11 @@ import org.incode.eurocommercial.ecpcrm.dom.card.Card;
         repositoryFor = CardGame.class
 )
 public class CardGameRepository {
+
+    @Programmatic
+    public List<CardGame> listAll() {
+        return repositoryService.allInstances(CardGame.class);
+    }
 
     @Programmatic
     public CardGame findByCardAndDate(

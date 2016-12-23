@@ -10,7 +10,10 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-@DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Center.class)
+@DomainService(
+        nature = NatureOfService.DOMAIN,
+        repositoryFor = Center.class
+)
 public class CenterRepository {
 
     @Programmatic

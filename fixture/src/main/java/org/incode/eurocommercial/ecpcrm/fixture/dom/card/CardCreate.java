@@ -43,7 +43,6 @@ public class CardCreate extends FixtureScript {
         ec.addResult(this, card);
     }
 
-
     @Inject CardMenu menu;
     @Inject CenterRepository centerRepository;
 }

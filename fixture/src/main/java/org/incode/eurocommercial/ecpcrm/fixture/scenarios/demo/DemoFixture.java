@@ -30,8 +30,6 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.fakedata.dom.FakeDataService;
-
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -54,8 +52,8 @@ public class DemoFixture extends FixtureScript {
     }
 
     public final int NUM_CENTERS = 5;
-    public final int NUM_CARDS   = 100;
-    public final int NUM_USERS   = 75;
+    public final int NUM_CARDS   = 50;
+    public final int NUM_USERS   = 30;
 
     @Getter
     private final List<Center> centers = Lists.newArrayList();
@@ -66,17 +64,14 @@ public class DemoFixture extends FixtureScript {
     @Getter
     private final List<User> users = Lists.newArrayList();
 
-    private FakeDataService faker;
-
-
     @Override
     protected void execute(final ExecutionContext ec) {
-        Numerator cardNumerator = numeratorRepository.newNumerator("cardNumerator", "%d", new BigInteger("2000000000000"));
+        Numerator cardNumerator = numeratorRepository.findOrCreateNumerator("cardNumerator", "%d", new BigInteger("2000000000000"));
         String cardNumber;
 
         // zap everything
-        ec.executeChild(this, new UserTearDown());
         ec.executeChild(this, new CardTearDown());
+        ec.executeChild(this, new UserTearDown());
         ec.executeChild(this, new CenterTearDown());
 
         for(int i = 0; i < NUM_CENTERS; i++) {

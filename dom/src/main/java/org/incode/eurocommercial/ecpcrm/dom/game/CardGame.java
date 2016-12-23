@@ -64,6 +64,11 @@ import lombok.Setter;
 )
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class CardGame implements Comparable<CardGame> {
+
+    public String title() {
+        return card.getNumber() + " " + date.toString();
+    }
+
     @Column(allowsNull = "false")
     @Property
     @PropertyLayout(hidden = Where.REFERENCES_PARENT)

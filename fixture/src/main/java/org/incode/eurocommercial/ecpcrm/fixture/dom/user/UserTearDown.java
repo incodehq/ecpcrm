@@ -24,14 +24,14 @@ import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
+
 public class UserTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"User\"");
+        isisJdoSupport.deleteAll(User.class);
     }
 
-    @Inject
-    private IsisJdoSupport isisJdoSupport;
-
+    @Inject private IsisJdoSupport isisJdoSupport;
 }

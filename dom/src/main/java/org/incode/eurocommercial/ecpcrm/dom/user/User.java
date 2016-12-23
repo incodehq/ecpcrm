@@ -133,11 +133,6 @@ public class User implements Comparable<User> {
     @Getter @Setter
     private Date birthDate;
 
-    @Column(allowsNull = "true")
-    @Property
-    @Getter @Setter
-    private Card card;
-
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
@@ -157,7 +152,6 @@ public class User implements Comparable<User> {
     public User giveCard(String cardNumber) {
         Card card = cardRepository.findByExactNumber(cardNumber);
         if(card != null) {
-            setCard(card);
             card.setOwner(this);
         }
         return this;

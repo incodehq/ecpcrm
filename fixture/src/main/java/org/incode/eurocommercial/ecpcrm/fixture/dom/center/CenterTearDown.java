@@ -24,11 +24,13 @@ import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+
 public class CenterTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"Center\"");
+        isisJdoSupport.deleteAll(Center.class);
     }
 
 

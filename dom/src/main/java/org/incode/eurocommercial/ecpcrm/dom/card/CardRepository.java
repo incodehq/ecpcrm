@@ -34,6 +34,7 @@ import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -95,6 +96,17 @@ public class CardRepository {
                         Card.class,
                         "findByCenter",
                         "center", center));
+    }
+
+    @Programmatic
+    public Card findByOwner(
+            final User owner
+    ) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(
+                        Card.class,
+                        "findByOwner",
+                        "owner", owner));
     }
 
 

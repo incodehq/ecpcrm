@@ -31,10 +31,12 @@ import javax.jdo.annotations.Unique;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -115,7 +117,7 @@ public class Card implements Comparable<Card> {
 
     @Persistent(mappedBy = "card", dependentElement = "true")
     @Collection
-//    @CollectionLayout(hidden = Where.EVERYWHERE)
+    @CollectionLayout(hidden = Where.EVERYWHERE)
     @Getter @Setter
     private SortedSet<CardGame> cardGames = new TreeSet<>();
 
@@ -130,8 +132,7 @@ public class Card implements Comparable<Card> {
         return cardGameRepository.findByCardAndDate(this, clockService.now()) == null;
     }
 
-//    @Programmatic
-    @Action
+    @Programmatic
     public CardGame play() {
         if(!canPlay()) {
             return null;
@@ -140,6 +141,5 @@ public class Card implements Comparable<Card> {
     }
 
     @Inject CardGameRepository cardGameRepository;
-
     @Inject ClockService clockService;
 }
