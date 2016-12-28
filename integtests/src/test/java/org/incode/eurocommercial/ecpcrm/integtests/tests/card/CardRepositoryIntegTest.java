@@ -133,7 +133,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> foundCards = cardRepository.findByNumberContains(cardNumber);
 
             // then
-            assertThat(foundCards.size()).isEqualTo(0);
+            assertThat(foundCards.size()).isZero();
         }
 
         @Test
