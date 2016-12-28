@@ -126,6 +126,18 @@ public class Card implements Comparable<Card> {
         this.setStatus(CardStatus.DISABLED);
         return this;
     }
+    public boolean hideDisable() {
+        return this.getStatus() == CardStatus.DISABLED;
+    }
+
+    @Action
+    public Card enable() {
+        this.setStatus(CardStatus.ENABLED);
+        return this;
+    }
+    public boolean hideEnable() {
+        return this.getStatus() == CardStatus.ENABLED;
+    }
 
     @Programmatic
     public boolean canPlay() {

@@ -77,11 +77,10 @@ public class CardIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_can_play_and_plays_a_card_game_is_created() throws Exception {
             // given
-            CardGame cardGame;
             assertThat(card.canPlay()).isTrue();
 
             // when
-            cardGame = card.play();
+            CardGame cardGame = card.play();
 
             // then
             assertThat(card.canPlay()).isFalse();

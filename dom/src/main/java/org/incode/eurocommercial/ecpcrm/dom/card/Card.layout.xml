@@ -20,6 +20,7 @@
                                 <bs3:col span="12">
                                     <cpt:fieldSet name="Card Details" id="card-details">
                                         <cpt:action id="disable"/>
+                                        <cpt:action id="enable"/>
                                         <cpt:property id="number"/>
                                         <cpt:property id="status"/>
                                         <cpt:property id="owner"/>
