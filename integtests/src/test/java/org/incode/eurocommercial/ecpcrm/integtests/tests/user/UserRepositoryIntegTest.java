@@ -22,7 +22,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.inject.Inject;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -145,19 +144,53 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        @Ignore
+        public void when_partial_matching_name_is_entered_multiple_results_should_be_returned() {
+            // when
+            List<User> foundUsers = userRepository.findByNameContains(user.getFirstName().substring(0,2));
+
+            // then
+            assertThat(foundUsers.size()).isPositive();
+        }
+    }
+
+    public static class FindByFirstAndLastName extends UserRepositoryIntegTest {
+        @Test
+        public void when_user_doesnt_exist_no_user_should_be_returned() {
+            // given
+            String userName = "This is not the name of an actual User";
+
+            // when
+            List<User> foundUsers = userRepository.findByFirstAndLastName(userName, userName);
+
+            // then
+            assertThat(foundUsers.size()).isZero();
+        }
+
+        @Test
+        public void when_full_first_or_last_name_is_entered_at_least_one_result_should_be_returned() {
+            // when
+            List<User> foundUsersByFirst = userRepository.findByFirstAndLastName(user.getFirstName(), "");
+            List<User> foundUsersByLast = userRepository.findByFirstAndLastName("", user.getLastName());
+
+            // then
+            assertThat(foundUsersByFirst.size()).isPositive();
+            assertThat(foundUsersByLast.size()).isPositive();
+        }
+
+        @Test
         public void when_full_first_and_last_name_is_entered_at_least_one_result_should_be_returned() {
             // when
-            List<User> foundUsers = userRepository.findByNameContains(user.getFirstName() + " " + user.getLastName());
+            List<User> foundUsers = userRepository.findByFirstAndLastName(user.getFirstName(), user.getLastName());
 
             // then
             assertThat(foundUsers.size()).isPositive();
         }
 
         @Test
-        public void when_partial_matching_name_is_entered_multiple_results_should_be_returned() {
+        public void when_partial_first_and_last_name_is_entered_at_least_one_result_should_be_returned() {
             // when
-            List<User> foundUsers = userRepository.findByNameContains(user.getFirstName().substring(0,2));
+            List<User> foundUsers = userRepository.findByFirstAndLastName(
+                    user.getFirstName().substring(0, 2), user.getLastName().substring(0, 2));
 
             // then
             assertThat(foundUsers.size()).isPositive();

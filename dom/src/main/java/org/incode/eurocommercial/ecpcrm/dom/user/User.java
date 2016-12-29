@@ -60,6 +60,12 @@ import lombok.Setter;
                         + "WHERE firstName.indexOf(:name) >= 0 "
                         + "|| lastName.indexOf(:name) >= 0"),
         @Query(
+                name = "findByFirstAndLastName", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
+                        + "WHERE firstName.indexOf(:firstName) >= 0 "
+                        + "&& lastName.indexOf(:lastName) >= 0"),
+        @Query(
                 name = "findByReference", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "

@@ -82,6 +82,19 @@ public class UserRepository {
     }
 
     @Programmatic
+    public List<User> findByFirstAndLastName(
+            final String firstName,
+            final String lastName
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        User.class,
+                        "findByFirstAndLastName",
+                        "firstName", firstName,
+                        "lastName", lastName));
+    }
+
+    @Programmatic
     public User findByReference(
             final String reference
     ) {

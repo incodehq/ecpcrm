@@ -71,6 +71,11 @@ public class UserMenu {
             @ParameterLayout(named = "Name")
             final String name
     ) {
+        String[] splitName = name.split("\\s+", 2);
+        System.out.println(splitName);
+        if(splitName.length > 1) {
+            return userRepository.findByFirstAndLastName(splitName[0], splitName[1]);
+        }
         return userRepository.findByNameContains(name);
     }
 
