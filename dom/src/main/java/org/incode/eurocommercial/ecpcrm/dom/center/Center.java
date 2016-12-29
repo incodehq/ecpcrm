@@ -7,6 +7,10 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Where;
+
+import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,5 +47,10 @@ public class Center {
     @Getter @Setter
     @Column(allowsNull = "false")
     private String name;
+
+    @Getter @Setter
+    @Column(allowsNull = "false")
+    @PropertyLayout(hidden = Where.EVERYWHERE)
+    private Numerator numerator;
 
 }

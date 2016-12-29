@@ -19,8 +19,8 @@
 
 package org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo;
 
-import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -33,7 +33,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
@@ -66,7 +65,6 @@ public class DemoFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-        Numerator cardNumerator = numeratorRepository.findOrCreateNumerator("cardNumerator", "%d", new BigInteger("2000000000000"));
         String cardNumber;
 
         // zap everything
@@ -77,14 +75,21 @@ public class DemoFixture extends FixtureScript {
         for(int i = 0; i < NUM_CENTERS; i++) {
             ec.executeChild(this, new CenterCreate());
         }
+        getCenters().addAll(
+                ec.getResults().stream()
+                        .map(FixtureResult::getObject)
+                        .filter(c -> c instanceof Center)
+                        .map(c -> (Center) c)
+                        .collect(Collectors.toList()));
 
         for(int i = 0; i < NUM_CARDS; i++) {
+            Center center = getCenters().get(ThreadLocalRandom.current().nextInt(0, getCenters().size()));
             do {
-                cardNumber = cardNumerator.nextIncrementStr();
-            } while(!cardRepository.cardNumberIsValid(cardNumber));
+                cardNumber = center.getNumerator().nextIncrementStr();
+            } while(!cardRepository.cardNumberIsValid(cardNumber, center.getReference()));
 
             ec.setParameter("number", cardNumber);
-            ec.executeChild(this, new CardCreate());
+            ec.executeChild(this, new CardCreate().center(center));
 
         }
 
@@ -95,11 +100,6 @@ public class DemoFixture extends FixtureScript {
         List<Object> results  = ec.getResults().stream()
                 .map(FixtureResult::getObject)
                 .collect(Collectors.toList());
-
-        getCenters().addAll(results.stream()
-                .filter(c -> c instanceof Center)
-                .map(c -> (Center) c)
-                .collect(Collectors.toList()));
 
         getUsers().addAll(results.stream()
                 .filter(u -> u instanceof User)

@@ -37,7 +37,7 @@ public class CardCreate extends FixtureScript {
         Faker faker = new Faker();
 
         number = defaultParam("number", ec, Strings.toString(faker.number().randomNumber(13, true)));
-        center = defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
+        center = center != null ? center : defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
         this.card = wrap(menu).newCard(number(), CardStatus.ENABLED, center());
 
         ec.addResult(this, card);

@@ -32,6 +32,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -116,23 +117,27 @@ public class CardRepository {
             final CardStatus status,
             final Center center
     ) {
-        Numerator cardNumerator = numeratorRepository.findOrCreateNumerator("cardNumerator", "%d", BigInteger.ZERO);
+        Numerator numerator = center.getNumerator();
+
+        if(Strings.isNullOrEmpty(number)) {
+            while(!cardNumberIsValid(number, center.getReference())) {
+                number = numerator.nextIncrementStr();
+            }
+        }
+
+        if(!cardNumberIsValid(number, center.getReference())) {
+            return null;
+        }
 
         final Card card = repositoryService.instantiate(Card.class);
 
-        if(Strings.isNullOrEmpty(number)) {
-            while(!cardNumberIsValid(number)) {
-                number = cardNumerator.nextIncrementStr();
-            }
-        }
         card.setNumber(number);
-
         card.setStatus(status);
         card.setCenter(center);
 
         BigInteger num = new BigInteger(number);
-        if(num.compareTo(cardNumerator.getLastIncrement()) == 1) {
-            cardNumerator.setLastIncrement(num);
+        if(num.compareTo(numerator.getLastIncrement()) == 1) {
+            numerator.setLastIncrement(num);
         }
 
         repositoryService.persist(card);
@@ -146,12 +151,13 @@ public class CardRepository {
             final CardStatus status,
             final Center center
     ) {
+        String centerCode = center.getReference();
         BigInteger start = new BigInteger(startNumber);
         BigInteger end = new BigInteger(endNumber);
         List<Card> results = new ArrayList<>();
         for(BigInteger i = start; i.compareTo(end) <= 0; i = i.add(BigInteger.ONE)) {
             String cardNumber = i.toString();
-            if(cardNumberIsValid(cardNumber)) {
+            if(cardNumberIsValid(cardNumber, centerCode)) {
                 results.add(findOrCreate(cardNumber, status, center));
             }
         }
@@ -177,7 +183,7 @@ public class CardRepository {
 
     @Programmatic
     public String validateFindOrCreate(final String number, final CardStatus status, final Center center) {
-        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number) ? null : "Card number is invalid";
+        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number, center.getReference()) ? null : "Card number is invalid";
     }
 
     @Programmatic
@@ -192,6 +198,11 @@ public class CardRepository {
 
     @Programmatic
     public boolean cardNumberIsValid(String cardNumber) {
+        return cardNumberIsValid(cardNumber, null);
+    }
+
+    @Programmatic
+    public boolean cardNumberIsValid(String cardNumber, String centerCode) {
         if(Strings.isNullOrEmpty(cardNumber)) {
             return false;
         }
@@ -206,7 +217,13 @@ public class CardRepository {
         }
 
         /* Number starts with center code */
-        // TODO: check center
+        if(centerRepository.findByReference(cardNumber.substring(1, 4)) == null) {
+            return false;
+        }
+
+        if(centerCode != null && !cardNumber.substring(1, 4).equals(centerCode)) {
+            return false;
+        }
 
         /* Checksum */
         int[] digits = cardNumber.chars()
@@ -231,5 +248,6 @@ public class CardRepository {
 
     @Inject RepositoryService repositoryService;
     @Inject NumeratorRepository numeratorRepository;
+    @Inject CenterRepository centerRepository;
 
 }

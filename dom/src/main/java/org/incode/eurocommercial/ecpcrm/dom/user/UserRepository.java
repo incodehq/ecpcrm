@@ -207,7 +207,7 @@ public class UserRepository {
         if(Strings.isNullOrEmpty(cardNumber)) {
             return null;
         }
-        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+        if(!cardRepository.cardNumberIsValid(cardNumber, center.getReference())) {
             return "Card number " + cardNumber + " is invalid";
         }
         if(!cardRepository.cardExists(cardNumber)) {

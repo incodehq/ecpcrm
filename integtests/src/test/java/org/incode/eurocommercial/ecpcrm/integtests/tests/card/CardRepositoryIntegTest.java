@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -34,6 +33,7 @@ import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
@@ -46,10 +46,14 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
     @Inject ClockService clockService;
 
     @Inject CardRepository cardRepository;
+    @Inject CenterRepository centerRepository;
 
     DemoFixture fs;
 
     Center center;
+
+    String startNumber;
+    String endNumber;
 
     @Before
     public void setUp() throws Exception {
@@ -59,6 +63,9 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
         center = fs.getCenters().get(ThreadLocalRandom.current().nextInt(0, fs.getCenters().size()));
         assertThat(center).isNotNull();
+
+        startNumber = "2" + center.getReference() + "000000000";
+        endNumber = "2" + center.getReference() + "000100000";
     }
 
     public static class ListAll extends CardRepositoryIntegTest {
@@ -152,7 +159,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_number_part_is_entered_all_results_should_be_returned() {
             // given
-            String cardNumber = fs.getCards().get(0).getNumber().substring(0, 2);
+            String cardNumber = fs.getCards().get(0).getNumber().substring(0, 1);
 
             // when
             List<Card> foundCards = cardRepository.findByNumberContains(cardNumber);
@@ -219,8 +226,6 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class NewBatch extends CardRepositoryIntegTest {
         // given
-        private String startNumber = "2000000000000";
-        private String endNumber = "2000000100000";
         private CardStatus status = CardStatus.ENABLED;
 
         @Test
@@ -229,7 +234,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> createdCards = cardRepository.newBatch(startNumber, endNumber, status, center);
 
             // then
-            createdCards.forEach(c -> assertThat(cardRepository.cardNumberIsValid(c.getNumber())));
+            createdCards.forEach(c -> assertThat(cardRepository.cardNumberIsValid(c.getNumber(), center.getReference())));
         }
 
         @Test
@@ -246,13 +251,14 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void all_cards_are_being_persisted() {
             // given
-            int initialCards = cardRepository.listAll().size();
+            List<Card> cardList = cardRepository.listAll();
 
             // when
-            int createdCards = cardRepository.newBatch(startNumber, endNumber, status, center).size();
+            List<Card> createdCards = cardRepository.newBatch(startNumber, endNumber, status, center);
+            cardList.removeAll(createdCards);
 
             // then
-            assertThat(initialCards + createdCards).isEqualTo(cardRepository.listAll().size());
+            assertThat(cardList.size() + createdCards.size()).isEqualTo(cardRepository.listAll().size());
         }
     }
 
@@ -282,7 +288,6 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        @Ignore
         public void when_card_number_doesnt_start_with_center_code_it_is_invalid() {
             // given
             String cardNumber = "2000000000000";
@@ -297,7 +302,14 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_number_doesnt_satisfy_checksum_it_is_invalid() {
             // given
-            String cardNumber = "2000000000009";
+            int[] digits = center.getReference().chars().map(Character::getNumericValue).toArray();
+            int[] multipliers = {3, 1, 3};
+            int incorrectChecksum = 2;
+            for(int i = 0; i < digits.length; i++) {
+                incorrectChecksum += digits[i] * multipliers[i];
+            }
+            incorrectChecksum = (9 - incorrectChecksum % 10) % 10;
+            String cardNumber = "2" + center.getReference() + "00000000" + incorrectChecksum;
 
             // when
             boolean valid = cardRepository.cardNumberIsValid(cardNumber);
@@ -309,7 +321,15 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_number_satisfies_all_conditions_it_is_valid() {
             // given
-            String cardNumber = "2000000000008";
+            int[] digits = center.getReference().chars().map(Character::getNumericValue).toArray();
+            int[] multipliers = {3, 1, 3};
+            int checksum = 2;
+            for(int i = 0; i < digits.length; i++) {
+                checksum += digits[i] * multipliers[i];
+            }
+            checksum = (10 - checksum % 10) % 10;
+
+            String cardNumber = "2" + center.getReference() + "00000000" + checksum;
 
             // when
             boolean valid = cardRepository.cardNumberIsValid(cardNumber);

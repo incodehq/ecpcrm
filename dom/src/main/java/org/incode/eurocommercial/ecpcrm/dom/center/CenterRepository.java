@@ -1,5 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.dom.center;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,6 +10,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
+
+import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -59,18 +62,20 @@ public class CenterRepository {
         Center center = repositoryService.instantiate(Center.class);
         center.setReference(reference);
         center.setName(name);
+        center.setNumerator(numeratorRepository.newNumerator(
+                name, "%d", new BigInteger("2" + reference + "000000000")));
         repositoryService.persist(center);
         return center;
     }
 
     @Programmatic
     public Center findOrCreate(final String reference, final String name) {
-        Center center = findByExactName(name);
-        if(center == null) {
-            center = newCenter(reference, name);
-        }
+        Center center = findByReference(reference);
+        center = center != null ? center : findByExactName(name);
+        center = center != null ? center : newCenter(reference, name);
         return center;
     }
 
     @Inject private RepositoryService repositoryService;
+    @Inject private NumeratorRepository numeratorRepository;
 }

@@ -167,7 +167,7 @@ public class User implements Comparable<User> {
         if(cardNumber == null) {
             return "No number entered";
         }
-        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+        if(!cardRepository.cardNumberIsValid(cardNumber, center.getReference())) {
             return "Card number " + cardNumber + " is invalid";
         }
         if(!cardRepository.cardExists(cardNumber)) {
