@@ -17,6 +17,7 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.center;
 
 import java.util.List;
+import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
@@ -59,7 +60,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
             List<Center> allCenters = centerRepository.listAll();
 
             // then
-            assertThat(allCenters).isEqualTo(fs.getCenters());
+            assertThat(new TreeSet<>(allCenters)).isEqualTo(new TreeSet<>(fs.getCenters()));
         }
     }
 

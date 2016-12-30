@@ -18,6 +18,7 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.card;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -75,8 +76,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> cardList = cardRepository.listAll();
 
             // then
-            assertThat(cardList.size()).isEqualTo(fs.NUM_CARDS);
-            assertThat(cardList).isEqualTo(fs.getCards());
+            assertThat(new TreeSet<>(cardList)).isEqualTo(new TreeSet<>(fs.getCards()));
         }
     }
 
@@ -132,9 +132,9 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByNumberContains extends CardRepositoryIntegTest {
         @Test
-        public void when_nonexisting_number_part_is_entered_no_result_should_be_returned() {
+        public void when_nonexisting_number_is_entered_no_result_should_be_returned() {
             // given
-            String cardNumber = "100";
+            String cardNumber = "1000000000000";
 
             // when
             List<Card> foundCards = cardRepository.findByNumberContains(cardNumber);

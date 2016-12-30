@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.request;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -31,8 +32,10 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Getter;
@@ -57,7 +60,12 @@ import lombok.Setter;
 @DomainObject(
         editing = Editing.DISABLED
 )
-public class CardRequest {
+public class CardRequest implements Comparable<CardRequest>{
+    @Override
+    public int compareTo(final CardRequest other) {
+        return ObjectContracts.compare(this, other, "requestingUser", "date");
+    }
+
     public String title() {
         return requestingUser.getFirstName() + " " + requestingUser.getLastName() + " - " + date.toString();
     }
@@ -88,7 +96,11 @@ public class CardRequest {
     @Action
     public CardRequest approve(String cardNumber) {
         requestingUser.giveCard(cardNumber);
-        setApproved(true);
+        Card card = cardRepository.findByOwner(requestingUser);
+        if(card != null && card.getNumber().equals(cardNumber)) {
+            setAssignedCard(card);
+            setApproved(true);
+        }
         return this;
     }
 
@@ -118,4 +130,6 @@ public class CardRequest {
         return approved == null;
     }
 
+    @Inject CardRepository cardRepository;
 }
+

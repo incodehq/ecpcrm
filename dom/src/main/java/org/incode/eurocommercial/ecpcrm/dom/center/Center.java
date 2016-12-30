@@ -9,6 +9,7 @@ import javax.jdo.annotations.Query;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 
@@ -34,7 +35,12 @@ import lombok.Setter;
                         + "WHERE reference == :reference ")
 })
 @DomainObject(bounded = true)
-public class Center {
+public class Center implements Comparable<Center> {
+
+    @Override
+    public int compareTo(final Center other) {
+        return ObjectContracts.compare(this, other, "reference", "name");
+    }
 
     public String title() {
         return getName();

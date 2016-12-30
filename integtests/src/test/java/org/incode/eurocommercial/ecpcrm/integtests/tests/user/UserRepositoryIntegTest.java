@@ -17,6 +17,7 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
 import java.util.List;
+import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
@@ -59,7 +60,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
             List<User> allUsers = userRepository.listAll();
 
             // then
-            assertThat(allUsers).isEqualTo(fs.getUsers());
+            assertThat(new TreeSet<>(allUsers)).isEqualTo(new TreeSet<>(fs.getUsers()));
         }
     }
 
