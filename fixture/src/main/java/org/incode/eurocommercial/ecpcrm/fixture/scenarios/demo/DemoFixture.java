@@ -34,11 +34,14 @@ import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
+import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterTearDown;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestCreate;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserTearDown;
 
@@ -53,6 +56,7 @@ public class DemoFixture extends FixtureScript {
     public final int NUM_CENTERS = 5;
     public final int NUM_CARDS   = 50;
     public final int NUM_USERS   = 30;
+    public final int NUM_CARD_REQUESTS = 5;
 
     @Getter
     private final List<Center> centers = Lists.newArrayList();
@@ -63,11 +67,15 @@ public class DemoFixture extends FixtureScript {
     @Getter
     private final List<User> users = Lists.newArrayList();
 
+    @Getter
+    private final List<CardRequest> cardRequests = Lists.newArrayList();
+
     @Override
     protected void execute(final ExecutionContext ec) {
         String cardNumber;
 
         // zap everything
+        ec.executeChild(this, new CardRequestTearDown());
         ec.executeChild(this, new CardTearDown());
         ec.executeChild(this, new UserTearDown());
         ec.executeChild(this, new CenterTearDown());
@@ -90,25 +98,40 @@ public class DemoFixture extends FixtureScript {
 
             ec.setParameter("number", cardNumber);
             ec.executeChild(this, new CardCreate().center(center));
-
         }
 
-        for(int i = 0; i < NUM_USERS; i++) {
+        for(int i = 0; i < NUM_USERS - NUM_CARD_REQUESTS; i++) {
             ec.executeChild(this, new UserCreate());
+        }
+        for(int i = NUM_USERS - NUM_CARD_REQUESTS; i < NUM_USERS; i++) {
+            ec.setParameter("cardNumber", "");
+            ec.executeChild(this, new UserCreate());
+        }
+        getUsers().addAll(
+                ec.getResults().stream()
+                        .map(FixtureResult::getObject)
+                        .filter(u -> u instanceof User)
+                        .map(u -> (User) u)
+                        .collect(Collectors.toList()));
+
+        for(int i = 0; i < NUM_CARD_REQUESTS; i++) {
+            List<User> availableUsers = getUsers().stream().filter(u -> cardRepository.findByOwner(u) == null).collect(Collectors.toList());
+            User requestingUser = availableUsers.get(ThreadLocalRandom.current().nextInt(0, availableUsers.size()));
+            ec.executeChild(this, new CardRequestCreate().user(requestingUser));
         }
 
         List<Object> results  = ec.getResults().stream()
                 .map(FixtureResult::getObject)
                 .collect(Collectors.toList());
 
-        getUsers().addAll(results.stream()
-                .filter(u -> u instanceof User)
-                .map(u -> (User) u)
-                .collect(Collectors.toList()));
-
         getCards().addAll(results.stream()
                 .filter(c -> c instanceof Card)
                 .map(c -> (Card) c)
+                .collect(Collectors.toList()));
+
+        getCardRequests().addAll(results.stream()
+                .filter(c -> c instanceof CardRequest)
+                .map(c -> (CardRequest) c)
                 .collect(Collectors.toList()));
     }
 

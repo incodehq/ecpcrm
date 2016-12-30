@@ -33,8 +33,5 @@ public class CenterTearDown extends FixtureScript {
         isisJdoSupport.deleteAll(Center.class);
     }
 
-
-    @Inject
-    private IsisJdoSupport isisJdoSupport;
-
+    @Inject private IsisJdoSupport isisJdoSupport;
 }
