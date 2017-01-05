@@ -35,7 +35,6 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmVetoSelectedMembers
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TogglzModuleAdminRole;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TranslationServicePoMenuRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.EcpCrmAdminUserTenancy;
 import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.UsersTenancy;
@@ -73,7 +72,6 @@ public class EcpCrmRolesAndPermissionsSeedService {
             executionContext.executeChild(this, new EcpCrmVetoSelectedMembersPermissions());
             executionContext.executeChild(this, new EcpCrmFixtureServiceRoleAndPermissions());
 
-            executionContext.executeChild(this, new TogglzModuleAdminRole());
             executionContext.executeChild(this, new AuditModuleRoleAndPermissions());
             executionContext.executeChild(this, new CommandModuleRoleAndPermissions());
             executionContext.executeChild(this, new DevUtilsModuleRoleAndPermissions());

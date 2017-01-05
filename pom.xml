@@ -56,7 +56,6 @@
         <isis-module-settings.version>1.13.0-SNAPSHOT</isis-module-settings.version>
         <isis-module-servletapi.version>1.13.0-SNAPSHOT</isis-module-servletapi.version>
         <isis-module-stringinterpolator.version>1.13.0-SNAPSHOT</isis-module-stringinterpolator.version>
-        <isis-module-togglz.version>1.13.0-SNAPSHOT</isis-module-togglz.version>
 
         <isis-wicket-excel.version>1.13.0-SNAPSHOT</isis-wicket-excel.version>
         <isis-wicket-fullcalendar2.version>1.13.0-SNAPSHOT</isis-wicket-fullcalendar2.version>
@@ -70,7 +69,6 @@
         <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
-        <togglz.version>2.1.0.Final</togglz.version>
 
         <lombok.version>1.16.6</lombok.version>
 
@@ -427,44 +425,6 @@
                         <groupId>org.isisaddons.module.stringinterpolator</groupId>
                         <artifactId>isis-module-stringinterpolator-dom</artifactId>
                         <version>${isis-module-stringinterpolator.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-togglz</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-togglz</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.togglz</groupId>
-                        <artifactId>isis-module-togglz-glue</artifactId>
-                        <version>${isis-module-togglz.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.togglz</groupId>
-                        <artifactId>togglz-core</artifactId>
-                        <version>${togglz.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.togglz</groupId>
-                        <artifactId>togglz-junit</artifactId>
-                        <version>${togglz.version}</version>
-                        <scope>test</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.togglz</groupId>
-                        <artifactId>togglz-servlet</artifactId>
-                        <version>${togglz.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.togglz</groupId>
-                        <artifactId>togglz-console</artifactId>
-                        <version>${togglz.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>

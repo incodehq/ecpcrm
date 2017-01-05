@@ -252,16 +252,6 @@
             <dependencies>
             </dependencies>
         </profile>
-        <profile>
-            <id>isisaddons-module-togglz</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-togglz</name>
-                </property>
-            </activation>
-            <dependencies>
-            </dependencies>
-        </profile>
 
         <profile>
             <id>isisaddons-wicket-excel</id>

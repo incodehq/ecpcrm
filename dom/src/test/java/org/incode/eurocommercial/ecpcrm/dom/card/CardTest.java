@@ -47,7 +47,7 @@ public class CardTest {
             card.setStatus(CardStatus.DISABLED);
 
             // then
-            assertThat(card.hideDisable()).isTrue();
+            assertThat(card.hideUnenable()).isTrue();
         }
     }
 }

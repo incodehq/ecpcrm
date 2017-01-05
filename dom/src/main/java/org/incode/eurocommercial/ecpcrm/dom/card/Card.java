@@ -30,6 +30,7 @@ import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Unique;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -122,11 +123,12 @@ public class Card implements Comparable<Card> {
     private SortedSet<CardGame> cardGames = new TreeSet<>();
 
     @Action
-    public Card disable() {
+    @ActionLayout(named = "Disable")
+    public Card unenable() {
         this.setStatus(CardStatus.DISABLED);
         return this;
     }
-    public boolean hideDisable() {
+    public boolean hideUnenable() {
         return this.getStatus() == CardStatus.DISABLED;
     }
 

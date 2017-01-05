@@ -23,17 +23,16 @@ import org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureSc
 import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions;
 
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.AuditModuleRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.CommandModuleRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DevUtilsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TranslationServicePoMenuRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.EcpCrmAdminUserTenancy;
 import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.UsersTenancy;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.CommandModuleRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DevUtilsModuleRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TogglzModuleAdminRole;
 
 public class EcpCrmAdminUser extends AbstractUserAndRolesFixtureScript {
 
@@ -46,7 +45,6 @@ public class EcpCrmAdminUser extends AbstractUserAndRolesFixtureScript {
         super(USER_NAME, PASSWORD, null,
                 EcpCrmAdminUserTenancy.TENANCY_PATH, AccountType.LOCAL,
                 Arrays.asList(IsisModuleSecurityAdminRoleAndPermissions.ROLE_NAME,
-                              TogglzModuleAdminRole.ROLE_NAME,
                               AuditModuleRoleAndPermissions.ROLE_NAME,
                               CommandModuleRoleAndPermissions.ROLE_NAME,
                               SessionLoggerModuleRoleAndPermissions.ROLE_NAME,
