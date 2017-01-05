@@ -36,8 +36,10 @@
         <junit-servers-jetty.version>0.4.2</junit-servers-jetty.version>
         <google-http-client.version>1.22.0</google-http-client.version>
 
+        <maven-war-plugin.warName>${project.parent.artifactId}</maven-war-plugin.warName>
+
         <docker-plugin.imageName>incodehq/${project.parent.artifactId}</docker-plugin.imageName>
-        <docker-plugin.resource.include>${project.parent.artifactId}.war</docker-plugin.resource.include>
+        <docker-plugin.resource.include>${maven-war-plugin.warName}.war</docker-plugin.resource.include>
         <docker-plugin.serverId>docker-hub</docker-plugin.serverId>
         <docker-plugin.registryUrl>https://index.docker.io/v1/</docker-plugin.registryUrl>
     </properties>
@@ -67,11 +69,6 @@
         </testResources>
         <plugins>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.8</version>
@@ -96,6 +93,14 @@
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>jettywar</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>jettyconsole</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
@@ -177,38 +182,7 @@
     </dependencies>
 
     <profiles>
-        <profile>
-            <id>package-war</id>
-            <activation>
-                <property>
-                    <name>!skip.package-war</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <warName>ecpcrm</warName>
-                            <archive>
-                                <manifest>
-                                    <addClasspath>false</addClasspath>
-                                </manifest>
-                                <manifestEntries>
-                                    <Build-Time>${maven.build.timestamp}</Build-Time>
-                                    <Build-Host>${agent.name}</Build-Host>
-                                    <Build-User>${user.name}</Build-User>
-                                    <Build-Maven>Maven ${maven.version}</Build-Maven>
-                                    <Build-Java>${java.version}</Build-Java>
-                                    <Build-OS>${os.name}</Build-OS>
-                                    <Build-Label>${project.version}</Build-Label>
-                                </manifestEntries>
-                            </archive>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+
         <profile>
             <id>isisaddons-module-togglz</id>
             <activation>
