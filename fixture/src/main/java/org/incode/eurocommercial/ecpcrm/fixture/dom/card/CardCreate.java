@@ -6,8 +6,6 @@ import javax.inject.Inject;
 
 import com.github.javafaker.Faker;
 
-import org.apache.wicket.util.string.Strings;
-
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
@@ -36,7 +34,7 @@ public class CardCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        number = defaultParam("number", ec, Strings.toString(faker.number().randomNumber(13, true)));
+        number = defaultParam("number", ec, ""+faker.number().randomNumber(13, true));
         center = center != null ? center : defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
         this.card = wrap(menu).newCard(number(), CardStatus.ENABLED, center());
 
