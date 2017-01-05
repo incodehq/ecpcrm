@@ -85,6 +85,7 @@
                   </executions>
             </plugin>
 
+
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
                 <artifactId>mixin-maven-plugin</artifactId>
@@ -94,8 +95,11 @@
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>docker</artifactId>
-                            <version>${mavenmixin-docker.version}</version>
                         </mixin>
                     </mixins>
                 </configuration>
