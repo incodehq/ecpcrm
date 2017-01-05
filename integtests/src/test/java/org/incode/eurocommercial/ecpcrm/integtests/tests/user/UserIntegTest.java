@@ -52,6 +52,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
     }
 
     public static class GiveCard extends UserIntegTest {
+
         @Test
         public void when_card_does_not_exist_it_isnt_assigned() {
             // given

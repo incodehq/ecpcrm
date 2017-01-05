@@ -164,42 +164,6 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.16</version>
-                    <configuration>
-                        <includes>
-                            <include>**/*Test.java</include>
-                            <include>**/*Test$*.java</include>
-                            <include>**/*Test_*.java</include>
-                            <include>**/*Spec*.java</include>
-                        </includes>
-                        <excludes>
-                            <exclude>**/Test*.java</exclude>
-                            <exclude>**/*ForTesting.java</exclude>
-                            <exclude>**/*Abstract*.java</exclude>
-                        </excludes>
-                        <useFile>true</useFile>
-                        <printSummary>true</printSummary>
-                        <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.16</version>
-                    <configuration>
-                        <showSuccess>false</showSuccess>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <phase>test</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
