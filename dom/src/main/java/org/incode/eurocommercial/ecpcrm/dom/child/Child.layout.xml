@@ -15,27 +15,14 @@
             <bs3:row>
                 <bs3:col span="12">
                     <bs3:tabGroup>
-                        <bs3:tab name="User Details">
+                        <bs3:tab name="Child Details">
                             <bs3:row>
                                 <bs3:col span="12">
-                                    <cpt:fieldSet name="User Details" id="user-details">
+                                    <cpt:fieldSet name="Child Details" id="user-details">
                                         <!--<cpt:action id="edit"/>-->
-                                        <cpt:property id="reference"/>
-                                        <cpt:property id="title"/>
-                                        <cpt:property id="firstName"/>
-                                        <cpt:property id="lastName"/>
-                                        <cpt:property id="email"/>
-                                        <cpt:property id="address"/>
-                                        <cpt:property id="zipcode"/>
-                                        <cpt:property id="city"/>
-                                        <cpt:property id="phoneNumber"/>
-                                        <cpt:property id="birthDate"/>
-                                        <cpt:property id="card">
-                                            <cpt:action id="giveCard"/>
-                                        </cpt:property>
-                                        <cpt:property id="center"/>
-                                        <cpt:property id="enabled"/>
-                                        <cpt:property id="promotionalEmails"/>
+                                        <cpt:property id="name"/>
+                                        <cpt:property id="parent"/>
+                                        <cpt:property id="notes"/>
                                     </cpt:fieldSet>
                                 </bs3:col>
                             </bs3:row>
@@ -67,9 +54,6 @@
             </bs3:row>
         </bs3:col>
         <bs3:col span="6" unreferencedCollections="true">
-            <cpt:collection id="children">
-                <cpt:action id="newChild"/>
-            </cpt:collection>
             <!--<cpt:collection id="contactNumbers"/>-->
             <!--<cpt:collection id="contactRoles"/>-->
         </bs3:col>

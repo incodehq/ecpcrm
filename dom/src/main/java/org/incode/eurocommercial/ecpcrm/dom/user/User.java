@@ -16,18 +16,25 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.user;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Date;
 
@@ -35,6 +42,8 @@ import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -154,6 +163,18 @@ public class User implements Comparable<User> {
     @Getter @Setter
     private boolean promotionalEmails;
 
+    @Persistent(mappedBy = "parent", dependentElement = "true")
+    @Collection
+    @CollectionLayout(render = RenderType.EAGERLY)
+    @Getter @Setter
+    private SortedSet<Child> children = new TreeSet<>();
+
+    @Action
+    public User newChild(String name) {
+        childRepository.findOrCreate(name, this);
+        return this;
+    }
+
     @Action
     public User giveCard(String cardNumber) {
         Card card = cardRepository.findByExactNumber(cardNumber);
@@ -184,5 +205,6 @@ public class User implements Comparable<User> {
 //    private Boolean hasCar;
 
     @Inject private CardRepository cardRepository;
+    @Inject private ChildRepository childRepository;
 
 }
