@@ -43,6 +43,15 @@ SELECT
  card.user_id AS userId,
  card.client_id AS clientId,
  center.reference AS centerReference
- 
  FROM `crm`.`eurocommercial_crm_user_card` AS card
  INNER JOIN `center` AS center ON center.id = card.center_id;
+ 
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`child` AS
+SELECT
+ child.id AS id,
+ child.names AS name,
+ child.user_id AS parentReference,
+ child.info AS notes,
+ child.start_at AS startTime,
+ child.stop_at AS endTime
+ FROM `crm`.`children` AS child
