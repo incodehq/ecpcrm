@@ -4,6 +4,7 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import org.incode.eurocommercial.ecpcrm.fixture.viewmodel.CardImport;
 import org.incode.eurocommercial.ecpcrm.fixture.viewmodel.CenterImport;
+import org.incode.eurocommercial.ecpcrm.fixture.viewmodel.ChildImport;
 import org.incode.eurocommercial.ecpcrm.fixture.viewmodel.UserImport;
 
 public class EcpCrmJdbcImportFixture extends DiscoverableFixtureScript {
@@ -24,7 +25,8 @@ public class EcpCrmJdbcImportFixture extends DiscoverableFixtureScript {
         return new Class[] {
                 CenterImport.class,
                 CardImport.class,
-                UserImport.class
+                UserImport.class,
+                ChildImport.class
         };
     }
 
