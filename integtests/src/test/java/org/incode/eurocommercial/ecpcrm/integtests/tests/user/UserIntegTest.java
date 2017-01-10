@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
@@ -27,6 +28,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
@@ -37,6 +40,8 @@ public class UserIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
     @Inject CardRepository cardRepository;
+
+    @Inject ChildRepository childRepository;
 
     DemoFixture fs;
     User user;
@@ -83,6 +88,56 @@ public class UserIntegTest extends EcpCrmIntegTest {
 
             // then
             assertThat(cardRepository.findByOwner(user)).isEqualTo(card);
+        }
+    }
+
+    public static class NewChild extends UserIntegTest {
+        @Test
+        public void when_user_has_no_children_a_new_child_is_created() {
+            // given
+            User user;
+            do {
+                user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+            } while(!user.getChildren().isEmpty());
+            String childName = "Bob";
+
+            // when
+            user.newChild(childName);
+
+            // then
+            assertThat(user.getChildren().size()).isEqualTo(1);
+            assertThat(user.getChildren().first().getName()).isEqualTo(childName);
+        }
+
+        @Test
+        public void when_user_has_some_children_but_not_this_one_it_is_created() {
+            // given
+            User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
+            int numberOfChildren = user.getChildren().size();
+            String childName = user.getChildren().first().getName();
+            childName = childName.substring(2) + childName;
+
+            // when
+            user.newChild(childName);
+
+            // then
+            assertThat(user.getChildren().size()).isEqualTo(numberOfChildren + 1);
+            Child newChild = childRepository.findByParentAndName(user, childName);
+            assertThat(newChild).isNotNull();
+            assertThat(user.getChildren().contains(newChild)).isTrue();
+        }
+
+        @Test
+        public void when_child_already_exists_for_user_no_new_child_is_created() {
+            User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
+            int numberOfChildren = user.getChildren().size();
+            String childName = user.getChildren().first().getName();
+
+            // when
+            user.newChild(childName);
+
+            // then
+            assertThat(user.getChildren().size()).isEqualTo(numberOfChildren);
         }
     }
 }

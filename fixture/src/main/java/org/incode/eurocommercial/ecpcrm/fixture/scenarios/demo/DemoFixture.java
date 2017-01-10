@@ -33,6 +33,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -40,6 +41,8 @@ import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterTearDown;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.child.ChildCreate;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.child.ChildTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserCreate;
@@ -53,10 +56,11 @@ public class DemoFixture extends FixtureScript {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-    public final int NUM_CENTERS = 5;
-    public final int NUM_CARDS   = 50;
-    public final int NUM_USERS   = 30;
+    public final int NUM_CENTERS       = 5;
+    public final int NUM_CARDS         = 50;
+    public final int NUM_USERS         = 30;
     public final int NUM_CARD_REQUESTS = 5;
+    public final int NUM_CHILDREN      = 20;
 
     @Getter
     private final List<Center> centers = Lists.newArrayList();
@@ -70,6 +74,9 @@ public class DemoFixture extends FixtureScript {
     @Getter
     private final List<CardRequest> cardRequests = Lists.newArrayList();
 
+    @Getter
+    private final List<Child> children = Lists.newArrayList();
+
     @Override
     protected void execute(final ExecutionContext ec) {
         String cardNumber;
@@ -77,6 +84,7 @@ public class DemoFixture extends FixtureScript {
         // zap everything
         ec.executeChild(this, new CardRequestTearDown());
         ec.executeChild(this, new CardTearDown());
+        ec.executeChild(this, new ChildTearDown());
         ec.executeChild(this, new UserTearDown());
         ec.executeChild(this, new CenterTearDown());
 
@@ -120,6 +128,10 @@ public class DemoFixture extends FixtureScript {
             ec.executeChild(this, new CardRequestCreate().user(requestingUser));
         }
 
+        for(int i = 0; i < NUM_CHILDREN; i++) {
+            ec.executeChild(this, new ChildCreate());
+        }
+
         List<Object> results  = ec.getResults().stream()
                 .map(FixtureResult::getObject)
                 .collect(Collectors.toList());
@@ -132,6 +144,11 @@ public class DemoFixture extends FixtureScript {
         getCardRequests().addAll(results.stream()
                 .filter(c -> c instanceof CardRequest)
                 .map(c -> (CardRequest) c)
+                .collect(Collectors.toList()));
+
+        getChildren().addAll(results.stream()
+                .filter(c -> c instanceof Child)
+                .map(c -> (Child) c)
                 .collect(Collectors.toList()));
     }
 

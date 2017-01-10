@@ -73,6 +73,7 @@ public class ChildRepository {
         child.setName(name);
         child.setParent(parent);
 
+        parent.getChildren().add(child);
         repositoryService.persist(child);
         return child;
     }
