@@ -95,9 +95,9 @@ public class CardRequest implements Comparable<CardRequest>{
 
     @Action
     public CardRequest approve(String cardNumber) {
-        requestingUser.giveCard(cardNumber);
-        Card card = cardRepository.findByOwner(requestingUser);
-        if(card != null && card.getNumber().equals(cardNumber)) {
+        requestingUser.newCard(cardNumber);
+        Card card = cardRepository.findByExactNumber(cardNumber);
+        if(card != null && card.getOwner().equals(requestingUser)) {
             setAssignedCard(card);
             setApproved(true);
         }
@@ -105,7 +105,7 @@ public class CardRequest implements Comparable<CardRequest>{
     }
 
     public String validateApprove(String cardNumber) {
-        return requestingUser.validateGiveCard(cardNumber);
+        return requestingUser.validateNewCard(cardNumber);
     }
 
     @Action

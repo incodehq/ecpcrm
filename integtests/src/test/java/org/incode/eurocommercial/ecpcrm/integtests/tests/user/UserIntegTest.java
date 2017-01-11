@@ -16,10 +16,13 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
+
+import com.google.common.collect.Lists;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +33,7 @@ import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
+import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
@@ -56,38 +60,120 @@ public class UserIntegTest extends EcpCrmIntegTest {
         assertThat(user).isNotNull();
     }
 
-    public static class GiveCard extends UserIntegTest {
+    public static class NewCard extends UserIntegTest {
 
         @Test
-        public void when_card_does_not_exist_it_isnt_assigned() {
+        public void when_card_number_is_invalid_it_isnt_assigned() {
             // given
-            Card card = cardRepository.findByOwner(user);
-            if(card != null) {
-                card.setOwner(null);
-            }
+            List<Card> cardsFromListAll = cardRepository.listAll();
+            List<Card> cardsFromQuery = cardRepository.findByOwner(user);
+            List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
+
             String cardNumber = "Not a CardNumber";
 
             // when
-            user.giveCard(cardNumber);
+            user.newCard(cardNumber);
 
             // then
-            assertThat(cardRepository.findByOwner(user)).isNull();
+            assertThat(cardRepository.listAll()).isEqualTo(cardsFromListAll);
+            assertThat(cardRepository.findByOwner(user)).isEqualTo(cardsFromQuery);
+            assertThat(Lists.newArrayList(user.getCards())).isEqualTo(cardsOnUser);
+        }
+
+        @Test
+        public void when_card_number_is_valid_but_card_doesnt_exist_it_is_created_and_assigned() {
+            // given
+            List<Card> cardsFromListAll = cardRepository.listAll();
+            List<Card> cardsFromQuery = cardRepository.findByOwner(user);
+            List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
+
+            Numerator centerNumerator = user.getCenter().getNumerator();
+            String cardNumber;
+            do {
+                cardNumber = centerNumerator.nextIncrementStr();
+            } while(!cardRepository.cardNumberIsValid(cardNumber, user.getCenter().getReference()));
+
+            // when
+            user.newCard(cardNumber);
+            Card createdCard = cardRepository.findByExactNumber(cardNumber);
+
+            // then
+            assertThat(createdCard).isNotNull();
+
+            assertThat(createdCard).isNotIn(cardsFromListAll);
+            assertThat(createdCard).isNotIn(cardsFromQuery);
+            assertThat(createdCard).isNotIn(cardsOnUser);
+
+            assertThat(createdCard).isIn(cardRepository.listAll());
+            assertThat(createdCard).isIn(cardRepository.findByOwner(user));
+            assertThat(createdCard).isIn(user.getCards());
+        }
+
+        @Test
+        public void when_card_is_already_assigned_to_user_nothing_changes() {
+            // given
+            while(user.getCards().isEmpty()) {
+                user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+            }
+            Card card = user.getCards().first();
+
+            List<Card> cardsFromListAll = cardRepository.listAll();
+            List<Card> cardsFromQuery = cardRepository.findByOwner(user);
+            List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
+
+            // when
+            user.newCard(card.getNumber());
+
+            // then
+            assertThat(cardRepository.listAll()).isEqualTo(cardsFromListAll);
+            assertThat(cardRepository.findByOwner(user)).isEqualTo(cardsFromQuery);
+            assertThat(Lists.newArrayList(user.getCards())).isEqualTo(cardsOnUser);
         }
 
         @Test
         public void when_card_exists_it_is_assigned() {
             // given
-            Card card = cardRepository.findByOwner(user);
-            if(card != null) {
-                card.setOwner(null);
-            }
-            card = fs.getCards().get(ThreadLocalRandom.current().nextInt(0, fs.getCards().size()));
+            List<Card> cardsFromListAll = cardRepository.listAll();
+            List<Card> cardsFromQuery = cardRepository.findByOwner(user);
+            List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
+
+            Card card;
+            do {
+                card = cardsFromListAll.get(new Random().nextInt(cardsFromListAll.size()));
+            } while(user.getCards().contains(card));
 
             // when
-            user.giveCard(card.getNumber());
+            user.newCard(card.getNumber());
 
             // then
-            assertThat(cardRepository.findByOwner(user)).isEqualTo(card);
+            assertThat(card).isIn(cardsFromListAll);
+            assertThat(card).isNotIn(cardsFromQuery);
+            assertThat(card).isNotIn(cardsOnUser);
+
+            assertThat(card).isIn(cardRepository.findByOwner(user));
+            assertThat(card).isIn(user.getCards());
+        }
+
+        @Test
+        public void when_card_was_assigned_to_another_user_it_is_unassigned() {
+            // given
+            List<Card> cardsFromListAll = cardRepository.listAll();
+
+            Card card;
+            do {
+                card = cardsFromListAll.get(new Random().nextInt(cardsFromListAll.size()));
+            } while(user.getCards().contains(card) || card.getOwner() == null);
+
+            User firstOwner = card.getOwner();
+
+            // when
+            user.newCard(card.getNumber());
+
+            // then
+            if(!cardRepository.findByOwner(firstOwner).isEmpty())
+                assertThat(card).isNotIn(cardRepository.findByOwner(firstOwner));
+            if(!firstOwner.getCards().isEmpty())
+                assertThat(card).isNotIn(firstOwner.getCards());
         }
     }
 

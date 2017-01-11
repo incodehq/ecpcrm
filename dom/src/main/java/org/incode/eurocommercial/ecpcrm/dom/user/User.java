@@ -28,6 +28,7 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -38,6 +39,7 @@ import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Date;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -163,6 +165,8 @@ public class User implements Comparable<User> {
     @Getter @Setter
     private boolean promotionalEmails;
 
+    // region > children
+
     @Persistent(mappedBy = "parent", dependentElement = "true")
     @Collection
     @CollectionLayout(render = RenderType.EAGERLY)
@@ -175,28 +179,42 @@ public class User implements Comparable<User> {
         return this;
     }
 
+    // endregion > children
+
+    // region > cards
+
+    @Persistent(mappedBy = "owner", dependentElement = "false")
+    @Collection
+    @CollectionLayout(render = RenderType.EAGERLY)
+    @Getter @Setter
+    private SortedSet<Card> cards = new TreeSet<>();
+
     @Action
-    public User giveCard(String cardNumber) {
-        Card card = cardRepository.findByExactNumber(cardNumber);
+    @ActionLayout(named = "Give Card")
+    public User newCard(String cardNumber) {
+        Card card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, getCenter());
         if(card != null) {
+            if(card.getOwner() != null && card.getOwner() != this) {
+                card.getOwner().getCards().remove(card);
+            }
             card.setOwner(this);
+            getCards().add(card);
         }
         return this;
     }
 
-    public String validateGiveCard(String cardNumber) {
+    public String validateNewCard(String cardNumber) {
         if(cardNumber == null) {
             return "No number entered";
         }
         if(!cardRepository.cardNumberIsValid(cardNumber, center.getReference())) {
             return "Card number " + cardNumber + " is invalid";
         }
-        if(!cardRepository.cardExists(cardNumber)) {
-            return "Card with number " + cardNumber + " doesn't exist";
-        }
 
         return null;
     }
+
+    // endregion > cards
 
     /* This is in Biggerband's domain model, but not implemented */
 //    @Column(allowsNull = "true")

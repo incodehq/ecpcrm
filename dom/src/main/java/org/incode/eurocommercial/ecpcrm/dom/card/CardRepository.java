@@ -100,10 +100,10 @@ public class CardRepository {
     }
 
     @Programmatic
-    public Card findByOwner(
+    public List<Card> findByOwner(
             final User owner
     ) {
-        return repositoryService.uniqueMatch(
+        return repositoryService.allMatches(
                 new QueryDefault<>(
                         Card.class,
                         "findByOwner",

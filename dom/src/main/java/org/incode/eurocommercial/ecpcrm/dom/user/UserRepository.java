@@ -182,8 +182,8 @@ public class UserRepository {
                     promotionalEmails,
                     reference);
         }
-        if(cardNumber != null) {
-            user.giveCard(cardNumber);
+        if(!Strings.isNullOrEmpty(cardNumber)) {
+            user.newCard(cardNumber);
         }
         return user;
     }

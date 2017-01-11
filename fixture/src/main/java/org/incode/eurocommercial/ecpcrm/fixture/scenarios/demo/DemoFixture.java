@@ -20,7 +20,7 @@
 package org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -99,7 +99,7 @@ public class DemoFixture extends FixtureScript {
                         .collect(Collectors.toList()));
 
         for(int i = 0; i < NUM_CARDS; i++) {
-            Center center = getCenters().get(ThreadLocalRandom.current().nextInt(0, getCenters().size()));
+            Center center = getCenters().get(new Random().nextInt(getCenters().size()));
             do {
                 cardNumber = center.getNumerator().nextIncrementStr();
             } while(!cardRepository.cardNumberIsValid(cardNumber, center.getReference()));
@@ -123,8 +123,16 @@ public class DemoFixture extends FixtureScript {
                         .collect(Collectors.toList()));
 
         for(int i = 0; i < NUM_CARD_REQUESTS; i++) {
-            List<User> availableUsers = getUsers().stream().filter(u -> cardRepository.findByOwner(u) == null).collect(Collectors.toList());
-            User requestingUser = availableUsers.get(ThreadLocalRandom.current().nextInt(0, availableUsers.size()));
+            List<User> availableUsers = getUsers().stream()
+                    .filter(u -> cardRepository.findByOwner(u).size() == 0)
+                    .collect(Collectors.toList());
+            User requestingUser;
+            if(availableUsers.size() > 0) {
+                requestingUser = availableUsers.get(new Random().nextInt(availableUsers.size()));
+            }
+            else {
+                requestingUser = getUsers().get(new Random().nextInt(getUsers().size()));
+            }
             ec.executeChild(this, new CardRequestCreate().user(requestingUser));
         }
 

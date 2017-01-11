@@ -37,6 +37,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -103,6 +104,7 @@ public class Card implements Comparable<Card> {
 
     @Column(allowsNull = "true")
     @Property
+    @PropertyLayout(hidden = Where.REFERENCES_PARENT)
     @Getter @Setter
     private User owner;
 

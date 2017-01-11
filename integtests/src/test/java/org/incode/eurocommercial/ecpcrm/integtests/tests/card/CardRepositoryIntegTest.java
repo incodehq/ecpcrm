@@ -18,6 +18,7 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.card;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -196,31 +197,31 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByOwner extends CardRepositoryIntegTest {
         @Test
-        public void if_user_has_card_card_should_be_returned() {
+        public void if_user_has_cards_they_should_be_returned() {
             // given
             List<Card> cardsWithOwners = fs.getCards().stream()
                     .filter(c -> c.getOwner() != null)
                     .collect(Collectors.toList());
 
-            Card cardWithOwner = cardsWithOwners.get(ThreadLocalRandom.current().nextInt(0, cardsWithOwners.size()));
+            Card cardWithOwner = cardsWithOwners.get(new Random().nextInt(cardsWithOwners.size()));
 
             // when
-            Card foundCard = cardRepository.findByOwner(cardWithOwner.getOwner());
+            List<Card> foundCards = cardRepository.findByOwner(cardWithOwner.getOwner());
 
             // then
-            assertThat(foundCard).isEqualTo(cardWithOwner);
+            assertThat(cardWithOwner).isIn(foundCards);
         }
 
         @Test
-        public void if_user_has_no_card_no_card_should_be_returned() {
+        public void if_user_has_no_cards_nothing_should_be_returned() {
             // given
             User userWithoutCard = new User();
 
             // when
-            Card userCard = cardRepository.findByOwner(userWithoutCard);
+            List<Card> foundCards = cardRepository.findByOwner(userWithoutCard);
 
             // then
-            assertThat(userCard).isNull();
+            assertThat(foundCards).isEmpty();
         }
     }
 

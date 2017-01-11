@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
-    
+
     @Inject ChildRepository childRepository;
 
     DemoFixture fs;
