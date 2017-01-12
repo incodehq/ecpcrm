@@ -44,6 +44,11 @@
         <docker-plugin.snapshotRegistryUrl>https://index.docker.io/v1/</docker-plugin.snapshotRegistryUrl>
         <docker-plugin.releaseServerId>docker-hub</docker-plugin.releaseServerId>
         <docker-plugin.releaseRegistryUrl>https://index.docker.io/v1/</docker-plugin.releaseRegistryUrl>
+
+        <!-- workaround, property substitution in incode-parent:1.13.2.1 doesn't work as hoped -->
+        <docker-plugin.serverId>docker-hub</docker-plugin.serverId>
+        <docker-plugin.registryUrl>https://index.docker.io/v1/</docker-plugin.registryUrl>
+
     </properties>
 
     <build>
