@@ -55,7 +55,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
     Center center;
 
     String startNumber;
-    String endNumber;
+    int batchSize;
 
     @Before
     public void setUp() throws Exception {
@@ -67,7 +67,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         assertThat(center).isNotNull();
 
         startNumber = "2" + center.getReference() + "000000000";
-        endNumber = "2" + center.getReference() + "000100000";
+        batchSize = 1000;
     }
 
     public static class ListAll extends CardRepositoryIntegTest {
@@ -209,7 +209,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> foundCards = cardRepository.findByOwner(cardWithOwner.getOwner());
 
             // then
-            assertThat(cardWithOwner).isIn(foundCards);
+            assertThat(foundCards).contains(cardWithOwner);
         }
 
         @Test
@@ -232,34 +232,38 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void all_cards_in_batch_are_valid() {
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, endNumber, status, center);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
 
             // then
             createdCards.forEach(c -> assertThat(cardRepository.cardNumberIsValid(c.getNumber(), center.getReference())));
         }
 
         @Test
-        public void all_card_numbers_are_between_start_and_end() {
+        public void all_card_numbers_come_after_start_number() {
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, endNumber, status, center);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
 
             // then
             List<BigInteger> numbers = createdCards.stream().map(c -> new BigInteger(c.getNumber())).sorted().collect(Collectors.toList());
             assertThat(numbers.get(0)).isGreaterThanOrEqualTo(new BigInteger(startNumber));
-            assertThat(numbers.get(numbers.size() - 1)).isLessThanOrEqualTo(new BigInteger(endNumber));
+        }
+
+        @Test
+        public void correct_number_of_cards_are_created() {
+            // when
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
+
+            // then
+            assertThat(createdCards.size()).isEqualTo(batchSize);
         }
 
         @Test
         public void all_cards_are_being_persisted() {
-            // given
-            List<Card> cardList = cardRepository.listAll();
-
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, endNumber, status, center);
-            cardList.removeAll(createdCards);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
 
             // then
-            assertThat(cardList.size() + createdCards.size()).isEqualTo(cardRepository.listAll().size());
+            createdCards.forEach(card -> assertThat(cardRepository.listAll()).contains(card));
         }
     }
 

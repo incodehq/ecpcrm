@@ -100,13 +100,13 @@ public class UserIntegTest extends EcpCrmIntegTest {
             // then
             assertThat(createdCard).isNotNull();
 
-            assertThat(createdCard).isNotIn(cardsFromListAll);
-            assertThat(createdCard).isNotIn(cardsFromQuery);
-            assertThat(createdCard).isNotIn(cardsOnUser);
+            assertThat(cardsFromListAll).doesNotContain(createdCard);
+            assertThat(cardsFromQuery).doesNotContain(createdCard);
+            assertThat(cardsOnUser).doesNotContain(createdCard);
 
-            assertThat(createdCard).isIn(cardRepository.listAll());
-            assertThat(createdCard).isIn(cardRepository.findByOwner(user));
-            assertThat(createdCard).isIn(user.getCards());
+            assertThat(cardRepository.listAll()).contains(createdCard);
+            assertThat(cardRepository.findByOwner(user)).contains(createdCard);
+            assertThat(user.getCards()).contains(createdCard);
         }
 
         @Test
@@ -146,12 +146,12 @@ public class UserIntegTest extends EcpCrmIntegTest {
             user.newCard(card.getNumber());
 
             // then
-            assertThat(card).isIn(cardsFromListAll);
-            assertThat(card).isNotIn(cardsFromQuery);
-            assertThat(card).isNotIn(cardsOnUser);
+            assertThat(cardsFromListAll).contains(card);
+            assertThat(cardsFromQuery).doesNotContain(card);
+            assertThat(cardsOnUser).doesNotContain(card);
 
-            assertThat(card).isIn(cardRepository.findByOwner(user));
-            assertThat(card).isIn(user.getCards());
+            assertThat(cardRepository.findByOwner(user)).contains(card);
+            assertThat(user.getCards()).contains(card);
         }
 
         @Test
@@ -170,10 +170,8 @@ public class UserIntegTest extends EcpCrmIntegTest {
             user.newCard(card.getNumber());
 
             // then
-            if(!cardRepository.findByOwner(firstOwner).isEmpty())
-                assertThat(card).isNotIn(cardRepository.findByOwner(firstOwner));
-            if(!firstOwner.getCards().isEmpty())
-                assertThat(card).isNotIn(firstOwner.getCards());
+            assertThat(cardRepository.findByOwner(firstOwner)).doesNotContain(card);
+            assertThat(firstOwner.getCards()).doesNotContain(card);
         }
     }
 

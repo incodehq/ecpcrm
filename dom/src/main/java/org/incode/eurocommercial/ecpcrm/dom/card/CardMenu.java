@@ -97,11 +97,11 @@ public class CardMenu {
     @MemberOrder(sequence = "4")
     public List<Card> newBatch(
             final @ParameterLayout(named = "Start Number") String startNumber,
-            final @ParameterLayout(named = "End Number") String endNumber,
+            final @ParameterLayout(named = "Batch Size") int batchSize,
             final @ParameterLayout(named = "Status") CardStatus status,
             final @ParameterLayout(named = "Center") Center center
     ) {
-        return cardRepository.newBatch(startNumber, endNumber, status, center);
+        return cardRepository.newBatch(startNumber, batchSize, status, center);
     }
 
     @Inject CardRepository cardRepository;

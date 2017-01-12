@@ -147,15 +147,14 @@ public class CardRepository {
     @Programmatic
     public List<Card> newBatch(
             final String startNumber,
-            final String endNumber,
+            final int batchSize,
             final CardStatus status,
             final Center center
     ) {
         String centerCode = center.getReference();
         BigInteger start = new BigInteger(startNumber);
-        BigInteger end = new BigInteger(endNumber);
         List<Card> results = new ArrayList<>();
-        for(BigInteger i = start; i.compareTo(end) <= 0; i = i.add(BigInteger.ONE)) {
+        for(BigInteger i = start;  results.size() < batchSize; i = i.add(BigInteger.ONE)) {
             String cardNumber = i.toString();
             if(cardNumberIsValid(cardNumber, centerCode)) {
                 results.add(findOrCreate(cardNumber, status, center));
