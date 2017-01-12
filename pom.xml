@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2</version>
+        <version>1.13.2.1</version>
     </parent>
 
     <groupId>org.isisaddons.app</groupId>
@@ -63,10 +63,6 @@
 
         <incode-module-note.version>1.13.0-SNAPSHOT</incode-module-note.version>
         <incode-module-commchannel.version>1.13.0-SNAPSHOT</incode-module-commchannel.version>
-
-        <mavenmixin-docker.version>0.0.2</mavenmixin-docker.version>
-        <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
-        <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
 
