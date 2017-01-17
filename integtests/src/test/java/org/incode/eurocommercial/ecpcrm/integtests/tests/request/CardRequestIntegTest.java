@@ -17,7 +17,7 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.request;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -48,7 +48,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        cardRequest = fs.getCardRequests().get(ThreadLocalRandom.current().nextInt(0, fs.getCardRequests().size()));
+        cardRequest = fs.getCardRequests().get(new Random().nextInt(fs.getCardRequests().size()));
         assertThat(cardRequest).isNotNull();
     }
 
@@ -70,7 +70,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         public void when_card_is_valid_card_request_is_approved_and_card_is_assigned() {
             // given
             List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
-            Card card = availableCards.get(ThreadLocalRandom.current().nextInt(0, availableCards.size()));
+            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             // when
             cardRequest.approve(card.getNumber());
@@ -90,6 +90,37 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             // then
             assertThat(cardRequest.getApproved()).isFalse();
             assertThat(cardRequest.getAssignedCard()).isNull();
+        }
+    }
+
+    public static class Reapprove extends CardRequestIntegTest {
+        @Test
+        public void when_card_is_invalid_card_requests_stays_the_same() {
+            // given
+            cardRequest.deny();
+            String cardNumber = "10";
+
+            // when
+            cardRequest.reapprove(cardNumber);
+
+            // then
+            assertThat(cardRequest.getApproved()).isFalse();
+            assertThat(cardRequest.getAssignedCard()).isNull();
+        }
+
+        @Test
+        public void when_card_is_valid_card_request_is_approved_and_card_is_assigned() {
+            // given
+            cardRequest.deny();
+            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+
+            // when
+            cardRequest.reapprove(card.getNumber());
+
+            // then
+            assertThat(cardRequest.getApproved()).isTrue();
+            assertThat(cardRequest.getAssignedCard()).isEqualTo(card);
         }
     }
 

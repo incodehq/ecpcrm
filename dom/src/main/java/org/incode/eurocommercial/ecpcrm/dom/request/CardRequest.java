@@ -119,12 +119,25 @@ public class CardRequest implements Comparable<CardRequest>{
         return this;
     }
 
+    @Action
+    public CardRequest reapprove(String cardNumber) {
+        return approve(cardNumber);
+    }
+
+    public String validateReapprove(String cardNumber) {
+        return validateApprove(cardNumber);
+    }
+
     public boolean hideApprove() {
         return getApproved() != null;
     }
 
     public boolean hideDeny() {
         return getApproved() != null;
+    }
+
+    public boolean hideReapprove() {
+        return getApproved() == null || getApproved();
     }
 
     public boolean hideAssignedCard() {

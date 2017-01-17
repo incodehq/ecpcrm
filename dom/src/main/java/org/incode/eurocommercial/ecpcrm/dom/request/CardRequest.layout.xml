@@ -21,6 +21,7 @@
                                     <cpt:fieldSet name="Card Request Details" id="card-request-details">
                                         <cpt:action id="approve"/>
                                         <cpt:action id="deny"/>
+                                        <cpt:action id="reapprove"/>
                                         <cpt:property id="requestingUser"/>
                                         <cpt:property id="date"/>
                                         <cpt:property id="approved"/>
