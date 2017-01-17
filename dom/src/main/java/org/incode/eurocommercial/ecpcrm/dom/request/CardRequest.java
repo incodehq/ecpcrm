@@ -55,7 +55,13 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.request.CardRequest "
                         + "WHERE approved == :approved "
-                        + "&& requestingUser == :requestingUser ")
+                        + "&& requestingUser == :requestingUser "),
+        @Query(
+                name = "findByDateRange", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.request.CardRequest "
+                        + "WHERE date >= :startDate "
+                        + "&& date <= :endDate ")
 })
 @DomainObject(
         editing = Editing.DISABLED
@@ -89,7 +95,6 @@ public class CardRequest implements Comparable<CardRequest>{
 
     @Column(allowsNull = "true")
     @Property
-    @PropertyLayout(hidden = Where.ALL_TABLES)
     @Getter @Setter
     private Boolean approved;
 

@@ -20,6 +20,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -46,6 +48,18 @@ public class CardRequestRepository {
                         CardRequest.class,
                         "findByApproved",
                         "approved", null));
+    }
+
+    @Programmatic
+    public List<CardRequest> listRecentRequests() {
+        LocalDate end = clockService.now();
+        LocalDate start = end.minusDays(7);
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        CardRequest.class,
+                        "findByDateRange",
+                        "startDate", start,
+                        "endDate", end));
     }
 
     @Programmatic

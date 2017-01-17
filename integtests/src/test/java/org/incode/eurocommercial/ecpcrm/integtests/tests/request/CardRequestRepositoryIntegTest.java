@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
@@ -37,6 +38,7 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
     @Inject FixtureScripts fixtureScripts;
 
     @Inject CardRequestRepository cardRequestRepository;
+    @Inject ClockService clockService;
 
     DemoFixture fs;
 
@@ -79,6 +81,38 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
             // then
             cardRequestList.removeAll(openRequests);
             cardRequestList.forEach(c -> assertThat(c.getApproved()).isNotNull());
+        }
+    }
+
+    public static class ListRecentRequests extends CardRequestRepositoryIntegTest {
+        @Test
+        public void only_recent_requests_should_be_returned() {
+            // given
+            CardRequest oldRequest = cardRequestRepository.listAll().get(0);
+            oldRequest.setDate(clockService.now().minusDays(8));
+
+            // when
+            List<CardRequest> recentRequests = cardRequestRepository.listRecentRequests();
+
+            // then
+            recentRequests.forEach(c -> assertThat(c.getDate()).isGreaterThanOrEqualTo(clockService.now().minusDays(7)));
+            assertThat(recentRequests).doesNotContain(oldRequest);
+        }
+
+        @Test
+        public void all_recent_requests_should_be_returned() {
+            // given
+            List<CardRequest> allRequests = cardRequestRepository.listAll();
+            CardRequest oldRequest = allRequests.get(0);
+            oldRequest.setDate(clockService.now().minusDays(8));
+
+            // when
+            List<CardRequest> recentRequests = cardRequestRepository.listRecentRequests();
+
+            // then
+            allRequests.removeAll(recentRequests);
+            allRequests.forEach(c -> assertThat(c.getDate()).isLessThan(clockService.now().minusDays(7)));
+            assertThat(allRequests).contains(oldRequest);
         }
     }
 }

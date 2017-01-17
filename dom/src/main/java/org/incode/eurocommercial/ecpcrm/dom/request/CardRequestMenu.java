@@ -38,5 +38,10 @@ public class CardRequestMenu {
         return cardRequestRepository.listOpenRequests();
     }
 
+    @Action(semantics = SemanticsOf.SAFE)
+    public List<CardRequest> allRecentRequests() {
+        return cardRequestRepository.listRecentRequests();
+    }
+
     @Inject CardRequestRepository cardRequestRepository;
 }
