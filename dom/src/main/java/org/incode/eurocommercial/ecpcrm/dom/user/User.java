@@ -27,6 +27,8 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
@@ -37,7 +39,6 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.util.ObjectContracts;
-import org.apache.isis.applib.value.Date;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
@@ -147,8 +148,9 @@ public class User implements Comparable<User> {
     /* This is in Biggerband's domain model, but not implemented */
     @Column(allowsNull = "true")
     @Property
+    @Persistent
     @Getter @Setter
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(allowsNull = "false")
     @Property
