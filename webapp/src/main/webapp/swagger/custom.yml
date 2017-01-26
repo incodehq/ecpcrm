@@ -488,7 +488,7 @@ definitions:
       haschildren:
         type: string
         # type: boolean
-      no_children:
+      nb_children:
         type: string
         # type: integer
       children:

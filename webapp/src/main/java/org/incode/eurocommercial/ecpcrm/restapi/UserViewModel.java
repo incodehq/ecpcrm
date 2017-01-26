@@ -1,5 +1,7 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data(staticConstructor = "create")
@@ -21,9 +23,9 @@ public class UserViewModel {
 //    TODO: Fully implement this viewmodel
 //    private final String car;
 //    private final SortedSet<String> boutiques;
-//    private final String haschildren;
-//    private final String no_children;
-//    private final SortedSet<ChildViewModel> children;
-//    private final SortedSet<CardViewModel> cards;
+    private final String haschildren;
+    private final String nb_children;
+    private final List<ChildViewModel> children;
+    private final List<CardViewModel> cards;
 //    private final SortedSet<ChildCareViewModel> child_cares;
 }

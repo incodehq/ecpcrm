@@ -1,6 +1,8 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
 import java.io.InputStream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -25,6 +27,8 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationSer
 import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrinting;
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
@@ -250,7 +254,32 @@ public class EcpCrmResource extends ResourceAbstract  {
                 .build();
     }
 
-    private UserViewModel asVm(final User x) {
+    private static ChildViewModel asVm(final Child x) {
+        return ChildViewModel.create(
+                "unknown",
+                "unknown",
+                "unknown"
+        );
+    }
+
+    private static CardViewModel asVm(final Card x) {
+        return CardViewModel.create(
+                x.getNumber(),
+                x.getStatus().toString().toLowerCase(),
+                "unknown",
+                "unknown",
+                "unknown"
+        );
+    }
+
+    private static UserViewModel asVm(final User x) {
+        List<ChildViewModel> userChildren = x.getChildren().stream()
+                .map(EcpCrmResource::asVm)
+                .collect(Collectors.toList());
+        List<CardViewModel> userCards = x.getCards().stream()
+                .map(EcpCrmResource::asVm)
+                .collect(Collectors.toList());
+
         return UserViewModel.create(
                 x.getReference(),
                 x.getTitle().toString().toLowerCase(),
@@ -265,10 +294,17 @@ public class EcpCrmResource extends ResourceAbstract  {
                 asString(x.getBirthDate()),
                 x.getCenter().title(),
                 asString(x.isEnabled()),
-                asString(x.isPromotionalEmails())
+                asString(x.isPromotionalEmails()),
+                asString(userChildren.size() != 0),
+                asString(userChildren.size()),
+                userChildren,
+                userCards
         );
     }
 
+    private static String asString(final int i) {
+        return "" + i;
+    }
     private static String asString(final boolean bool) {
         return bool ? "true" : "false";
     }
