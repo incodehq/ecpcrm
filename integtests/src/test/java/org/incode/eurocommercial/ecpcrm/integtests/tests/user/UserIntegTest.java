@@ -24,11 +24,14 @@ import javax.inject.Inject;
 
 import com.google.common.collect.Lists;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.clock.ClockService;
 
+import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
@@ -42,6 +45,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
+
+    @Inject ClockService clockService;
 
     @Inject CardRepository cardRepository;
 
@@ -184,9 +189,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
                 user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
             } while(!user.getChildren().isEmpty());
             String childName = "Bob";
+            LocalDate date = clockService.now();
 
             // when
-            user.newChild(childName);
+            user.newChild(childName, Gender.MALE, date);
 
             // then
             assertThat(user.getChildren().size()).isEqualTo(1);
@@ -198,11 +204,12 @@ public class UserIntegTest extends EcpCrmIntegTest {
             // given
             User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
             int numberOfChildren = user.getChildren().size();
-            String childName = user.getChildren().first().getName();
-            childName = childName.substring(2) + childName;
+            Child child = user.getChildren().first();
+            String childName = child.getName().substring(2) + child.getName();
+            LocalDate date = clockService.now();
 
             // when
-            user.newChild(childName);
+            user.newChild(childName, child.getGender(), child.getBirthdate());
 
             // then
             assertThat(user.getChildren().size()).isEqualTo(numberOfChildren + 1);
@@ -215,10 +222,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
         public void when_child_already_exists_for_user_no_new_child_is_created() {
             User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
             int numberOfChildren = user.getChildren().size();
-            String childName = user.getChildren().first().getName();
+            Child child = user.getChildren().first();
 
             // when
-            user.newChild(childName);
+            user.newChild(child.getName(), child.getGender(), child.getBirthdate());
 
             // then
             assertThat(user.getChildren().size()).isEqualTo(numberOfChildren);

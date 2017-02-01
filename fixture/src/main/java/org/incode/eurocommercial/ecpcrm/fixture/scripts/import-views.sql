@@ -49,9 +49,17 @@ SELECT
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`child` AS
 SELECT
  child.id AS id,
+ CASE gender.field_genre_value
+ WHEN "m" THEN "MALE"
+ WHEN "f" THEN "FEMALE" 
+ ELSE "UNKNOWN_IMPORT"
+ END AS gender,
  child.names AS name,
+ bd.field_birthdate_value AS birthdate,
  child.user_id AS parentReference,
  child.info AS notes,
  child.start_at AS startTime,
  child.stop_at AS endTime
  FROM `crm`.`children` AS child
+ INNER JOIN `crm`.`field_data_field_birthdate` AS bd ON child.id = bd.entity_id
+ INNER JOIN `crm`.`field_data_field_genre` AS gender ON child.id = gender.entity_id

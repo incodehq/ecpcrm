@@ -16,11 +16,14 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom;
 
+import lombok.Getter;
+
 public enum Gender {
     MALE("m"),
     FEMALE("f"),
     UNKNOWN_IMPORT("Unknown");
 
+    @Getter
     private String value;
 
     Gender(final String value) {

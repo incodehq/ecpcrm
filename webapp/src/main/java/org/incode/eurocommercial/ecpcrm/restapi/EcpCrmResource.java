@@ -19,8 +19,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.joda.time.LocalDate;
+import org.joda.time.Years;
 
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.applib.RestfulMediaType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService;
@@ -41,25 +43,6 @@ public class EcpCrmResource extends ResourceAbstract  {
             final RepresentationService.Intent intent) {
         super.init(representationType, where, intent);
         this.getServicesInjector().injectServicesInto(this);
-    }
-
-
-    @POST
-    @Path("/card-check-unbound")
-    @Consumes({ MediaType.APPLICATION_JSON })
-    @Produces({
-            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
-            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
-    })
-    @PrettyPrinting
-    public Response cardCheckUnbound(InputStream body) {
-        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
-
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(String.format("{ \"status\": 200, \"message\": \"test\"}"))
-                .build();
     }
 
     @POST
@@ -255,10 +238,11 @@ public class EcpCrmResource extends ResourceAbstract  {
     }
 
     private static ChildViewModel asVm(final Child x) {
+        int age = Years.yearsBetween(x.getBirthdate(), LocalDate.now()).getYears();
         return ChildViewModel.create(
-                "unknown",
-                "unknown",
-                "unknown"
+                asString(age),
+                asString(x.getBirthdate()),
+                x.getGender().getValue()
         );
     }
 
@@ -308,7 +292,6 @@ public class EcpCrmResource extends ResourceAbstract  {
     private static String asString(final boolean bool) {
         return bool ? "true" : "false";
     }
-
     private static String asString(final LocalDate localDate) {
         return localDate == null ? null : localDate.toString();
     }
@@ -352,4 +335,5 @@ public class EcpCrmResource extends ResourceAbstract  {
     }
 
     @Inject UserRepository userRepository;
+    @Inject ClockService clockService;
 }

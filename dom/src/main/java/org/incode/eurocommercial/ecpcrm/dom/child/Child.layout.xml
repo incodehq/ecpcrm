@@ -21,6 +21,8 @@
                                     <cpt:fieldSet name="Child Details" id="user-details">
                                         <!--<cpt:action id="edit"/>-->
                                         <cpt:property id="name"/>
+                                        <cpt:property id="gender"/>
+                                        <cpt:property id="birthdate"/>
                                         <cpt:property id="parent"/>
                                         <cpt:property id="notes"/>
                                     </cpt:fieldSet>

@@ -41,6 +41,7 @@ import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
+import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -176,8 +177,8 @@ public class User implements Comparable<User> {
     private SortedSet<Child> children = new TreeSet<>();
 
     @Action
-    public User newChild(String name) {
-        childRepository.findOrCreate(name, this);
+    public User newChild(String name, Gender gender, LocalDate birthdate) {
+        childRepository.findOrCreate(name, gender, birthdate, this);
         return this;
     }
 

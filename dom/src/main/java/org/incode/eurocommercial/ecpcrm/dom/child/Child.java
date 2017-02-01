@@ -19,8 +19,11 @@ package org.incode.eurocommercial.ecpcrm.dom.child;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
+
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -30,6 +33,7 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Getter;
@@ -72,6 +76,17 @@ public class Child implements Comparable<Child> {
     @Property
     @Getter @Setter
     private String name;
+
+    @Column(allowsNull = "false")
+    @Property
+    @Getter @Setter
+    private Gender gender;
+
+    @Column(allowsNull = "true")
+    @Property
+    @Persistent
+    @Getter @Setter
+    private LocalDate birthdate;
 
     @Column(allowsNull = "false")
     @Property

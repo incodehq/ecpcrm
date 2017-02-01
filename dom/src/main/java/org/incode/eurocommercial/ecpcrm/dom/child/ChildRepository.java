@@ -20,12 +20,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 @DomainService(
@@ -66,11 +69,15 @@ public class ChildRepository {
     @Programmatic
     public Child newChild(
             final String name,
+            final Gender gender,
+            final LocalDate birthdate,
             final User parent
     ) {
         Child child = repositoryService.instantiate(Child.class);
 
         child.setName(name);
+        child.setGender(gender);
+        child.setBirthdate(birthdate);
         child.setParent(parent);
         child.setNotes("");
 
@@ -82,10 +89,12 @@ public class ChildRepository {
     @Programmatic
     public Child findOrCreate(
             final String name,
+            final Gender gender,
+            final LocalDate birthdate,
             final User parent
     ) {
         Child child = findByParentAndName(parent, name);
-        child = child != null ? child : newChild(name, parent);
+        child = child != null ? child : newChild(name, gender, birthdate, parent);
         return child;
     }
 
