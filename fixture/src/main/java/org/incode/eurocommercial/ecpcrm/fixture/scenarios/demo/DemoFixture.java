@@ -81,7 +81,7 @@ public class DemoFixture extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         String cardNumber;
 
-        // zap everything
+        /* First, tear everything down hierarchically */
         ec.executeChild(this, new CardRequestTearDown());
         ec.executeChild(this, new CardTearDown());
         ec.executeChild(this, new ChildTearDown());
@@ -91,6 +91,8 @@ public class DemoFixture extends FixtureScript {
         for(int i = 0; i < NUM_CENTERS; i++) {
             ec.executeChild(this, new CenterCreate());
         }
+
+        /* Add all created centers to the centers List */
         getCenters().addAll(
                 ec.getResults().stream()
                         .map(FixtureResult::getObject)
@@ -100,6 +102,7 @@ public class DemoFixture extends FixtureScript {
 
         for(int i = 0; i < NUM_CARDS; i++) {
             Center center = getCenters().get(new Random().nextInt(getCenters().size()));
+
             do {
                 cardNumber = center.getNumerator().nextIncrementStr();
             } while(!cardRepository.cardNumberIsValid(cardNumber, center.getReference()));
@@ -115,6 +118,8 @@ public class DemoFixture extends FixtureScript {
             ec.setParameter("cardNumber", "");
             ec.executeChild(this, new UserCreate());
         }
+
+        /* Add all created users to the users List */
         getUsers().addAll(
                 ec.getResults().stream()
                         .map(FixtureResult::getObject)
@@ -123,16 +128,21 @@ public class DemoFixture extends FixtureScript {
                         .collect(Collectors.toList()));
 
         for(int i = 0; i < NUM_CARD_REQUESTS; i++) {
+            /* Only users without cards can request a card */
             List<User> availableUsers = getUsers().stream()
-                    .filter(u -> cardRepository.findByOwner(u).size() == 0)
+                    .filter(u -> u.getCards().isEmpty())
                     .collect(Collectors.toList());
+
             User requestingUser;
+
             if(availableUsers.size() > 0) {
                 requestingUser = availableUsers.get(new Random().nextInt(availableUsers.size()));
             }
+            /* Unless no such users are available */
             else {
                 requestingUser = getUsers().get(new Random().nextInt(getUsers().size()));
             }
+
             ec.executeChild(this, new CardRequestCreate().user(requestingUser));
         }
 
@@ -140,6 +150,7 @@ public class DemoFixture extends FixtureScript {
             ec.executeChild(this, new ChildCreate());
         }
 
+        /* Add all created Domain Objects to their respective Lists */
         List<Object> results  = ec.getResults().stream()
                 .map(FixtureResult::getObject)
                 .collect(Collectors.toList());

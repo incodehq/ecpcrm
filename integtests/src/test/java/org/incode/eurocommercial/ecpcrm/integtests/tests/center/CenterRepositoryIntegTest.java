@@ -17,8 +17,8 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.center;
 
 import java.util.List;
+import java.util.Random;
 import java.util.TreeSet;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
 
@@ -49,7 +49,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        center = fs.getCenters().get(ThreadLocalRandom.current().nextInt(0, fs.getCenters().size()));
+        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
         assertThat(center).isNotNull();
     }
 

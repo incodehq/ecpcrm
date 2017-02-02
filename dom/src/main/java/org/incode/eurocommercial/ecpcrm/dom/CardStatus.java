@@ -16,12 +16,15 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom;
 
+import lombok.Getter;
+
 public enum CardStatus {
     ENABLED("Enabled"),
     DISABLED("Disabled"),
     LOST("Lost"),
     TOCHANGE("ToChange");
 
+    @Getter
     private String value;
 
     CardStatus(final String value) {

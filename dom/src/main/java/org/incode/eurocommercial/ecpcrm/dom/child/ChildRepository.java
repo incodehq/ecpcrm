@@ -67,7 +67,7 @@ public class ChildRepository {
     }
 
     @Programmatic
-    public Child newChild(
+    private Child newChild(
             final String name,
             final Gender gender,
             final LocalDate birthdate,

@@ -75,7 +75,7 @@ public class CardRequestRepository {
     }
 
     @Programmatic
-    public CardRequest newCardRequest(
+    private CardRequest newCardRequest(
             User user
     ) {
         final CardRequest cardRequest = repositoryService.instantiate(CardRequest.class);
@@ -93,7 +93,6 @@ public class CardRequestRepository {
     ) {
         CardRequest cardRequest = openRequestForUser(user);
         cardRequest = cardRequest != null ? cardRequest : newCardRequest(user);
-
         return cardRequest;
     }
 

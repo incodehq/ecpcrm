@@ -1,6 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.fixture.dom.card;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -25,6 +25,9 @@ public class CardCreate extends FixtureScript {
     private String number;
 
     @Getter @Setter
+    private CardStatus status;
+
+    @Getter @Setter
     private Center center;
 
     @Getter
@@ -34,9 +37,16 @@ public class CardCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        number = defaultParam("number", ec, ""+faker.number().randomNumber(13, true));
-        center = center != null ? center : defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
-        this.card = wrap(menu).newCard(number(), CardStatus.ENABLED, center());
+        number = defaultParam("number", ec,
+                "" + faker.number().randomNumber(13, true));
+        status = defaultParam("status", ec, CardStatus.ENABLED);
+        if(center == null) {
+            center = defaultParam("center", ec,
+                    centerRepository.listAll().get(
+                            new Random().nextInt(centerRepository.listAll().size())));
+        }
+
+        card = wrap(menu).newCard(number(), status(), center());
 
         ec.addResult(this, card);
     }

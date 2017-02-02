@@ -16,12 +16,15 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom;
 
+import lombok.Getter;
+
 public enum Title {
     MR("mr"),
     MRS("mrs"),
     MISS("miss"),
     UNKNOWN_IMPORT("Unknown");
 
+    @Getter
     private String value;
 
     Title(final String value) {

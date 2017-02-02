@@ -47,13 +47,6 @@ import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 )
 public class UserMenu {
 
-//    @Action(semantics = SemanticsOf.SAFE)
-//    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-//    @MemberOrder(sequence = "1")
-//    public List<User> listAll() {
-//        return userRepository.listAll();
-//    }
-
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
@@ -71,8 +64,8 @@ public class UserMenu {
             @ParameterLayout(named = "Name")
             final String name
     ) {
+        /* Splits name on spaces to search on both first and last name */
         String[] splitName = name.split("\\s+", 2);
-        System.out.println(splitName);
         if(splitName.length > 1) {
             return userRepository.findByFirstAndLastName(splitName[0], splitName[1]);
         }

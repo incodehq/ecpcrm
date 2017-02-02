@@ -17,8 +17,8 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
 import java.util.List;
+import java.util.Random;
 import java.util.TreeSet;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
 
@@ -49,7 +49,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        user = fs.getUsers().get(ThreadLocalRandom.current().nextInt(0, fs.getUsers().size()));
+        user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
         assertThat(user).isNotNull();
     }
 

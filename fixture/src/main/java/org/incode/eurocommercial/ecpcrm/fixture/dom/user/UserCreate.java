@@ -1,7 +1,7 @@
 package org.incode.eurocommercial.ecpcrm.fixture.dom.user;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -69,27 +69,49 @@ public class UserCreate extends FixtureScript {
         Faker faker = new Faker();
 
         enabled = defaultParam("enabled", ec, true);
-        title = defaultParam("title", ec, Title.values()[ThreadLocalRandom.current().nextInt(0, Title.values().length)]);
+        title = defaultParam("title", ec,
+                Title.values()[new Random().nextInt(Title.values().length)]);
         firstName = defaultParam("firstName", ec, faker.name().firstName());
         lastName = defaultParam("lastName", ec, faker.name().lastName());
-        email = defaultParam("email", ec, faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase());
+        email = defaultParam("email", ec,
+                faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase());
         address = defaultParam("address", ec, faker.address().streetAddress());
         zipcode = defaultParam("zipcode", ec, faker.address().zipCode());
         city = defaultParam("city", ec, faker.address().city());
         phoneNumber = defaultParam("phoneNumber", ec, faker.phoneNumber().cellPhone());
-        center = defaultParam("center", ec, centerRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, centerRepository.listAll().size())));
+        center = defaultParam("center", ec,
+                centerRepository.listAll().get(
+                        new Random().nextInt(centerRepository.listAll().size())));
 
         cardNumber = null;
+        /* Only cards without owners can be asssigned */
         List<Card> availableCards = cardRepository.findByCenter(center()).stream()
                 .filter(c -> c.getOwner() == null)
                 .collect(Collectors.toList());
+
         if(availableCards.size() > 0) {
-            cardNumber = defaultParam("cardNumber", ec, availableCards.get(ThreadLocalRandom.current().nextInt(0, availableCards.size())).getNumber());
+            cardNumber = defaultParam("cardNumber", ec,
+                    availableCards.get(
+                            new Random().nextInt(availableCards.size())).getNumber());
         }
 
         promotionalEmails = defaultParam("promotionalEmails", ec, faker.bool().bool());
 
-        this.user = wrap(menu).newUser(enabled(), title(), firstName(), lastName(), email(), address(), zipcode(), city(), phoneNumber(), center(), cardNumber(), promotionalEmails());
+        this.user = wrap(menu).newUser(
+                enabled(),
+                title(),
+                firstName(),
+                lastName(),
+                email(),
+                address(),
+                zipcode(),
+                city(),
+                phoneNumber(),
+                center(),
+                cardNumber(),
+                promotionalEmails()
+        );
+
         ec.addResult(this, user);
     }
 

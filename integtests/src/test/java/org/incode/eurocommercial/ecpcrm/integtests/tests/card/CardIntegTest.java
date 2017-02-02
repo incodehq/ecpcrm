@@ -16,7 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.card;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -51,7 +51,7 @@ public class CardIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        card = fs.getCards().get(ThreadLocalRandom.current().nextInt(0, fs.getCards().size()));
+        card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
         assertThat(card).isNotNull();
     }
 

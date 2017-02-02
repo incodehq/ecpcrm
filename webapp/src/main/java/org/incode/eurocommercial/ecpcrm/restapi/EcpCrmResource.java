@@ -1,8 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
 import java.io.InputStream;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -19,7 +17,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.joda.time.LocalDate;
-import org.joda.time.Years;
 
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
@@ -29,8 +26,6 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationSer
 import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrinting;
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
@@ -225,7 +220,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                     .build();
         }
 
-        JsonObject userJson = new JsonParser().parse(gson.toJson(asVm(user))).getAsJsonObject();
+        JsonObject userJson = new JsonParser().parse(gson.toJson(UserViewModel.fromUser(user))).getAsJsonObject();
 
         return Response
                 .ok()
@@ -237,62 +232,13 @@ public class EcpCrmResource extends ResourceAbstract  {
                 .build();
     }
 
-    private static ChildViewModel asVm(final Child x) {
-        int age = Years.yearsBetween(x.getBirthdate(), LocalDate.now()).getYears();
-        return ChildViewModel.create(
-                asString(age),
-                asString(x.getBirthdate()),
-                x.getGender().getValue()
-        );
-    }
-
-    private static CardViewModel asVm(final Card x) {
-        return CardViewModel.create(
-                x.getNumber(),
-                x.getStatus().toString().toLowerCase(),
-                "unknown",
-                "unknown",
-                "unknown"
-        );
-    }
-
-    private static UserViewModel asVm(final User x) {
-        List<ChildViewModel> userChildren = x.getChildren().stream()
-                .map(EcpCrmResource::asVm)
-                .collect(Collectors.toList());
-        List<CardViewModel> userCards = x.getCards().stream()
-                .map(EcpCrmResource::asVm)
-                .collect(Collectors.toList());
-
-        return UserViewModel.create(
-                x.getReference(),
-                x.getTitle().toString().toLowerCase(),
-                x.getFirstName(),
-                x.getLastName(),
-                x.getEmail(),
-                x.getAddress(),
-                x.getZipcode(),
-                x.getCity(),
-                x.getAddress() + " - " + x.getZipcode() + " - " + x.getCity(),
-                x.getPhoneNumber(),
-                asString(x.getBirthDate()),
-                x.getCenter().title(),
-                asString(x.isEnabled()),
-                asString(x.isPromotionalEmails()),
-                asString(userChildren.size() != 0),
-                asString(userChildren.size()),
-                userChildren,
-                userCards
-        );
-    }
-
-    private static String asString(final int i) {
+    public static String asString(final int i) {
         return "" + i;
     }
-    private static String asString(final boolean bool) {
+    public static String asString(final boolean bool) {
         return bool ? "true" : "false";
     }
-    private static String asString(final LocalDate localDate) {
+    public static String asString(final LocalDate localDate) {
         return localDate == null ? null : localDate.toString();
     }
 

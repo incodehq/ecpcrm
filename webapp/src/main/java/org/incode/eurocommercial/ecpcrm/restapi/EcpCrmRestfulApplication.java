@@ -6,7 +6,6 @@ public class EcpCrmRestfulApplication extends RestfulObjectsApplication {
 
     public EcpCrmRestfulApplication() {
         super();
-        addClass(HelloWorldResource.class);
         addClass(EcpCrmResource.class);
     }
 }

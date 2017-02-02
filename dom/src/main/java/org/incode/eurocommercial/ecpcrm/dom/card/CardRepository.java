@@ -119,6 +119,7 @@ public class CardRepository {
     ) {
         Numerator numerator = center.getNumerator();
 
+        /* If no number was specified, get one from the numerator */
         if(Strings.isNullOrEmpty(number)) {
             while(!cardNumberIsValid(number, center.getReference())) {
                 number = numerator.nextIncrementStr();
@@ -135,6 +136,7 @@ public class CardRepository {
         card.setStatus(status);
         card.setCenter(center);
 
+        /* Update numerator with new number */
         BigInteger num = new BigInteger(number);
         if(num.compareTo(numerator.getLastIncrement()) == 1) {
             numerator.setLastIncrement(num);
@@ -154,6 +156,8 @@ public class CardRepository {
         String centerCode = center.getReference();
         BigInteger start = new BigInteger(startNumber);
         List<Card> results = new ArrayList<>();
+
+        /* Adds only valid numbers to results */
         for(BigInteger i = start;  results.size() < batchSize; i = i.add(BigInteger.ONE)) {
             String cardNumber = i.toString();
             if(cardNumberIsValid(cardNumber, centerCode)) {
@@ -170,13 +174,7 @@ public class CardRepository {
             final Center center
     ) {
         Card card = findByExactNumber(number);
-        if(card == null) {
-            card = newCard(
-                    number,
-                    status,
-                    center
-            );
-        }
+        card = card != null ? card : newCard(number, status, center);
         return card;
     }
 
@@ -205,6 +203,7 @@ public class CardRepository {
         if(Strings.isNullOrEmpty(cardNumber)) {
             return false;
         }
+
         /* Number has 13 digits */
         if(cardNumber.length() != 13) {
             return false;
@@ -215,11 +214,12 @@ public class CardRepository {
             return false;
         }
 
-        /* Number starts with center code */
+        /* Number starts with any valid center code */
         if(centerRepository.findByReference(cardNumber.substring(1, 4)) == null) {
             return false;
         }
 
+        /* Number starts with specific center code if specified */
         if(centerCode != null && !cardNumber.substring(1, 4).equals(centerCode)) {
             return false;
         }

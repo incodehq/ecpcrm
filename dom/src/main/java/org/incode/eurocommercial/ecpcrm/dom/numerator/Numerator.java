@@ -60,7 +60,7 @@ public class Numerator {
     @Getter @Setter
     private String format;
 
-    String format(final BigInteger n) {
+    private String format(final BigInteger n) {
         return String.format(getFormat(), n);
     }
 

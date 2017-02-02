@@ -80,7 +80,8 @@ public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_children_they_should_be_returned() {
             // given
-            User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
+            User user = fs.getChildren().get(
+                    new Random().nextInt(fs.getChildren().size())).getParent();
 
             // when
             List<Child> children = childRepository.findByParent(user);

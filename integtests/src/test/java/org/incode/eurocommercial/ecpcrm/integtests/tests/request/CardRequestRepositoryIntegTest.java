@@ -95,7 +95,8 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
             List<CardRequest> recentRequests = cardRequestRepository.listRecentRequests();
 
             // then
-            recentRequests.forEach(c -> assertThat(c.getDate()).isGreaterThanOrEqualTo(clockService.now().minusDays(7)));
+            recentRequests.forEach(c -> assertThat(
+                    c.getDate()).isGreaterThanOrEqualTo(clockService.now().minusDays(7)));
             assertThat(recentRequests).doesNotContain(oldRequest);
         }
 
@@ -111,7 +112,8 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
 
             // then
             allRequests.removeAll(recentRequests);
-            allRequests.forEach(c -> assertThat(c.getDate()).isLessThan(clockService.now().minusDays(7)));
+            allRequests.forEach(c -> assertThat(
+                    c.getDate()).isLessThan(clockService.now().minusDays(7)));
             assertThat(allRequests).contains(oldRequest);
         }
     }

@@ -16,7 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.fixture.dom.request;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -43,9 +43,12 @@ public class CardRequestCreate extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-        user = user != null ? user : userRepository.listAll().get(ThreadLocalRandom.current().nextInt(0, userRepository.listAll().size()));
+        if(user == null) {
+            user = userRepository.listAll().get(
+                    new Random().nextInt(userRepository.listAll().size()));
+        }
 
-        this.cardRequest = cardRequestRepository.findOrCreate(user);
+        cardRequest = cardRequestRepository.findOrCreate(user);
 
         ec.addResult(this, cardRequest);
     }

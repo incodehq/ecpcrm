@@ -50,7 +50,7 @@ public class NumeratorRepository {
     }
 
     @Programmatic
-    public Numerator newNumerator(
+    private Numerator newNumerator(
             final String numeratorName,
             final String format,
             final BigInteger lastIncrement) {
@@ -63,14 +63,12 @@ public class NumeratorRepository {
     }
 
     @Programmatic
-    public Numerator findOrCreateNumerator(
+    public Numerator findOrCreate(
             final String numeratorName,
             final String format,
             final BigInteger lastIncrement) {
         Numerator numerator = findByName(numeratorName);
-        if(numerator == null) {
-            numerator = newNumerator(numeratorName, format, lastIncrement);
-        }
+        numerator = numerator != null ? numerator : newNumerator(numeratorName, format, lastIncrement);
         return numerator;
     }
 

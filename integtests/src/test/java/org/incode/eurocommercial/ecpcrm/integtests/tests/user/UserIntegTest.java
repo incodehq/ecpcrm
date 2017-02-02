@@ -18,7 +18,6 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
 
@@ -61,7 +60,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        user = fs.getUsers().get(ThreadLocalRandom.current().nextInt(0, fs.getUsers().size()));
+        user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
         assertThat(user).isNotNull();
     }
 
@@ -206,7 +205,6 @@ public class UserIntegTest extends EcpCrmIntegTest {
             int numberOfChildren = user.getChildren().size();
             Child child = user.getChildren().first();
             String childName = child.getName().substring(2) + child.getName();
-            LocalDate date = clockService.now();
 
             // when
             user.newChild(childName, child.getGender(), child.getBirthdate());

@@ -62,7 +62,7 @@ public class CenterRepository {
         Center center = repositoryService.instantiate(Center.class);
         center.setReference(reference);
         center.setName(name);
-        center.setNumerator(numeratorRepository.newNumerator(
+        center.setNumerator(numeratorRepository.findOrCreate(
                 name, "%d", new BigInteger("2" + reference + "000000000")));
         repositoryService.persist(center);
         return center;

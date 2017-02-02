@@ -43,15 +43,20 @@ public class ChildCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        name = defaultParam("name", ec, faker.name().firstName());
-        gender = defaultParam("gender", ec, Gender.values()[new Random().nextInt(Gender.values().length)]);
+        name = defaultParam("name", ec,
+                faker.name().firstName());
+        gender = defaultParam("gender", ec,
+                Gender.values()[new Random().nextInt(Gender.values().length)]);
         birthdate = defaultParam("birthdate", ec,
                 LocalDate.fromDateFields(
                         faker.date().between(
-                                clockService.now().minusYears(100).toDate(),
+                                clockService.now().minusYears(30).toDate(),
                                 clockService.now().toDate())));
-        parent = defaultParam("parent", ec, userRepository.listAll().get(new Random().nextInt(userRepository.listAll().size())));
-        this.child = childRepository.findOrCreate(name(), gender(), birthdate(), parent());
+        parent = defaultParam("parent", ec,
+                userRepository.listAll().get(
+                        new Random().nextInt(userRepository.listAll().size())));
+
+        child = childRepository.findOrCreate(name(), gender(), birthdate(), parent());
 
         ec.addResult(this, child());
     }

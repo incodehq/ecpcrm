@@ -20,7 +20,6 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -63,7 +62,8 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        center = fs.getCenters().get(ThreadLocalRandom.current().nextInt(0, fs.getCenters().size()));
+        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+
         assertThat(center).isNotNull();
 
         startNumber = "2" + center.getReference() + "000000000";
@@ -121,7 +121,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_exists_it_should_be_returned() {
             // given
-            Card randomCard = fs.getCards().get(ThreadLocalRandom.current().nextInt(0, fs.getCards().size()));
+            Card randomCard = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
 
             // when
             Card foundCard = cardRepository.findByExactNumber(randomCard.getNumber());
@@ -147,7 +147,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_entire_number_is_entered_single_result_should_be_returned() {
             // given
-            Card randomCard = fs.getCards().get(ThreadLocalRandom.current().nextInt(0, fs.getCards().size()));
+            Card randomCard = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
 
             // when
             List<Card> foundCards = cardRepository.findByNumberContains(randomCard.getNumber());
@@ -235,7 +235,8 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
 
             // then
-            createdCards.forEach(c -> assertThat(cardRepository.cardNumberIsValid(c.getNumber(), center.getReference())));
+            createdCards.forEach(c -> assertThat(
+                    cardRepository.cardNumberIsValid(c.getNumber(), center.getReference())));
         }
 
         @Test
@@ -244,7 +245,10 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
 
             // then
-            List<BigInteger> numbers = createdCards.stream().map(c -> new BigInteger(c.getNumber())).sorted().collect(Collectors.toList());
+            List<BigInteger> numbers = createdCards.stream()
+                    .map(c -> new BigInteger(c.getNumber()))
+                    .sorted()
+                    .collect(Collectors.toList());
             assertThat(numbers.get(0)).isGreaterThanOrEqualTo(new BigInteger(startNumber));
         }
 
@@ -263,7 +267,8 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
 
             // then
-            createdCards.forEach(card -> assertThat(cardRepository.listAll()).contains(card));
+            createdCards.forEach(card -> assertThat(
+                    cardRepository.listAll()).contains(card));
         }
     }
 
@@ -307,12 +312,15 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_number_doesnt_satisfy_checksum_it_is_invalid() {
             // given
-            int[] digits = center.getReference().chars().map(Character::getNumericValue).toArray();
+            int[] digits = center.getReference().chars()
+                    .map(Character::getNumericValue)
+                    .toArray();
             int[] multipliers = {3, 1, 3};
             int incorrectChecksum = 2;
             for(int i = 0; i < digits.length; i++) {
                 incorrectChecksum += digits[i] * multipliers[i];
             }
+
             incorrectChecksum = (9 - incorrectChecksum % 10) % 10;
             String cardNumber = "2" + center.getReference() + "00000000" + incorrectChecksum;
 
@@ -326,14 +334,16 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_number_satisfies_all_conditions_it_is_valid() {
             // given
-            int[] digits = center.getReference().chars().map(Character::getNumericValue).toArray();
+            int[] digits = center.getReference().chars()
+                    .map(Character::getNumericValue)
+                    .toArray();
             int[] multipliers = {3, 1, 3};
             int checksum = 2;
             for(int i = 0; i < digits.length; i++) {
                 checksum += digits[i] * multipliers[i];
             }
-            checksum = (10 - checksum % 10) % 10;
 
+            checksum = (10 - checksum % 10) % 10;
             String cardNumber = "2" + center.getReference() + "00000000" + checksum;
 
             // when

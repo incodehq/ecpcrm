@@ -126,6 +126,7 @@ public class Card implements Comparable<Card> {
 
     @Action
     @ActionLayout(named = "Disable")
+    /* Disable is an Isis keyword */
     public Card unenable() {
         this.setStatus(CardStatus.DISABLED);
         return this;

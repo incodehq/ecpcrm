@@ -47,20 +47,6 @@ import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 )
 public class CardMenu {
 
-//    @Action(semantics = SemanticsOf.SAFE)
-//    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-//    @MemberOrder(sequence = "1")
-//    public List<Card> listAll() {
-//        return cardRepository.listAll();
-//    }
-
-//    @Action(semantics = SemanticsOf.SAFE)
-//    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-//    @MemberOrder(sequence = "1")
-//    public List<Card> listEnabledCards() {
-//        return cardRepository.listEnabledCards();
-//    }
-
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")

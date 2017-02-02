@@ -1,8 +1,12 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Data;
+import static org.incode.eurocommercial.ecpcrm.restapi.EcpCrmResource.asString;
 
 @Data(staticConstructor = "create")
 public class UserViewModel {
@@ -28,4 +32,34 @@ public class UserViewModel {
     private final List<ChildViewModel> children;
     private final List<CardViewModel> cards;
 //    private final SortedSet<ChildCareViewModel> child_cares;
+
+    public static UserViewModel fromUser(final User user) {
+        List<ChildViewModel> userChildren = user.getChildren().stream()
+                .map(ChildViewModel::fromChild)
+                .collect(Collectors.toList());
+        List<CardViewModel> userCards = user.getCards().stream()
+                .map(CardViewModel::fromCard)
+                .collect(Collectors.toList());
+
+        return UserViewModel.create(
+                user.getReference(),
+                user.getTitle().toString().toLowerCase(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getZipcode(),
+                user.getCity(),
+                user.getAddress() + " - " + user.getZipcode() + " - " + user.getCity(),
+                user.getPhoneNumber(),
+                asString(user.getBirthDate()),
+                user.getCenter().title(),
+                asString(user.isEnabled()),
+                asString(user.isPromotionalEmails()),
+                asString(userChildren.size() != 0),
+                asString(userChildren.size()),
+                userChildren,
+                userCards
+        );
+    }
 }

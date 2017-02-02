@@ -48,7 +48,7 @@ public class CenterMenu {
     public static class CreateDomainEvent extends IsisApplibModule.ActionDomainEvent<CenterMenu> {}
 
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
-    @MemberOrder(sequence = "3")
+    @MemberOrder(sequence = "2")
     public Center newCenter(
             final @ParameterLayout(named = "Reference") String reference,
             final @ParameterLayout(named = "Name") String name

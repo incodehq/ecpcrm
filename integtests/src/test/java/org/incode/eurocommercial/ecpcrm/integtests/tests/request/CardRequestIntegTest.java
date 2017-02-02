@@ -48,7 +48,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        cardRequest = fs.getCardRequests().get(new Random().nextInt(fs.getCardRequests().size()));
+        cardRequest = fs.getCardRequests().get(
+                new Random().nextInt(fs.getCardRequests().size()));
         assertThat(cardRequest).isNotNull();
     }
 

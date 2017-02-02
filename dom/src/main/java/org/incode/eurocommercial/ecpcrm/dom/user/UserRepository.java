@@ -121,9 +121,10 @@ public class UserRepository {
             final boolean promotionalEmails,
             String reference
     ) {
-        Numerator userNumerator = numeratorRepository.findOrCreateNumerator("userNumerator", "%d", BigInteger.ZERO);
+        Numerator userNumerator = numeratorRepository.findOrCreate("userNumerator", "%d", BigInteger.ZERO);
 
         final User user = repositoryService.instantiate(User.class);
+
         user.setEnabled(enabled);
         user.setTitle(title);
         user.setFirstName(firstName);
@@ -141,6 +142,7 @@ public class UserRepository {
         }
         user.setReference(reference);
 
+        /* Update numerator with new user reference */
         BigInteger ref = new BigInteger(reference);
         if(ref.compareTo(userNumerator.getLastIncrement()) == 1) {
             userNumerator.setLastIncrement(ref);

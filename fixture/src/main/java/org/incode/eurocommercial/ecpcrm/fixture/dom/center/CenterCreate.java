@@ -29,10 +29,12 @@ public class CenterCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        name = defaultParam("name", ec, faker.gameOfThrones().city());
-        reference = defaultParam("reference", ec, "0" + faker.number().randomNumber(2, true));
+        name = defaultParam("name", ec,
+                faker.gameOfThrones().city());
+        reference = defaultParam("reference", ec,
+                "0" + faker.number().randomNumber(2, true));
 
-        this.center = wrap(menu).newCenter(reference, name);
+        center = wrap(menu).newCenter(reference(), name());
 
         ec.addResult(this, center);
     }

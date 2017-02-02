@@ -61,9 +61,11 @@ public class CardGameRepository {
             final boolean outcome
     ) {
         final CardGame cardGame = repositoryService.instantiate(CardGame.class);
+
         cardGame.setCard(card);
         cardGame.setDate(date);
         cardGame.setOutcome(outcome);
+
         card.getCardGames().add(cardGame);
         repositoryService.persist(cardGame);
         return cardGame;
@@ -76,9 +78,7 @@ public class CardGameRepository {
             final boolean outcome
     ) {
         CardGame cardGame = findByCardAndDate(card, date);
-        if(cardGame == null) {
-            cardGame = newCardGame(card, date, outcome);
-        }
+        cardGame = cardGame != null ? cardGame : newCardGame(card, date, outcome);
         return cardGame;
     }
 

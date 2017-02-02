@@ -18,7 +18,6 @@ import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
-import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
@@ -76,7 +75,7 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
         LocalDate birthdate = dtf.parseLocalDate(getBirthdate());
         Gender gender = Gender.valueOf(getGender());
 
-        Child child = childRepository.findOrCreate(getName(), gender, birthdate, user);
+        childRepository.findOrCreate(getName(), gender, birthdate, user);
 
         return null;
     }
