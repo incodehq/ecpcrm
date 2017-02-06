@@ -1,5 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.dom.center;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -7,10 +8,12 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 
 import lombok.Getter;
@@ -59,4 +62,14 @@ public class Center implements Comparable<Center> {
     @PropertyLayout(hidden = Where.EVERYWHERE)
     private Numerator numerator;
 
+    @Programmatic
+    public String nextValidCardNumber() {
+        String cardNumber;
+        do {
+            cardNumber = numerator.nextIncrementStr();
+        } while(!cardRepository.cardNumberIsValid(cardNumber, reference));
+        return cardNumber;
+    }
+
+    @Inject CardRepository cardRepository;
 }
