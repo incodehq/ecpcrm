@@ -43,6 +43,7 @@ import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.child.ChildCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.child.ChildTearDown;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.numerator.NumeratorTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserCreate;
@@ -87,6 +88,7 @@ public class DemoFixture extends FixtureScript {
         ec.executeChild(this, new ChildTearDown());
         ec.executeChild(this, new UserTearDown());
         ec.executeChild(this, new CenterTearDown());
+        ec.executeChild(this, new NumeratorTearDown());
 
         for(int i = 0; i < NUM_CENTERS; i++) {
             ec.executeChild(this, new CenterCreate());
