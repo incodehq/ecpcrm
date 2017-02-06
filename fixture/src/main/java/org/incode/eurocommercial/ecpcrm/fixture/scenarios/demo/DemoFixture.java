@@ -105,9 +105,7 @@ public class DemoFixture extends FixtureScript {
         for(int i = 0; i < NUM_CARDS; i++) {
             Center center = getCenters().get(new Random().nextInt(getCenters().size()));
 
-            do {
-                cardNumber = center.getNumerator().nextIncrementStr();
-            } while(!cardRepository.cardNumberIsValid(cardNumber, center.getReference()));
+            cardNumber = center.nextValidCardNumber();
 
             ec.setParameter("number", cardNumber);
             ec.executeChild(this, new CardCreate().center(center));

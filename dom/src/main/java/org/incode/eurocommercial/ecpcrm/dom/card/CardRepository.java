@@ -122,9 +122,7 @@ public class CardRepository {
 
         /* If no number was specified, get one from the numerator */
         if(Strings.isNullOrEmpty(number)) {
-            while(!cardNumberIsValid(number, center.getReference())) {
-                number = numerator.nextIncrementStr();
-            }
+            number = center.nextValidCardNumber();
         }
 
         if(!cardNumberIsValid(number, center.getReference())) {

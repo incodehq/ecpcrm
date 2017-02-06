@@ -35,7 +35,6 @@ import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
-import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
@@ -91,11 +90,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
             List<Card> cardsFromQuery = cardRepository.findByOwner(user);
             List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
 
-            Numerator centerNumerator = user.getCenter().getNumerator();
-            String cardNumber;
-            do {
-                cardNumber = centerNumerator.nextIncrementStr();
-            } while(!cardRepository.cardNumberIsValid(cardNumber, user.getCenter().getReference()));
+            String cardNumber = user.getCenter().nextValidCardNumber();
 
             // when
             user.newCard(cardNumber);
