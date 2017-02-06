@@ -38,6 +38,7 @@ import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
@@ -197,10 +198,12 @@ public class User implements Comparable<User> {
     public User newCard(String cardNumber) {
         Card card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, getCenter());
         if(card != null) {
+            /* Remove the card from its previous owner if it has one */
             if(card.getOwner() != null && card.getOwner() != this) {
                 card.getOwner().getCards().remove(card);
             }
             card.setOwner(this);
+            card.setGivenToUserAt(clockService.nowAsLocalDateTime());
             getCards().add(card);
         }
         return this;
@@ -225,6 +228,7 @@ public class User implements Comparable<User> {
 //    @Getter @Setter
 //    private Boolean hasCar;
 
+    @Inject private ClockService clockService;
     @Inject private CardRepository cardRepository;
     @Inject private ChildRepository childRepository;
 

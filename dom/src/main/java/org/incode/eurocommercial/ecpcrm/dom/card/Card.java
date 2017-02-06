@@ -29,6 +29,8 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Unique;
 
+import org.joda.time.LocalDateTime;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
@@ -118,6 +120,24 @@ public class Card implements Comparable<Card> {
     @Getter @Setter
     private Center center;
 
+    @Column(allowsNull = "false")
+    @Property
+    @Persistent
+    @Getter @Setter
+    private LocalDateTime createdAt;
+
+    @Column(allowsNull = "true")
+    @Property
+    @Persistent
+    @Getter @Setter
+    private LocalDateTime givenToUserAt;
+
+    @Column(allowsNull = "true")
+    @Property
+    @Persistent
+    @Getter @Setter
+    private LocalDateTime sentToUserAt;
+
     @Persistent(mappedBy = "card", dependentElement = "true")
     @Collection
     @CollectionLayout(hidden = Where.EVERYWHERE)
@@ -126,7 +146,7 @@ public class Card implements Comparable<Card> {
 
     @Action
     @ActionLayout(named = "Disable")
-    /* Disable is an Isis keyword */
+    /* Disable is an Apache Isis keyword, hence unenable */
     public Card unenable() {
         this.setStatus(CardStatus.DISABLED);
         return this;
@@ -155,6 +175,14 @@ public class Card implements Comparable<Card> {
             return null;
         }
         return cardGameRepository.newCardGame(this, clockService.now(), new Random().nextBoolean());
+    }
+
+    public boolean hideGivenToUserAt() {
+        return getGivenToUserAt() == null;
+    }
+
+    public boolean hideSentToUserAt() {
+        return getSentToUserAt() == null;
     }
 
     @Inject CardGameRepository cardGameRepository;

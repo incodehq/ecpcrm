@@ -32,6 +32,7 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
@@ -102,8 +103,11 @@ public class CardRequest implements Comparable<CardRequest>{
     public CardRequest approve(String cardNumber) {
         requestingUser.newCard(cardNumber);
         Card card = cardRepository.findByExactNumber(cardNumber);
+        /* Check if the creation was successful */
         if(card != null && card.getOwner().equals(requestingUser)) {
             setAssignedCard(card);
+            card.setGivenToUserAt(null);
+            card.setSentToUserAt(clockService.nowAsLocalDateTime());
             setApproved(true);
         }
         return this;
@@ -148,6 +152,7 @@ public class CardRequest implements Comparable<CardRequest>{
         return approved == null;
     }
 
+    @Inject ClockService clockService;
     @Inject CardRepository cardRepository;
 }
 

@@ -225,6 +225,61 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         }
     }
 
+    public static class NewCard extends CardRepositoryIntegTest {
+        @Test
+        public void when_card_number_is_invalid_no_card_is_created() {
+            // given
+            String number = "10";
+            List<Card> allCards = cardRepository.listAll();
+
+            // when
+            Card card = cardRepository.newCard(number, CardStatus.ENABLED, center);
+
+            // then
+            assertThat(card).isNull();
+            assertThat(allCards).isEqualTo(cardRepository.listAll());
+        }
+
+        @Test
+        public void when_card_number_is_valid_new_card_is_created() {
+            // given
+            String number = center.nextValidCardNumber();
+            List<Card> allCards = cardRepository.listAll();
+
+            // when
+            Card card = cardRepository.newCard(number, CardStatus.ENABLED, center);
+
+            // then
+            assertThat(card).isNotNull();
+            assertThat(allCards.size() + 1).isEqualTo(cardRepository.listAll().size());
+        }
+
+        @Test
+        public void when_no_card_number_is_passed_a_new_valid_card_is_created() {
+            // given
+            List<Card> allCards = cardRepository.listAll();
+
+            // when
+            Card card = cardRepository.newCard(null, CardStatus.ENABLED, center);
+
+            // then
+            assertThat(card).isNotNull();
+            assertThat(allCards.size() + 1).isEqualTo(cardRepository.listAll().size());
+        }
+
+        @Test
+        public void when_a_card_is_created_its_created_at_is_set() {
+            // given
+            String number = center.nextValidCardNumber();
+
+            // when
+            Card card = cardRepository.newCard(number, CardStatus.ENABLED, center);
+
+            // then
+            assertThat(card.getCreatedAt().toLocalDate()).isEqualTo(clockService.now());
+        }
+    }
+
     public static class NewBatch extends CardRepositoryIntegTest {
         // given
         private CardStatus status = CardStatus.ENABLED;

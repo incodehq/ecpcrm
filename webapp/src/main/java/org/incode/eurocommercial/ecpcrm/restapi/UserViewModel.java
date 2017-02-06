@@ -26,7 +26,7 @@ public class UserViewModel {
     private final String optin;
 //    TODO: Fully implement this viewmodel
 //    private final String car;
-//    private final SortedSet<String> boutiques;
+//    private final List<String> boutiques;
     private final String haschildren;
     private final String nb_children;
     private final List<ChildViewModel> children;

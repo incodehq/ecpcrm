@@ -177,6 +177,38 @@ public class UserIntegTest extends EcpCrmIntegTest {
             assertThat(cardRepository.findByOwner(firstOwner)).doesNotContain(card);
             assertThat(firstOwner.getCards()).doesNotContain(card);
         }
+
+        @Test
+        public void when_card_is_assigned_to_user_its_given_at_is_set() {
+            // given
+            List<Card> unassignedCards = cardRepository.listUnassignedCards();
+            Card card;
+            do {
+                card = unassignedCards.get(new Random().nextInt(unassignedCards.size()));
+            } while(cardRepository.cardNumberIsValid(card.getNumber(), user.getCenter().getReference()));
+
+            // when
+            user.newCard(card.getNumber());
+
+            // then
+            assertThat(card.getGivenToUserAt().toLocalDate()).isEqualTo(clockService.now());
+        }
+
+        @Test
+        public void when_card_is_assigned_to_user_its_sent_at_is_not_set() {
+            // given
+            List<Card> unassignedCards = cardRepository.listUnassignedCards();
+            Card card;
+            do {
+                card = unassignedCards.get(new Random().nextInt(unassignedCards.size()));
+            } while(cardRepository.cardNumberIsValid(card.getNumber(), user.getCenter().getReference()));
+
+            // when
+            user.newCard(card.getNumber());
+
+            // then
+            assertThat(card.getSentToUserAt()).isNull();
+        }
     }
 
     public static class NewChild extends UserIntegTest {

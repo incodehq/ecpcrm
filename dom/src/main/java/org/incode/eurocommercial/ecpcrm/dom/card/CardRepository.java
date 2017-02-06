@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
@@ -112,7 +113,7 @@ public class CardRepository {
 
 
     @Programmatic
-    private Card newCard(
+    public Card newCard(
             String number,
             final CardStatus status,
             final Center center
@@ -135,6 +136,7 @@ public class CardRepository {
         card.setNumber(number);
         card.setStatus(status);
         card.setCenter(center);
+        card.setCreatedAt(clockService.nowAsLocalDateTime());
 
         /* Update numerator with new number */
         BigInteger num = new BigInteger(number);
@@ -246,6 +248,7 @@ public class CardRepository {
     }
 
     @Inject RepositoryService repositoryService;
+    @Inject ClockService clockService;
     @Inject NumeratorRepository numeratorRepository;
     @Inject CenterRepository centerRepository;
 

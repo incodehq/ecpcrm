@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -37,6 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardRequestIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
+    @Inject ClockService clockService;
     @Inject CardRequestRepository cardRequestRepository;
     @Inject CardRepository cardRepository;
 
@@ -79,6 +81,32 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             // then
             assertThat(cardRequest.getApproved()).isTrue();
             assertThat(cardRequest.getAssignedCard()).isEqualTo(card);
+        }
+
+        @Test
+        public void when_card_is_approved_its_sent_at_is_set() {
+            // given
+            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+
+            // when
+            cardRequest.approve(card.getNumber());
+
+            // then
+            assertThat(cardRequest.getAssignedCard().getSentToUserAt().toLocalDate()).isEqualTo(clockService.now());
+        }
+
+        @Test
+        public void when_card_is_approved_its_given_at_is_not_set() {
+            // given
+            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+
+            // when
+            cardRequest.approve(card.getNumber());
+
+            // then
+            assertThat(cardRequest.getAssignedCard().getGivenToUserAt()).isNull();
         }
     }
 
