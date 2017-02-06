@@ -35,6 +35,7 @@ SELECT
  INNER JOIN `center` AS c ON c.id = u.center_id
  INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id;
  
+-- Create card view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS
 SELECT
  card.id AS id,
@@ -42,10 +43,14 @@ SELECT
  UCASE(card.status) AS status,
  card.user_id AS userId,
  card.client_id AS clientId,
- center.reference AS centerReference
+ center.reference AS centerReference,
+ card.created_at AS createdAt,
+ card.given_at AS givenToUserAt,
+ card.sent_at AS sentToUserAt
  FROM `crm`.`eurocommercial_crm_user_card` AS card
  INNER JOIN `center` AS center ON center.id = card.center_id;
  
+-- Create child view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`child` AS
 SELECT
  child.id AS id,

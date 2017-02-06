@@ -13,12 +13,14 @@ public class CardViewModel {
     private final String sent_at;
 
     public static CardViewModel fromCard(final Card card) {
+        String givenAt = card.getGivenToUserAt() == null ? "null" : card.getGivenToUserAt().toString("yyyy-MM-dd HH:mm:ss");
+        String sentAt = card.getSentToUserAt() == null ? "null" : card.getSentToUserAt().toString("yyyy-MM-dd HH:mm:ss");
         return CardViewModel.create(
                 card.getNumber(),
                 card.getStatus().toString().toLowerCase(),
-                "unknown",
-                "unknown",
-                "unknown"
+                card.getCreatedAt().toString("yyyy-MM-dd HH:mm:ss"),
+                givenAt,
+                sentAt
         );
     }
 }

@@ -6,6 +6,10 @@ import javax.inject.Inject;
 
 import com.google.common.collect.Lists;
 
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -14,6 +18,7 @@ import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
@@ -39,6 +44,18 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
     @Property(optionality = Optionality.MANDATORY)
     private String centerReference;
 
+    @Getter @Setter
+    @Property
+    private String createdAt;
+
+    @Getter @Setter
+    @Property
+    private String givenToUserAt;
+
+    @Getter @Setter
+    @Property
+    private String sentToUserAt;
+
     @Override
     public List<Class> importAfter() {
         return Lists.newArrayList();
@@ -54,11 +71,23 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
         CardStatus status = CardStatus.valueOf(getStatus());
         Center center = centerRepository.findByReference(getCenterReference());
 
-        cardRepository.findOrCreate(
+        Card card = cardRepository.findOrCreate(
                 getNumber(),
                 status,
                 center
         );
+
+        if(card == null)
+            return null;
+
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime createdAtDate = createdAt == null ? card.getCreatedAt() : dtf.parseLocalDateTime(createdAt);
+        LocalDateTime givenToUserAtDate = givenToUserAt == null ? null : dtf.parseLocalDateTime(givenToUserAt);
+        LocalDateTime sentToUserAtDate = sentToUserAt == null ? null : dtf.parseLocalDateTime(sentToUserAt);
+
+        card.setCreatedAt(createdAtDate);
+        card.setGivenToUserAt(givenToUserAtDate);
+        card.setSentToUserAt(sentToUserAtDate);
 
         return null;
     }

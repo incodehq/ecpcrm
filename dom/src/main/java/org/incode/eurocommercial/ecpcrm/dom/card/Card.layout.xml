@@ -47,6 +47,9 @@
                                         <cpt:property id="datanucleusIdLong"/>
                                         <cpt:property id="datanucleusVersionLong"/>
                                         <cpt:property id="datanucleusVersionTimestamp"/>
+                                        <cpt:property id="createdAt"/>
+                                        <cpt:property id="givenToUserAt"/>
+                                        <cpt:property id="sentToUserAt"/>
                                     </cpt:fieldSet>
                                 </bs3:col>
                             </bs3:row>
