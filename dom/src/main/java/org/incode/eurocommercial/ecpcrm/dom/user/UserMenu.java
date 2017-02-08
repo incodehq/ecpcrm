@@ -98,10 +98,11 @@ public class UserMenu {
             final @ParameterLayout(named = "Phone Number") String phoneNumber,
             final @ParameterLayout(named = "Center") Center center,
             final @ParameterLayout(named = "Card") @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
-            final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails
+            final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails,
+            final @ParameterLayout(named = "Has Car") Boolean hasCar
     ) {
         return userRepository.findOrCreate(
-                enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, null);
+                enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
     public String validateNewUser(
@@ -115,10 +116,11 @@ public class UserMenu {
             final String city,
             final String phoneNumber,
             final Center center,
-            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
-            final boolean promotionalEmails
+            final String cardNumber,
+            final boolean promotionalEmails,
+            final Boolean hasCar
     ) {
-        return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, null);
+        return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
     @Inject UserRepository userRepository;

@@ -77,6 +77,10 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
     @Property(optionality = Optionality.MANDATORY)
     private String promotionalEmails;
 
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String hasCar;
+
     @Override
     public List<Class> importAfter() {
         return Lists.newArrayList();
@@ -105,6 +109,7 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
                 center,
                 StringUtils.trim(getCardNumber()),
                 asBoolean(getPromotionalEmails()),
+                asBoolean(getHasCar()),
                 getReference());
 
         return null;

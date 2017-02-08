@@ -119,6 +119,7 @@ public class UserRepository {
             final String phoneNumber,
             final Center center,
             final boolean promotionalEmails,
+            final Boolean hasCar,
             String reference
     ) {
         Numerator userNumerator = numeratorRepository.findOrCreate("userNumerator", "%d", BigInteger.ZERO);
@@ -136,6 +137,7 @@ public class UserRepository {
         user.setPhoneNumber(phoneNumber);
         user.setCenter(center);
         user.setPromotionalEmails(promotionalEmails);
+        user.setHasCar(hasCar);
 
         if(reference == null) {
             reference = userNumerator.nextIncrementStr();
@@ -166,6 +168,7 @@ public class UserRepository {
             final Center center,
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails,
+            final Boolean hasCar,
             final String reference
     ) {
         User user = findByExactEmail(email);
@@ -182,6 +185,7 @@ public class UserRepository {
                     phoneNumber,
                     center,
                     promotionalEmails,
+                    hasCar,
                     reference);
         }
         if(!Strings.isNullOrEmpty(cardNumber)) {
@@ -204,6 +208,7 @@ public class UserRepository {
             final Center center,
             @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails,
+            final Boolean hasCar,
             final String reference
     ) {
         if(Strings.isNullOrEmpty(cardNumber)) {

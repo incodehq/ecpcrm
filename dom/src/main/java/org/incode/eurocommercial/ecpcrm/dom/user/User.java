@@ -222,11 +222,10 @@ public class User implements Comparable<User> {
 
     // endregion > cards
 
-    /* This is in Biggerband's domain model, but not implemented */
-//    @Column(allowsNull = "true")
-//    @Property
-//    @Getter @Setter
-//    private Boolean hasCar;
+    @Column(allowsNull = "true")
+    @Property
+    @Getter @Setter
+    private Boolean hasCar;
 
     @Inject private ClockService clockService;
     @Inject private CardRepository cardRepository;

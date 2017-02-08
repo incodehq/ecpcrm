@@ -61,6 +61,9 @@ public class UserCreate extends FixtureScript {
     @Getter @Setter
     private boolean promotionalEmails;
 
+    @Getter @Setter
+    private Boolean hasCar;
+
     @Getter
     private User user;
 
@@ -96,6 +99,7 @@ public class UserCreate extends FixtureScript {
         }
 
         promotionalEmails = defaultParam("promotionalEmails", ec, faker.bool().bool());
+        hasCar = defaultParam("hasCar", ec, faker.bool().bool());
 
         this.user = wrap(menu).newUser(
                 enabled(),
@@ -109,7 +113,8 @@ public class UserCreate extends FixtureScript {
                 phoneNumber(),
                 center(),
                 cardNumber(),
-                promotionalEmails()
+                promotionalEmails(),
+                hasCar()
         );
 
         ec.addResult(this, user);

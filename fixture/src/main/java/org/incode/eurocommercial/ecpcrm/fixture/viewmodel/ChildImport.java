@@ -68,8 +68,8 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
     @Override
     public List<Object> importData(Object previousRow) {
         User user = userRepository.findByReference(parentReference);
-//        if(user == null)
-//            return null;
+        if(user == null)
+            return null;
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         LocalDate birthdate = dtf.parseLocalDate(getBirthdate().replace("T", " ").replace(".000", ""));

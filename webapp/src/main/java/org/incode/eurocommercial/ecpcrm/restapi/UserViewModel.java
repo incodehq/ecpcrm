@@ -1,5 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,14 +25,13 @@ public class UserViewModel {
     private final String center;
     private final String enabled;
     private final String optin;
-//    TODO: Fully implement this viewmodel
-//    private final String car;
-//    private final List<String> boutiques;
+    private final String car;
+    private final List<String> boutiques;
     private final String haschildren;
     private final String nb_children;
     private final List<ChildViewModel> children;
     private final List<CardViewModel> cards;
-//    private final SortedSet<ChildCareViewModel> child_cares;
+    private final List<ChildCareViewModel> child_cares;
 
     public static UserViewModel fromUser(final User user) {
         List<ChildViewModel> userChildren = user.getChildren().stream()
@@ -40,6 +40,10 @@ public class UserViewModel {
         List<CardViewModel> userCards = user.getCards().stream()
                 .map(CardViewModel::fromCard)
                 .collect(Collectors.toList());
+        List<ChildCareViewModel> userChildCares = user.getChildren().stream()
+                .map(ChildCareViewModel::fromChild)
+                .collect(Collectors.toList());
+        List<String> boutiques = new ArrayList<>();
 
         return UserViewModel.create(
                 user.getReference(),
@@ -56,10 +60,13 @@ public class UserViewModel {
                 user.getCenter().title(),
                 asString(user.isEnabled()),
                 asString(user.isPromotionalEmails()),
+                asString(user.getHasCar()),
+                boutiques,
                 asString(userChildren.size() != 0),
                 asString(userChildren.size()),
                 userChildren,
-                userCards
+                userCards,
+                userChildCares
         );
     }
 }

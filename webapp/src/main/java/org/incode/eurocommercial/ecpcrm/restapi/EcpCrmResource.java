@@ -196,6 +196,8 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
         Gson gson = new Gson();
 
+        //TODO: Not sure how to implement 302 and 310
+
         if(reference == null) {
             return Response
                     .ok()
