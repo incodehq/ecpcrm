@@ -30,10 +30,12 @@ SELECT
  IFNULL(p.field_phone_value, "UNKNOWN_IMPORT") AS phoneNumber,
  IFNULL(u.card_number,"UNKNOWN_IMPORT") AS cardNumber,
  u.optin AS promotionalEmails,
+ car.field_car_value AS hasCar,
  c.reference AS centerReference
  FROM `crm`.`eurocommercial_crm_user_view5` AS u
  INNER JOIN `center` AS c ON c.id = u.center_id
- INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id;
+ INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
+ INNER JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id;
  
 -- Create card view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS

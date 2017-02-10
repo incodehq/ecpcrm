@@ -54,13 +54,63 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardCheck(InputStream body) {
+    public Response cardCheck(@HeaderParam("card") String cardNumber, @HeaderParam("origin") String origin) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+
+        if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 302)
+                            .add("message", "Invalid parameter")
+                            .toJsonString())
+                    .build();
+        }
+
+        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 312)
+                            .add("message", "Invalid card number")
+                            .toJsonString())
+                    .build();
+        }
+
+        Card card = cardRepository.findByExactNumber(cardNumber);
+
+        if(card == null || card.getStatus() != CardStatus.ENABLED) {
+            if(card != null && card.getStatus() == CardStatus.TOCHANGE) {
+                return Response
+                        .ok()
+                        .type(MediaType.APPLICATION_JSON_TYPE)
+                        .entity(new JsonBuilder()
+                                .add("status", 319)
+                                .add("message", "Outdated card")
+                                .toJsonString())
+                        .build();
+            }
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 303)
+                            .add("message", "Invalid card")
+                            .toJsonString())
+                    .build();
+        }
+
+
 
         return Response
                 .ok()
                 .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(String.format("{ \"status\": 200, \"message\": \"test\"}"))
+                .entity(new JsonBuilder()
+                        .add("status", 314)
+                        .add("message", "Failed to bind user to card")
+                        .toJsonString())
                 .build();
     }
 
