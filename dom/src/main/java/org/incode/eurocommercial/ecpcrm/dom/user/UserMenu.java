@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
@@ -51,7 +50,6 @@ public class UserMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<User> findByEmail(
-            @ParameterLayout(named = "Email")
             final String email
     ) {
         return userRepository.findByEmailContains(email);
@@ -61,7 +59,6 @@ public class UserMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "3")
     public List<User> findByName(
-            @ParameterLayout(named = "Name")
             final String name
     ) {
         /* Splits name on spaces to search on both first and last name */
@@ -76,7 +73,6 @@ public class UserMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "3")
     public User findByReference(
-            @ParameterLayout(named = "Reference")
             final String reference
     ) {
         return userRepository.findByReference(reference);
@@ -87,19 +83,19 @@ public class UserMenu {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "4")
     public User newUser(
-            final @ParameterLayout(named = "Enabled") boolean enabled,
-            final @ParameterLayout(named = "Title") Title title,
-            final @ParameterLayout(named = "First Name") String firstName,
-            final @ParameterLayout(named = "Last Name") String lastName,
-            final @ParameterLayout(named = "Email") String email,
-            final @ParameterLayout(named = "Address") String address,
-            final @ParameterLayout(named = "Zipcode") String zipcode,
-            final @ParameterLayout(named = "City") String city,
-            final @ParameterLayout(named = "Phone Number") String phoneNumber,
-            final @ParameterLayout(named = "Center") Center center,
-            final @ParameterLayout(named = "Card") @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
+            final boolean enabled,
+            final Title title,
+            final String firstName,
+            final String lastName,
+            final String email,
+            final String address,
+            final String zipcode,
+            final String city,
+            final String phoneNumber,
+            final Center center,
+            final @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
             final boolean promotionalEmails,
-            final @ParameterLayout(named = "Has Car") Boolean hasCar
+            final Boolean hasCar
     ) {
         return userRepository.findOrCreate(
                 enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);

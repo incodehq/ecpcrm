@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
@@ -58,7 +57,7 @@ public class CardMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<Card> findByNumber(
-            @ParameterLayout(named = "Number") final String number
+            final String number
     ) {
         return cardRepository.findByNumberContains(number);
     }
@@ -68,9 +67,9 @@ public class CardMenu {
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "3")
     public Card newCard(
-            final @ParameterLayout(named = "Number") @Parameter(optionality = Optionality.OPTIONAL) String number,
-            final @ParameterLayout(named = "Status") CardStatus status,
-            final @ParameterLayout(named = "Center") Center center
+            final @Parameter(optionality = Optionality.OPTIONAL) String number,
+            final CardStatus status,
+            final Center center
     ) {
         return cardRepository.findOrCreate(number, status, center);
     }
@@ -82,10 +81,10 @@ public class CardMenu {
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "4")
     public List<Card> newBatch(
-            final @ParameterLayout(named = "Start Number") String startNumber,
-            final @ParameterLayout(named = "Batch Size") int batchSize,
-            final @ParameterLayout(named = "Status") CardStatus status,
-            final @ParameterLayout(named = "Center") Center center
+            final String startNumber,
+            final int batchSize,
+            final CardStatus status,
+            final Center center
     ) {
         return cardRepository.newBatch(startNumber, batchSize, status, center);
     }

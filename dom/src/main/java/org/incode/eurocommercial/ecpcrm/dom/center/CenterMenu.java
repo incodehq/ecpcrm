@@ -28,7 +28,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
@@ -50,8 +49,8 @@ public class CenterMenu {
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "2")
     public Center newCenter(
-            final @ParameterLayout(named = "Reference") String reference,
-            final @ParameterLayout(named = "Name") String name
+            final String reference,
+            final String name
     ) {
         return centerRepository.findOrCreate(reference, name);
     }
