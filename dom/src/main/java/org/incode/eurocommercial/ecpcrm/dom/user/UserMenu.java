@@ -98,7 +98,7 @@ public class UserMenu {
             final @ParameterLayout(named = "Phone Number") String phoneNumber,
             final @ParameterLayout(named = "Center") Center center,
             final @ParameterLayout(named = "Card") @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
-            final @ParameterLayout(named = "Promotional Emails") boolean promotionalEmails,
+            final boolean promotionalEmails,
             final @ParameterLayout(named = "Has Car") Boolean hasCar
     ) {
         return userRepository.findOrCreate(
