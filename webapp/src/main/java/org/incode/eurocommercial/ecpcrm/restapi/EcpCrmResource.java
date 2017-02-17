@@ -38,7 +38,8 @@ import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 @Path("/crm/api/6.0")
 public class EcpCrmResource extends ResourceAbstract  {
 
-    @Override protected void init(
+    @Override
+    protected void init(
             final RepresentationType representationType,
             final Where where,
             final RepresentationService.Intent intent) {
@@ -48,7 +49,7 @@ public class EcpCrmResource extends ResourceAbstract  {
 
     @POST
     @Path("/card-check")
-    @Consumes({ MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
     @Produces({
             MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
@@ -116,25 +117,75 @@ public class EcpCrmResource extends ResourceAbstract  {
 
     @POST
     @Path("/card-game")
-    @Consumes({ MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
     @Produces({
             MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardGame(InputStream body) {
+    public Response cardGame(@HeaderParam("card") String cardNumber, @HeaderParam("win") String win, @HeaderParam("desc") String desc) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+
+        if(Strings.isNullOrEmpty(cardNumber)) {
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 302)
+                            .add("message", "Invalid parameter")
+                            .toJsonString())
+                    .build();
+        }
+
+        Card card = cardRepository.findByExactNumber(cardNumber);
+
+        if(card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED) {
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 303)
+                            .add("message", "Invalid card")
+                            .toJsonString())
+                    .build();
+        }
+
+        if(!card.getOwner().isEnabled()) {
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 304)
+                            .add("message", "Invalid user")
+                            .toJsonString())
+                    .build();
+        }
+
+        if(!card.canPlay()) {
+            return Response
+                    .ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(new JsonBuilder()
+                            .add("status", 315)
+                            .add("message", "Card has already played")
+                            .toJsonString())
+                    .build();
+        }
+
+        card.play();
 
         return Response
                 .ok()
                 .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(String.format("{ \"status\": 200, \"message\": \"test\"}"))
+                .entity(new JsonBuilder()
+                        .add("status", 200)
+                        .toJsonString())
                 .build();
     }
 
     @POST
     @Path("/card-request")
-    @Consumes({ MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
     @Produces({
             MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
@@ -152,7 +203,7 @@ public class EcpCrmResource extends ResourceAbstract  {
 
     @POST
     @Path("/user-create")
-    @Consumes({ MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
     @Produces({
             MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
@@ -271,7 +322,7 @@ public class EcpCrmResource extends ResourceAbstract  {
 
     @POST
     @Path("/user-update")
-    @Consumes({ MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
     @Produces({
             MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
