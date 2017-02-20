@@ -14,11 +14,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.webapp.user_update;
+package org.incode.eurocommercial.ecpcrm.webapp;
 
 import org.junit.Ignore;
 
-import org.incode.eurocommercial.ecpcrm.webapp.user_create.UserCreateTest;
+import org.incode.eurocommercial.ecpcrm.webapp.UserCreateTest;
 
 @Ignore
 public class UserUpdateTest extends UserCreateTest {

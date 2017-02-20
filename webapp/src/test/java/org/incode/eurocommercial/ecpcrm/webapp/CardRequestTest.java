@@ -14,12 +14,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.webapp.card_request;
+package org.incode.eurocommercial.ecpcrm.webapp;
 
 import org.junit.Ignore;
 import org.junit.Test;
-
-import org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test.EcpCrmTest;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
 

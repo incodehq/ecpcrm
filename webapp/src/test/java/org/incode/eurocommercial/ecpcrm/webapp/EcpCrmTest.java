@@ -14,7 +14,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.webapp.ecp_crm_test;
+package org.incode.eurocommercial.ecpcrm.webapp;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,19 +33,11 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.common.io.CharStreams;
 
-import org.approvaltests.reporters.UseReporter;
-import org.approvaltests.reporters.macosx.P4MergeReporter;
 import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
 
-//@UseReporter(MyBeyondCompare3Reporter.class)
-@UseReporter(P4MergeReporter.class)
 public abstract class EcpCrmTest {
-
-    //    static {
-    //        System.setProperty("isis.appManifest", "...");
-    //    }
 
     @ClassRule
     public static JettyServerRule server = new JettyServerRule(new EmbeddedJetty());
