@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -37,6 +37,8 @@ import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
 @Path("/crm/api/6.0")
 public class EcpCrmResource extends ResourceAbstract  {
+
+
 
     @Override
     protected void init(
@@ -450,16 +452,17 @@ public class EcpCrmResource extends ResourceAbstract  {
                 .build();
     }
 
-    @GET
+    @POST
     @Path("/user-detail")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD, MediaType.APPLICATION_FORM_URLENCODED })
     @Produces({
             MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR
     })
     @PrettyPrinting
-    public Response userDetail(@HeaderParam("id") String reference) {
+    public Response userDetail(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
         Gson gson = new Gson();
+        String reference = gson.fromJson(request, UserDetailRequest.class).getId();
 
         //TODO: Not sure how to implement 302 and 310
 
