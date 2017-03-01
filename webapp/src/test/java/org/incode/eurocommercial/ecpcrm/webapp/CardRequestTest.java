@@ -16,13 +16,53 @@
  */
 package org.incode.eurocommercial.ecpcrm.webapp;
 
+import java.util.Random;
+
+import javax.inject.Inject;
+
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.clock.ClockService;
+
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.game.CardGameRepository;
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
 public class CardRequestTest extends EcpCrmTest {
+    @Inject FixtureScripts fixtureScripts;
+
+    @Inject ClockService clockService;
+
+    @Inject CardGameRepository cardGameRepository;
+
+
+    private DemoFixture fs;
+    private Card card;
+    private Center center;
+    private User user;
+
+    @Before
+    public void setUp() throws Exception {
+        // given
+        fs = new DemoFixture();
+        fixtureScripts.runFixtureScript(fs, null);
+
+        card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
+        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+        user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+        assertThat(card).isNotNull();
+        assertThat(user).isNotNull();
+        assertThat(center).isNotNull();
+    }
 
     private String endpoint = "card-request";
 
@@ -56,38 +96,56 @@ public class CardRequestTest extends EcpCrmTest {
 
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        // given
         String firstName = "";
         String lastName = "";
         String email = "";
         String checkItem = "";
         String lost = "";
-        assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
+
+        // when
+        String response = sendRequest(firstName, lastName, email, checkItem, lost);
+
+        // then
+        assertThatJson(response)
             .node("status").isEqualTo(302);
     }
 
     @Test
     @Ignore
-    // TODO: We should create a specific test user for this
+    // TODO: I can't see how this is checked in the old api
     public void when_email_exists_and_user_is_invalid_we_expect_304_error() throws Exception {
+        // given
         String firstName = "";
         String lastName = "";
         String email = "";
         String checkItem = "";
         String lost = "";
-        assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
-            .node("status").isEqualTo(304);
+
+        // when
+        String response = sendRequest(firstName, lastName, email, checkItem, lost);
+
+        // then
+        assertThatJson(response)
+                .node("status").isEqualTo(304);
     }
 
     @Test
     @Ignore
     // TODO: The email should be existing and the first and last name should be correct for the user
     public void when_email_exists_and_card_not_lost_and_check_is_valid_we_expect_318_error() throws Exception {
-        String firstName = "Test";
-        String lastName = "Test";
-        String email = "TODO: Existing email";
+        // given
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getEmail();
         String checkItem = firstName + " " + lastName;
         String lost = "false";
-        assertThatJson(sendRequest(firstName, lastName, email, checkItem, lost))
+
+        // when
+        String response = sendRequest(firstName, lastName, email, checkItem, lost);
+
+        // then
+        assertThatJson(response)
             .node("status").isEqualTo(318);
     }
 

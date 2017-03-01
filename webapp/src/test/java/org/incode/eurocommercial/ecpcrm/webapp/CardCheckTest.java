@@ -37,7 +37,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
 public class CardCheckTest extends EcpCrmTest {
-
     @Inject FixtureScripts fixtureScripts;
 
     @Inject ClockService clockService;

@@ -1,5 +1,7 @@
 package org.incode.eurocommercial.ecpcrm.dom.center;
 
+import java.math.BigInteger;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -64,10 +66,17 @@ public class Center implements Comparable<Center> {
 
     @Programmatic
     public String nextValidCardNumber() {
+        /* Save last increment */
+        BigInteger lastIncrement = numerator.getLastIncrement();
+
+        /* Increment cardNumber, until a valid number has been found */
         String cardNumber;
         do {
             cardNumber = numerator.nextIncrementStr();
         } while(!cardRepository.cardNumberIsValid(cardNumber, reference));
+
+        /* Reset back to last increment */
+        numerator.setLastIncrement(lastIncrement);
         return cardNumber;
     }
 

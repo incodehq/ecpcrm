@@ -38,8 +38,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
 public class CardGameTest extends EcpCrmTest {
-
-
     @Inject FixtureScripts fixtureScripts;
 
     @Inject ClockService clockService;
@@ -104,7 +102,7 @@ public class CardGameTest extends EcpCrmTest {
     public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
         // given
         card.setStatus(CardStatus.DISABLED);
-        String cardNumber = center.nextValidCardNumber();
+        String cardNumber = card.getNumber();
         String win = "";
         String desc = "";
 
@@ -118,7 +116,7 @@ public class CardGameTest extends EcpCrmTest {
 
     @Test
     @Ignore
-    // TODO: Not sure how to test this
+    // TODO: Awaiting response from biggerband
     public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_303_error() throws Exception {
     }
 
@@ -142,13 +140,12 @@ public class CardGameTest extends EcpCrmTest {
 
     @Test
     @Ignore
-    // TODO: Not sure how to test this
+    // TODO: Awaiting response from biggerband
     public void when_card_exists_but_card_user_is_invalid_we_expect_304_error() throws Exception {
 
     }
 
     @Test
-    @Ignore
     public void when_card_exists_but_has_already_played_we_expect_315_error() throws Exception {
         // given
         card.play();
@@ -165,8 +162,6 @@ public class CardGameTest extends EcpCrmTest {
     }
 
     @Test
-    @Ignore
-    // TODO: Create a test card to test this with, to ensure that this will be true
     public void when_card_exists_and_can_play_game_we_expect_happy_response() throws Exception {
         while(!card.canPlay()) {
             card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
