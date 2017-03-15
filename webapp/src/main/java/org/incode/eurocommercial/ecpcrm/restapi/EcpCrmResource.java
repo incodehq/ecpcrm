@@ -462,7 +462,8 @@ public class EcpCrmResource extends ResourceAbstract  {
     public Response userDetail(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
         Gson gson = new Gson();
-        String reference = gson.fromJson(request, UserDetailRequest.class).getId();
+        JsonParser jsonParser = new JsonParser();
+        String reference = jsonParser.parse(request).getAsJsonObject().get("id").getAsString();
 
         //TODO: Not sure how to implement 302 and 310
 
@@ -490,7 +491,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                     .build();
         }
 
-        JsonObject userJson = new JsonParser().parse(gson.toJson(UserViewModel.fromUser(user))).getAsJsonObject();
+        JsonObject userJson = gson.toJsonTree(UserViewModel.fromUser(user)).getAsJsonObject();
 
         return Response
                 .ok()
