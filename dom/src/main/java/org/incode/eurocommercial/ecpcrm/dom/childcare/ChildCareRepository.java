@@ -28,6 +28,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 
 @DomainService(
@@ -56,7 +57,7 @@ public class ChildCareRepository {
                         "checkIn", checkIn));
     }
 
-    public List<ChildCare> findByDateRange(LocalDateTime checkIn, LocalDateTime checkOut) {
+    public List<ChildCare> findByDateRange(Center center, LocalDateTime checkIn, LocalDateTime checkOut) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         ChildCare.class,
@@ -75,6 +76,24 @@ public class ChildCareRepository {
                         "checkOut", checkOut));
     }
 
+    public ChildCare findActiveChildCareByChild(Child child) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(
+                        ChildCare.class,
+                        "findActiveSessionByChild",
+                        "child", child
+                ));
+    }
+
+    public List<ChildCare> findActiveChildCares(Center center) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        ChildCare.class,
+                        "findActiveChildCares",
+                        "center", center
+                ));
+    }
+
     public ChildCare newChildCare(Child child, LocalDateTime checkIn) {
         ChildCare childCare = repositoryService.instantiate(ChildCare.class);
 
@@ -90,16 +109,11 @@ public class ChildCareRepository {
         return newChildCare(child, now);
     }
 
-    public ChildCare findOrCreate(Child child, LocalDateTime checkIn) {
-        ChildCare childCare = findByChildAnCheckIn(child, checkIn);
-        childCare = childCare != null ? childCare : newChildCare(child, checkIn);
+    public ChildCare findOrCreate(Child child) {
+        ChildCare childCare = findActiveChildCareByChild(child);
+        childCare = childCare != null ? childCare : newChildCare(child);
 
         return childCare;
-    }
-
-    public ChildCare findOrCreate(Child child) {
-        LocalDateTime now = clockService.nowAsLocalDateTime();
-        return findOrCreate(child, now);
     }
 
 

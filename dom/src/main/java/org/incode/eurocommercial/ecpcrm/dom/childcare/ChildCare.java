@@ -59,7 +59,8 @@ import lombok.Setter;
                 name = "findByDateRange", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
-                        + "WHERE checkIn >= :checkIn "
+                        + "WHERE center == :center "
+                        + "&& checkIn >= :checkIn "
                         + "&& checkOut <= :checkOut"),
         @Query(
                 name = "findByChildAndDateRange", language = "JDOQL",
@@ -67,14 +68,19 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
                         + "WHERE child == :child "
                         + "&& checkIn >= :checkIn "
-                        + "&& checkOut <= :checkOut")
+                        + "&& checkOut <= :checkOut"),
         @Query(
-                name = "findBy", language = "JDOQL",
+                name = "findActiveChildCareByChild", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
                         + "WHERE child == :child "
-                        + "&& checkIn >= :checkIn "
-                        + "&& checkOut <= :checkOut")
+                        + "&& checkOut == null"),
+        @Query(
+                name = "findActiveChildCares", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
+                        + "WHERE child.parent.center == :center "
+                        + "&& checkOut == null")
 })
 @DomainObject(
         editing = Editing.DISABLED

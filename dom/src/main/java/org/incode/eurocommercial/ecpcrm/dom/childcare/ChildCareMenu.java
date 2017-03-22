@@ -16,7 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.childcare;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,9 +39,8 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 public class ChildCareMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    public List<ChildCare> listActiveSessions(Center center) {
-//        return centerRepository.listAll();
-        return new ArrayList<>();
+    public List<ChildCare> listActiveChildCares(Center center) {
+        return childCareRepository.findActiveChildCares(center);
     }
 
     @Inject ChildCareRepository childCareRepository;
