@@ -94,6 +94,10 @@ public class ChildCare implements Comparable<ChildCare> {
         return ObjectContracts.compare(this, other, "child", "checkIn");
     }
 
+    public String title() {
+        return getChild().getName() + " - " + getCheckIn().toLocalDate().toString();
+    }
+
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter

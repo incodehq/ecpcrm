@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.child;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -25,6 +26,7 @@ import javax.jdo.annotations.Query;
 
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
@@ -34,6 +36,8 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Getter;
@@ -99,5 +103,13 @@ public class Child implements Comparable<Child> {
     @PropertyLayout(multiLine = 6)
     @Getter @Setter
     private String notes;
+
+    @Action
+    public ChildCare checkIn() {
+        ChildCare childCare = childCareRepository.findOrCreate(this);
+        return childCare;
+    }
+
+    @Inject ChildCareRepository childCareRepository;
 
 }

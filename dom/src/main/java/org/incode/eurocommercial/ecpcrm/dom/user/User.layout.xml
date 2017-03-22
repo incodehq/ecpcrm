@@ -33,6 +33,7 @@
                                         <cpt:property id="center"/>
                                         <cpt:property id="enabled"/>
                                         <cpt:property id="promotionalEmails"/>
+                                        <cpt:property id="hasCar"/>
                                     </cpt:fieldSet>
                                 </bs3:col>
                             </bs3:row>

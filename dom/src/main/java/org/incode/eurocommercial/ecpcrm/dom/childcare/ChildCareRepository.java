@@ -80,7 +80,7 @@ public class ChildCareRepository {
         return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         ChildCare.class,
-                        "findActiveSessionByChild",
+                        "findActiveChildCareByChild",
                         "child", child
                 ));
     }
