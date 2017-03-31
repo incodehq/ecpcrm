@@ -57,13 +57,14 @@ public class ChildCareRepository {
                         "checkIn", checkIn));
     }
 
-    public List<ChildCare> findByDateRange(Center center, LocalDateTime checkIn, LocalDateTime checkOut) {
+    public List<ChildCare> findByDateRange(Center center, LocalDateTime start, LocalDateTime end) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         ChildCare.class,
                         "findByDateRange",
-                        "checkIn", checkIn,
-                        "checkOut", checkOut));
+                        "center", center,
+                        "start", start,
+                        "end", end));
     }
 
     public List<ChildCare> findByChildAndDateRange(Child child, LocalDateTime checkIn, LocalDateTime checkOut) {

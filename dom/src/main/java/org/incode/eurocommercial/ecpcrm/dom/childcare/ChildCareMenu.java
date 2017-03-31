@@ -20,6 +20,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDateTime;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -41,6 +43,12 @@ public class ChildCareMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     public List<ChildCare> listActiveChildCares(Center center) {
         return childCareRepository.findActiveChildCares(center);
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    public List<ChildCare> findByDateRange(Center center, LocalDateTime start, LocalDateTime end) {
+        return childCareRepository.findByDateRange(center, start, end);
     }
 
     @Inject ChildCareRepository childCareRepository;

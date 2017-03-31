@@ -29,11 +29,13 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -43,6 +45,8 @@ import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.child.ChildCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.child.ChildTearDown;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.childcare.ChildCareCreate;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.childcare.ChildCareTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.numerator.NumeratorTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestTearDown;
@@ -57,11 +61,13 @@ public class DemoFixture extends FixtureScript {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-    public final int NUM_CENTERS       = 5;
-    public final int NUM_CARDS         = 50;
-    public final int NUM_USERS         = 30;
-    public final int NUM_CARD_REQUESTS = 5;
-    public final int NUM_CHILDREN      = 20;
+    public final int NUM_CENTERS         = 5;
+    public final int NUM_CARDS           = 50;
+    public final int NUM_USERS           = 30;
+    public final int NUM_CARD_REQUESTS   = 5;
+    public final int NUM_CHILDREN        = 20;
+    public final int NUM_CHILDCARES      = 40;
+    public final int NUM_OPEN_CHILDCARES = 5;
 
     @Getter
     private final List<Center> centers = Lists.newArrayList();
@@ -78,6 +84,9 @@ public class DemoFixture extends FixtureScript {
     @Getter
     private final List<Child> children = Lists.newArrayList();
 
+    @Getter
+    private final List<ChildCare> childCares = Lists.newArrayList();
+
     @Override
     protected void execute(final ExecutionContext ec) {
         String cardNumber;
@@ -85,6 +94,7 @@ public class DemoFixture extends FixtureScript {
         /* First, tear everything down hierarchically */
         ec.executeChild(this, new CardRequestTearDown());
         ec.executeChild(this, new CardTearDown());
+        ec.executeChild(this, new ChildCareTearDown());
         ec.executeChild(this, new ChildTearDown());
         ec.executeChild(this, new UserTearDown());
         ec.executeChild(this, new CenterTearDown());
@@ -150,6 +160,14 @@ public class DemoFixture extends FixtureScript {
             ec.executeChild(this, new ChildCreate());
         }
 
+        for(int i = 0; i < NUM_CHILDCARES - NUM_OPEN_CHILDCARES; i++) {
+            ec.executeChild(this, new ChildCareCreate());
+        }
+        for(int i = NUM_CHILDCARES - NUM_OPEN_CHILDCARES; i < NUM_CHILDCARES; i++) {
+            ec.setParameter("checkIn", clockService.nowAsLocalDateTime().minusMinutes(new Random().nextInt(ChildCareCreate.MAX_DURATION)));
+            ec.executeChild(this, new ChildCareCreate());
+        }
+
         /* Add all created Domain Objects to their respective Lists */
         List<Object> results  = ec.getResults().stream()
                 .map(FixtureResult::getObject)
@@ -169,8 +187,14 @@ public class DemoFixture extends FixtureScript {
                 .filter(c -> c instanceof Child)
                 .map(c -> (Child) c)
                 .collect(Collectors.toList()));
+
+        getChildCares().addAll(results.stream()
+                .filter(c -> c instanceof ChildCare)
+                .map(c -> (ChildCare) c)
+                .collect(Collectors.toList()));
     }
 
     @Inject NumeratorRepository numeratorRepository;
     @Inject CardRepository cardRepository;
+    @Inject ClockService clockService;
 }

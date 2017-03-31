@@ -59,9 +59,9 @@ import lombok.Setter;
                 name = "findByDateRange", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
-                        + "WHERE center == :center "
-                        + "&& checkIn >= :checkIn "
-                        + "&& checkOut <= :checkOut"),
+                        + "WHERE child.parent.center == :center "
+                        + "&& checkIn >= :start "
+                        + "&& checkIn <= :end"),
         @Query(
                 name = "findByChildAndDateRange", language = "JDOQL",
                 value = "SELECT "
