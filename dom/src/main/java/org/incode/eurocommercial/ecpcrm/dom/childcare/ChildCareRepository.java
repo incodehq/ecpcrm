@@ -48,15 +48,6 @@ public class ChildCareRepository {
                         "child", child));
     }
 
-    public ChildCare findByChildAnCheckIn(Child child, LocalDateTime checkIn) {
-        return repositoryService.uniqueMatch(
-                new QueryDefault<>(
-                        ChildCare.class,
-                        "findByChildAndCheckIn",
-                        "child", child,
-                        "checkIn", checkIn));
-    }
-
     public List<ChildCare> findByDateRange(Center center, LocalDateTime start, LocalDateTime end) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
@@ -67,14 +58,14 @@ public class ChildCareRepository {
                         "end", end));
     }
 
-    public List<ChildCare> findByChildAndDateRange(Child child, LocalDateTime checkIn, LocalDateTime checkOut) {
+    public List<ChildCare> findByChildAndDateRange(Child child, LocalDateTime start, LocalDateTime end) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         ChildCare.class,
                         "findByChildAndDateRange",
                         "child", child,
-                        "checkIn", checkIn,
-                        "checkOut", checkOut));
+                        "start", start,
+                        "end", end));
     }
 
     public ChildCare findActiveChildCareByChild(Child child) {

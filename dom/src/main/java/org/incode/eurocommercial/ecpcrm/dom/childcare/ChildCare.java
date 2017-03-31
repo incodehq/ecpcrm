@@ -50,12 +50,6 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
                         + "WHERE child == :child "),
         @Query(
-                name = "findByChildAndCheckIn", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
-                        + "WHERE child == :child "
-                        + "&& checkIn == :checkIn"),
-        @Query(
                 name = "findByDateRange", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
@@ -67,8 +61,8 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare "
                         + "WHERE child == :child "
-                        + "&& checkIn >= :checkIn "
-                        + "&& checkOut <= :checkOut"),
+                        + "&& checkIn >= :start "
+                        + "&& checkIn <= :end"),
         @Query(
                 name = "findActiveChildCareByChild", language = "JDOQL",
                 value = "SELECT "
@@ -118,7 +112,8 @@ public class ChildCare implements Comparable<ChildCare> {
     @Action
     @ActionLayout(named = "Check Out")
     public ChildCare doCheckOut() {
-        setCheckOut(clockService.nowAsLocalDateTime());
+        if(getCheckOut() == null)
+            setCheckOut(clockService.nowAsLocalDateTime());
 
         return this;
     }
