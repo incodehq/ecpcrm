@@ -67,7 +67,8 @@ public class ChildCareCreate extends FixtureScript {
                     checkIn.plusMinutes(new Random().nextInt(MAX_DURATION)));
         }
 
-        childCare = childCareRepository.newChildCare(child);
+        child.checkIn();
+        childCare = childCareRepository.findActiveChildCareByChild(child);
         childCare.setCheckIn(checkIn);
         childCare.setCheckOut(checkOut);
 

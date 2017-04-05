@@ -83,7 +83,9 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
 
         Child child = childRepository.findOrCreate(getName(), gender, birthdate, user);
         if(checkIn != null) {
-            ChildCare childCare = childCareRepository.newChildCare(child, checkIn);
+            child.checkIn();
+            ChildCare childCare = childCareRepository.findActiveChildCareByChild(child);
+            childCare.setCheckIn(checkIn);
             childCare.setCheckOut(checkOut);
         }
 

@@ -16,6 +16,9 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.child;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -27,11 +30,14 @@ import javax.jdo.annotations.Query;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -104,11 +110,44 @@ public class Child implements Comparable<Child> {
     @Getter @Setter
     private String notes;
 
+
+
+    // region > childCares
+
+    @Persistent(mappedBy = "child", dependentElement = "true")
+    @Collection
+    @CollectionLayout(render = RenderType.EAGERLY)
+    @Getter @Setter
+    private SortedSet<ChildCare> childCares = new TreeSet<>();
+
     @Action
-    public ChildCare checkIn() {
+    public Child checkIn() {
         ChildCare childCare = childCareRepository.findOrCreate(this);
-        return childCare;
+        if(childCare != null) {
+            getChildCares().add(childCare);
+        }
+        return this;
     }
+
+    @Action
+    public Child checkOut() {
+        ChildCare childCare = childCareRepository.findActiveChildCareByChild(this);
+        if(childCare != null) {
+            childCare.doCheckOut();
+        }
+        return this;
+    }
+
+    public boolean hideCheckIn() {
+        return childCareRepository.findActiveChildCareByChild(this) != null;
+    }
+
+    public boolean hideCheckOut() {
+        return childCareRepository.findActiveChildCareByChild(this) == null;
+    }
+
+
+    // endregion > childCares
 
     @Inject ChildCareRepository childCareRepository;
 
