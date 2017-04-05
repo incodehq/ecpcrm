@@ -41,6 +41,12 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 public class ChildCareMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    public List<ChildCare> listAll() {
+        return childCareRepository.listAll();
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     public List<ChildCare> listActiveChildCares(Center center) {
         return childCareRepository.findActiveChildCares(center);
     }

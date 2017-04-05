@@ -90,5 +90,4 @@ public class Numerator {
         setLastIncrement(next);
         return next;
     }
-
 }

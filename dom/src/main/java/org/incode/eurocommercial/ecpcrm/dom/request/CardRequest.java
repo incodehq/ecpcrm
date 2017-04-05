@@ -155,4 +155,3 @@ public class CardRequest implements Comparable<CardRequest>{
     @Inject ClockService clockService;
     @Inject CardRepository cardRepository;
 }
-
