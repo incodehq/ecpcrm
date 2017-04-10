@@ -24,12 +24,12 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2.1</version>
+        <version>1.14.0</version>
     </parent>
 
     <groupId>org.isisaddons.app</groupId>
     <artifactId>ecpcrm</artifactId>
-    <version>1.13.0-SNAPSHOT</version>
+    <version>1.14.0</version>
 
     <name>Eurocommercial CRM System</name>
 
@@ -40,29 +40,29 @@
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.2</isis.version>
+        <isis.version>1.14.0</isis.version>
 
-        <isis-metamodel-paraname8.version>1.13.0-SNAPSHOT</isis-metamodel-paraname8.version>
+        <isis-metamodel-paraname8.version>1.14.0</isis-metamodel-paraname8.version>
 
-        <isis-module-audit.version>1.13.0-SNAPSHOT</isis-module-audit.version>
-        <isis-module-command.version>1.13.0-SNAPSHOT</isis-module-command.version>
-        <isis-module-docx.version>1.13.0-SNAPSHOT</isis-module-docx.version>
-        <isis-module-excel.version>1.13.0-SNAPSHOT</isis-module-excel.version>
-        <isis-module-fakedata.version>1.13.0-SNAPSHOT</isis-module-fakedata.version>
-        <isis-module-poly.version>1.13.0-SNAPSHOT</isis-module-poly.version>
-        <isis-module-publishmq.version>1.13.0-SNAPSHOT</isis-module-publishmq.version>
-        <isis-module-security.version>1.13.6</isis-module-security.version>
-        <isis-module-sessionlogger.version>1.13.0-SNAPSHOT</isis-module-sessionlogger.version>
-        <isis-module-settings.version>1.13.0-SNAPSHOT</isis-module-settings.version>
-        <isis-module-servletapi.version>1.13.0-SNAPSHOT</isis-module-servletapi.version>
-        <isis-module-stringinterpolator.version>1.13.0-SNAPSHOT</isis-module-stringinterpolator.version>
+        <isis-module-audit.version>1.14.0</isis-module-audit.version>
+        <isis-module-command.version>1.14.0</isis-module-command.version>
+        <isis-module-docx.version>1.14.0</isis-module-docx.version>
+        <isis-module-excel.version>1.14.0</isis-module-excel.version>
+        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+        <isis-module-poly.version>1.14.0</isis-module-poly.version>
+        <isis-module-publishmq.version>1.14.0</isis-module-publishmq.version>
+        <isis-module-security.version>1.14.0</isis-module-security.version>
+        <isis-module-sessionlogger.version>1.14.0</isis-module-sessionlogger.version>
+        <isis-module-settings.version>1.14.0</isis-module-settings.version>
+        <isis-module-servletapi.version>1.14.0</isis-module-servletapi.version>
+        <isis-module-stringinterpolator.version>1.14.0</isis-module-stringinterpolator.version>
 
-        <isis-wicket-excel.version>1.13.0-SNAPSHOT</isis-wicket-excel.version>
-        <isis-wicket-fullcalendar2.version>1.13.0-SNAPSHOT</isis-wicket-fullcalendar2.version>
-        <isis-wicket-gmap3.version>1.13.0-SNAPSHOT</isis-wicket-gmap3.version>
+        <isis-wicket-excel.version>1.14.0</isis-wicket-excel.version>
+        <isis-wicket-fullcalendar2.version>1.14.0</isis-wicket-fullcalendar2.version>
+        <isis-wicket-gmap3.version>1.14.0</isis-wicket-gmap3.version>
 
-        <incode-module-note.version>1.13.0-SNAPSHOT</incode-module-note.version>
-        <incode-module-commchannel.version>1.13.0-SNAPSHOT</incode-module-commchannel.version>
+        <incode-module-note.version>1.14.0</incode-module-note.version>
+        <incode-module-commchannel.version>1.14.0</incode-module-commchannel.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
 

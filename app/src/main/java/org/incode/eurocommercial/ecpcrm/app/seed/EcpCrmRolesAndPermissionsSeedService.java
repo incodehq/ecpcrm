@@ -32,6 +32,7 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.roles.DevUtilsModuleRoleAndPerm
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmVetoSelectedMembersPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
@@ -64,6 +65,7 @@ public class EcpCrmRolesAndPermissionsSeedService {
         @Override
         protected void execute(final ExecutionContext executionContext) {
             executionContext.executeChild(this, new EcpCrmRegularRoleAndPermissions());
+            executionContext.executeChild(this, new HostessRoleAndPermissions());
             executionContext.executeChild(this, new EcpCrmVetoSelectedMembersPermissions());
             executionContext.executeChild(this, new EcpCrmFixtureServiceRoleAndPermissions());
 

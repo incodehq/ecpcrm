@@ -49,9 +49,9 @@ repositories {
     jcenter()
 }
 dependencies {
-    compile group: 'org.apache.isis.core', name: 'isis-core-applib', version: '1.13.0-SNAPSHOT'
+    compile group: 'org.apache.isis.core', name: 'isis-core-applib', version: '1.14.0'
     compile group: 'org.togglz', name: 'togglz-core', version: '2.1.0.Final';
-    compile group: 'org.isisaddons.module.security', name: 'isis-module-security-dom', version: '1.13.0-SNAPSHOT';
+    compile group: 'org.isisaddons.module.security', name: 'isis-module-security-dom', version: '1.14.0';
 }
 lombok {
     version = "1.16.6"
