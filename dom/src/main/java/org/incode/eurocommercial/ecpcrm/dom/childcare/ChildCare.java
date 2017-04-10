@@ -35,6 +35,8 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 
 import lombok.Getter;
@@ -82,7 +84,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         paged = 1000
 )
-public class ChildCare implements Comparable<ChildCare> {
+public class ChildCare implements Comparable<ChildCare>, HasAtPath {
     @Override
     public int compareTo(final ChildCare other) {
         return ObjectContracts.compare(this, other, "child", "checkIn");
@@ -126,7 +128,9 @@ public class ChildCare implements Comparable<ChildCare> {
         return getCheckOut() != null;
     }
 
-
+    @Override public String getAtPath() {
+        return getChild().getAtPath();
+    }
 
     @Inject ClockService clockService;
 }

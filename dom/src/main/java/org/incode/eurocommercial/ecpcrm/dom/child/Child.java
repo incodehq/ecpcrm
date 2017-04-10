@@ -41,6 +41,8 @@ import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
@@ -71,7 +73,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         paged = 1000
 )
-public class Child implements Comparable<Child> {
+public class Child implements Comparable<Child>, HasAtPath {
 
     @Override
     public int compareTo(final Child other) {
@@ -110,8 +112,6 @@ public class Child implements Comparable<Child> {
     @Getter @Setter
     private String notes;
 
-
-
     // region > childCares
 
     @Persistent(mappedBy = "child", dependentElement = "true")
@@ -146,9 +146,11 @@ public class Child implements Comparable<Child> {
         return childCareRepository.findActiveChildCareByChild(this) == null;
     }
 
-
     // endregion > childCares
 
-    @Inject ChildCareRepository childCareRepository;
+    @Override public String getAtPath() {
+        return getParent().getAtPath();
+    }
 
+    @Inject ChildCareRepository childCareRepository;
 }
