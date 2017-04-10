@@ -21,7 +21,7 @@ import java.util.Arrays;
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions;
 
 public class MaryHostessFixtureScript extends AbstractUserAndRolesFixtureScript {
 
@@ -37,7 +37,7 @@ public class MaryHostessFixtureScript extends AbstractUserAndRolesFixtureScript 
                 EMAIL_ADDRESS,
                 AT_PATH,
                 AccountType.LOCAL,
-                Arrays.asList(EcpCrmRegularRoleAndPermissions.ROLE_NAME));
+                Arrays.asList(HostessRoleAndPermissions.ROLE_NAME));
     }
 
 }
