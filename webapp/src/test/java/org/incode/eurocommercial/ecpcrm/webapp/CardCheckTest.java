@@ -36,7 +36,7 @@ import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
-public class CardCheckTest extends EcpCrmTest {
+public class CardCheckTest extends EcpCrmTestAbstract {
     @Inject FixtureScripts fixtureScripts;
 
     @Inject ClockService clockService;

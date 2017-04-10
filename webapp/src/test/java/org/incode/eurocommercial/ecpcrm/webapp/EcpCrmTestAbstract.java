@@ -37,7 +37,7 @@ import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public abstract class EcpCrmTest {
+public abstract class EcpCrmTestAbstract {
 
     @ClassRule
     public static JettyServerRule server = new JettyServerRule(new EmbeddedJetty());
@@ -61,6 +61,10 @@ public abstract class EcpCrmTest {
         HttpResponse response = request.execute();
 
         return CharStreams.toString(new InputStreamReader(response.getContent()));
+    }
+
+    @Test
+    public void can_bootstrap_test() throws Exception {
     }
 
     @Test
