@@ -41,6 +41,8 @@ import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
@@ -91,7 +93,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         paged = 1000
 )
-public class User implements Comparable<User> {
+public class User implements Comparable<User>, HasAtPath {
 
     @Override
     public int compareTo(final User other) {
@@ -226,6 +228,10 @@ public class User implements Comparable<User> {
     @Property
     @Getter @Setter
     private Boolean hasCar;
+
+    @Override public String getAtPath() {
+        return getCenter().getAtPath();
+    }
 
     @Inject private ClockService clockService;
     @Inject private CardRepository cardRepository;

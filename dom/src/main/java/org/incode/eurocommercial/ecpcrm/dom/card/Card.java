@@ -44,6 +44,8 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.game.CardGame;
@@ -87,7 +89,7 @@ import lombok.Setter;
         editing = Editing.DISABLED,
         bounded = true
 )
-public class Card implements Comparable<Card> {
+public class Card implements Comparable<Card>, HasAtPath {
 
     @Override
     public int compareTo(final Card other) {
@@ -144,6 +146,8 @@ public class Card implements Comparable<Card> {
     @Getter @Setter
     private SortedSet<CardGame> cardGames = new TreeSet<>();
 
+
+
     @Action
     @ActionLayout(named = "Disable")
     /* Disable is an Apache Isis keyword, hence unenable */
@@ -185,6 +189,12 @@ public class Card implements Comparable<Card> {
         return getSentToUserAt() == null;
     }
 
+    @Override public String getAtPath() {
+        return getCenter().getAtPath();
+    }
+
     @Inject CardGameRepository cardGameRepository;
     @Inject ClockService clockService;
+
+
 }

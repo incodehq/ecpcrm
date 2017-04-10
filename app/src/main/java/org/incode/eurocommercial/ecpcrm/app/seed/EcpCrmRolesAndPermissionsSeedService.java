@@ -36,8 +36,6 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPe
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TranslationServicePoMenuRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.EcpCrmAdminUserTenancy;
-import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.UsersTenancy;
 import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 
 @DomainService(
@@ -65,9 +63,6 @@ public class EcpCrmRolesAndPermissionsSeedService {
 
         @Override
         protected void execute(final ExecutionContext executionContext) {
-
-            executionContext.executeChild(this, new UsersTenancy());
-
             executionContext.executeChild(this, new EcpCrmRegularRoleAndPermissions());
             executionContext.executeChild(this, new EcpCrmVetoSelectedMembersPermissions());
             executionContext.executeChild(this, new EcpCrmFixtureServiceRoleAndPermissions());
@@ -81,7 +76,6 @@ public class EcpCrmRolesAndPermissionsSeedService {
 
             executionContext.executeChild(this, new TranslationServicePoMenuRoleAndPermissions());
 
-            executionContext.executeChild(this, new EcpCrmAdminUserTenancy());
             executionContext.executeChild(this, new EcpCrmAdminUser());
         }
 

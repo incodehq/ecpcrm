@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import com.google.common.collect.Lists;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -18,7 +19,10 @@ import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
+import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
@@ -49,11 +53,11 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String checkIn;
+    private String startTime;
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String checkOut;
+    private String endTime;
 
     @Override
     public List<Class> importAfter() {
@@ -73,13 +77,22 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         LocalDate birthdate = dtf.parseLocalDate(getBirthdate().replace("T", " ").replace(".000", ""));
+        LocalDateTime checkIn = getStartTime() == null ? null : dtf.parseLocalDateTime(getStartTime().replace("T", " ").replace(".000", ""));
+        LocalDateTime checkOut = getEndTime() == null ? null : dtf.parseLocalDateTime(getEndTime().replace("T", " ").replace(".000", ""));
         Gender gender = Gender.valueOf(getGender());
 
-        childRepository.findOrCreate(getName(), gender, birthdate, user);
+        Child child = childRepository.findOrCreate(getName(), gender, birthdate, user);
+        if(checkIn != null) {
+            child.checkIn();
+            ChildCare childCare = childCareRepository.findActiveChildCareByChild(child);
+            childCare.setCheckIn(checkIn);
+            childCare.setCheckOut(checkOut);
+        }
 
         return null;
     }
 
     @Inject private ChildRepository childRepository;
+    @Inject private ChildCareRepository childCareRepository;
     @Inject private UserRepository userRepository;
 }

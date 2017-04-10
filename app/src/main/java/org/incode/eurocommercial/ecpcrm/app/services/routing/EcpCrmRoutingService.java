@@ -14,21 +14,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.fixture.dom.request;
+package org.incode.eurocommercial.ecpcrm.app.services.routing;
 
-import javax.inject.Inject;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.routing.RoutingService;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
-
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
-
-public class CardRequestTearDown extends FixtureScript {
-
-    @Override
-    protected void execute(FixtureScript.ExecutionContext executionContext) {
-        isisJdoSupport.deleteAll(CardRequest.class);
-    }
-
-    @Inject private IsisJdoSupport isisJdoSupport;
+@DomainService(nature = NatureOfService.DOMAIN)
+public class EcpCrmRoutingService implements RoutingService {
+    public boolean canRoute(Object original) { return true; }
+    public Object route(Object original) { return original; }
 }

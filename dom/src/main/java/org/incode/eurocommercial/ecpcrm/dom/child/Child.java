@@ -16,6 +16,10 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.child;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -25,15 +29,23 @@ import javax.jdo.annotations.Query;
 
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 
 import lombok.Getter;
@@ -61,7 +73,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         paged = 1000
 )
-public class Child implements Comparable<Child> {
+public class Child implements Comparable<Child>, HasAtPath {
 
     @Override
     public int compareTo(final Child other) {
@@ -100,4 +112,45 @@ public class Child implements Comparable<Child> {
     @Getter @Setter
     private String notes;
 
+    // region > childCares
+
+    @Persistent(mappedBy = "child", dependentElement = "true")
+    @Collection
+    @CollectionLayout(render = RenderType.EAGERLY)
+    @Getter @Setter
+    private SortedSet<ChildCare> childCares = new TreeSet<>();
+
+    @Action
+    public Child checkIn() {
+        ChildCare childCare = childCareRepository.findOrCreate(this);
+        if(childCare != null) {
+            getChildCares().add(childCare);
+        }
+        return this;
+    }
+
+    @Action
+    public Child checkOut() {
+        ChildCare childCare = childCareRepository.findActiveChildCareByChild(this);
+        if(childCare != null) {
+            childCare.doCheckOut();
+        }
+        return this;
+    }
+
+    public boolean hideCheckIn() {
+        return childCareRepository.findActiveChildCareByChild(this) != null;
+    }
+
+    public boolean hideCheckOut() {
+        return childCareRepository.findActiveChildCareByChild(this) == null;
+    }
+
+    // endregion > childCares
+
+    @Override public String getAtPath() {
+        return getParent().getAtPath();
+    }
+
+    @Inject ChildCareRepository childCareRepository;
 }

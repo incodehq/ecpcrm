@@ -14,46 +14,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.dom.center;
+package org.incode.eurocommercial.ecpcrm.dom.childcare;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.IsisApplibModule;
+import org.joda.time.LocalDateTime;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
 )
 @DomainServiceLayout(
-        named = "Centers"
+        named = "Nursery"
 )
-public class CenterMenu {
+public class ChildCareMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    @MemberOrder(sequence = "1")
-    public List<Center> listAll() {
-        return centerRepository.listAll();
+    public List<ChildCare> listAll() {
+        return childCareRepository.listAll();
     }
 
-    public static class CreateDomainEvent extends IsisApplibModule.ActionDomainEvent<CenterMenu> {}
-
-    @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
-    @MemberOrder(sequence = "2")
-    public Center newCenter(
-            final String reference,
-            final String name
-    ) {
-        return centerRepository.findOrCreate(reference, name);
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    public List<ChildCare> listActiveChildCares(Center center) {
+        return childCareRepository.findActiveChildCares(center);
     }
 
-    @Inject CenterRepository centerRepository;
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    public List<ChildCare> findByDateRange(Center center, LocalDateTime start, LocalDateTime end) {
+        return childCareRepository.findByDateRange(center, start, end);
+    }
+
+    @Inject ChildCareRepository childCareRepository;
 }

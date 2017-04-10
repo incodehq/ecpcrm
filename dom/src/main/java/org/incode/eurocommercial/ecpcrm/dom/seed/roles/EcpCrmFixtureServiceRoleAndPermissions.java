@@ -16,8 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.seed.roles;
 
-import org.apache.isis.applib.services.fixturespec.FixtureScriptsDefault;
-
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
@@ -35,8 +33,8 @@ public class EcpCrmFixtureServiceRoleAndPermissions extends AbstractRoleAndPermi
         newPackagePermissions(
                 ApplicationPermissionRule.ALLOW,
                 ApplicationPermissionMode.CHANGING,
-                FixtureScriptsDefault.class.getPackage().getName(),
-                "ecpcrm.fixture");
+                "org.incode.eurocommercial.ecpcrm.fixture"
+        );
     }
 
 }

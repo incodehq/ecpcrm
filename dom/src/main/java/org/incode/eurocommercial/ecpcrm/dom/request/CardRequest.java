@@ -35,6 +35,8 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -67,7 +69,7 @@ import lombok.Setter;
 @DomainObject(
         editing = Editing.DISABLED
 )
-public class CardRequest implements Comparable<CardRequest>{
+public class CardRequest implements Comparable<CardRequest>, HasAtPath {
     @Override
     public int compareTo(final CardRequest other) {
         return ObjectContracts.compare(this, other, "requestingUser", "date");
@@ -152,7 +154,10 @@ public class CardRequest implements Comparable<CardRequest>{
         return approved == null;
     }
 
+    @Override public String getAtPath() {
+        return getRequestingUser().getAtPath();
+    }
+
     @Inject ClockService clockService;
     @Inject CardRepository cardRepository;
 }
-

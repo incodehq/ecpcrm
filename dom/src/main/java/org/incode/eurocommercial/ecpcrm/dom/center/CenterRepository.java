@@ -64,6 +64,7 @@ public class CenterRepository {
         center.setName(name);
         center.setNumerator(numeratorRepository.findOrCreate(
                 name, "%d", new BigInteger("2" + reference + "000000000")));
+        center.setAtPath("/FRA/" + reference);
         repositoryService.persist(center);
         return center;
     }

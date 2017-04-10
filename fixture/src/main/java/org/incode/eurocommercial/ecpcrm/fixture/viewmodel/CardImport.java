@@ -81,9 +81,9 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
             return null;
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime createdAtDate = createdAt == null ? card.getCreatedAt() : dtf.parseLocalDateTime(createdAt);
-        LocalDateTime givenToUserAtDate = givenToUserAt == null ? null : dtf.parseLocalDateTime(givenToUserAt);
-        LocalDateTime sentToUserAtDate = sentToUserAt == null ? null : dtf.parseLocalDateTime(sentToUserAt);
+        LocalDateTime createdAtDate = getCreatedAt() == null ? card.getCreatedAt() : dtf.parseLocalDateTime(getCreatedAt().replace("T", " ").replace(".000", ""));
+        LocalDateTime givenToUserAtDate = getGivenToUserAt() == null ? null : dtf.parseLocalDateTime(getGivenToUserAt().replace("T", " ").replace(".000", ""));
+        LocalDateTime sentToUserAtDate = getSentToUserAt() == null ? null : dtf.parseLocalDateTime(getSentToUserAt().replace("T", " ").replace(".000", ""));
 
         card.setCreatedAt(createdAtDate);
         card.setGivenToUserAt(givenToUserAtDate);
