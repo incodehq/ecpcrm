@@ -58,7 +58,18 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardCheck(@HeaderParam("card") String cardNumber, @HeaderParam("origin") String origin) {
+    //public Response cardCheck(@HeaderParam("card") String cardNumber, @HeaderParam("origin") String origin) {
+    public Response cardCheck(@FormParam("request") String request) {
+
+        //--------------------------------------------------------------------------------------------------------------
+        JsonParser jsonParser = new JsonParser();
+
+        JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+        String cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+
+        JsonElement originJson = jsonParser.parse(request).getAsJsonObject().get("origin");
+        String origin = originJson == null ? null : originJson.getAsString();
+        //--------------------------------------------------------------------------------------------------------------
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
@@ -126,8 +137,24 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardGame(@HeaderParam("card") String cardNumber, @HeaderParam("win") String win, @HeaderParam("desc") String desc) {
+    //public Response cardGame(@HeaderParam("card") String cardNumber, @HeaderParam("win") String win, @HeaderParam("desc") String desc) {
+    public Response cardGame(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+
+        //--------------------------------------------------------------------------------------------------------------
+        JsonParser jsonParser = new JsonParser();
+
+        JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+        String cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+
+        /*not sure about these*/
+        JsonElement winJson = jsonParser.parse(request).getAsJsonObject().get("win");
+        String win = winJson == null ? null : winJson.getAsString();
+
+        JsonElement descJson = jsonParser.parse(request).getAsJsonObject().get("desc");
+        String desc = descJson == null ? null : descJson.getAsString();
+        //--------------------------------------------------------------------------------------------------------------
+
 
         if(Strings.isNullOrEmpty(cardNumber)) {
             return Response
