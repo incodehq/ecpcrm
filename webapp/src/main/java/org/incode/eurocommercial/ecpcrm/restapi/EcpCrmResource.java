@@ -58,18 +58,21 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    //public Response cardCheck(@HeaderParam("card") String cardNumber, @HeaderParam("origin") String origin) {
     public Response cardCheck(@FormParam("request") String request) {
 
-        //--------------------------------------------------------------------------------------------------------------
-        JsonParser jsonParser = new JsonParser();
+        String cardNumber = null; //explicitly initialize with null to prevent...
+        String origin = null;     //'might not be initialized' error
 
-        JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
-        String cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+        if(!Strings.isNullOrEmpty(request)) {
+            JsonParser jsonParser = new JsonParser();
 
-        JsonElement originJson = jsonParser.parse(request).getAsJsonObject().get("origin");
-        String origin = originJson == null ? null : originJson.getAsString();
-        //--------------------------------------------------------------------------------------------------------------
+            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+
+            JsonElement originJson = jsonParser.parse(request).getAsJsonObject().get("origin");
+            origin = originJson == null ? null : originJson.getAsString();
+        }
+
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
@@ -137,24 +140,26 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    //public Response cardGame(@HeaderParam("card") String cardNumber, @HeaderParam("win") String win, @HeaderParam("desc") String desc) {
     public Response cardGame(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
-        //--------------------------------------------------------------------------------------------------------------
-        JsonParser jsonParser = new JsonParser();
+        String cardNumber, win, desc;
+        cardNumber = win = desc = null;
 
-        JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
-        String cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
 
-        /*not sure about these*/
-        JsonElement winJson = jsonParser.parse(request).getAsJsonObject().get("win");
-        String win = winJson == null ? null : winJson.getAsString();
 
-        JsonElement descJson = jsonParser.parse(request).getAsJsonObject().get("desc");
-        String desc = descJson == null ? null : descJson.getAsString();
-        //--------------------------------------------------------------------------------------------------------------
+        if(!Strings.isNullOrEmpty(request)) {
+            JsonParser jsonParser = new JsonParser();
 
+            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+
+            JsonElement winJson = jsonParser.parse(request).getAsJsonObject().get("win");
+            win = winJson == null ? null : winJson.getAsString();
+
+            JsonElement descJson = jsonParser.parse(request).getAsJsonObject().get("desc");
+            desc = descJson == null ? null : descJson.getAsString();
+        }
 
         if(Strings.isNullOrEmpty(cardNumber)) {
             return Response
@@ -241,27 +246,33 @@ public class EcpCrmResource extends ResourceAbstract  {
     @PrettyPrinting
     public Response userCreate(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
-        JsonParser jsonParser = new JsonParser();
 
-        JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
-        JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
-        JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
-        JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
-        JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
-        JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
-        JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
-        JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
-        JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
-        String cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
-        String title = titleJson == null ? null : titleJson.getAsString();
-        String firstName = firstNameJson == null ? null : firstNameJson.getAsString();
-        String lastName = lastNameJson == null ? null : lastNameJson.getAsString();
-        String address = addressJson == null ? null : addressJson.getAsString();
-        String zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
-        String city = cityJson == null ? null : cityJson.getAsString();
-        String email = emailJson == null ? null : emailJson.getAsString();
-        int promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
+        String cardNumber, title, firstName, lastName, address, zipcode, city, email;
+        cardNumber = title = firstName = lastName = address = zipcode = city = email = null;
+        int promotionalEmails = 0;
 
+        if(!Strings.isNullOrEmpty(request)) {
+            JsonParser jsonParser = new JsonParser();
+
+            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
+            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
+            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
+            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
+            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
+            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
+            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
+            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
+            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+            title = titleJson == null ? null : titleJson.getAsString();
+            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
+            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
+            address = addressJson == null ? null : addressJson.getAsString();
+            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
+            city = cityJson == null ? null : cityJson.getAsString();
+            email = emailJson == null ? null : emailJson.getAsString();
+            promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
+        }
         if(title == null || Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)) {
             return Response
                     .ok()
@@ -370,27 +381,33 @@ public class EcpCrmResource extends ResourceAbstract  {
     @PrettyPrinting
     public Response userUpdate(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
-        JsonParser jsonParser = new JsonParser();
 
-        JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
-        JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
-        JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
-        JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
-        JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
-        JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
-        JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
-        JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
-        JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
-        String cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
-        String title = titleJson == null ? null : titleJson.getAsString();
-        String firstName = firstNameJson == null ? null : firstNameJson.getAsString();
-        String lastName = lastNameJson == null ? null : lastNameJson.getAsString();
-        String address = addressJson == null ? null : addressJson.getAsString();
-        String zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
-        String city = cityJson == null ? null : cityJson.getAsString();
-        String email = emailJson == null ? null : emailJson.getAsString();
-        int promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
+        String cardNumber, title, firstName, lastName, address, zipcode, city, email;
+        cardNumber = title = firstName = lastName = address = zipcode = city = email = null;
+        int promotionalEmails = 0;
 
+        if(!Strings.isNullOrEmpty(request)) {
+            JsonParser jsonParser = new JsonParser();
+
+            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
+            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
+            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
+            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
+            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
+            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
+            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
+            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
+            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+            title = titleJson == null ? null : titleJson.getAsString();
+            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
+            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
+            address = addressJson == null ? null : addressJson.getAsString();
+            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
+            city = cityJson == null ? null : cityJson.getAsString();
+            email = emailJson == null ? null : emailJson.getAsString();
+            promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
+        }
 
         if(Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)
                 || Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(email)) {
