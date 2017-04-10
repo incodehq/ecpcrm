@@ -31,19 +31,17 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.roles.PublishingModuleRoleAndPe
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SessionLoggerModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.SettingsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.TranslationServicePoMenuRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.EcpCrmAdminUserTenancy;
-import org.incode.eurocommercial.ecpcrm.dom.seed.tenancies.UsersTenancy;
 
 public class EcpCrmAdminUser extends AbstractUserAndRolesFixtureScript {
 
     public static final String USER_NAME = "ecpcrm-admin";
-    public static final String TENANCY_PATH = UsersTenancy.TENANCY_PATH + USER_NAME;
+    public static final String TENANCY_PATH = "/";
 
     private static final String PASSWORD = "pass";
 
     public EcpCrmAdminUser() {
         super(USER_NAME, PASSWORD, null,
-                EcpCrmAdminUserTenancy.TENANCY_PATH, AccountType.LOCAL,
+                TENANCY_PATH, AccountType.LOCAL,
                 Arrays.asList(IsisModuleSecurityAdminRoleAndPermissions.ROLE_NAME,
                               AuditModuleRoleAndPermissions.ROLE_NAME,
                               CommandModuleRoleAndPermissions.ROLE_NAME,

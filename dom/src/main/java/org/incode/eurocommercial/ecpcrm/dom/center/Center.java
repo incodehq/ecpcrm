@@ -15,6 +15,8 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.security.dom.tenancy.HasAtPath;
+
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator;
 
@@ -40,7 +42,7 @@ import lombok.Setter;
                         + "WHERE reference == :reference ")
 })
 @DomainObject(bounded = true)
-public class Center implements Comparable<Center> {
+public class Center implements Comparable<Center>, HasAtPath {
 
     @Override
     public int compareTo(final Center other) {
@@ -64,6 +66,11 @@ public class Center implements Comparable<Center> {
     @PropertyLayout(hidden = Where.EVERYWHERE)
     private Numerator numerator;
 
+    @Getter @Setter
+    @Column(allowsNull = "false")
+    private String atPath;
+
+
     @Programmatic
     public String nextValidCardNumber() {
         /* Save last increment */
@@ -81,4 +88,5 @@ public class Center implements Comparable<Center> {
     }
 
     @Inject CardRepository cardRepository;
+
 }

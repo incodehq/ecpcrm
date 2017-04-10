@@ -20,8 +20,6 @@ import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomainModule;
-
 public class EcpCrmRegularRoleAndPermissions extends AbstractRoleAndPermissionsFixtureScript {
 
     public static final String ROLE_NAME = "ecpcrm-regular-role";
@@ -35,9 +33,9 @@ public class EcpCrmRegularRoleAndPermissions extends AbstractRoleAndPermissionsF
         newPackagePermissions(
                 ApplicationPermissionRule.ALLOW,
                 ApplicationPermissionMode.CHANGING,
-                "ecpcrm.app",
-                EcpCrmDomainModule.class.getPackage().getName()
-                );
+                "org.incode.eurocommercial.ecpcrm.app",
+                "org.incode.eurocommercial.ecpcrm.dom"
+        );
     }
 
 }
