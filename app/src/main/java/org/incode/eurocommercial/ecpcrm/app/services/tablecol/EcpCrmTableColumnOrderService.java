@@ -20,6 +20,8 @@ import java.util.List;
 
 import com.google.inject.Inject;
 
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.tablecol.TableColumnOrderService;
 
 import org.isisaddons.module.security.app.user.MeService;
@@ -28,28 +30,34 @@ import org.isisaddons.module.security.dom.user.ApplicationUser;
 
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions;
 
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class EcpCrmTableColumnOrderService implements TableColumnOrderService {
 
-    @ Override public List<String> orderParented(
+    @Override public List<String> orderParented(
             Object parent,
             String collectionId,
             Class<?> collectionType,
             List<String> propertyIds) {
-
-        if (isHostess(meService.me())) {
+        System.out.println("-------------------------------------------------------- PARENTED");
+        if(isHostess(meService.me())) {
             propertyIds.remove("center");
         }
 
         return propertyIds;
-
     }
 
-    @Override public List<String> orderStandalone(final Class<?> aClass, final List<String> list) {
-        return list;
+    @Override public List<String> orderStandalone(
+            Class<?> collectionType, final List<String> propertyIds) {
+        System.out.println("-------------------------------------------------------- STANDALONE");
+        return propertyIds;
     }
 
     private boolean isHostess(ApplicationUser user) {
+        System.out.println(user.getName());
         for(ApplicationRole role : user.getRoles()) {
+            System.out.println(role.getName());
             if(role.getName().equals(HostessRoleAndPermissions.ROLE_NAME)) {
                 return true;
             }
