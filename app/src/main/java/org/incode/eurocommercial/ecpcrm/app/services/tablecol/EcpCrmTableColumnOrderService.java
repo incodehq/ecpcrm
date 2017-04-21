@@ -18,7 +18,7 @@ package org.incode.eurocommercial.ecpcrm.app.services.tablecol;
 
 import java.util.List;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -31,7 +31,8 @@ import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions;
 
 @DomainService(
-        nature = NatureOfService.DOMAIN
+        nature = NatureOfService.DOMAIN,
+        menuOrder = "100"
 )
 public class EcpCrmTableColumnOrderService implements TableColumnOrderService {
 
@@ -40,7 +41,6 @@ public class EcpCrmTableColumnOrderService implements TableColumnOrderService {
             String collectionId,
             Class<?> collectionType,
             List<String> propertyIds) {
-        System.out.println("-------------------------------------------------------- PARENTED");
         if(isHostess(meService.me())) {
             propertyIds.remove("center");
         }
@@ -50,7 +50,10 @@ public class EcpCrmTableColumnOrderService implements TableColumnOrderService {
 
     @Override public List<String> orderStandalone(
             Class<?> collectionType, final List<String> propertyIds) {
-        System.out.println("-------------------------------------------------------- STANDALONE");
+        if(isHostess(meService.me())) {
+            propertyIds.remove("center");
+        }
+
         return propertyIds;
     }
 

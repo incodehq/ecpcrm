@@ -20,7 +20,10 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.routing.RoutingService;
 
-@DomainService(nature = NatureOfService.DOMAIN)
+@DomainService(
+        nature = NatureOfService.DOMAIN,
+        menuOrder = "100"
+)
 public class EcpCrmRoutingService implements RoutingService {
     public boolean canRoute(Object original) { return true; }
     public Object route(Object original) { return original; }
