@@ -33,7 +33,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        menuOrder = "14"
 )
 @DomainServiceLayout(
         named = "Nursery"
