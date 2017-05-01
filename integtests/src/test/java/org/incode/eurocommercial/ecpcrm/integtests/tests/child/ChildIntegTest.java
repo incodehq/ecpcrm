@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
@@ -39,6 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChildIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
+    @Inject TransactionService transactionService;
 
     @Inject ChildRepository childRepository;
     @Inject ChildCareRepository childCareRepository;
@@ -86,6 +88,7 @@ public class ChildIntegTest extends EcpCrmIntegTest {
 
             // when
             child.checkIn();
+            transactionService.nextTransaction();
 
             // then
             assertThat(child.getChildCares()).isEqualTo(childCares);

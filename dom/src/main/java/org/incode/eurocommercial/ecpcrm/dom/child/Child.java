@@ -77,7 +77,7 @@ public class Child implements Comparable<Child>, HasAtPath {
 
     @Override
     public int compareTo(final Child other) {
-        return ObjectContracts.compare(this, other, "parent", "name");
+        return ObjectContracts.compare(this, other, "parent", "name", "birthdate");
     }
 
     public String title() {
