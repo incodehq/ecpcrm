@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -51,13 +51,25 @@ public class CardRequestRepository {
     }
 
     @Programmatic
-    public List<CardRequest> listRecentRequests() {
-        LocalDate end = clockService.now();
-        LocalDate start = end.minusDays(7);
+    public List<CardRequest> listRecentlyIssuedRequests() {
+        LocalDateTime end = clockService.nowAsLocalDateTime();
+        LocalDateTime start = end.minusDays(7);
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         CardRequest.class,
-                        "findByDateRange",
+                        "findByIssueDateRange",
+                        "startDate", start,
+                        "endDate", end));
+    }
+
+    @Programmatic
+    public List<CardRequest> listRecentlyHandledRequests() {
+        LocalDateTime end = clockService.nowAsLocalDateTime();
+        LocalDateTime start = end.minusDays(7);
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        CardRequest.class,
+                        "findByHandleDateRange",
                         "startDate", start,
                         "endDate", end));
     }
@@ -81,7 +93,7 @@ public class CardRequestRepository {
         final CardRequest cardRequest = repositoryService.instantiate(CardRequest.class);
 
         cardRequest.setRequestingUser(user);
-        cardRequest.setDate(clockService.now());
+        cardRequest.setIssueDate(clockService.nowAsLocalDateTime());
 
         repositoryService.persist(cardRequest);
         return cardRequest;

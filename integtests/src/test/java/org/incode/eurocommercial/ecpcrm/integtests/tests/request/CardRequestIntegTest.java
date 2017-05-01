@@ -67,6 +67,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             // then
             assertThat(cardRequest.getApproved()).isNull();
             assertThat(cardRequest.getAssignedCard()).isNull();
+            assertThat(cardRequest.getHandleDate()).isNull();
         }
 
         @Test
@@ -81,6 +82,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             // then
             assertThat(cardRequest.getApproved()).isTrue();
             assertThat(cardRequest.getAssignedCard()).isEqualTo(card);
+            assertThat(cardRequest.getHandleDate()).isNotNull();
         }
 
         @Test
@@ -119,6 +121,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             // then
             assertThat(cardRequest.getApproved()).isFalse();
             assertThat(cardRequest.getAssignedCard()).isNull();
+            assertThat(cardRequest.getHandleDate()).isNotNull();
         }
     }
 
@@ -138,7 +141,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_is_valid_card_request_is_approved_and_card_is_assigned() {
+        public void when_card_is_valid_when_reapproving_card_request_is_approved_and_card_is_assigned() {
             // given
             cardRequest.deny();
             List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());

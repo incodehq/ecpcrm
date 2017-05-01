@@ -24,7 +24,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
-import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -60,11 +60,17 @@ import lombok.Setter;
                         + "WHERE approved == :approved "
                         + "&& requestingUser == :requestingUser "),
         @Query(
-                name = "findByDateRange", language = "JDOQL",
+                name = "findByIssueDateRange", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.request.CardRequest "
-                        + "WHERE date >= :startDate "
-                        + "&& date <= :endDate ")
+                        + "WHERE issueDate >= :startDate "
+                        + "&& issueDate <= :endDate "),
+        @Query(
+                name = "findByHandleDateRange", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.request.CardRequest "
+                        + "WHERE handleDate >= :startDate "
+                        + "&& handleDate <= :endDate ")
 })
 @DomainObject(
         editing = Editing.DISABLED
@@ -72,11 +78,11 @@ import lombok.Setter;
 public class CardRequest implements Comparable<CardRequest>, HasAtPath {
     @Override
     public int compareTo(final CardRequest other) {
-        return ObjectContracts.compare(this, other, "requestingUser", "date");
+        return ObjectContracts.compare(this, other, "requestingUser", "issueDate", "handleDate");
     }
 
     public String title() {
-        return requestingUser.getFirstName() + " " + requestingUser.getLastName() + " - " + date.toString();
+        return requestingUser.getFirstName() + " " + requestingUser.getLastName() + " - " + issueDate.toString();
     }
 
     @Column(allowsNull = "false")
@@ -88,7 +94,13 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
     @Property
     @Persistent
     @Getter @Setter
-    private LocalDate date;
+    private LocalDateTime issueDate;
+
+    @Column(allowsNull = "true")
+    @Property
+    @Persistent
+    @Getter @Setter
+    private LocalDateTime handleDate;
 
     @Column(allowsNull = "true")
     @Property
@@ -110,6 +122,7 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
             setAssignedCard(card);
             card.setGivenToUserAt(null);
             card.setSentToUserAt(clockService.nowAsLocalDateTime());
+            this.setHandleDate(clockService.nowAsLocalDateTime());
             setApproved(true);
         }
         return this;
@@ -122,6 +135,7 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
     @Action
     public CardRequest deny() {
         setApproved(false);
+        this.setHandleDate(clockService.nowAsLocalDateTime());
         return this;
     }
 
@@ -147,11 +161,15 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
     }
 
     public boolean hideAssignedCard() {
-        return assignedCard == null;
+        return getAssignedCard() == null;
     }
 
     public boolean hideApproved() {
-        return approved == null;
+        return getApproved() == null;
+    }
+
+    public boolean hideHandleDate() {
+        return getApproved() == null;
     }
 
     @Override public String getAtPath() {

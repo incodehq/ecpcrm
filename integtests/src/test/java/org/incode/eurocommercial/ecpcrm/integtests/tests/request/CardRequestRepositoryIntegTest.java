@@ -84,19 +84,19 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
         }
     }
 
-    public static class ListRecentRequests extends CardRequestRepositoryIntegTest {
+    public static class ListRecentlyIssuedRequests extends CardRequestRepositoryIntegTest {
         @Test
         public void only_recent_requests_should_be_returned() {
             // given
             CardRequest oldRequest = cardRequestRepository.listAll().get(0);
-            oldRequest.setDate(clockService.now().minusDays(8));
+            oldRequest.setIssueDate(clockService.nowAsLocalDateTime().minusDays(8));
 
             // when
-            List<CardRequest> recentRequests = cardRequestRepository.listRecentRequests();
+            List<CardRequest> recentRequests = cardRequestRepository.listRecentlyIssuedRequests();
 
             // then
             recentRequests.forEach(c -> assertThat(
-                    c.getDate()).isGreaterThanOrEqualTo(clockService.now().minusDays(7)));
+                    c.getIssueDate()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusDays(7)));
             assertThat(recentRequests).doesNotContain(oldRequest);
         }
 
@@ -105,15 +105,53 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
             // given
             List<CardRequest> allRequests = cardRequestRepository.listAll();
             CardRequest oldRequest = allRequests.get(0);
-            oldRequest.setDate(clockService.now().minusDays(8));
+            oldRequest.setIssueDate(clockService.nowAsLocalDateTime().minusDays(8));
 
             // when
-            List<CardRequest> recentRequests = cardRequestRepository.listRecentRequests();
+            List<CardRequest> recentRequests = cardRequestRepository.listRecentlyIssuedRequests();
 
             // then
             allRequests.removeAll(recentRequests);
             allRequests.forEach(c -> assertThat(
-                    c.getDate()).isLessThan(clockService.now().minusDays(7)));
+                    c.getIssueDate()).isLessThan(clockService.nowAsLocalDateTime().minusDays(7)));
+            assertThat(allRequests).contains(oldRequest);
+        }
+    }
+
+    public static class ListRecentlyHandledRequests extends CardRequestRepositoryIntegTest {
+        @Test
+        public void only_recent_requests_should_be_returned() {
+            // given
+            CardRequest oldRequest = cardRequestRepository.listAll().get(0);
+            oldRequest.setHandleDate(clockService.nowAsLocalDateTime().minusDays(8));
+
+            // when
+            List<CardRequest> recentRequests = cardRequestRepository.listRecentlyHandledRequests();
+
+            // then
+            recentRequests.forEach(c -> assertThat(
+                    c.getHandleDate()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusDays(7)));
+            assertThat(recentRequests).doesNotContain(oldRequest);
+        }
+
+        @Test
+        public void all_recent_requests_should_be_returned() {
+            // given
+            List<CardRequest> allRequests = cardRequestRepository.listAll();
+            CardRequest oldRequest = allRequests.get(0);
+            oldRequest.setHandleDate(clockService.nowAsLocalDateTime().minusDays(8));
+
+            // when
+            List<CardRequest> recentRequests = cardRequestRepository.listRecentlyHandledRequests();
+
+            // then
+            allRequests.removeAll(recentRequests);
+            for(CardRequest request : allRequests) {
+                if(request.getHandleDate() != null) {
+                    assertThat(request.getHandleDate())
+                            .isLessThan(clockService.nowAsLocalDateTime().minusDays(7));
+                }
+            }
             assertThat(allRequests).contains(oldRequest);
         }
     }

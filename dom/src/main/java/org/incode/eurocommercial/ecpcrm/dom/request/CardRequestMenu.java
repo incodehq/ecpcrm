@@ -40,8 +40,8 @@ public class CardRequestMenu {
     }
 
     @Action(semantics = SemanticsOf.SAFE)
-    public List<CardRequest> allRecentRequests() {
-        return cardRequestRepository.listRecentRequests();
+    public List<CardRequest> allRecentlyHandledRequests() {
+        return cardRequestRepository.listRecentlyHandledRequests();
     }
 
     @Inject CardRequestRepository cardRequestRepository;
