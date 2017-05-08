@@ -69,4 +69,22 @@ SELECT
  child.stop_at AS endTime
  FROM `crm`.`children` AS child
  INNER JOIN `crm`.`field_data_field_birthdate` AS bd ON child.id = bd.entity_id
- INNER JOIN `crm`.`field_data_field_genre` AS gender ON child.id = gender.entity_id
+ INNER JOIN `crm`.`field_data_field_genre` AS gender ON child.id = gender.entity_id;
+ 
+-- Create cardRequest view
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`cardRequest` AS
+SELECT
+ request.id AS id,
+ center.reference AS centerReference,
+ request.user_id AS requestingUser,
+ request.created_at AS issueDate,
+ request.performedat AS handleDate,
+ CASE request.status
+ WHEN "new" THEN null
+ WHEN "handled" THEN true
+ END AS approved,
+ user.cardNumber AS assignedCard
+ FROM `crm`.`eurocommercial_crm_user_request` AS request
+ INNER JOIN `center` AS center ON center.id = request.center_id
+ INNER JOIN `user` AS user ON user.id = request.user_id
+ WHERE request.user_id IS NOT NULL;

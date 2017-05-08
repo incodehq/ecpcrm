@@ -90,6 +90,10 @@ public class CardRequestRepository {
     private CardRequest newCardRequest(
             User user
     ) {
+        if(user == null) {
+            return null;
+        }
+
         final CardRequest cardRequest = repositoryService.instantiate(CardRequest.class);
 
         cardRequest.setRequestingUser(user);

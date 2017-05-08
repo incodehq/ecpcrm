@@ -33,7 +33,13 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 @DomainServiceLayout(
         named = "Card Requests"
 )
+
 public class CardRequestMenu {
+    @Action(semantics = SemanticsOf.SAFE)
+    public List<CardRequest> listAll() {
+        return cardRequestRepository.listAll()  ;
+    }
+
     @Action(semantics = SemanticsOf.SAFE)
     public List<CardRequest> allOpenRequests() {
         return cardRequestRepository.listOpenRequests();
