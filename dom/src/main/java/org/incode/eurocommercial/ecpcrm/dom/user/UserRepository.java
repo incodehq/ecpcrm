@@ -49,14 +49,15 @@ public class UserRepository {
     }
 
     @Programmatic
-    public User findByExactEmail(
-            final String email
-    ) {
+    public User findByExactEmailAndCenter(
+            final String email,
+            final Center center) {
         return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         User.class,
-                        "findByExactEmail",
-                        "email", email));
+                        "findByExactEmailAndCenter",
+                        "email", email,
+                        "center", center));
     }
 
     @Programmatic
@@ -171,7 +172,10 @@ public class UserRepository {
             final Boolean hasCar,
             final String reference
     ) {
-        User user = findByExactEmail(email);
+        User user = findByExactEmailAndCenter(email, center);
+        if(user == null) {
+            user = findByReference(reference);
+        }
         if(user == null) {
             user = newUser(
                     enabled,

@@ -5,7 +5,6 @@ import java.io.InputStream;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,7 +28,6 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrin
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
-import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
@@ -236,287 +234,287 @@ public class EcpCrmResource extends ResourceAbstract  {
                 .build();
     }
 
-    @POST
-    @Path("/user-create")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD, MediaType.APPLICATION_FORM_URLENCODED })
-    @Produces({
-            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
-            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
-    })
-    @PrettyPrinting
-    public Response userCreate(@FormParam("request") String request) {
-        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+//    @POST
+//    @Path("/user-create")
+//    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD, MediaType.APPLICATION_FORM_URLENCODED })
+//    @Produces({
+//            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+//            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+//    })
+//    @PrettyPrinting
+//    public Response userCreate(@FormParam("request") String request) {
+//        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+//
+//        String cardNumber, title, firstName, lastName, address, zipcode, city, email;
+//        cardNumber = title = firstName = lastName = address = zipcode = city = email = null;
+//        int promotionalEmails = 0;
+//
+//        if(!Strings.isNullOrEmpty(request)) {
+//            JsonParser jsonParser = new JsonParser();
+//
+//            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+//            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
+//            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
+//            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
+//            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
+//            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
+//            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
+//            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
+//            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
+//            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+//            title = titleJson == null ? null : titleJson.getAsString();
+//            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
+//            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
+//            address = addressJson == null ? null : addressJson.getAsString();
+//            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
+//            city = cityJson == null ? null : cityJson.getAsString();
+//            email = emailJson == null ? null : emailJson.getAsString();
+//            promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
+//        }
+//        if(title == null || Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 302)
+//                            .add("message", "Invalid parameter")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 312)
+//                            .add("message", "Invalid card number")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        Card card = cardRepository.findByExactNumber(cardNumber);
+//
+//        if(card != null) {
+//            if(card.getStatus() != CardStatus.ENABLED) {
+//                return Response
+//                        .ok()
+//                        .type(MediaType.APPLICATION_JSON_TYPE)
+//                        .entity(new JsonBuilder()
+//                                .add("status", 303)
+//                                .add("message", "Invalid card")
+//                                .toJsonString())
+//                        .build();
+//            }
+//
+//            //TODO: Check against center of hostess
+//
+//            if(card.getOwner() != null) {
+//                return Response
+//                        .ok()
+//                        .type(MediaType.APPLICATION_JSON_TYPE)
+//                        .entity(new JsonBuilder()
+//                                .add("status", 308)
+//                                .add("message", "Card is already bound to another user")
+//                                .toJsonString())
+//                        .build();
+//            }
+//        }
+//
+//        User user = userRepository.findByExactEmailAndCenter(email, );
+//        if(user != null) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 309)
+//                            .add("message", "Email already exists in our system")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        //TODO: Extract center of request
+//        user = userRepository.findOrCreate(true, Title.valueOf(title), firstName, lastName, email,
+//                                           address, zipcode, city, null, null, cardNumber,
+//                                           asBoolean(promotionalEmails), null, null);
+//        if(user == null) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 316)
+//                            .add("message", "Failed to create or update user")
+//                            .toJsonString())
+//                    .build();
+//        }
+//        card = cardRepository.findByExactNumber(cardNumber);
+//
+//        if(card != null && card.getOwner() != user) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 314)
+//                            .add("message", "Failed to bind user to card")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        return Response
+//                .ok()
+//                .type(MediaType.APPLICATION_JSON_TYPE)
+//                .entity(new JsonBuilder()
+//                        .add("status", 200)
+//                        .toJsonString())
+//                .build();
+//    }
 
-        String cardNumber, title, firstName, lastName, address, zipcode, city, email;
-        cardNumber = title = firstName = lastName = address = zipcode = city = email = null;
-        int promotionalEmails = 0;
-
-        if(!Strings.isNullOrEmpty(request)) {
-            JsonParser jsonParser = new JsonParser();
-
-            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
-            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
-            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
-            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
-            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
-            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
-            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
-            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
-            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
-            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
-            title = titleJson == null ? null : titleJson.getAsString();
-            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
-            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
-            address = addressJson == null ? null : addressJson.getAsString();
-            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
-            city = cityJson == null ? null : cityJson.getAsString();
-            email = emailJson == null ? null : emailJson.getAsString();
-            promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
-        }
-        if(title == null || Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 302)
-                            .add("message", "Invalid parameter")
-                            .toJsonString())
-                    .build();
-        }
-
-        if(!cardRepository.cardNumberIsValid(cardNumber)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 312)
-                            .add("message", "Invalid card number")
-                            .toJsonString())
-                    .build();
-        }
-
-        Card card = cardRepository.findByExactNumber(cardNumber);
-
-        if(card != null) {
-            if(card.getStatus() != CardStatus.ENABLED) {
-                return Response
-                        .ok()
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(new JsonBuilder()
-                                .add("status", 303)
-                                .add("message", "Invalid card")
-                                .toJsonString())
-                        .build();
-            }
-
-            //TODO: Check against center of hostess
-
-            if(card.getOwner() != null) {
-                return Response
-                        .ok()
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(new JsonBuilder()
-                                .add("status", 308)
-                                .add("message", "Card is already bound to another user")
-                                .toJsonString())
-                        .build();
-            }
-        }
-
-        User user = userRepository.findByExactEmail(email);
-        if(user != null) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 309)
-                            .add("message", "Email already exists in our system")
-                            .toJsonString())
-                    .build();
-        }
-
-        //TODO: Extract center of request
-        user = userRepository.findOrCreate(true, Title.valueOf(title), firstName, lastName, email,
-                                           address, zipcode, city, null, null, cardNumber,
-                                           asBoolean(promotionalEmails), null, null);
-        if(user == null) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 316)
-                            .add("message", "Failed to create or update user")
-                            .toJsonString())
-                    .build();
-        }
-        card = cardRepository.findByExactNumber(cardNumber);
-
-        if(card != null && card.getOwner() != user) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 314)
-                            .add("message", "Failed to bind user to card")
-                            .toJsonString())
-                    .build();
-        }
-
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(new JsonBuilder()
-                        .add("status", 200)
-                        .toJsonString())
-                .build();
-    }
-
-    @POST
-    @Path("/user-update")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD, MediaType.APPLICATION_FORM_URLENCODED })
-    @Produces({
-            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
-            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
-    })
-    @PrettyPrinting
-    public Response userUpdate(@FormParam("request") String request) {
-        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
-
-        String cardNumber, title, firstName, lastName, address, zipcode, city, email;
-        cardNumber = title = firstName = lastName = address = zipcode = city = email = null;
-        int promotionalEmails = 0;
-
-        if(!Strings.isNullOrEmpty(request)) {
-            JsonParser jsonParser = new JsonParser();
-
-            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
-            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
-            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
-            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
-            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
-            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
-            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
-            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
-            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
-            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
-            title = titleJson == null ? null : titleJson.getAsString();
-            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
-            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
-            address = addressJson == null ? null : addressJson.getAsString();
-            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
-            city = cityJson == null ? null : cityJson.getAsString();
-            email = emailJson == null ? null : emailJson.getAsString();
-            promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
-        }
-
-        if(Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)
-                || Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(email)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 302)
-                            .add("message", "Invalid parameter")
-                            .toJsonString())
-                    .build();
-        }
-
-        if(!cardRepository.cardNumberIsValid(cardNumber)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 312)
-                            .add("message", "Invalid card number")
-                            .toJsonString())
-                    .build();
-        }
-
-        Card card = cardRepository.findByExactNumber(cardNumber);
-
-        if(card != null) {
-            if(card.getStatus() != CardStatus.ENABLED) {
-                return Response
-                        .ok()
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(new JsonBuilder()
-                                .add("status", 303)
-                                .add("message", "Invalid card")
-                                .toJsonString())
-                        .build();
-            }
-
-            //TODO: Check against center of hostess
-
-            if(card.getOwner() != null) {
-                return Response
-                        .ok()
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(new JsonBuilder()
-                                .add("status", 308)
-                                .add("message", "Card is already bound to another user")
-                                .toJsonString())
-                        .build();
-            }
-        }
-
-        User user = userRepository.findByExactEmail(email);
-        if(user != null && !(firstName.equals(user.getFirstName()) && lastName.equals(user.getLastName()))) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 309)
-                            .add("message", "Email already exists in our system")
-                            .toJsonString())
-                    .build();
-        }
-
-        //TODO: Extract center of request
-        user = userRepository.findOrCreate(true, Title.valueOf(title), firstName, lastName, email,
-                address, zipcode, city, null, null, cardNumber,
-                asBoolean(promotionalEmails), null, null);
-        if(user == null) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 316)
-                            .add("message", "Failed to create or update user")
-                            .toJsonString())
-                    .build();
-        }
-        user.setTitle(Title.valueOf(title));
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setAddress(address);
-        user.setZipcode(zipcode);
-        user.setCity(city);
-        user.setPromotionalEmails(asBoolean(promotionalEmails));
-        user.newCard(cardNumber);
-
-        card = cardRepository.findByExactNumber(cardNumber);
-
-        if(card != null && card.getOwner() != user) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 314)
-                            .add("message", "Failed to bind user to card")
-                            .toJsonString())
-                    .build();
-        }
-
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(new JsonBuilder()
-                        .add("status", 200)
-                        .toJsonString())
-                .build();
-    }
+//    @POST
+//    @Path("/user-update")
+//    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD, MediaType.APPLICATION_FORM_URLENCODED })
+//    @Produces({
+//            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+//            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+//    })
+//    @PrettyPrinting
+//    public Response userUpdate(@FormParam("request") String request) {
+//        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+//
+//        String cardNumber, title, firstName, lastName, address, zipcode, city, email;
+//        cardNumber = title = firstName = lastName = address = zipcode = city = email = null;
+//        int promotionalEmails = 0;
+//
+//        if(!Strings.isNullOrEmpty(request)) {
+//            JsonParser jsonParser = new JsonParser();
+//
+//            JsonElement cardNumberJson = jsonParser.parse(request).getAsJsonObject().get("card");
+//            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
+//            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
+//            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
+//            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
+//            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
+//            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
+//            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
+//            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
+//            cardNumber = cardNumberJson == null ? null : cardNumberJson.getAsString();
+//            title = titleJson == null ? null : titleJson.getAsString();
+//            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
+//            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
+//            address = addressJson == null ? null : addressJson.getAsString();
+//            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
+//            city = cityJson == null ? null : cityJson.getAsString();
+//            email = emailJson == null ? null : emailJson.getAsString();
+//            promotionalEmails = promotionalEmailsJson == null ? 0 : promotionalEmailsJson.getAsInt();
+//        }
+//
+//        if(Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)
+//                || Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(email)) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 302)
+//                            .add("message", "Invalid parameter")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 312)
+//                            .add("message", "Invalid card number")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        Card card = cardRepository.findByExactNumber(cardNumber);
+//
+//        if(card != null) {
+//            if(card.getStatus() != CardStatus.ENABLED) {
+//                return Response
+//                        .ok()
+//                        .type(MediaType.APPLICATION_JSON_TYPE)
+//                        .entity(new JsonBuilder()
+//                                .add("status", 303)
+//                                .add("message", "Invalid card")
+//                                .toJsonString())
+//                        .build();
+//            }
+//
+//            //TODO: Check against center of hostess
+//
+//            if(card.getOwner() != null) {
+//                return Response
+//                        .ok()
+//                        .type(MediaType.APPLICATION_JSON_TYPE)
+//                        .entity(new JsonBuilder()
+//                                .add("status", 308)
+//                                .add("message", "Card is already bound to another user")
+//                                .toJsonString())
+//                        .build();
+//            }
+//        }
+//
+//        User user = userRepository.findByExactEmailAndCenter(email, );
+//        if(user != null && !(firstName.equals(user.getFirstName()) && lastName.equals(user.getLastName()))) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 309)
+//                            .add("message", "Email already exists in our system")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        //TODO: Extract center of request
+//        user = userRepository.findOrCreate(true, Title.valueOf(title), firstName, lastName, email,
+//                address, zipcode, city, null, null, cardNumber,
+//                asBoolean(promotionalEmails), null, null);
+//        if(user == null) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 316)
+//                            .add("message", "Failed to create or update user")
+//                            .toJsonString())
+//                    .build();
+//        }
+//        user.setTitle(Title.valueOf(title));
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        user.setEmail(email);
+//        user.setAddress(address);
+//        user.setZipcode(zipcode);
+//        user.setCity(city);
+//        user.setPromotionalEmails(asBoolean(promotionalEmails));
+//        user.newCard(cardNumber);
+//
+//        card = cardRepository.findByExactNumber(cardNumber);
+//
+//        if(card != null && card.getOwner() != user) {
+//            return Response
+//                    .ok()
+//                    .type(MediaType.APPLICATION_JSON_TYPE)
+//                    .entity(new JsonBuilder()
+//                            .add("status", 314)
+//                            .add("message", "Failed to bind user to card")
+//                            .toJsonString())
+//                    .build();
+//        }
+//
+//        return Response
+//                .ok()
+//                .type(MediaType.APPLICATION_JSON_TYPE)
+//                .entity(new JsonBuilder()
+//                        .add("status", 200)
+//                        .toJsonString())
+//                .build();
+//    }
 
     @POST
     @Path("/user-detail")

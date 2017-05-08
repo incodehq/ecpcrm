@@ -27,6 +27,8 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
@@ -38,6 +40,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
     @Inject UserRepository userRepository;
+    @Inject CenterRepository centerRepository;
 
     DemoFixture fs;
 
@@ -64,14 +67,15 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         }
     }
 
-    public static class FindByExactEmail extends UserRepositoryIntegTest {
+    public static class FindByExactEmailAndCenter extends UserRepositoryIntegTest {
         @Test
         public void when_user_doesnt_exist_no_user_should_be_returned() {
             // given
             String userEmail = "This is not the email of an actual User";
+            Center center = user.getCenter();
 
             // when
-            User foundUser = userRepository.findByExactEmail(userEmail);
+            User foundUser = userRepository.findByExactEmailAndCenter(userEmail, center);
 
             // then
             assertThat(foundUser).isNull();
@@ -80,10 +84,26 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_exists_it_should_be_returned() {
             // when
-            User foundUser = userRepository.findByExactEmail(user.getEmail());
+            User foundUser = userRepository.findByExactEmailAndCenter(user.getEmail(), user.getCenter());
 
             // then
             assertThat(foundUser).isEqualTo(user);
+        }
+
+        @Test
+        public void when_user_exists_but_not_for_given_center_no_user_should_be_returned() {
+            // given
+            int centerReference = 10;
+            while(centerRepository.findByReference("0" + centerReference) != null) {
+                centerReference++;
+            }
+            Center center = centerRepository.findOrCreate("0" + centerReference, "New Center");
+
+            // when
+            User foundUser = userRepository.findByExactEmailAndCenter(user.getEmail(), center);
+
+            //then
+            assertThat(foundUser).isNull();
         }
     }
 

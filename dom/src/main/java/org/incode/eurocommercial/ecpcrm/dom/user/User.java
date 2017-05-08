@@ -60,10 +60,11 @@ import lombok.Setter;
 )
 @Queries({
         @Query(
-                name = "findByExactEmail", language = "JDOQL",
+                name = "findByExactEmailAndCenter", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
-                        + "WHERE email == :email "),
+                        + "WHERE email == :email "
+                        + "&& center == :center"),
         @Query(
                 name = "findByEmailContains", language = "JDOQL",
                 value = "SELECT "
