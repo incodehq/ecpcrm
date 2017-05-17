@@ -26,9 +26,11 @@
     </parent>
 
     <artifactId>ecpcrm-webapp</artifactId>
-    <name>Eurocommercial CRM System Webapp</name>
+    <name>ECP CRM System Webapp</name>
 
-    <description>This module runs both the Wicket viewer and the Restfulobjects viewer in a single webapp configured to run using the datanucleus object store.  It combines a number of the Isis addons.</description>
+    <description>
+        Packages ECP CRM as a standard Java webapp
+    </description>
 
     <packaging>war</packaging>
 
@@ -44,6 +46,9 @@
         <docker-plugin.snapshotRegistryUrl>https://index.docker.io/v1/</docker-plugin.snapshotRegistryUrl>
         <docker-plugin.releaseServerId>docker-hub</docker-plugin.releaseServerId>
         <docker-plugin.releaseRegistryUrl>https://index.docker.io/v1/</docker-plugin.releaseRegistryUrl>
+
+        <geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
+
     </properties>
 
     <build>
@@ -120,31 +125,61 @@
     </build>
 
     <dependencies>
+
+        <!-- this app -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ecpcrm-app</artifactId>
         </dependency>
+
+
+        <!--
+        can't use because is 1.14.0, still references old artifact names
         <dependency>
-            <groupId>org.apache.isis.viewer</groupId>
-            <artifactId>isis-viewer-wicket-impl</artifactId>
+            <groupId>org.incode.mavendeps</groupId>
+            <artifactId>isiswebapp</artifactId>
+            <version>${mavendeps-isiswebapp.version}</version>
+            <type>pom</type>
+        </dependency>
+        -->
+
+        <!--
+        so instead just inline here:
+        -->
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-viewer-wicket-impl</artifactId>
+            <version>${isis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-viewer-restfulobjects-server</artifactId>
+            <version>${isis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-security-shiro</artifactId>
+            <version>${isis.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <version>${geronimo-servlet_3.0_spec.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-security</artifactId>
         </dependency>
 
+
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <groupId>org.incode.mavendeps</groupId>
+            <artifactId>isisintellij</artifactId>
+            <version>${mavendeps-isisintellij.version}</version>
+            <type>pom</type>
         </dependency>
+
 
         <!-- enable -parameters support -->
         <dependency>
@@ -223,6 +258,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- testing -->
+        <dependency>
+            <groupId>org.incode.mavendeps</groupId>
+            <artifactId>isistesting</artifactId>
+            <version>${mavendeps-isistesting.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -241,24 +285,6 @@
                 </dependency>
             </dependencies>
         </profile>
-
-        <profile>
-            <id>jdbc-mysql</id>
-            <activation>
-                <property>
-                    <name>!skip.jdbc-mysql</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-
-
-
         <profile>
             <id>jdbc-logging</id>
             <activation>
@@ -279,6 +305,20 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>jdbc-mysql</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-mysql</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
         <!--
         <profile>
             <id>jdbc-postgres</id>
@@ -296,22 +336,6 @@
             </dependencies>
         </profile>
         -->
-
-        <profile>
-            <id>intellij</id>
-            <activation>
-                <property>
-                    <name>idea.version</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.isis.core</groupId>
-                    <artifactId>isis-core-webserver</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-
 
         <profile>
             <id>approval-tests</id>

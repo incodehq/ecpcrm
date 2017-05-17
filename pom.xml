@@ -30,24 +30,44 @@
     <groupId>org.isisaddons.app</groupId>
     <artifactId>ecpcrm</artifactId>
     <version>1.14.0</version>
-
-    <name>Eurocommercial CRM System</name>
-
     <packaging>pom</packaging>
 
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
+    <name>ECP CRM System</name>
+
+    <url>https://www.github.com/incodehq/ecpcrm</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/incodehq/ecpcrm.git</connection>
+        <developerConnection>scm:git:https://github.com/incodehq/ecpcrm.git</developerConnection>
+        <url>https://github.com/incodehq/ecpcrm.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>rkalis</id>
+            <name>Rosco Kalis</name>
+        </developer>
+    </developers>
 
     <properties>
-        <isis.version>1.14.0</isis.version>
+        <isis.version>1.14.0.20170517-1123</isis.version>
+
+        <mavendeps-isistesting.version>1.14.0</mavendeps-isistesting.version>
+        <mavendeps-isisintellij.version>1.14.0</mavendeps-isisintellij.version>
+        <mavendeps-isiswebapp.version>1.14.0</mavendeps-isiswebapp.version>
 
         <isis-metamodel-paraname8.version>1.14.0</isis-metamodel-paraname8.version>
 
         <isis-module-audit.version>1.14.0</isis-module-audit.version>
         <isis-module-command.version>1.14.0</isis-module-command.version>
         <isis-module-docx.version>1.14.0</isis-module-docx.version>
-        <isis-module-excel.version>1.14.0</isis-module-excel.version>
+        <isis-module-excel.version>1.14.2</isis-module-excel.version>
+
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
         <isis-module-poly.version>1.14.0</isis-module-poly.version>
         <isis-module-publishmq.version>1.14.0</isis-module-publishmq.version>
@@ -57,22 +77,21 @@
         <isis-module-servletapi.version>1.14.0</isis-module-servletapi.version>
         <isis-module-stringinterpolator.version>1.14.0</isis-module-stringinterpolator.version>
 
-        <isis-wicket-excel.version>1.14.0</isis-wicket-excel.version>
-        <isis-wicket-fullcalendar2.version>1.14.0</isis-wicket-fullcalendar2.version>
-        <isis-wicket-gmap3.version>1.14.0</isis-wicket-gmap3.version>
+        <isis-wicket-excel.version>1.14.0.20170516-1445</isis-wicket-excel.version>
+        <isis-wicket-fullcalendar2.version>1.14.0.20170516-1444</isis-wicket-fullcalendar2.version>
+        <isis-wicket-gmap3.version>1.14.0.20170516-1442</isis-wicket-gmap3.version>
 
         <incode-module-note.version>1.14.0</incode-module-note.version>
         <incode-module-commchannel.version>1.14.0</incode-module-commchannel.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
 
-        <lombok.version>1.16.6</lombok.version>
+        <lombok.version>1.16.10</lombok.version>
+        <assertj-core.version>3.6.0</assertj-core.version>
 
-        <assertj-core.version>2.0.0</assertj-core.version>
         <orika-core.version>1.4.5</orika-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <mysql-connector-java.version>5.1.6</mysql-connector-java.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
