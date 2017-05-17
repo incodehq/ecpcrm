@@ -272,6 +272,24 @@
     <profiles>
 
         <profile>
+            <id>resolving-conflicts</id>
+            <activation>
+                <property>
+                    <name>!skip.resolveConflicts</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>commons-io</groupId>
+                        <artifactId>commons-io</artifactId>
+                        <version>2.4</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+        <profile>
             <id>jdbc-hsqldb</id>
             <activation>
                 <property>
