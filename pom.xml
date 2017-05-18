@@ -55,7 +55,7 @@
     </developers>
 
     <properties>
-        <isis.version>1.14.0.20170517-1123</isis.version>
+        <isis.version>1.14.0.20170518-0759</isis.version>
 
         <mavendeps-isistesting.version>1.14.0</mavendeps-isistesting.version>
         <mavendeps-isisintellij.version>1.14.0</mavendeps-isisintellij.version>
