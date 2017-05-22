@@ -17,11 +17,17 @@
 package org.incode.eurocommercial.ecpcrm.app.services.api;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
 public class Result {
+    @Getter
     private final int status;
+
+    @Getter
     private final String message;
+
+    @Getter
     private final Object response;
 
     public static Result error(final int status, final String message) {
