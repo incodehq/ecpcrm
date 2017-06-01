@@ -37,8 +37,6 @@ import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 @Path("/crm/api/6.0")
 public class EcpCrmResource extends ResourceAbstract  {
 
-
-
     @Override
     protected void init(
             final RepresentationType representationType,

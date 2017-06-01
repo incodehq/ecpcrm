@@ -61,10 +61,6 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
         assertThat(card).isNotNull();
     }
 
-    private String sendRequest(String test, String test2) {
-        return "";
-    }
-
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given

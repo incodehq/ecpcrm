@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.app.services.api;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
@@ -35,7 +37,23 @@ public class ApiService {
         return Result.ok();
     }
 
-    public Result cardRequest() {
+    public Result cardRequest(
+            String origin,
+            Title title,
+            String firstName,
+            String lastName,
+            String email,
+            LocalDate birthdate,
+            String children,
+            Boolean hasCar,
+            String address,
+            String zipcode,
+            String city,
+            String phoneNumber,
+            boolean promotionalEmails,
+            String checkItem,
+            boolean lost
+    ) {
         return Result.ok();
     }
 
