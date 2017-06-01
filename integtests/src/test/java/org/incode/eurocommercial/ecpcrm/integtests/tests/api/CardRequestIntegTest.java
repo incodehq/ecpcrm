@@ -37,20 +37,22 @@ import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
+// TODO: In this entire class, nowhere is the center passed in
 public class CardRequestIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
     @Inject ClockService clockService;
 
     @Inject CardRepository cardRepository;
-
     @Inject CardRequestRepository cardRequestRepository;
+    @Inject UserRepository userRepository;
 
     @Inject ApiService apiService;
 
@@ -320,7 +322,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
     @Test
     @Ignore
     // TODO: Not sure how to test this one
-    public void when_user_data_cant_be_updated_we_expect_316_error() throws Exception {
+    public void when_email_does_not_exist_but_user_cant_be_created_we_expect_316_error() throws Exception {
     }
 
     @Test
@@ -356,6 +358,34 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         // then
         assertThat(result.getStatus()).isEqualTo(200);
         assertThat(cardRequestRepository.openRequestForUser(user)).isNotNull();
+    }
+
+    @Test
+    public void when_email_does_not_exist_and_user_can_be_created_we_expect_happy_response() throws Exception {
+        // given
+        String origin = "borne";
+        Title title = Title.MR;
+        String firstName = "Testy";
+        String lastName = "McTestFace";
+        String email = "testymctestface1991@emailio.com";
+        LocalDate birthdate = user.getBirthDate();
+        String children = "";
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+        String checkItem = "";
+        boolean lost = false;
+
+        // when
+        Result result = apiService.cardRequest(
+                origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(200);
     }
 
 }
