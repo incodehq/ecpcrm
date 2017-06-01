@@ -578,44 +578,6 @@ public class EcpCrmResource extends ResourceAbstract  {
         return localDate == null ? null : localDate.toString();
     }
 
-
-    public class JsonBuilder {
-        private final JsonObject json = new JsonObject();
-
-        public String toJsonString() {
-            return json.toString();
-        }
-
-        public JsonObject toJsonObject() {
-            return json;
-        }
-
-        public JsonBuilder add(String key, String value) {
-            json.addProperty(key, value);
-            return this;
-        }
-
-        public JsonBuilder add(String key, Number value) {
-            json.addProperty(key, value);
-            return this;
-        }
-
-        public JsonBuilder add(String key, Boolean value) {
-            json.addProperty(key, value);
-            return this;
-        }
-
-        public JsonBuilder add(String key, JsonBuilder value) {
-            json.add(key, value.toJsonObject());
-            return this;
-        }
-
-        public JsonBuilder add(String key, JsonObject value) {
-            json.add(key, value);
-            return this;
-        }
-    }
-
     @Inject UserRepository userRepository;
     @Inject CardRepository cardRepository;
     @Inject CenterRepository centerRepository;

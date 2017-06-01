@@ -16,6 +16,11 @@
  */
 package org.incode.eurocommercial.ecpcrm.app.services.api;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.google.gson.Gson;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -33,10 +38,21 @@ public class Result {
     public static Result error(final int status, final String message) {
         return new Result(status, message, null);
     }
+    public static Result ok(String  message, Object viewModel) {
+        return new Result(200, message, viewModel);
+    }
     public static Result ok(Object viewModel) {
-        return new Result(200, null, viewModel);
+        return ok(null, viewModel);
     }
     public static Result ok() {
         return ok(null);
+    }
+
+    public Response asResponse() {
+        return Response
+                .ok()
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(new Gson().toJson(this))
+                .build();
     }
 }
