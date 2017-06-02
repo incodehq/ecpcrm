@@ -49,6 +49,17 @@ public class UserRepository {
     }
 
     @Programmatic
+    public List<User> findByCenter(
+            final Center center
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        User.class,
+                        "findByCenter",
+                        "center", center));
+    }
+
+    @Programmatic
     public User findByExactEmailAndCenter(
             final String email,
             final Center center) {

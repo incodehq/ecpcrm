@@ -107,6 +107,54 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         }
     }
 
+    public static class FindByCenter extends UserRepositoryIntegTest {
+        @Test
+        public void when_center_has_no_users_no_users_should_be_returned() {
+            // given
+            int centerReference = 10;
+            while(centerRepository.findByReference("0" + centerReference) != null) {
+                centerReference++;
+            }
+            Center center = centerRepository.findOrCreate("0" + centerReference, "New Center");
+
+            // when
+            List<User> foundUsers = userRepository.findByCenter(center);
+
+            // then
+            assertThat(foundUsers).isEmpty();
+        }
+
+        @Test
+        public void all_returned_users_should_belong_to_center() {
+            // given
+            Center center = user.getCenter();
+
+            // when
+            List<User> foundUsers = userRepository.findByCenter(center);
+
+            // then
+            for(User foundUser : foundUsers) {
+                assertThat(foundUser.getCenter()).isEqualTo(center);
+            }
+        }
+
+        @Test
+        public void all_center_users_should_be_returned() {
+            // given
+            List<User> unfoundUsers = userRepository.listAll();
+            Center center = user.getCenter();
+
+            // when
+            List<User> foundUsers = userRepository.findByCenter(center);
+            unfoundUsers.removeAll(foundUsers);
+
+            // then
+            for(User unfoundUser : unfoundUsers) {
+                assertThat(unfoundUser.getCenter()).isNotEqualTo(center);
+            }
+        }
+    }
+
     public static class FindByEmaiLContains extends UserRepositoryIntegTest {
         @Test
         public void when_user_doesnt_exist_no_user_should_be_returned() {

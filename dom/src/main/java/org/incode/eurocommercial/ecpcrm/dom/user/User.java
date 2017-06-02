@@ -66,6 +66,11 @@ import lombok.Setter;
                         + "WHERE email == :email "
                         + "&& center == :center"),
         @Query(
+                name = "findByCenter", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
+                        + "WHERE center == :center"),
+        @Query(
                 name = "findByEmailContains", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
