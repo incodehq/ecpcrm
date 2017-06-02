@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.api;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 
@@ -83,21 +84,29 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
-        Title title = null;
-        String firstName = "";
-        String lastName = "";
-        String email = "";
-        String address = "";
-        String zipcode = "";
-        String city = "";
-        String cardNumber = "";
+        String cardNumber = card.getNumber();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getEmail();
+        Title title = user.getTitle();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
         boolean promotionalEmails = false;
 
-        // when
-        Result result = apiService.userCreate(title, firstName, lastName, email, address, zipcode, city, center, cardNumber, promotionalEmails);
+        /* Testing every required argument individually */
+        Object[] args = {center, cardNumber, firstName, lastName, email, title, address, zipcode, city, promotionalEmails};
+        for(int i = 0; i < 5; i++) {
+            Object[] a = args.clone();
+            a[i] = null;
 
-        // then
-        assertThat(result.getStatus()).isEqualTo(302);
+            // when
+            Method m = ApiService.class.getMethod("userCreate", Center.class, String.class, String.class, String.class, String.class, Title.class, String.class, String.class, String.class, boolean.class);
+            Result result = (Result) m.invoke(apiService, a);
+
+            // then
+            assertThat(result.getStatus()).isEqualTo(302);
+        }
     }
 
     @Test
@@ -114,7 +123,7 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
         boolean promotionalEmails = false;
 
         // when
-        Result result = apiService.userCreate(title, firstName, lastName, email, address, zipcode, city, center, cardNumber, promotionalEmails);
+        Result result = apiService.userCreate(center, cardNumber, firstName, lastName, email, title, address, zipcode, city, promotionalEmails);
 
         // then
         assertThat(result.getStatus()).isEqualTo(312);
@@ -136,7 +145,7 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
         boolean promotionalEmails = false;
 
         // when
-        Result result = apiService.userCreate(title, firstName, lastName, email, address, zipcode, city, center, cardNumber, promotionalEmails);
+        Result result = apiService.userCreate(center, cardNumber, firstName, lastName, email, title, address, zipcode, city, promotionalEmails);
 
         // then
         assertThat(result.getStatus()).isEqualTo(303);
@@ -166,7 +175,7 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
         boolean promotionalEmails = false;
 
         // when
-        Result result = apiService.userCreate(title, firstName, lastName, email, address, zipcode, city, center, cardNumber, promotionalEmails);
+        Result result = apiService.userCreate(center, cardNumber, firstName, lastName, email, title, address, zipcode, city, promotionalEmails);
 
         // then
         assertThat(result.getStatus()).isEqualTo(308);
@@ -186,7 +195,7 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
         boolean promotionalEmails = false;
 
         // when
-        Result result = apiService.userCreate(title, firstName, lastName, email, address, zipcode, city, center, cardNumber, promotionalEmails);
+        Result result = apiService.userCreate(center, cardNumber, firstName, lastName, email, title, address, zipcode, city, promotionalEmails);
 
         // then
         assertThat(result.getStatus()).isEqualTo(309);
@@ -230,7 +239,7 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
         boolean promotionalEmails = false;
 
         // when
-        Result result = apiService.userCreate(title, firstName, lastName, email, address, zipcode, city, center, cardNumber, promotionalEmails);
+        Result result = apiService.userCreate(center, cardNumber, firstName, lastName, email, title, address, zipcode, city, promotionalEmails);
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);

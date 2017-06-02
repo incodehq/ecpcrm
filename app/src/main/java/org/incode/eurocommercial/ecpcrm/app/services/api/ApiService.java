@@ -59,15 +59,15 @@ public class ApiService {
     }
 
     public Result userCreate(
-            Title title,
+            Center center,
+            String cardNumber,
             String firstName,
             String lastName,
             String email,
+            Title title,
             String address,
             String zipcode,
             String city,
-            Center center,
-            String cardNumber,
             boolean promotionalEmails
     ) {
         return Result.ok();
