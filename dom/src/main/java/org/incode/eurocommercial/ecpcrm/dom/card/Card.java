@@ -178,7 +178,7 @@ public class Card implements Comparable<Card>, HasAtPath {
 
     @Programmatic
     public boolean canPlay() {
-        return cardGameRepository.findByCardAndDate(this, clockService.now()) == null && (this.getStatus() == CardStatus.ENABLED || this.getStatus() == CardStatus.TOCHANGE);
+        return cardGameRepository.findByCardAndDate(this, clockService.now()) == null;
     }
 
     @Programmatic
