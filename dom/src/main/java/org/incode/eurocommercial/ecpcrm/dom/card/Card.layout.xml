@@ -19,11 +19,11 @@
                             <bs3:row>
                                 <bs3:col span="12">
                                     <cpt:fieldSet name="Card Details" id="card-details">
+                                        <cpt:action id="enable"/>
+                                        <cpt:action id="unenable"/>
+                                        <cpt:action id="tagAsLost"/>
                                         <cpt:property id="number"/>
-                                        <cpt:property id="status">
-                                            <cpt:action id="unenable"/>
-                                            <cpt:action id="enable"/>
-                                        </cpt:property>
+                                        <cpt:property id="status"/>
                                         <cpt:property id="owner"/>
                                         <cpt:property id="center"/>
                                     </cpt:fieldSet>

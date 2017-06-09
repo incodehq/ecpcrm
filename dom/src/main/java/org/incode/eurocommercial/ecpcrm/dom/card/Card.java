@@ -147,7 +147,6 @@ public class Card implements Comparable<Card>, HasAtPath {
     private SortedSet<CardGame> cardGames = new TreeSet<>();
 
 
-
     @Action
     @ActionLayout(named = "Disable")
     /* Disable is an Apache Isis keyword, hence unenable */
@@ -157,6 +156,15 @@ public class Card implements Comparable<Card>, HasAtPath {
     }
     public boolean hideUnenable() {
         return this.getStatus() == CardStatus.DISABLED;
+    }
+
+    @Action
+    public Card tagAsLost() {
+        this.setStatus(CardStatus.LOST);
+        return this;
+    }
+    public boolean hideTagAsLost() {
+        return this.getStatus() == CardStatus.LOST;
     }
 
     @Action
@@ -170,7 +178,7 @@ public class Card implements Comparable<Card>, HasAtPath {
 
     @Programmatic
     public boolean canPlay() {
-        return cardGameRepository.findByCardAndDate(this, clockService.now()) == null;
+        return cardGameRepository.findByCardAndDate(this, clockService.now()) == null && (this.getStatus() == CardStatus.ENABLED || this.getStatus() == CardStatus.TOCHANGE);
     }
 
     @Programmatic
