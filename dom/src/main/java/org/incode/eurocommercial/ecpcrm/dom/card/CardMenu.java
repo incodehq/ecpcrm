@@ -69,14 +69,13 @@ public class CardMenu {
     @MemberOrder(sequence = "3")
     public Card newCard(
             final @Parameter(optionality = Optionality.OPTIONAL) String number,
-            final CardStatus status,
             final Center center
     ) {
-        return cardRepository.findOrCreate(number, status, center);
+        return cardRepository.findOrCreate(number, CardStatus.DISABLED, center);
     }
 
-    public String validateNewCard(String number, CardStatus status, Center center) {
-        return cardRepository.validateFindOrCreate(number, status, center);
+    public String validateNewCard(String number, Center center) {
+        return cardRepository.validateFindOrCreate(number, CardStatus.DISABLED, center);
     }
 
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
@@ -84,10 +83,9 @@ public class CardMenu {
     public List<Card> newBatch(
             final String startNumber,
             final int batchSize,
-            final CardStatus status,
             final Center center
     ) {
-        return cardRepository.newBatch(startNumber, batchSize, status, center);
+        return cardRepository.newBatch(startNumber, batchSize, CardStatus.DISABLED, center);
     }
 
     @Inject CardRepository cardRepository;

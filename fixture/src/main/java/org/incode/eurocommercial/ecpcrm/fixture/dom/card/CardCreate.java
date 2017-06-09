@@ -8,7 +8,6 @@ import com.github.javafaker.Faker;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardMenu;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -25,9 +24,6 @@ public class CardCreate extends FixtureScript {
     private String number;
 
     @Getter @Setter
-    private CardStatus status;
-
-    @Getter @Setter
     private Center center;
 
     @Getter
@@ -39,14 +35,13 @@ public class CardCreate extends FixtureScript {
 
         number = defaultParam("number", ec,
                 "" + faker.number().randomNumber(13, true));
-        status = defaultParam("status", ec, CardStatus.ENABLED);
         if(center == null) {
             center = defaultParam("center", ec,
                     centerRepository.listAll().get(
                             new Random().nextInt(centerRepository.listAll().size())));
         }
 
-        card = wrap(menu).newCard(number(), status(), center());
+        card = wrap(menu).newCard(number(), center());
 
         ec.addResult(this, card);
     }
