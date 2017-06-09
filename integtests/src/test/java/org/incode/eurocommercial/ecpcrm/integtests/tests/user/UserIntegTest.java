@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Gender;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -115,6 +116,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
                 user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
             }
             Card card = user.getCards().first();
+            card.unenable();
 
             List<Card> cardsFromListAll = cardRepository.listAll();
             List<Card> cardsFromQuery = cardRepository.findByOwner(user);
@@ -127,6 +129,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
             assertThat(cardRepository.listAll()).isEqualTo(cardsFromListAll);
             assertThat(cardRepository.findByOwner(user)).isEqualTo(cardsFromQuery);
             assertThat(Lists.newArrayList(user.getCards())).isEqualTo(cardsOnUser);
+            assertThat(card.getStatus()).isEqualTo(CardStatus.DISABLED);
         }
 
         @Test

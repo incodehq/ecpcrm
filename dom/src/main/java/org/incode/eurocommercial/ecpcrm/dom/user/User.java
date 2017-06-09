@@ -206,13 +206,26 @@ public class User implements Comparable<User>, HasAtPath {
     public User newCard(String cardNumber) {
         Card card = cardRepository.findOrCreate(cardNumber, CardStatus.ENABLED, getCenter());
         if(card != null) {
-            /* Remove the card from its previous owner if it has one */
-            if(card.getOwner() != null && card.getOwner() != this) {
-                card.getOwner().getCards().remove(card);
+            /* Nothing should change if this is already the owner */
+            if(card.getOwner() != this) {
+                /* Remove the card from its previous owner if it has one */
+                if(card.getOwner() != null) {
+                    card.getOwner().getCards().remove(card);
+                }
+
+                /* Disable the previous card of the user, unless it is already tagged as lost */
+                if(!getCards().isEmpty()) {
+                    Card previousCard = getCards().last();
+                    if(previousCard.getStatus() != CardStatus.LOST) {
+                        previousCard.unenable();
+                    }
+                }
+
+                card.enable();
+                card.setOwner(this);
+                card.setGivenToUserAt(clockService.nowAsLocalDateTime());
+                getCards().add(card);
             }
-            card.setOwner(this);
-            card.setGivenToUserAt(clockService.nowAsLocalDateTime());
-            getCards().add(card);
         }
         return this;
     }
