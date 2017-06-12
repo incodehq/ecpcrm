@@ -81,6 +81,56 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         }
     }
 
+    public static class AllEnabledCardsWithoutOwner extends CardRepositoryIntegTest {
+        @Before
+        public void setUpEnabledCardsWithoutOwner() {
+            // given
+            for(Card c : cardRepository.findByOwner(null)) {
+                if(new Random().nextInt(10) > 6) {
+                    c.setStatus(CardStatus.ENABLED);
+                }
+            }
+        }
+
+        @Test
+        public void all_returned_cards_should_have_no_owner() {
+            // when
+            List<Card> allEnabledCardsWithoutOwner = cardRepository.allEnabledCardsWithoutOwner();
+
+            // then
+            for(Card c : allEnabledCardsWithoutOwner) {
+                assertThat(c.getOwner()).isNull();
+            }
+        }
+
+        @Test
+        public void all_returned_cards_should_be_enabled() {
+            // when
+            List<Card> allEnabledCardsWithoutOwner = cardRepository.allEnabledCardsWithoutOwner();
+
+            // then
+            for(Card c : allEnabledCardsWithoutOwner) {
+                assertThat(c.getStatus()).isEqualTo(CardStatus.ENABLED);
+            }
+        }
+
+        @Test
+        public void all_enabled_cards_without_owners_should_be_returned() {
+            // given
+            List<Card> allCards = cardRepository.listAll();
+            List<Card> expected = allCards.stream()
+                    .filter(c -> c.getStatus() == CardStatus.ENABLED)
+                    .filter(c -> c.getOwner() == null)
+                    .collect(Collectors.toList());
+
+            // when
+            List<Card> actual = cardRepository.allEnabledCardsWithoutOwner();
+
+            // then
+            assertThat(actual).isEqualTo(expected);
+        }
+    }
+
     public static class ListUnassignedCards extends CardRepositoryIntegTest {
         @Test
         public void only_unassigned_cards_should_be_returned() {
