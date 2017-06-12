@@ -45,7 +45,7 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
-public class UserCreateIntegTest extends EcpCrmIntegTest {
+public class UserUpdateIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
     @Inject ClockService clockService;
@@ -96,12 +96,12 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
 
         /* Testing every required argument individually */
         Object[] args = {center, title, firstName, lastName, email, cardNumber, address, zipcode, city, promotionalEmails};
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 5; i++) {
             Object[] a = args.clone();
             a[i] = null;
 
             // when
-            Method m = ApiService.class.getMethod("userCreate", Center.class, Title.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, boolean.class);
+            Method m = ApiService.class.getMethod("userUpdate", Center.class, Title.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, boolean.class);
             Result result = (Result) m.invoke(apiService, a);
 
             // then
@@ -182,8 +182,12 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
     }
 
     @Test
-    public void when_email_already_exists_we_expect_309_error() throws Exception {
+    public void when_email_already_exists_and_is_not_the_owner_we_expect_309_error() throws Exception {
         // given
+        while(card.getOwner() == user) {
+            card = cardList.get(new Random().nextInt(cardList.size()));
+        }
+
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
@@ -239,6 +243,7 @@ public class UserCreateIntegTest extends EcpCrmIntegTest {
         boolean promotionalEmails = false;
 
         // when
+
         Result result = apiService.userCreate(center, title, firstName, lastName, email, cardNumber, address, zipcode, city, promotionalEmails);
 
         // then

@@ -60,11 +60,11 @@ public class ApiService {
 
     public Result userCreate(
             Center center,
-            String cardNumber,
+            Title title,
             String firstName,
             String lastName,
             String email,
-            Title title,
+            String cardNumber,
             String address,
             String zipcode,
             String city,
@@ -74,15 +74,15 @@ public class ApiService {
     }
 
     public Result userUpdate(
+            Center center,
             Title title,
             String firstName,
             String lastName,
             String email,
+            String cardNumber,
             String address,
             String zipcode,
             String city,
-            Center center,
-            String cardNumber,
             boolean promotionalEmails
     ) {
         return Result.ok();
