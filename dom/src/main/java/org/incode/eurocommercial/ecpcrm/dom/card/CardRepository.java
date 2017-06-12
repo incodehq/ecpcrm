@@ -111,6 +111,23 @@ public class CardRepository {
                         "owner", owner));
     }
 
+    @Programmatic
+    public List<Card> findByStatusAndOwner(
+            final CardStatus status,
+            final User owner
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Card.class,
+                        "findByStatusAndOwner",
+                        "status", status,
+                        "owner", owner));
+    }
+
+    @Programmatic
+    public List<Card> allEnabledCardsWithoutOwner() {
+        return findByStatusAndOwner(CardStatus.ENABLED, null);
+    }
 
     @Programmatic
     public Card newCard(

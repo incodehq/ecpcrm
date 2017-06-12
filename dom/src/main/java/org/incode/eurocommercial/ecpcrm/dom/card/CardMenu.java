@@ -56,6 +56,13 @@ public class CardMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "1.1")
+    public List<Card> allEnabledCardsWithoutOwner() {
+        return cardRepository.allEnabledCardsWithoutOwner();
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<Card> findByNumber(
             final String number

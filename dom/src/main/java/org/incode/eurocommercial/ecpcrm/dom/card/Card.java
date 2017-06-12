@@ -83,7 +83,13 @@ import lombok.Setter;
                 name = "findByCenter", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
-                        + "WHERE center == :center ")
+                        + "WHERE center == :center "),
+        @Query(
+                name = "findByStatusAndOwner", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.card.Card "
+                        + "WHERE status == :status "
+                        + "&& owner == :owner")
 })
 @DomainObject(
         editing = Editing.DISABLED,
