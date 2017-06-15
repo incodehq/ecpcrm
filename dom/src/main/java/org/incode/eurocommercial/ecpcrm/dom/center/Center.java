@@ -70,21 +70,35 @@ public class Center implements Comparable<Center>, HasAtPath {
     @Column(allowsNull = "false")
     private String atPath;
 
-
     @Programmatic
     public String nextValidCardNumber() {
-        /* Save last increment */
-        BigInteger lastIncrement = numerator.getLastIncrement();
 
-        /* Increment cardNumber, until a valid number has been found */
-        String cardNumber;
-        do {
-            cardNumber = numerator.nextIncrementStr();
-        } while(!cardRepository.cardNumberIsValid(cardNumber, reference));
+        //longValueExact() throws exception for non-zero fractional part or out of range
+        long largestCardNumberSoFar = numerator.getLastIncrement().longValueExact();
 
-        /* Reset back to last increment */
-        numerator.setLastIncrement(lastIncrement);
-        return cardNumber;
+        //split off last digit
+        long temp = largestCardNumberSoFar / 10;
+
+        //increment cardnumber
+        temp += 1;
+        String cardNumber = temp + "";
+
+        //calculate checksum
+        int[] digits = cardNumber.chars()
+                .map(Character::getNumericValue)
+                .toArray();
+        int[] multipliers = {1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3};
+
+        int sum = 0;
+
+        for(int i = 0; i < digits.length; i++) {
+            sum += digits[i] * multipliers[i];
+        }
+
+        int key = (10 - sum % 10) % 10;
+
+        //attach checksum
+        return cardNumber + key;
     }
 
     @Inject CardRepository cardRepository;
