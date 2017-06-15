@@ -1,6 +1,5 @@
 package org.incode.eurocommercial.ecpcrm.dom.center;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -63,7 +62,7 @@ public class CenterRepository {
         center.setReference(reference);
         center.setName(name);
         center.setNumerator(numeratorRepository.findOrCreate(
-                name, "%d", new BigInteger("2" + reference + "000000000")));
+                name, "%d", Long.parseLong("2" + reference + "000000000")));
         center.setAtPath("/FRA/" + reference);
         repositoryService.persist(center);
         return center;

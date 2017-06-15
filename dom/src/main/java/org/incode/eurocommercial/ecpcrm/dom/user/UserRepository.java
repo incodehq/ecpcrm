@@ -16,7 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.user;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -134,7 +133,7 @@ public class UserRepository {
             final Boolean hasCar,
             String reference
     ) {
-        Numerator userNumerator = numeratorRepository.findOrCreate("userNumerator", "%d", BigInteger.ZERO);
+        Numerator userNumerator = numeratorRepository.findOrCreate("userNumerator", "%d", 0);
 
         final User user = repositoryService.instantiate(User.class);
 
@@ -157,8 +156,8 @@ public class UserRepository {
         user.setReference(reference);
 
         /* Update numerator with new user reference */
-        BigInteger ref = new BigInteger(reference);
-        if(ref.compareTo(userNumerator.getLastIncrement()) == 1) {
+        long ref = Long.parseLong(reference);
+        if(ref > userNumerator.getLastIncrement()) {
             userNumerator.setLastIncrement(ref);
         }
 

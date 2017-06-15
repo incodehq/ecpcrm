@@ -154,8 +154,8 @@ public class CardRepository {
         card.setCreatedAt(clockService.nowAsLocalDateTime());
 
         /* Update numerator with new number */
-        BigInteger num = new BigInteger(number);
-        if(num.compareTo(numerator.getLastIncrement()) == 1) {
+        long num = Long.parseLong(number);
+        if(num > numerator.getLastIncrement()) {
             numerator.setLastIncrement(num);
         }
 

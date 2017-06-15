@@ -16,7 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.numerator;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,7 +52,7 @@ public class NumeratorRepository {
     private Numerator newNumerator(
             final String numeratorName,
             final String format,
-            final BigInteger lastIncrement) {
+            final long lastIncrement) {
         final Numerator numerator = repositoryService.instantiate(Numerator.class);
         numerator.setName(numeratorName);
         numerator.setFormat(format);
@@ -66,7 +65,7 @@ public class NumeratorRepository {
     public Numerator findOrCreate(
             final String numeratorName,
             final String format,
-            final BigInteger lastIncrement) {
+            final long lastIncrement) {
         Numerator numerator = findByName(numeratorName);
         numerator = numerator != null ? numerator : newNumerator(numeratorName, format, lastIncrement);
         return numerator;

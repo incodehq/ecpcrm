@@ -1,7 +1,5 @@
 package org.incode.eurocommercial.ecpcrm.dom.center;
 
-import java.math.BigInteger;
-
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -74,7 +72,7 @@ public class Center implements Comparable<Center>, HasAtPath {
     public String nextValidCardNumber() {
 
         //longValueExact() throws exception for non-zero fractional part or out of range
-        long largestCardNumberSoFar = numerator.getLastIncrement().longValueExact();
+        long largestCardNumberSoFar = numerator.getLastIncrement();
 
         //split off last digit
         long temp = largestCardNumberSoFar / 10;

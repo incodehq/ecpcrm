@@ -16,8 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.dom.numerator;
 
-import java.math.BigInteger;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -55,19 +53,18 @@ public class Numerator {
     @Getter @Setter
     private String name;
 
-
     @Column(allowsNull = "false")
     @Getter @Setter
     private String format;
 
-    private String format(final BigInteger n) {
+    private String format(final long n) {
         return String.format(getFormat(), n);
     }
 
     @Persistent
     @Column(allowsNull = "false")
     @Getter @Setter
-    private BigInteger lastIncrement;
+    private long lastIncrement;
 
     // //////////////////////////////////////
 
@@ -81,12 +78,8 @@ public class Numerator {
         return format(getLastIncrement());
     }
 
-    private BigInteger incrementCounter() {
-        BigInteger last = getLastIncrement();
-        if (last == null) {
-            last = BigInteger.ZERO;
-        }
-        BigInteger next = last.add(BigInteger.ONE);
+    private long incrementCounter() {
+        long next = getLastIncrement() + 1;
         setLastIncrement(next);
         return next;
     }
