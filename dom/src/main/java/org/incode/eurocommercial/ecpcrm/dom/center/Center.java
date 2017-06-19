@@ -69,17 +69,15 @@ public class Center implements Comparable<Center>, HasAtPath {
     private String atPath;
 
     @Programmatic
-    public String nextValidCardNumber() {
+    public String nextValidCardNumberOld() {
 
-        //longValueExact() throws exception for non-zero fractional part or out of range
         long largestCardNumberSoFar = numerator.getLastIncrement();
 
-        //split off last digit
-        long temp = largestCardNumberSoFar / 10;
+        //split off last digit / checksum
+        long withoutChecksum = largestCardNumberSoFar / 10;
 
-        //increment cardnumber
-        temp += 1;
-        String cardNumber = temp + "";
+        //increment card-number, and stringify
+        String cardNumber = (withoutChecksum + 1) + "";
 
         //calculate checksum
         int[] digits = cardNumber.chars()
@@ -95,8 +93,33 @@ public class Center implements Comparable<Center>, HasAtPath {
 
         int key = (10 - sum % 10) % 10;
 
-        //attach checksum
+        //attach checksum for new card-number
         return cardNumber + key;
+    }
+
+    @Programmatic
+    public String nextValidCardNumber() {
+
+        long largestCardNumberSoFar = numerator.getLastIncrement();
+
+        //split off last digit i.e. remove checksum; then increment
+        long withoutChecksum, temp;
+        withoutChecksum = temp = (largestCardNumberSoFar / 10) + 1;
+
+        //Calculate the weighted sum of the first 12 digits of the card-number
+        int sum = 0;
+        //reversed order (%10 -> /10 method produces array of digits in reversed order)
+        int[] multipliers = {3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1};
+
+        for(int i = 0; i < 12; ++i) {
+            sum += multipliers[i] * (int)(temp % 10);
+            temp /= 10;
+        }
+
+        int checksum = (10 - sum % 10) % 10;
+
+        //attach checksum
+        return withoutChecksum + "" + checksum;
     }
 
     @Inject CardRepository cardRepository;
