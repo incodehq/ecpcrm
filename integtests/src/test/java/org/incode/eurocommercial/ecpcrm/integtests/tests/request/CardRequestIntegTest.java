@@ -18,6 +18,7 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.request;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -73,7 +74,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_valid_card_request_is_approved_and_card_is_assigned() {
             // given
-            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
+                    .collect(Collectors.toList());
             Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             // when
@@ -88,7 +91,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_approved_its_sent_at_is_set() {
             // given
-            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
+                    .collect(Collectors.toList());
             Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             // when
@@ -101,7 +106,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_approved_its_given_at_is_not_set() {
             // given
-            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
+                    .collect(Collectors.toList());
             Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             // when
@@ -144,7 +151,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         public void when_card_is_valid_when_reapproving_card_request_is_approved_and_card_is_assigned() {
             // given
             cardRequest.deny();
-            List<Card> availableCards = cardRepository.findByCenter(cardRequest.getRequestingUser().getCenter());
+            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
+                    .collect(Collectors.toList());
             Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             // when

@@ -208,9 +208,9 @@ public class User implements Comparable<User>, HasAtPath {
         if(card != null) {
             /* Nothing should change if this is already the owner */
             if(card.getOwner() != this) {
-                /* Remove the card from its previous owner if it has one */
+                /* Can't steal cards from previous owner */
                 if(card.getOwner() != null) {
-                    card.getOwner().getCards().remove(card);
+                    return this;
                 }
 
                 /* Disable the previous card of the user, unless it is already tagged as lost */
@@ -236,6 +236,10 @@ public class User implements Comparable<User>, HasAtPath {
         }
         if(!cardRepository.cardNumberIsValid(cardNumber, center.getReference())) {
             return "Card number " + cardNumber + " is invalid";
+        }
+        Card card = cardRepository.findByExactNumber(cardNumber);
+        if(card != null && card.getOwner() != null) {
+            return "Card with number " + cardNumber + " already has an owner: " + card.getOwner().title();
         }
 
         return null;

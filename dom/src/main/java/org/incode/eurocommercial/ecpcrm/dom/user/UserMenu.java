@@ -96,7 +96,7 @@ public class UserMenu {
             final Center center,
             final @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
             final boolean promotionalEmails,
-            final Boolean hasCar
+            final @Parameter(optionality = Optionality.OPTIONAL) Boolean hasCar
     ) {
         return userRepository.findOrCreate(
                 enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);

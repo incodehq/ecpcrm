@@ -18,6 +18,7 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -112,9 +113,11 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_already_assigned_to_user_nothing_changes() {
             // given
-            while(user.getCards().isEmpty()) {
-                user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
-            }
+            List<User> usersWithCards = fs.getUsers().stream()
+                    .filter(u -> !u.getCards().isEmpty())
+                    .collect(Collectors.toList());
+            user = usersWithCards.get(new Random().nextInt(usersWithCards.size()));
+
             Card card = user.getCards().first();
             card.unenable();
 
@@ -133,16 +136,16 @@ public class UserIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_exists_it_is_assigned() {
+        public void when_card_exists_and_is_available_it_is_assigned() {
             // given
             List<Card> cardsFromListAll = cardRepository.listAll();
             List<Card> cardsFromQuery = cardRepository.findByOwner(user);
             List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
 
-            Card card;
-            do {
-                card = cardsFromListAll.get(new Random().nextInt(cardsFromListAll.size()));
-            } while(user.getCards().contains(card));
+            List<Card> availableCards = cardsFromListAll.stream()
+                    .filter(c -> c.getOwner() == null)
+                    .collect(Collectors.toList());
+            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             // when
             user.newCard(card.getNumber());
@@ -157,14 +160,14 @@ public class UserIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_was_assigned_to_another_user_it_is_unassigned() {
+        public void when_card_was_assigned_to_another_user_nothing_happens() {
             // given
             List<Card> cardsFromListAll = cardRepository.listAll();
 
-            Card card;
-            do {
-                card = cardsFromListAll.get(new Random().nextInt(cardsFromListAll.size()));
-            } while(user.getCards().contains(card) || card.getOwner() == null);
+            List<Card> availableCards = cardsFromListAll.stream()
+                    .filter(c -> c.getOwner() != null && c.getOwner() != user)
+                    .collect(Collectors.toList());
+            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
 
             User firstOwner = card.getOwner();
 
@@ -172,18 +175,20 @@ public class UserIntegTest extends EcpCrmIntegTest {
             user.newCard(card.getNumber());
 
             // then
-            assertThat(cardRepository.findByOwner(firstOwner)).doesNotContain(card);
-            assertThat(firstOwner.getCards()).doesNotContain(card);
+            assertThat(cardRepository.findByOwner(firstOwner)).contains(card);
+            assertThat(firstOwner.getCards()).contains(card);
+            assertThat(cardRepository.findByOwner(user)).doesNotContain(card);
+            assertThat(user.getCards()).doesNotContain(card);
+            assertThat(card.getOwner()).isEqualTo(firstOwner);
         }
 
         @Test
         public void when_card_is_assigned_to_user_its_given_at_is_set() {
             // given
-            List<Card> unassignedCards = cardRepository.listUnassignedCards();
-            Card card;
-            do {
-                card = unassignedCards.get(new Random().nextInt(unassignedCards.size()));
-            } while(cardRepository.cardNumberIsValid(card.getNumber(), user.getCenter().getReference()));
+            List<Card> availableUnassignedCards = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == user.getCenter())
+                    .collect(Collectors.toList());
+            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
 
             // when
             user.newCard(card.getNumber());
@@ -195,11 +200,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_assigned_to_user_its_sent_at_is_not_set() {
             // given
-            List<Card> unassignedCards = cardRepository.listUnassignedCards();
-            Card card;
-            do {
-                card = unassignedCards.get(new Random().nextInt(unassignedCards.size()));
-            } while(cardRepository.cardNumberIsValid(card.getNumber(), user.getCenter().getReference()));
+            List<Card> availableUnassignedCards = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == user.getCenter())
+                    .collect(Collectors.toList());
+            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
 
             // when
             user.newCard(card.getNumber());
