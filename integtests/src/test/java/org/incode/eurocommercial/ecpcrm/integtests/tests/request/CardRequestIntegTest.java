@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
@@ -45,6 +46,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
     DemoFixture fs;
     CardRequest cardRequest;
+    List<Card> availableUnassignedCards;
+
     @Before
     public void setUp() throws Exception {
         // given
@@ -53,6 +56,13 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         cardRequest = fs.getCardRequests().get(
                 new Random().nextInt(fs.getCardRequests().size()));
+
+        availableUnassignedCards = cardRepository.listUnassignedCards().stream()
+                .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
+                .collect(Collectors.toList());
+        if(availableUnassignedCards.isEmpty()) {
+            availableUnassignedCards.add(cardRepository.newCard(null, CardStatus.DISABLED, cardRequest.getRequestingUser().getCenter()));
+        }
         assertThat(cardRequest).isNotNull();
     }
 
@@ -74,10 +84,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_valid_card_request_is_approved_and_card_is_assigned() {
             // given
-            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
-                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
-                    .collect(Collectors.toList());
-            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
 
             // when
             cardRequest.approve(card.getNumber());
@@ -91,10 +98,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_approved_its_sent_at_is_set() {
             // given
-            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
-                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
-                    .collect(Collectors.toList());
-            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
 
             // when
             cardRequest.approve(card.getNumber());
@@ -106,10 +110,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_approved_its_given_at_is_not_set() {
             // given
-            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
-                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
-                    .collect(Collectors.toList());
-            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
 
             // when
             cardRequest.approve(card.getNumber());
@@ -151,10 +152,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         public void when_card_is_valid_when_reapproving_card_request_is_approved_and_card_is_assigned() {
             // given
             cardRequest.deny();
-            List<Card> availableCards = cardRepository.listUnassignedCards().stream()
-                    .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
-                    .collect(Collectors.toList());
-            Card card = availableCards.get(new Random().nextInt(availableCards.size()));
+            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
 
             // when
             cardRequest.reapprove(card.getNumber());
