@@ -69,35 +69,6 @@ public class Center implements Comparable<Center>, HasAtPath {
     private String atPath;
 
     @Programmatic
-    public String nextValidCardNumberOld() {
-
-        long largestCardNumberSoFar = numerator.getLastIncrement();
-
-        //split off last digit / checksum
-        long withoutChecksum = largestCardNumberSoFar / 10;
-
-        //increment card-number, and stringify
-        String cardNumber = (withoutChecksum + 1) + "";
-
-        //calculate checksum
-        int[] digits = cardNumber.chars()
-                .map(Character::getNumericValue)
-                .toArray();
-        int[] multipliers = {1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3};
-
-        int sum = 0;
-
-        for(int i = 0; i < digits.length; i++) {
-            sum += digits[i] * multipliers[i];
-        }
-
-        int key = (10 - sum % 10) % 10;
-
-        //attach checksum for new card-number
-        return cardNumber + key;
-    }
-
-    @Programmatic
     public String nextValidCardNumber() {
 
         long largestCardNumberSoFar = numerator.getLastIncrement();
