@@ -28,6 +28,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
+import org.incode.eurocommercial.ecpcrm.app.services.api.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
@@ -181,9 +182,10 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        // TODO: Convert response to viewmodel and check the following is false:
-        // assertThatJson(response)
-                // .node("game").isEqualTo(false);
+        assertThat(result.getResponse() instanceof CardCheckResponseViewModel);
+        CardCheckResponseViewModel response = (CardCheckResponseViewModel) result.getResponse();
+        assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
+        assertThat(response.isGame()).isFalse();
     }
 
     @Test
@@ -200,9 +202,10 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        // TODO: Convert response to viewmodel and check the following is true:
-        // assertThatJson(response)
-        // .node("game").isEqualTo(true);
+        assertThat(result.getResponse() instanceof CardCheckResponseViewModel);
+        CardCheckResponseViewModel response = (CardCheckResponseViewModel) result.getResponse();
+        assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
+        assertThat(response.isGame()).isTrue();
     }
 
 }

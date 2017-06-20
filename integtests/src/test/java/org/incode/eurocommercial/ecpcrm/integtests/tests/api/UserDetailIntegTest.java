@@ -30,6 +30,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
+import org.incode.eurocommercial.ecpcrm.app.services.api.UserViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
@@ -108,35 +109,10 @@ public class UserDetailIntegTest extends EcpCrmIntegTest {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        //TODO: need to check the returned viewmodel
+
+        assertThat(result.getResponse() instanceof UserViewModel).isTrue();
+        UserViewModel returnedUser = (UserViewModel) result.getResponse();
+        assertThat(returnedUser).isEqualTo(UserViewModel.fromUser(user));
     }
-
-    @Test
-    public void when_user_exists_we_expect_its_cards_to_be_returned() throws Exception {
-        // given
-        String reference = user.getReference();
-
-        // when
-        Result result = apiService.userDetail(reference);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(200);
-        //TODO: need to check the returned viewmodel
-    }
-
-    @Test
-    public void when_user_exists_we_expect_its_children_and_childcares_to_be_returned() throws Exception {
-        // given
-        String reference = user.getReference();
-
-        // when
-        Result result = apiService.userDetail(reference);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(200);
-        //TODO: need to check the returned viewmodel
-    }
-
-
 
 }
