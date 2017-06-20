@@ -92,4 +92,14 @@ public class ApiService {
         return Result.ok();
     }
 
+    public static String asString(final int i) {
+        return "" + i;
+    }
+    public static String asString(final boolean bool) {
+        return bool ? "true" : "false";
+    }
+    public static String asString(final LocalDate localDate) {
+        return localDate == null ? null : localDate.toString();
+    }
+
 }
