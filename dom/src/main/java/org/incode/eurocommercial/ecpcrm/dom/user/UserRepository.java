@@ -118,7 +118,7 @@ public class UserRepository {
 
 
     @Programmatic
-    private User newUser(
+    public User newUser(
             final boolean enabled,
             final Title title,
             final String firstName,
@@ -129,6 +129,7 @@ public class UserRepository {
             final String city,
             final String phoneNumber,
             final Center center,
+            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
             final boolean promotionalEmails,
             final Boolean hasCar,
             String reference
@@ -162,7 +163,35 @@ public class UserRepository {
         }
 
         repositoryService.persist(user);
+
+        if(!Strings.isNullOrEmpty(cardNumber)) {
+            user.newCard(cardNumber);
+        }
+
         return user;
+    }
+
+    @Programmatic
+    public String validateNewUser(
+            final boolean enabled,
+            final Title title,
+            final String firstName,
+            final String lastName,
+            final String email,
+            final String address,
+            final String zipcode,
+            final String city,
+            final String phoneNumber,
+            final Center center,
+            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final boolean promotionalEmails,
+            final Boolean hasCar,
+            String reference
+    ) {
+        if(findByExactEmailAndCenter(email, center) != null) {
+            return "User with email " + email + " already exists";
+        }
+        return validateFindOrCreate(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, reference);
     }
 
     @Programmatic
@@ -198,12 +227,10 @@ public class UserRepository {
                     city,
                     phoneNumber,
                     center,
+                    cardNumber,
                     promotionalEmails,
                     hasCar,
                     reference);
-        }
-        if(!Strings.isNullOrEmpty(cardNumber)) {
-            user.newCard(cardNumber);
         }
         return user;
     }

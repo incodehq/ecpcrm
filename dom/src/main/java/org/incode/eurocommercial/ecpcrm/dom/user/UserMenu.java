@@ -98,7 +98,7 @@ public class UserMenu {
             final boolean promotionalEmails,
             final @Parameter(optionality = Optionality.OPTIONAL) Boolean hasCar
     ) {
-        return userRepository.findOrCreate(
+        return userRepository.newUser(
                 enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
@@ -117,7 +117,7 @@ public class UserMenu {
             final boolean promotionalEmails,
             final Boolean hasCar
     ) {
-        return userRepository.validateFindOrCreate(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
+        return userRepository.validateNewUser(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
     @Inject UserRepository userRepository;
