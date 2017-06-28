@@ -146,6 +146,7 @@
         <!--
         so instead just inline here:
         -->
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-viewer-wicket-impl</artifactId>
@@ -256,6 +257,18 @@
             <artifactId>json-unit-fluent</artifactId>
             <version>1.16.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.flywaydb</groupId>
+            <artifactId>isis-module-flywaydb-dom</artifactId>
+            <version>1.14.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.1.1</version>
         </dependency>
 
         <!-- testing -->
