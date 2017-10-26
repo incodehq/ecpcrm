@@ -93,11 +93,11 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_exists_but_not_for_given_center_no_user_should_be_returned() {
             // given
-            int centerReference = 10;
-            while(centerRepository.findByReference("0" + centerReference) != null) {
-                centerReference++;
+            int centerCode = 10;
+            while(centerRepository.findByCode("0" + centerCode) != null) {
+                centerCode++;
             }
-            Center center = centerRepository.findOrCreate("0" + centerReference, "New Center");
+            Center center = centerRepository.findOrCreate("0" + centerCode, "New Center");
 
             // when
             User foundUser = userRepository.findByExactEmailAndCenter(user.getEmail(), center);
@@ -111,11 +111,11 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_center_has_no_users_no_users_should_be_returned() {
             // given
-            int centerReference = 10;
-            while(centerRepository.findByReference("0" + centerReference) != null) {
-                centerReference++;
+            int centerCode = 10;
+            while(centerRepository.findByCode("0" + centerCode) != null) {
+                centerCode++;
             }
-            Center center = centerRepository.findOrCreate("0" + centerReference, "New Center");
+            Center center = centerRepository.findOrCreate("0" + centerCode, "New Center");
 
             // when
             List<User> foundUsers = userRepository.findByCenter(center);

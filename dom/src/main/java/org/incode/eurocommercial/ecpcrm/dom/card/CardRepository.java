@@ -142,7 +142,7 @@ public class CardRepository {
             number = center.nextValidCardNumber();
         }
 
-        if(!cardNumberIsValid(number, center.getReference())) {
+        if(!cardNumberIsValid(number, center.getCode())) {
             return null;
         }
 
@@ -170,7 +170,7 @@ public class CardRepository {
             final CardStatus status,
             final Center center
     ) {
-        String centerCode = center.getReference();
+        String centerCode = center.getCode();
         BigInteger start = new BigInteger(startNumber);
         List<Card> results = new ArrayList<>();
 
@@ -197,7 +197,7 @@ public class CardRepository {
 
     @Programmatic
     public String validateFindOrCreate(final String number, final CardStatus status, final Center center) {
-        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number, center.getReference()) ? null : "Card number is invalid";
+        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number, center.getCode()) ? null : "Card number is invalid";
     }
 
     @Programmatic
@@ -232,7 +232,7 @@ public class CardRepository {
         }
 
         /* Number starts with any valid center code */
-        if(centerRepository.findByReference(cardNumber.substring(1, 4)) == null) {
+        if(centerRepository.findByCode(cardNumber.substring(1, 4)) == null) {
             return false;
         }
 

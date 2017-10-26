@@ -66,7 +66,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
         assertThat(center).isNotNull();
 
-        startNumber = "2" + center.getReference() + "000000000";
+        startNumber = "2" + center.getCode() + "000000000";
         batchSize = 1000;
     }
 
@@ -341,7 +341,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
             // then
             createdCards.forEach(c -> assertThat(
-                    cardRepository.cardNumberIsValid(c.getNumber(), center.getReference())));
+                    cardRepository.cardNumberIsValid(c.getNumber(), center.getCode())));
         }
 
         @Test
@@ -417,7 +417,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_number_doesnt_satisfy_checksum_it_is_invalid() {
             // given
-            int[] digits = center.getReference().chars()
+            int[] digits = center.getCode().chars()
                     .map(Character::getNumericValue)
                     .toArray();
             int[] multipliers = {3, 1, 3};
@@ -427,7 +427,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             }
 
             incorrectChecksum = (9 - incorrectChecksum % 10) % 10;
-            String cardNumber = "2" + center.getReference() + "00000000" + incorrectChecksum;
+            String cardNumber = "2" + center.getCode() + "00000000" + incorrectChecksum;
 
             // when
             boolean valid = cardRepository.cardNumberIsValid(cardNumber);
@@ -439,7 +439,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_number_satisfies_all_conditions_it_is_valid() {
             // given
-            int[] digits = center.getReference().chars()
+            int[] digits = center.getCode().chars()
                     .map(Character::getNumericValue)
                     .toArray();
             int[] multipliers = {3, 1, 3};
@@ -449,7 +449,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             }
 
             checksum = (10 - checksum % 10) % 10;
-            String cardNumber = "2" + center.getReference() + "00000000" + checksum;
+            String cardNumber = "2" + center.getCode() + "00000000" + checksum;
 
             // when
             boolean valid = cardRepository.cardNumberIsValid(cardNumber);

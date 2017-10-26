@@ -34,17 +34,17 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
                         + "WHERE name.indexOf(:name) >= 0 "),
         @Query(
-                name = "findByReference", language = "JDOQL",
+                name = "findByCode", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
-                        + "WHERE reference == :reference ")
+                        + "WHERE code == :code ")
 })
 @DomainObject(bounded = true)
 public class Center implements Comparable<Center>, HasAtPath {
 
     @Override
     public int compareTo(final Center other) {
-        return ObjectContracts.compare(this, other, "reference", "name");
+        return ObjectContracts.compare(this, other, "code", "name");
     }
 
     public String title() {
@@ -53,7 +53,7 @@ public class Center implements Comparable<Center>, HasAtPath {
 
     @Getter @Setter
     @Column(allowsNull = "false")
-    private String reference;
+    private String code;
 
     @Getter @Setter
     @Column(allowsNull = "false")

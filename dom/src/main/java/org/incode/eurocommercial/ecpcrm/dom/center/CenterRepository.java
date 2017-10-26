@@ -46,33 +46,33 @@ public class CenterRepository {
     }
 
     @Programmatic
-    public Center findByReference(
-            final String reference
+    public Center findByCode(
+            final String code
     ) {
         return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         Center.class,
-                        "findByReference",
-                        "reference", reference));
+                        "findByCode",
+                        "code", code));
     }
 
     @Programmatic
-    private Center newCenter(final String reference, final String name){
+    private Center newCenter(final String code, final String name){
         Center center = repositoryService.instantiate(Center.class);
-        center.setReference(reference);
+        center.setCode(code);
         center.setName(name);
         center.setNumerator(numeratorRepository.findOrCreate(
-                name, "%d", Long.parseLong("2" + reference + "000000000")));
-        center.setAtPath("/FRA/" + reference);
+                name, "%d", Long.parseLong("2" + code + "000000000")));
+        center.setAtPath("/FRA/" + code);
         repositoryService.persist(center);
         return center;
     }
 
     @Programmatic
-    public Center findOrCreate(final String reference, final String name) {
-        Center center = findByReference(reference);
+    public Center findOrCreate(final String code, final String name) {
+        Center center = findByCode(code);
         center = center != null ? center : findByExactName(name);
-        center = center != null ? center : newCenter(reference, name);
+        center = center != null ? center : newCenter(code, name);
         return center;
     }
 

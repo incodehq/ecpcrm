@@ -22,7 +22,7 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String reference;
+    private String code;
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
@@ -40,7 +40,7 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-        centerRepository.findOrCreate(getReference(), getName());
+        centerRepository.findOrCreate(getCode(), getName());
 
         return null;
     }

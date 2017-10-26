@@ -69,7 +69,7 @@ public class CenterIntegTest extends EcpCrmIntegTest {
 
             // then
             cardNumbers.forEach(c ->
-                    assertThat(cardRepository.cardNumberIsValid(c, center.getReference())).isTrue()
+                    assertThat(cardRepository.cardNumberIsValid(c, center.getCode())).isTrue()
             );
         }
 
@@ -89,7 +89,7 @@ public class CenterIntegTest extends EcpCrmIntegTest {
                 BigInteger start = new BigInteger(cardNumbers.get(i - 1)).add(BigInteger.ONE);
                 BigInteger end = new BigInteger(cardNumbers.get(i));
                 for(BigInteger cardNumber = start; cardNumber.compareTo(end) == -1; cardNumber = cardNumber.add(BigInteger.ONE)) {
-                    assertThat(cardRepository.cardNumberIsValid(cardNumber.toString(), center.getReference())).isFalse();
+                    assertThat(cardRepository.cardNumberIsValid(cardNumber.toString(), center.getCode())).isFalse();
                 }
             }
         }

@@ -50,10 +50,10 @@ public class CenterMenu {
     @Action(domainEvent = CreateDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "2")
     public Center newCenter(
-            final String reference,
+            final String code,
             final String name
     ) {
-        return centerRepository.findOrCreate(reference, name);
+        return centerRepository.findOrCreate(code, name);
     }
 
     @Inject CenterRepository centerRepository;

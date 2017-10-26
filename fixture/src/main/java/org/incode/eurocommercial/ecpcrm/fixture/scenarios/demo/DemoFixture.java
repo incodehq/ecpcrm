@@ -210,8 +210,6 @@ public class DemoFixture extends FixtureScript {
                                 .filter(c -> c instanceof ChildCare)
                                 .map(c -> (ChildCare) c)
                                 .collect(Collectors.toList()));
-
-
                     }
                 });
     }

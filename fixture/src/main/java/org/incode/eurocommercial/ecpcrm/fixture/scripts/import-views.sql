@@ -5,7 +5,7 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DE
 SELECT
  center.id AS id,
  center.label AS name,
- ifnull(center.code,concat('0',cast(center.id as char(2) charset utf8))) AS reference
+ ifnull(center.code,concat('0',cast(center.id as char(2) charset utf8))) AS code
  FROM `crm`.`eurocommercial_center` AS center;
 
 
@@ -31,7 +31,7 @@ SELECT
  IFNULL(u.card_number,"UNKNOWN_IMPORT") AS cardNumber,
  u.optin AS promotionalEmails,
  car.field_car_value AS hasCar,
- c.reference AS centerReference
+ c.code AS centerCode
  FROM `crm`.`eurocommercial_crm_user_view5` AS u
  INNER JOIN `center` AS c ON c.id = u.center_id
  INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
@@ -45,7 +45,7 @@ SELECT
  UCASE(card.status) AS status,
  card.user_id AS userId,
  card.client_id AS clientId,
- center.reference AS centerReference,
+ center.code AS centerCode,
  card.created_at AS createdAt,
  card.given_at AS givenToUserAt,
  card.sent_at AS sentToUserAt
@@ -75,7 +75,7 @@ SELECT
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`cardRequest` AS
 SELECT
  request.id AS id,
- center.reference AS centerReference,
+ center.code AS centerCode,
  request.user_id AS requestingUser,
  request.created_at AS issueDate,
  request.performedat AS handleDate,

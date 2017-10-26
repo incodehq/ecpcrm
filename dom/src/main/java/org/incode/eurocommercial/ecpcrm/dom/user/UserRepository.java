@@ -112,7 +112,7 @@ public class UserRepository {
         return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         User.class,
-                        "findByReference",
+                        "findByCode",
                         "reference", reference));
     }
 
@@ -255,7 +255,7 @@ public class UserRepository {
         if(Strings.isNullOrEmpty(cardNumber)) {
             return null;
         }
-        if(!cardRepository.cardNumberIsValid(cardNumber, center.getReference())) {
+        if(!cardRepository.cardNumberIsValid(cardNumber, center.getCode())) {
             return "Card number " + cardNumber + " is invalid";
         }
         if(!cardRepository.cardExists(cardNumber)) {

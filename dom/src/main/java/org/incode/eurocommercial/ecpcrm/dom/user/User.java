@@ -88,7 +88,7 @@ import lombok.Setter;
                         + "WHERE firstName.indexOf(:firstName) >= 0 "
                         + "&& lastName.indexOf(:lastName) >= 0"),
         @Query(
-                name = "findByReference", language = "JDOQL",
+                name = "findByCode", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.user.User "
                         + "WHERE reference == :reference")
@@ -234,7 +234,7 @@ public class User implements Comparable<User>, HasAtPath {
         if(cardNumber == null) {
             return "No number entered";
         }
-        if(!cardRepository.cardNumberIsValid(cardNumber, center.getReference())) {
+        if(!cardRepository.cardNumberIsValid(cardNumber, center.getCode())) {
             return "Card number " + cardNumber + " is invalid";
         }
         Card card = cardRepository.findByExactNumber(cardNumber);

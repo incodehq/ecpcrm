@@ -120,14 +120,14 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
         }
     }
 
-    public static class FindByReference extends CenterRepositoryIntegTest {
+    public static class FindByCode extends CenterRepositoryIntegTest {
         @Test
         public void when_center_doesnt_exist_no_center_should_be_returned() {
             // given
-            String centerReference = "This is not the name of an actual Center";
+            String centerCode = "This is not the code of an actual Center";
 
             // when
-            Center foundCenter = centerRepository.findByReference(centerReference);
+            Center foundCenter = centerRepository.findByCode(centerCode);
 
             // then
             assertThat(foundCenter).isNull();
@@ -136,7 +136,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_center_exists_it_should_be_returned() {
             // when
-            Center foundCenter = centerRepository.findByReference(center.getReference());
+            Center foundCenter = centerRepository.findByCode(center.getCode());
 
             // then
             assertThat(foundCenter).isEqualTo(center);

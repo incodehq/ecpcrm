@@ -67,7 +67,7 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String centerReference;
+    private String centerCode;
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
@@ -94,7 +94,7 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
     @Override
     public List<Object> importData(Object previousRow) {
         Title title = Title.valueOf(getTitle());
-        Center center = centerRepository.findByReference(getCenterReference());
+        Center center = centerRepository.findByCode(getCenterCode());
 
         userRepository.findOrCreate(
                 asBoolean(getEnabled()),

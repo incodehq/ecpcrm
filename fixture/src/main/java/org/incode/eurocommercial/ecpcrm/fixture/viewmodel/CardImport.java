@@ -42,7 +42,7 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
-    private String centerReference;
+    private String centerCode;
 
     @Getter @Setter
     @Property
@@ -69,7 +69,7 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
     @Override
     public List<Object> importData(Object previousRow) {
         CardStatus status = CardStatus.valueOf(getStatus());
-        Center center = centerRepository.findByReference(getCenterReference());
+        Center center = centerRepository.findByCode(getCenterCode());
 
         Card card = cardRepository.findOrCreate(
                 getNumber(),
