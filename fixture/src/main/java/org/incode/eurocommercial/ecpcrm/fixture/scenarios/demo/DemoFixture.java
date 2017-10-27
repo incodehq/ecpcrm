@@ -113,6 +113,7 @@ public class DemoFixture extends FixtureScript {
                         ec.executeChild(DemoFixture.this, new NumeratorTearDown());
 
                         for(int i = 0; i < NUM_CENTERS; i++) {
+                            ec.setParameter("id", i + 1);
                             ec.executeChild(DemoFixture.this, new CenterCreate());
                         }
 

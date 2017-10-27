@@ -22,6 +22,9 @@ public class CenterCreate extends FixtureScript {
     @Getter @Setter
     private String code;
 
+    @Getter @Setter
+    private String id;
+
     @Getter
     private Center center;
 
@@ -33,8 +36,10 @@ public class CenterCreate extends FixtureScript {
                 faker.gameOfThrones().city());
         code = defaultParam("code", ec,
                 "0" + faker.number().randomNumber(2, true));
+        id = defaultParam("id", ec,
+                "" + faker.number().randomNumber(2, true));
 
-        center = wrap(menu).newCenter(code(), name());
+        center = wrap(menu).newCenter(code(), name(), id());
 
         ec.addResult(this, center);
     }

@@ -57,6 +57,12 @@ public class Center implements Comparable<Center>, HasAtPath {
 
     @Getter @Setter
     @Column(allowsNull = "false")
+    @PropertyLayout(hidden = Where.EVERYWHERE)
+    /* Imported from old database */
+    private String id;
+
+    @Getter @Setter
+    @Column(allowsNull = "false")
     private String name;
 
     @Getter @Setter

@@ -57,9 +57,10 @@ public class CenterRepository {
     }
 
     @Programmatic
-    private Center newCenter(final String code, final String name){
+    private Center newCenter(final String code, final String name, final String id){
         Center center = repositoryService.instantiate(Center.class);
         center.setCode(code);
+        center.setId(id);
         center.setName(name);
         center.setNumerator(numeratorRepository.findOrCreate(
                 name, "%d", Long.parseLong("2" + code + "000000000")));
@@ -69,10 +70,10 @@ public class CenterRepository {
     }
 
     @Programmatic
-    public Center findOrCreate(final String code, final String name) {
+    public Center findOrCreate(final String code, final String name, final String id) {
         Center center = findByCode(code);
         center = center != null ? center : findByExactName(name);
-        center = center != null ? center : newCenter(code, name);
+        center = center != null ? center : newCenter(code, name, id);
         return center;
     }
 

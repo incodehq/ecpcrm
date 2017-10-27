@@ -51,9 +51,10 @@ public class CenterMenu {
     @MemberOrder(sequence = "2")
     public Center newCenter(
             final String code,
-            final String name
+            final String name,
+            final String id
     ) {
-        return centerRepository.findOrCreate(code, name);
+        return centerRepository.findOrCreate(code, name, id);
     }
 
     @Inject CenterRepository centerRepository;
