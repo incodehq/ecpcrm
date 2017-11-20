@@ -37,6 +37,7 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 )
 public class ApiService {
     public Result cardCheck(
+            Center center,
             String cardNumber,
             String origin
     ) {
@@ -44,20 +45,35 @@ public class ApiService {
             return Result.error(302, "Invalid parameter");
         }
 
-        if(!cardRepository.cardNumberIsValid(cardNumber)) {
-            return Result.error(302, "Invalid card number");
-        }
-
         Card card = cardRepository.findByExactNumber(cardNumber);
 
-        if(card == null || card.getStatus() != CardStatus.ENABLED) {
-            if(card != null && card.getStatus() == CardStatus.TOCHANGE) {
+        if(card != null) {
+            if(card.getStatus() == CardStatus.TOCHANGE) {
                 return Result.error(319, "Outdated card");
             }
-            return Result.error(303, "Invalid card");
+            if(card.getStatus() != CardStatus.ENABLED) {
+                return Result.error(303, "Invalid card");
+            }
+            if(card.getCenter() != center) {
+                return Result.error(317, "Card center is not equal to device center");
+            }
+            if(card.getOwner() == null || !card.getOwner().isEnabled()) {
+                return Result.error(304, "Invalid user");
+            }
+        } else {
+            //TODO: Check device type
+            if("device type" != "app" && cardNumber.startsWith("3933")) {
+                return Result.error(319, "Outdated card");
+            }
+            if(!cardRepository.cardNumberIsValid(cardNumber)) {
+                return Result.error(312, "Invalid card number");
+            }
+
+            //TODO: In the old code, a new blank user is created for a nonexisting card, why?
+            return Result.error(314, "Unable to bind user to card");
         }
 
-        return Result.error(314, "Failed to bind user to card");
+        return Result.ok(CardCheckResponseViewModel.fromCard(card));
     }
 
     public Result cardGame(
