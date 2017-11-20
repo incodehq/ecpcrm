@@ -23,7 +23,7 @@ SELECT
  IFNULL(UCASE(u.title),"UNKNOWN_IMPORT") AS title,
  IFNULL(u.first_name,"UNKNOWN_IMPORT") AS firstName,
  IFNULL(u.last_name,"UNKNOWN_IMPORT") AS lastName,
- IFNULL(u.email,"UNKNOWN_IMPORT") AS email,
+ u.email AS email,
  IFNULL(u.address, "UNKNOWN_IMPORT") AS address,
  IFNULL(u.zipcode, "UNKNOWN_IMPORT") AS zipcode,
  IFNULL(u.city, "UNKNOWN_IMPORT") AS city,
@@ -35,7 +35,8 @@ SELECT
  FROM `crm`.`eurocommercial_crm_user_view5` AS u
  INNER JOIN `center` AS c ON c.id = u.center_id
  INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
- INNER JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id;
+ INNER JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id
+ WHERE u.email IS NOT NULL AND u.email NOT LIKE "CARD-%";
  
 -- Create card view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS
@@ -50,7 +51,8 @@ SELECT
  card.given_at AS givenToUserAt,
  card.sent_at AS sentToUserAt
  FROM `crm`.`eurocommercial_crm_user_card` AS card
- INNER JOIN `center` AS center ON center.id = card.center_id;
+ INNER JOIN `center` AS center ON center.id = card.center_id
+ INNER JOIN `user` AS user ON card.user_id = user.id;
  
 -- Create child view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`child` AS
