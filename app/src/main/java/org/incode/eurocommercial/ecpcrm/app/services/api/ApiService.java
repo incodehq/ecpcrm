@@ -58,37 +58,52 @@ public class ApiService {
         return Result.ok();
     }
 
-    public Result userCreate(
+    public Result websiteUserCreate(
             Center center,
+            String checkCode,
             Title title,
             String firstName,
             String lastName,
             String email,
-            String cardNumber,
+            LocalDate birthdate,
+            Boolean hasChildren,
+            String nb_children,
+            Boolean hasCar,
             String address,
             String zipcode,
             String city,
+            String phoneNumber,
             boolean promotionalEmails
     ) {
         return Result.ok();
     }
 
-    public Result userUpdate(
+    public Result websiteUserModify(
             Center center,
+            String checkCode,
+            String cardNumber,
             Title title,
             String firstName,
             String lastName,
             String email,
-            String cardNumber,
+            LocalDate birthdate,
+            Boolean hasChildren,
+            String nb_children,
+            Boolean hasCar,
             String address,
             String zipcode,
             String city,
+            String phoneNumber,
             boolean promotionalEmails
     ) {
         return Result.ok();
     }
 
-    public Result userDetail(String reference) {
+    public Result websiteUserDetail(
+            Center center,
+            String email,
+            String checkCode
+    ) {
         return Result.ok();
     }
 
