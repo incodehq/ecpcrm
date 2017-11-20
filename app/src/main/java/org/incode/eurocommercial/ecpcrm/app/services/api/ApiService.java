@@ -16,12 +16,19 @@
  */
 package org.incode.eurocommercial.ecpcrm.app.services.api;
 
+import javax.inject.Inject;
+
+import com.google.common.base.Strings;
+
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
 @DomainService(
@@ -29,11 +36,54 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
         menuOrder = "100"
 )
 public class ApiService {
-    public Result cardCheck(String cardNumber, String origin) {
-        return Result.ok();
+    public Result cardCheck(
+            String cardNumber,
+            String origin
+    ) {
+        if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
+            return Result.error(302, "Invalid parameter");
+        }
+
+        if(!cardRepository.cardNumberIsValid(cardNumber)) {
+            return Result.error(302, "Invalid card number");
+        }
+
+        Card card = cardRepository.findByExactNumber(cardNumber);
+
+        if(card == null || card.getStatus() != CardStatus.ENABLED) {
+            if(card != null && card.getStatus() == CardStatus.TOCHANGE) {
+                return Result.error(319, "Outdated card");
+            }
+            return Result.error(303, "Invalid card");
+        }
+
+        return Result.error(314, "Failed to bind user to card");
     }
 
-    public Result cardGame(String cardNumber, String win, String desc) {
+    public Result cardGame(
+            String cardNumber,
+            String win,
+            String desc
+    ) {
+        if(Strings.isNullOrEmpty(cardNumber)) {
+            return Result.error(302, "Invalid Parameter");
+        }
+
+        Card card = cardRepository.findByExactNumber(cardNumber);
+        if(card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED) {
+            return Result.error(303, "Invalid card");
+        }
+
+        if(!card.getOwner().isEnabled()) {
+            return Result.error(304, "Invalid user");
+        }
+
+        if(!card.canPlay()) {
+            return Result.error(315, "Card has already played");
+        }
+
+        card.play();
+
         return Result.ok();
     }
 
@@ -116,5 +166,7 @@ public class ApiService {
     public static String asString(final LocalDate localDate) {
         return localDate == null ? null : localDate.toString();
     }
+
+    @Inject CardRepository cardRepository;
 
 }

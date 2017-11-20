@@ -27,8 +27,7 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationSer
 import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrinting;
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -55,10 +54,11 @@ public class EcpCrmResource extends ResourceAbstract  {
     })
     @PrettyPrinting
     public Response cardCheck(@FormParam("request") String request) {
+        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
-        String cardNumber = null; //explicitly initialize with null to prevent...
-        String origin = null;     //'might not be initialized' error
-
+        /* Marshalling request JSON string to parameters */
+        String cardNumber = null;
+        String origin = null;
         if(!Strings.isNullOrEmpty(request)) {
             JsonParser jsonParser = new JsonParser();
 
@@ -69,63 +69,7 @@ public class EcpCrmResource extends ResourceAbstract  {
             origin = originJson == null ? null : originJson.getAsString();
         }
 
-        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
-
-        if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 302)
-                            .add("message", "Invalid parameter")
-                            .toJsonString())
-                    .build();
-        }
-
-        if(!cardRepository.cardNumberIsValid(cardNumber)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 312)
-                            .add("message", "Invalid card number")
-                            .toJsonString())
-                    .build();
-        }
-
-        Card card = cardRepository.findByExactNumber(cardNumber);
-
-        if(card == null || card.getStatus() != CardStatus.ENABLED) {
-            if(card != null && card.getStatus() == CardStatus.TOCHANGE) {
-                return Response
-                        .ok()
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(new JsonBuilder()
-                                .add("status", 319)
-                                .add("message", "Outdated card")
-                                .toJsonString())
-                        .build();
-            }
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 303)
-                            .add("message", "Invalid card")
-                            .toJsonString())
-                    .build();
-        }
-
-
-
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(new JsonBuilder()
-                        .add("status", 314)
-                        .add("message", "Failed to bind user to card")
-                        .toJsonString())
-                .build();
+        return apiService.cardCheck(cardNumber, origin).asResponse();
     }
 
     @POST
@@ -139,11 +83,9 @@ public class EcpCrmResource extends ResourceAbstract  {
     public Response cardGame(@FormParam("request") String request) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
+        /* Marshalling request JSON string to parameters */
         String cardNumber, win, desc;
         cardNumber = win = desc = null;
-
-
-
         if(!Strings.isNullOrEmpty(request)) {
             JsonParser jsonParser = new JsonParser();
 
@@ -157,61 +99,7 @@ public class EcpCrmResource extends ResourceAbstract  {
             desc = descJson == null ? null : descJson.getAsString();
         }
 
-        if(Strings.isNullOrEmpty(cardNumber)) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 302)
-                            .add("message", "Invalid parameter")
-                            .toJsonString())
-                    .build();
-        }
-
-        Card card = cardRepository.findByExactNumber(cardNumber);
-
-        if(card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 303)
-                            .add("message", "Invalid card")
-                            .toJsonString())
-                    .build();
-        }
-
-        if(!card.getOwner().isEnabled()) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 304)
-                            .add("message", "Invalid user")
-                            .toJsonString())
-                    .build();
-        }
-
-        if(!card.canPlay()) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 315)
-                            .add("message", "Card has already played")
-                            .toJsonString())
-                    .build();
-        }
-
-        card.play();
-
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(new JsonBuilder()
-                        .add("status", 200)
-                        .toJsonString())
-                .build();
+        return apiService.cardGame(cardNumber, win, desc).asResponse();
     }
 
     @POST
@@ -582,4 +470,5 @@ public class EcpCrmResource extends ResourceAbstract  {
     @Inject CardRepository cardRepository;
     @Inject CenterRepository centerRepository;
     @Inject ClockService clockService;
+    @Inject ApiService apiService;
 }

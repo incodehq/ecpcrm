@@ -19,7 +19,7 @@ public class CardCheckResponseViewModel {
     private final boolean game;
     private final String card_image;
 
-    public static CardCheckResponseViewModel fromUser(final Card card) {
+    public static CardCheckResponseViewModel fromCard(final Card card) {
         User user = card.getOwner();
         if(user == null) {
             return null;
