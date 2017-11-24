@@ -33,6 +33,8 @@ import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -183,7 +185,21 @@ public class ApiService {
             String email,
             String checkCode
     ) {
-        return Result.ok();
+        if(center == null || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(checkCode)) {
+            return Result.error(403, "Must include check code and email");
+        }
+
+        User user = userRepository.findByExactEmailAndCenter(email, center);
+
+        if(user == null) {
+            return Result.error(304, "Invalid user");
+        }
+
+        if(!checkCode.equals(this.computeCheckCode(email))) {
+            return Result.error(402, "Incorrect check code");
+        }
+
+        return Result.ok(UserViewModel.fromUser(user));
     }
 
     public static String asString(final int i) {
@@ -197,5 +213,6 @@ public class ApiService {
     }
 
     @Inject CardRepository cardRepository;
+    @Inject UserRepository userRepository;
 
 }

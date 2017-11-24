@@ -23,7 +23,6 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -43,7 +42,6 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
 public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
