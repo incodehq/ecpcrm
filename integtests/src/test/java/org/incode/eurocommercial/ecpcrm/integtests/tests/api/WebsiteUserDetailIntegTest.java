@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.api;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 
@@ -30,7 +31,6 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
-import org.incode.eurocommercial.ecpcrm.app.services.api.UserViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
@@ -43,7 +43,7 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Ignore
-public class UserDetailIntegTest extends EcpCrmIntegTest {
+public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
     @Inject ClockService clockService;
@@ -78,41 +78,24 @@ public class UserDetailIntegTest extends EcpCrmIntegTest {
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
-        String reference = null;
+        Center center = this.center;
+        String email = user.getEmail();
+        String checkCode = apiService.computeCheckCode(user.getEmail());
 
-        // when
-        Result result = apiService.userDetail(reference);
+        /* Testing every required argument individually */
+        Object[] args = {center, email, checkCode};
+        int[] mandatory = {0, 1, 2};
+        for(int i : mandatory) {
+            Object[] a = args.clone();
+            a[i] = null;
 
-        // then
-        assertThat(result.getStatus()).isEqualTo(302);
+            // when
+            Method m = ApiService.class.getMethod(
+                    "websiteUserDetail", Center.class, String.class, String.class);
+            Result result = (Result) m.invoke(apiService, a);
+
+            // then
+            assertThat(result.getStatus()).isEqualTo(302);
+        }
     }
-
-    @Test
-    public void when_user_does_not_exist_we_expect_304_error() throws Exception {
-        // given
-        String reference = numeratorRepository.findByName("userNumerator").nextIncrementStr();
-
-        // when
-        Result result = apiService.userDetail(reference);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(302);
-    }
-
-    @Test
-    public void when_user_exists_we_expect_it_to_be_returned() throws Exception {
-        // given
-        String reference = user.getReference();
-
-        // when
-        Result result = apiService.userDetail(reference);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(200);
-
-        assertThat(result.getResponse() instanceof UserViewModel).isTrue();
-        UserViewModel returnedUser = (UserViewModel) result.getResponse();
-        assertThat(returnedUser).isEqualTo(UserViewModel.fromUser(user));
-    }
-
 }

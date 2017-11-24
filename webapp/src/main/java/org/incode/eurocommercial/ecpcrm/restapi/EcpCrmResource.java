@@ -69,7 +69,8 @@ public class EcpCrmResource extends ResourceAbstract  {
             origin = originJson == null ? null : originJson.getAsString();
         }
 
-        return apiService.cardCheck(cardNumber, origin).asResponse();
+        // TODO: Get Center from device parameter
+        return apiService.cardCheck(null, cardNumber, origin).asResponse();
     }
 
     @POST

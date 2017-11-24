@@ -395,5 +395,4 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         // then
         assertThat(result.getStatus()).isEqualTo(200);
     }
-
 }
