@@ -30,6 +30,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -57,9 +59,17 @@ public class ApiService {
             String cardNumber,
             String origin
     ) {
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if(device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
         if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
             return Result.error(302, "Invalid parameter");
         }
+
+        Center center = device.getCenter();
 
         Card card = cardRepository.findByExactNumber(cardNumber);
 
@@ -190,9 +200,17 @@ public class ApiService {
             String email,
             String checkCode
     ) {
-        if(center == null || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(checkCode)) {
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if(device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
+        if(Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(checkCode)) {
             return Result.error(302, "Invalid parameter");
         }
+
+        Center center = device.getCenter();
 
         User user = userRepository.findByExactEmailAndCenter(email, center);
 
@@ -219,4 +237,5 @@ public class ApiService {
 
     @Inject CardRepository cardRepository;
     @Inject UserRepository userRepository;
+    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 }

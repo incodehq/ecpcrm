@@ -39,11 +39,11 @@ public class AuthenticationDeviceRepository {
     }
 
     @Programmatic
-    public List<AuthenticationDevice> findByNameAndSecret(
+    public AuthenticationDevice findByNameAndSecret(
             final String name,
             final String secret
     ) {
-        return repositoryService.allMatches(
+        return repositoryService.uniqueMatch(
                 new QueryDefault<>(
                         AuthenticationDevice.class,
                         "findByNameAndSecret",
