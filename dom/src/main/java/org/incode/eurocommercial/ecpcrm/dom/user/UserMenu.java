@@ -25,8 +25,8 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
@@ -39,11 +39,11 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY,
-        menuOrder = "11"
+        nature = NatureOfService.VIEW_MENU_ONLY
 )
-@DomainObjectLayout(
-        named = "Users"
+@DomainServiceLayout(
+        named = "Users",
+        menuOrder = "11"
 )
 public class UserMenu {
 

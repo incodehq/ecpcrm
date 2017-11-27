@@ -31,11 +31,11 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY,
-        menuOrder = "10"
+        nature = NatureOfService.VIEW_MENU_ONLY
 )
 @DomainServiceLayout(
-        named = "Centers"
+        named = "Centers",
+        menuOrder = "10"
 )
 public class CenterMenu {
     @Action(semantics = SemanticsOf.SAFE)

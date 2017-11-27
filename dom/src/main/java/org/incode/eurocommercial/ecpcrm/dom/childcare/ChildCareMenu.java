@@ -33,11 +33,11 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY,
-        menuOrder = "14"
+        nature = NatureOfService.VIEW_MENU_ONLY
 )
 @DomainServiceLayout(
-        named = "Nursery"
+        named = "Nursery",
+        menuOrder = "14"
 )
 public class ChildCareMenu {
     @Action(semantics = SemanticsOf.SAFE)

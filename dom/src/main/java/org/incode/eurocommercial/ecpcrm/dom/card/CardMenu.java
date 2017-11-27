@@ -39,11 +39,11 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY,
-        menuOrder = "12"
+        nature = NatureOfService.VIEW_MENU_ONLY
 )
 @DomainServiceLayout(
-        named = "Cards"
+        named = "Cards",
+        menuOrder = "12"
 )
 public class CardMenu {
 

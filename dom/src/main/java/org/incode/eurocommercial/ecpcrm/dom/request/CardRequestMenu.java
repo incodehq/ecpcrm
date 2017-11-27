@@ -27,11 +27,11 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY,
-        menuOrder = "13"
+        nature = NatureOfService.VIEW_MENU_ONLY
 )
 @DomainServiceLayout(
-        named = "Card Requests"
+        named = "Card Requests",
+        menuOrder = "13"
 )
 
 public class CardRequestMenu {
