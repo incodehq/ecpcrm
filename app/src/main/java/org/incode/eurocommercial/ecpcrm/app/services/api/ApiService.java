@@ -32,6 +32,7 @@ import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -87,8 +88,7 @@ public class ApiService {
                 return Result.error(304, "Invalid user");
             }
         } else {
-            //TODO: Check device type
-            if("device type" != "app" && cardNumber.startsWith("3933")) {
+            if(device.getType() != AuthenticationDeviceType.APP && cardNumber.startsWith("3933")) {
                 return Result.error(319, "Outdated card");
             }
             if(!cardRepository.cardNumberIsValid(cardNumber)) {
