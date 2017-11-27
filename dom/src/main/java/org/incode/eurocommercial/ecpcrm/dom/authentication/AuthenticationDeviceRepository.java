@@ -86,7 +86,23 @@ public class AuthenticationDeviceRepository {
     }
 
     @Programmatic
-    public AuthenticationDevice newAuthenticationDevice(
+    public AuthenticationDevice findOrCreate(
+            Center center,
+            AuthenticationDeviceType type,
+            String name,
+            String secret,
+            boolean active
+    ) {
+        AuthenticationDevice device = findByNameAndSecret(name, secret);
+        if(device == null) {
+            device = newAuthenticationDevice(center, type, name, secret, active);
+        }
+
+        return device;
+    }
+
+    @Programmatic
+    public AuthenticationDevice findOrCreate(
             Center center,
             AuthenticationDeviceType type,
             String name,
@@ -94,7 +110,8 @@ public class AuthenticationDeviceRepository {
     ) {
         // TODO: Generate secret
         String secret = "GENERATE SECRET HERE";
-        return newAuthenticationDevice(center, type, name, secret, active);
+
+        return findOrCreate(center, type, name, secret, active);
     }
 
     @Inject RepositoryService repositoryService;

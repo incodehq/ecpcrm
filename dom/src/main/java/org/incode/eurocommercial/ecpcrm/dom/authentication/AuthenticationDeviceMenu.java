@@ -63,9 +63,9 @@ public class AuthenticationDeviceMenu {
             final boolean active
     ) {
         if(Strings.isNullOrEmpty(secret)) {
-            return authenticationDeviceRepository.newAuthenticationDevice(center, type, name, active);
+            return authenticationDeviceRepository.findOrCreate(center, type, name, active);
         } else {
-            return authenticationDeviceRepository.newAuthenticationDevice(center, type, name, secret, active);
+            return authenticationDeviceRepository.findOrCreate(center, type, name, secret, active);
         }
     }
 
