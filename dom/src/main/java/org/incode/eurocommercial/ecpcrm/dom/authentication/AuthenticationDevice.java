@@ -39,6 +39,12 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice "
                         + "WHERE name == :name "
                         + "&& secret == :secret"
+        ),
+        @Query(
+                name = "findByCenter",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice "
+                        + "WHERE center == :center"
         )
 })
 @DomainObject(bounded = true)

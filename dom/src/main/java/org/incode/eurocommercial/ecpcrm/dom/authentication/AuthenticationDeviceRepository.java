@@ -53,6 +53,18 @@ public class AuthenticationDeviceRepository {
     }
 
     @Programmatic
+    public List<AuthenticationDevice> findByCenter(
+            final Center center
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        AuthenticationDevice.class,
+                        "findByCenter",
+                        "center", center
+                ));
+    }
+
+    @Programmatic
     public AuthenticationDevice newAuthenticationDevice(
             Center center,
             AuthenticationDeviceType type,
