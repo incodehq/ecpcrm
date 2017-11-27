@@ -52,7 +52,8 @@ public class ApiService {
     }
 
     public Result cardCheck(
-            Center center,
+            String deviceName,
+            String deviceSecret,
             String cardNumber,
             String origin
     ) {
@@ -119,7 +120,8 @@ public class ApiService {
     }
 
     public Result cardRequest(
-            Center center,
+            String deviceName,
+            String deviceSecret,
             String origin,
             Title title,
             String firstName,
@@ -140,7 +142,8 @@ public class ApiService {
     }
 
     public Result websiteUserCreate(
-            Center center,
+            String deviceName,
+            String deviceSecret,
             String checkCode,
             Title title,
             String firstName,
@@ -160,7 +163,8 @@ public class ApiService {
     }
 
     public Result websiteUserModify(
-            Center center,
+            String deviceName,
+            String deviceSecret,
             String checkCode,
             String cardNumber,
             Title title,
@@ -181,7 +185,8 @@ public class ApiService {
     }
 
     public Result websiteUserDetail(
-            Center center,
+            String deviceName,
+            String deviceSecret,
             String email,
             String checkCode
     ) {

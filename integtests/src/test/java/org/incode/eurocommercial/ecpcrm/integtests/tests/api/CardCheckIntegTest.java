@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.api;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -31,6 +32,8 @@ import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -46,13 +49,16 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     @Inject ClockService clockService;
 
     @Inject CardRepository cardRepository;
+    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
     @Inject ApiService apiService;
 
 
-    DemoFixture fs;
-    Card card;
-    Center center;
+    private DemoFixture fs;
+    private Card card;
+    private Center center;
+    private AuthenticationDevice device;
+    private List<AuthenticationDevice> deviceList;
 
     @Before
     public void setUp() throws Exception {
@@ -61,20 +67,42 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
         fixtureScripts.runFixtureScript(fs, null);
 
         card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
+
         center = card.getCenter();
+
+        deviceList = authenticationDeviceRepository.findByCenter(center);
+        device = deviceList.get(new Random().nextInt(deviceList.size()));
+
         assertThat(card).isNotNull();
         assertThat(center).isNotNull();
+        assertThat(device).isNotNull();
+    }
+
+    @Test
+    public void when_device_is_invalid_we_expect_301_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
+        String cardNumber = card.getNumber();
+        String origin = "borne";
+
+        // when
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(301);
     }
 
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String cardNumber = "";
         String origin = "";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(302);
@@ -84,12 +112,13 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     /* When the device type is not app and the card number contains 3922 */
     public void when_card_does_not_exist_and_is_outdated_we_expect_319_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String cardNumber = "3922000000000";
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(319);
@@ -99,12 +128,13 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     /* When the card number does not match the required pattern */
     public void when_card_does_not_exist_and_has_invalid_number_we_expect_312_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String cardNumber = "10";
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(312);
@@ -114,13 +144,14 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     /* When the card status is "tochange" */
     public void when_card_exists_but_is_outdated_we_expect_319_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         card.setStatus(CardStatus.TOCHANGE);
         String cardNumber = card.getNumber();
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(319);
@@ -130,13 +161,14 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     /* When the card status is not "enabled" */
     public void when_card_exists_but_is_not_enabled_we_expect_303_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         card.setStatus(CardStatus.DISABLED);
         String cardNumber = card.getNumber();
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(303);
@@ -167,12 +199,13 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
             card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
         }
         card.getOwner().setEnabled(false);
-        Center center = card.getCenter();
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String cardNumber = card.getNumber();
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(304);
@@ -184,12 +217,13 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     public void when_card_exists_but_cant_play_game_we_expect_sad_response() throws Exception {
         // given
         card.play();
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String cardNumber = card.getNumber();
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
@@ -205,12 +239,13 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
         while(!card.canPlay()) {
             card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
         }
-        Center center = card.getCenter();
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String cardNumber = card.getNumber();
         String origin = "borne";
 
         // when
-        Result result = apiService.cardCheck(center, cardNumber, origin);
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);

@@ -31,6 +31,8 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.app.services.api.UserViewModel;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
@@ -51,12 +53,15 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     @Inject CardRequestRepository cardRequestRepository;
     @Inject UserRepository userRepository;
     @Inject NumeratorRepository numeratorRepository;
+    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
     @Inject ApiService apiService;
 
 
     private DemoFixture fs;
     private Center center;
+    private AuthenticationDevice device;
+    private List<AuthenticationDevice> deviceList;
     private User user;
     private List<User> userList;
 
@@ -67,30 +72,51 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
         fixtureScripts.runFixtureScript(fs, null);
 
         center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+
+        deviceList = authenticationDeviceRepository.findByCenter(center);
+        device = deviceList.get(new Random().nextInt(deviceList.size()));
+
         userList = userRepository.findByCenter(center);
         user = userList.get(new Random().nextInt(userList.size()));
 
         assertThat(center).isNotNull();
+        assertThat(device).isNotNull();
         assertThat(user).isNotNull();
+    }
+
+    @Test
+    public void when_device_is_invalid_we_expect_301_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
+        String email = user.getEmail();
+        String checkCode = apiService.computeCheckCode(user.getEmail());
+
+        // when
+        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(301);
     }
 
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String email = user.getEmail();
         String checkCode = apiService.computeCheckCode(user.getEmail());
 
         /* Testing every required argument individually */
-        Object[] args = {center, email, checkCode};
-        int[] mandatory = {0, 1, 2};
+        Object[] args = {deviceName, deviceSecret, email, checkCode};
+        int[] mandatory = {2, 3};
         for(int i : mandatory) {
             Object[] a = args.clone();
             a[i] = null;
 
             // when
             Method m = ApiService.class.getMethod(
-                    "websiteUserDetail", Center.class, String.class, String.class);
+                    "websiteUserDetail", String.class, String.class, String.class, String.class);
             Result result = (Result) m.invoke(apiService, a);
 
             // then
@@ -101,12 +127,13 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     @Test
     public void when_user_does_not_exist_we_expect_304_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String email = "THIS IS DEFINITELY NOT AN EXISTING EMAIL";
         String checkCode = apiService.computeCheckCode(email);
 
         // when
-        Result result = apiService.websiteUserDetail(center, email, checkCode);
+        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
 
         // then
         assertThat(result.getStatus()).isEqualTo(304);
@@ -115,12 +142,13 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     @Test
     public void when_check_code_is_incorrect_we_expect_402_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String email = user.getEmail();
         String checkCode = "INCORRECT CHECK CODE";
 
         // when
-        Result result = apiService.websiteUserDetail(center, email, checkCode);
+        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
 
         // then
         assertThat(result.getStatus()).isEqualTo(402);
@@ -129,12 +157,13 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     @Test
     public void when_user_exists_and_check_code_is_correct_we_expect_happy_case() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String email = user.getEmail();
         String checkCode = apiService.computeCheckCode(email);
 
         // when
-        Result result = apiService.websiteUserDetail(center, email, checkCode);
+        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);

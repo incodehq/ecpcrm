@@ -33,6 +33,8 @@ import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -54,6 +56,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
     @Inject CardRepository cardRepository;
     @Inject CardRequestRepository cardRequestRepository;
     @Inject UserRepository userRepository;
+    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
     @Inject ApiService apiService;
 
@@ -62,6 +65,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
     private Card card;
     private Center center;
     private User user;
+    private AuthenticationDevice device;
+    private List<AuthenticationDevice> deviceList;
     private List<User> userList;
     private List<Card> cardList;
 
@@ -72,19 +77,56 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         fixtureScripts.runFixtureScript(fs, null);
 
         center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+
         cardList = cardRepository.findByCenter(center);
         userList = userRepository.findByCenter(center);
+        deviceList = authenticationDeviceRepository.findByCenter(center);
+
+        device = deviceList.get(new Random().nextInt(deviceList.size()));
         card = cardList.get(new Random().nextInt(cardList.size()));
         user = userList.get(new Random().nextInt(userList.size()));
 
         assertThat(card).isNotNull();
         assertThat(center).isNotNull();
         assertThat(user).isNotNull();
+        assertThat(device).isNotNull();
+    }
+
+    @Test
+    public void when_device_is_invalid_we_expect_301_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
+        String origin = "borne";
+        Title title = Title.MR;
+        String firstName = "Testy";
+        String lastName = "McTestFace";
+        String email = "testymctestface1991@emailio.com";
+        LocalDate birthdate = user.getBirthDate();
+        String children = "";
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+        String checkItem = "";
+        boolean lost = false;
+
+        // when
+        Result result = apiService.cardRequest(
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(301);
     }
 
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "";
         Title title = null;
         String firstName = "";
@@ -103,7 +145,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -126,6 +168,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         card.setStatus(CardStatus.ENABLED);
         User user = card.getOwner();
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
@@ -144,7 +188,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -161,6 +205,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         card.setStatus(CardStatus.ENABLED);
         User user = card.getOwner();
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
@@ -179,7 +225,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -196,6 +242,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         card.setStatus(CardStatus.ENABLED);
         User user = card.getOwner();
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = user.getTitle();
         String firstName = "Incorrect first name";
@@ -214,7 +262,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -231,6 +279,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         card.setStatus(CardStatus.ENABLED);
         User user = card.getOwner();
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
@@ -249,7 +299,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -265,6 +315,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         card.setStatus(CardStatus.ENABLED);
         User user = card.getOwner();
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
@@ -283,7 +335,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -298,6 +350,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             card = cardList.get(new Random().nextInt(cardList.size()));
         }
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         cardRequestRepository.findOrCreate(user);
         CardRequest cardRequest = cardRequestRepository.openRequestForUser(user);
         cardRequest.approve(card.getNumber());
@@ -320,7 +374,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -341,6 +395,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             user = userList.get(new Random().nextInt(userList.size()));
         }
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
@@ -360,7 +416,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
@@ -371,6 +427,8 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
     @Test
     public void when_email_does_not_exist_and_user_can_be_created_we_expect_happy_response() throws Exception {
         // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
         Title title = Title.MR;
         String firstName = "Testy";
@@ -389,7 +447,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                center, origin, title, firstName, lastName, email, birthdate, children, hasCar,
+                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
                 address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
 
         // then
