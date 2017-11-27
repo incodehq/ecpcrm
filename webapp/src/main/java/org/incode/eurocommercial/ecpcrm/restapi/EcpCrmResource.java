@@ -1,7 +1,5 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
-import java.io.InputStream;
-
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -28,6 +26,7 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrin
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
+import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
@@ -53,7 +52,11 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardCheck(@FormParam("request") String request) {
+    public Response cardCheck(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         /* Marshalling request JSON string to parameters */
@@ -69,8 +72,7 @@ public class EcpCrmResource extends ResourceAbstract  {
             origin = originJson == null ? null : originJson.getAsString();
         }
 
-        // TODO: Get Center from device parameter
-        return apiService.cardCheck(null, cardNumber, origin).asResponse();
+        return apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin).asResponse();
     }
 
     @POST
@@ -111,14 +113,92 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardRequest(InputStream body) {
+    public Response cardRequest(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(String.format("{ \"status\": 200, \"message\": \"test\"}"))
-                .build();
+        /* Marshalling request JSON string to parameters */
+        String origin = null;
+        String hostess = null;
+        Title title = null;
+        String firstName = null;
+        String lastName = null;
+        String email = null;
+        LocalDate birthdate = null;
+        String children = null;
+        String nbChildren = null;
+        Boolean hasCar = null;
+        String address = null;
+        String zipcode = null;
+        String city = null;
+        String phoneNumber = null;
+        boolean promotionalemails = false;
+        String checkItem = null;
+        boolean lost = false;
+
+        if(!Strings.isNullOrEmpty(request)) {
+            JsonParser jsonParser = new JsonParser();
+
+            JsonElement originJson = jsonParser.parse(request).getAsJsonObject().get("origin");
+            origin = originJson == null ? null : originJson.getAsString();
+
+            JsonElement titleJson = jsonParser.parse(request).getAsJsonObject().get("title");
+            String titleString = titleJson.getAsString();
+            title = titleString == null ? null : Title.valueOf(titleString.toUpperCase());
+
+            JsonElement firstNameJson = jsonParser.parse(request).getAsJsonObject().get("first_name");
+            firstName = firstNameJson == null ? null : firstNameJson.getAsString();
+
+            JsonElement lastNameJson = jsonParser.parse(request).getAsJsonObject().get("last_name");
+            lastName = lastNameJson == null ? null : lastNameJson.getAsString();
+
+            JsonElement emailJson = jsonParser.parse(request).getAsJsonObject().get("email");
+            email = emailJson == null ? null : emailJson.getAsString();
+
+            JsonElement birthdateJson = jsonParser.parse(request).getAsJsonObject().get("birthdate");
+            String birthdateString = birthdateJson.getAsString();
+            birthdate = birthdateString == null ? null : LocalDate.parse(birthdateString);
+
+            JsonElement childrenJson = jsonParser.parse(request).getAsJsonObject().get("children");
+            children = childrenJson == null ? null : childrenJson.getAsString();
+
+            JsonElement nbChildrenJson = jsonParser.parse(request).getAsJsonObject().get("nb_children");
+            nbChildren = nbChildrenJson == null ? null : nbChildrenJson.getAsString();
+
+            JsonElement hasCarJson = jsonParser.parse(request).getAsJsonObject().get("car");
+            String hasCarString = hasCarJson == null ? null : hasCarJson.getAsString();
+            hasCar = hasCarString == null ? null : asBoolean(hasCarString);
+
+            JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
+            address = addressJson == null ? null : addressJson.getAsString();
+
+            JsonElement zipcodeJson = jsonParser.parse(request).getAsJsonObject().get("zipcode");
+            zipcode = zipcodeJson == null ? null : zipcodeJson.getAsString();
+
+            JsonElement cityJson = jsonParser.parse(request).getAsJsonObject().get("city");
+            city = cityJson == null ? null : cityJson.getAsString();
+
+            JsonElement phoneNumberJson = jsonParser.parse(request).getAsJsonObject().get("phone");
+            phoneNumber = phoneNumberJson == null ? null : phoneNumberJson.getAsString();
+
+            JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
+            String promotionalEmailsString = promotionalEmailsJson == null ? null : promotionalEmailsJson.getAsString();
+            promotionalemails = promotionalEmailsString != null && asBoolean(promotionalEmailsString);
+
+            JsonElement checkItemJson = jsonParser.parse(request).getAsJsonObject().get("check_item");
+            checkItem = checkItemJson == null ? null : checkItemJson.getAsString();
+
+            JsonElement lostJson = jsonParser.parse(request).getAsJsonObject().get("lost");
+            String lostString = lostJson == null ? null : lostJson.getAsString();
+            lost = lostString != null && asBoolean(lostString);
+        }
+
+        return apiService.cardRequest(
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children, nbChildren,
+                hasCar, address, zipcode, city, phoneNumber, promotionalemails, checkItem, lost).asResponse();
     }
 
 //    @POST
@@ -456,6 +536,14 @@ public class EcpCrmResource extends ResourceAbstract  {
 
     public static boolean asBoolean(final int i) {
         return i > 0;
+    }
+    public static boolean asBoolean(final String s) {
+        if(s.toUpperCase().equals("TRUE")) {
+            return true;
+        } else if(Integer.parseInt(s) > 0) {
+            return true;
+        }
+        return false;
     }
     public static String asString(final int i) {
         return "" + i;
