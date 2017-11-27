@@ -75,7 +75,7 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
     }
 
     @Test
-    public void when_required_parameter_is_missing_we_expect_403_error() throws Exception {
+    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
         Center center = this.center;
         String email = user.getEmail();
@@ -94,7 +94,7 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
             Result result = (Result) m.invoke(apiService, a);
 
             // then
-            assertThat(result.getStatus()).isEqualTo(403);
+            assertThat(result.getStatus()).isEqualTo(302);
         }
     }
 

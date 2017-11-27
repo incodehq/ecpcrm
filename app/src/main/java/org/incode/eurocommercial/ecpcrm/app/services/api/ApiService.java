@@ -186,7 +186,7 @@ public class ApiService {
             String checkCode
     ) {
         if(center == null || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(checkCode)) {
-            return Result.error(403, "Must include check code and email");
+            return Result.error(302, "Invalid parameter");
         }
 
         User user = userRepository.findByExactEmailAndCenter(email, center);
@@ -214,5 +214,4 @@ public class ApiService {
 
     @Inject CardRepository cardRepository;
     @Inject UserRepository userRepository;
-
 }
