@@ -98,12 +98,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
         String origin = "borne";
+        String hostess = "";
         Title title = Title.MR;
         String firstName = "Testy";
         String lastName = "McTestFace";
         String email = "testymctestface1991@emailio.com";
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -115,8 +117,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(301);
@@ -128,12 +131,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "";
+        String hostess = "";
         Title title = null;
         String firstName = "";
         String lastName = "";
         String email = "";
         LocalDate birthdate = null;
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = null;
         String address = "";
         String zipcode = "";
@@ -145,8 +150,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(302);
@@ -171,12 +177,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -188,8 +196,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(318);
@@ -208,12 +217,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -225,8 +236,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(306);
@@ -245,12 +257,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = "Incorrect first name";
         String lastName = "Incorrect last name";
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -262,8 +276,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(305);
@@ -282,12 +297,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -299,8 +316,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(318);
@@ -318,12 +336,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -335,8 +355,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(card.getStatus()).isEqualTo(CardStatus.LOST);
@@ -350,19 +371,21 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             card = cardList.get(new Random().nextInt(cardList.size()));
         }
 
-        String deviceName = device.getName();
-        String deviceSecret = device.getSecret();
         cardRequestRepository.findOrCreate(user);
         CardRequest cardRequest = cardRequestRepository.openRequestForUser(user);
         cardRequest.approve(card.getNumber());
 
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -374,8 +397,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(307);
@@ -398,12 +422,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -416,8 +442,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
@@ -430,12 +457,14 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String origin = "borne";
+        String hostess = "";
         Title title = Title.MR;
         String firstName = "Testy";
         String lastName = "McTestFace";
         String email = "testymctestface1991@emailio.com";
         LocalDate birthdate = user.getBirthDate();
         String children = "";
+        String nbChildren = "";
         Boolean hasCar = user.getHasCar();
         String address = user.getAddress();
         String zipcode = user.getZipcode();
@@ -447,8 +476,9 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
 
         // when
         Result result = apiService.cardRequest(
-                deviceName, deviceSecret, origin, title, firstName, lastName, email, birthdate, children, hasCar,
-                address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost);
+                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
+        );
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
