@@ -43,6 +43,11 @@ import lombok.Setter;
 })
 @DomainObject(bounded = true)
 public class AuthenticationDevice implements HasAtPath {
+
+    public String title() {
+        return getName() + " - " + getCenter().getName();
+    }
+
     @Getter @Setter
     @Column(allowsNull = "false")
     private Center center;

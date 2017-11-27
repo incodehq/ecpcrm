@@ -44,6 +44,8 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleA
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.card.AuthenticationDeviceCreate;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.card.AuthenticationDeviceTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
@@ -109,6 +111,7 @@ public class DemoFixture extends FixtureScript {
                         ec.executeChild(DemoFixture.this, new ChildCareTearDown());
                         ec.executeChild(DemoFixture.this, new ChildTearDown());
                         ec.executeChild(DemoFixture.this, new UserTearDown());
+                        ec.executeChild(DemoFixture.this, new AuthenticationDeviceTearDown());
                         ec.executeChild(DemoFixture.this, new CenterTearDown());
                         ec.executeChild(DemoFixture.this, new NumeratorTearDown());
 
@@ -124,6 +127,10 @@ public class DemoFixture extends FixtureScript {
                                         .filter(c -> c instanceof Center)
                                         .map(c -> (Center) c)
                                         .collect(Collectors.toList()));
+
+                        for(Center center : getCenters()) {
+                            ec.executeChild(DemoFixture.this, new AuthenticationDeviceCreate().center(center));
+                        }
 
                         for(int i = 0; i < NUM_CARDS; i++) {
                             Center center = getCenters().get(new Random().nextInt(getCenters().size()));
