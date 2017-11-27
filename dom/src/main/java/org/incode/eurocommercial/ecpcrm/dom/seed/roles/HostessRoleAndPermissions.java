@@ -42,6 +42,11 @@ public class HostessRoleAndPermissions extends AbstractRoleAndPermissionsFixture
         newPackagePermissions(
                 ApplicationPermissionRule.VETO,
                 ApplicationPermissionMode.VIEWING,
+                "org.incode.eurocommercial.ecpcrm.dom.authentication"
+        );
+        newPackagePermissions(
+                ApplicationPermissionRule.VETO,
+                ApplicationPermissionMode.VIEWING,
                 "org.incode.eurocommercial.ecpcrm.dom.center"
         );
         newMemberPermissions(
