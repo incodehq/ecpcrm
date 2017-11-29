@@ -33,6 +33,8 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -53,6 +55,7 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
     @Inject CardRepository cardRepository;
     @Inject CardRequestRepository cardRequestRepository;
     @Inject UserRepository userRepository;
+    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
     @Inject ApiService apiService;
 
@@ -61,6 +64,8 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
     private Card card;
     private Center center;
     private User user;
+    private AuthenticationDevice device;
+    private List<AuthenticationDevice> deviceList;
     private List<User> userList;
     private List<Card> cardList;
 
@@ -73,18 +78,52 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
         center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
         cardList = cardRepository.findByCenter(center);
         userList = userRepository.findByCenter(center);
+        deviceList = authenticationDeviceRepository.findByCenter(center);
         card = cardList.get(new Random().nextInt(cardList.size()));
         user = userList.get(new Random().nextInt(userList.size()));
+        device = deviceList.get(new Random().nextInt(deviceList.size()));
 
-        assertThat(card).isNotNull();
         assertThat(center).isNotNull();
         assertThat(user).isNotNull();
+        assertThat(device).isNotNull();
+        assertThat(card).isNotNull();
+    }
+
+    @Test
+    public void when_device_is_invalid_we_expect_301_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
+        String checkCode = apiService.computeCheckCode(user.getEmail());
+        Title title = user.getTitle();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getEmail();
+        LocalDate birthdate = user.getBirthDate();
+        Boolean hasChildren = user.getChildren().size() > 1;
+        String nbChildren = "" + user.getChildren().size();
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+
+        // when
+        Result result = apiService.websiteUserCreate(
+                deviceName, deviceSecret, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails
+        );
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(301);
     }
 
     @Test
     public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
         // given
-        Center center = this.center;
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
         String checkCode = apiService.computeCheckCode(user.getEmail());
         Title title = user.getTitle();
         String firstName = user.getFirstName();
@@ -102,10 +141,10 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
 
         /* Testing every required argument individually */
         Object[] args = {
-                center, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
+                deviceName, deviceSecret, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
                 nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails
         };
-        int[] mandatory = {0, 1, 2, 3, 4, 5};
+        int[] mandatory = {2, 3, 4, 5, 6};
         for(int i : mandatory) {
             Object[] a = args.clone();
             a[i] = null;
@@ -113,13 +152,108 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
             // when
             Method m = ApiService.class.getMethod(
                     "websiteUserCreate",
-                    Center.class, String.class, Title.class, String.class, String.class, String.class, LocalDate.class, Boolean.class,
-                    String.class, Boolean.class, String.class, String.class, String.class, String.class, boolean.class
+                    String.class, String.class, String.class, Title.class, String.class, String.class, String.class,
+                    LocalDate.class, Boolean.class, String.class, Boolean.class, String.class, String.class, String.class,
+                    String.class, boolean.class
             );
             Result result = (Result) m.invoke(apiService, a);
 
             // then
             assertThat(result.getStatus()).isEqualTo(302);
         }
+    }
+
+    @Test
+    public void when_user_with_email_already_exists_we_expect_304_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String checkCode = apiService.computeCheckCode(user.getEmail());
+        Title title = user.getTitle();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getEmail();
+        LocalDate birthdate = user.getBirthDate();
+        Boolean hasChildren = user.getChildren().size() > 1;
+        String nbChildren = "" + user.getChildren().size();
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+
+        // when
+        Result result = apiService.websiteUserCreate(
+                deviceName, deviceSecret, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails
+        );
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(304);
+    }
+
+    @Test
+    public void when_check_code_is_invalid_we_expect_402_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String checkCode = apiService.computeCheckCode(user.getEmail()) + "NOT A CORRECT CHECK CODE";
+        Title title = user.getTitle();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getFirstName() + user.getLastName() + "8732583265@gmail.com";
+        LocalDate birthdate = user.getBirthDate();
+        Boolean hasChildren = user.getChildren().size() > 1;
+        String nbChildren = "" + user.getChildren().size();
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+
+        // when
+        Result result = apiService.websiteUserCreate(
+                deviceName, deviceSecret, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails
+        );
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(402);
+    }
+
+    // TODO: 316 error when a user can't be created, 314 when a fake card can't be created
+    // However, these things can not occur when the email address is not already in use
+
+    @Test
+    public void when_email_is_unique_and_check_code_is_valid_we_expect_happy_response() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String checkCode = apiService.computeCheckCode(user.getEmail());
+        Title title = user.getTitle();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getFirstName() + user.getLastName() + "8732583265@gmail.com";
+        LocalDate birthdate = user.getBirthDate();
+        Boolean hasChildren = user.getChildren().size() > 1;
+        String nbChildren = "" + user.getChildren().size();
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+
+        // when
+        Result result = apiService.websiteUserCreate(
+                deviceName, deviceSecret, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
+                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails
+        );
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(200);
+        // TODO: check returned user id
     }
 }
