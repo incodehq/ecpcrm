@@ -34,6 +34,7 @@ import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
+import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -142,8 +143,10 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
 
     @Test
     /* When the card status is "tochange" */
-    public void when_card_exists_but_is_outdated_we_expect_319_error() throws Exception {
+    public void when_card_exists_but_is_outdated_and_device_type_is_not_app_we_expect_319_error() throws Exception {
         // given
+        device = authenticationDeviceRepository.newAuthenticationDevice(
+                center, AuthenticationDeviceType.SITE, "New device", "SECRET", true);
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         card.setStatus(CardStatus.TOCHANGE);
@@ -254,5 +257,4 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
         assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
         assertThat(response.isGame()).isTrue();
     }
-
 }
