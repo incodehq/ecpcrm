@@ -171,7 +171,37 @@ public class ApiService {
             String phoneNumber,
             boolean promotionalEmails
     ) {
-        return Result.ok();
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if(device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
+        if(Strings.isNullOrEmpty(checkCode) || title == null || Strings.isNullOrEmpty(firstName) ||
+           Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)) {
+            return Result.error(302, "Invalid parameter");
+        }
+
+        Center center = device.getCenter();
+
+        if(userRepository.findByExactEmailAndCenter(email, center) != null) {
+            return Result.error(304, "Invalid user");
+        }
+
+        if(!checkCode.equals(this.computeCheckCode(email))) {
+            return Result.error(402, "Incorrect check code");
+        }
+
+        User user = userRepository.findOrCreate(
+                true, title, firstName, lastName, email, address, zipcode, city,
+                phoneNumber, center, null, promotionalEmails, hasCar, null
+        );
+        user.setBirthDate(birthdate);
+
+        Card card = cardRepository.newFakeCard(CardStatus.ENABLED, center);
+        user.newCard(card.getNumber());
+
+        return Result.ok(WebsiteUserCreateResponseViewModel.fromUser(user));
     }
 
     public Result websiteUserModify(

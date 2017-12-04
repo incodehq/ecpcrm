@@ -24,7 +24,6 @@ import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -32,6 +31,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
+import org.incode.eurocommercial.ecpcrm.app.services.api.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
@@ -46,7 +46,6 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
 public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
 
@@ -231,11 +230,11 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getFirstName() + user.getLastName() + "8732583265@gmail.com";
+        String checkCode = apiService.computeCheckCode(email);
         LocalDate birthdate = user.getBirthDate();
         Boolean hasChildren = user.getChildren().size() > 1;
         String nbChildren = "" + user.getChildren().size();
@@ -246,6 +245,8 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
         String phoneNumber = user.getPhoneNumber();
         boolean promotionalEmails = user.isPromotionalEmails();
 
+        String expectedCardNumber = center.nextFakeCardNumber();
+
         // when
         Result result = apiService.websiteUserCreate(
                 deviceName, deviceSecret, checkCode, title, firstName, lastName, email, birthdate, hasChildren,
@@ -254,6 +255,13 @@ public class WebsiteUserCreateIntegTest extends EcpCrmIntegTest {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        // TODO: check returned user id
+
+        assertThat(result.getResponse() instanceof WebsiteUserCreateResponseViewModel).isTrue();
+        WebsiteUserCreateResponseViewModel response = (WebsiteUserCreateResponseViewModel) result.getResponse();
+        assertThat(response.getNumber()).isEqualTo(expectedCardNumber);
+
+        User user = userRepository.findByReference(response.getUser_id());
+        assertThat(user).isNotNull();
+        assertThat(response).isEqualTo(WebsiteUserCreateResponseViewModel.fromUser(user));
     }
 }
