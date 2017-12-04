@@ -72,31 +72,21 @@ public class Center implements Comparable<Center>, HasAtPath {
 
     @Getter @Setter
     @Column(allowsNull = "false")
+    @PropertyLayout(hidden = Where.EVERYWHERE)
+    private Numerator fakeNumerator;
+
+    @Getter @Setter
+    @Column(allowsNull = "false")
     private String atPath;
 
     @Programmatic
     public String nextValidCardNumber() {
+        return cardRepository.nextCardNumber(numerator);
+    }
 
-        long largestCardNumberSoFar = numerator.getLastIncrement();
-
-        //split off last digit i.e. remove checksum; then increment
-        long withoutChecksum, temp;
-        withoutChecksum = temp = (largestCardNumberSoFar / 10) + 1;
-
-        //Calculate the weighted sum of the first 12 digits of the card-number
-        int sum = 0;
-        //reversed order (%10 -> /10 method produces array of digits in reversed order)
-        int[] multipliers = {3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1};
-
-        for(int i = 0; i < 12; ++i) {
-            sum += multipliers[i] * (int)(temp % 10);
-            temp /= 10;
-        }
-
-        int checksum = (10 - sum % 10) % 10;
-
-        //attach checksum
-        return withoutChecksum + "" + checksum;
+    @Programmatic
+    public String nextFakeCardNumber() {
+        return cardRepository.nextCardNumber(fakeNumerator);
     }
 
     @Inject CardRepository cardRepository;

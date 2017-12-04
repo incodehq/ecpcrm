@@ -64,6 +64,8 @@ public class CenterRepository {
         center.setName(name);
         center.setNumerator(numeratorRepository.findOrCreate(
                 name, "%d", Long.parseLong("2" + code + "000000000")));
+        center.setFakeNumerator(numeratorRepository.findOrCreate(
+                "fake_" + name, "%d", Long.parseLong("2" + code + "987" + "000000")));
         center.setAtPath("/FRA/" + code);
         repositoryService.persist(center);
         return center;

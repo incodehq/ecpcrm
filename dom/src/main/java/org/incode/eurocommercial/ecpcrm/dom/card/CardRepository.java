@@ -164,6 +164,23 @@ public class CardRepository {
     }
 
     @Programmatic
+    public Card newFakeCard(final CardStatus status, final Center center) {
+        String number = nextCardNumber(center.getFakeNumerator());
+
+        final Card card = repositoryService.instantiate(Card.class);
+
+        card.setNumber(number);
+        card.setStatus(status);
+        card.setCenter(center);
+        card.setCreatedAt(clockService.nowAsLocalDateTime());
+
+        repositoryService.persist(card);
+
+        center.getFakeNumerator().setLastIncrement(Long.parseLong(number));
+        return card;
+    }
+
+    @Programmatic
     public List<Card> newBatch(
             final String startNumber,
             final int batchSize,
@@ -260,6 +277,30 @@ public class CardRepository {
         }
 
         return true;
+    }
+
+    @Programmatic
+    public String nextCardNumber(final Numerator numerator) {
+        long largestCardNumberSoFar = numerator.getLastIncrement();
+
+        //split off last digit i.e. remove checksum; then increment
+        long withoutChecksum, temp;
+        withoutChecksum = temp = (largestCardNumberSoFar / 10) + 1;
+
+        //Calculate the weighted sum of the first 12 digits of the card-number
+        int sum = 0;
+        //reversed order (%10 -> /10 method produces array of digits in reversed order)
+        int[] multipliers = {3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1};
+
+        for(int i = 0; i < 12; ++i) {
+            sum += multipliers[i] * (int)(temp % 10);
+            temp /= 10;
+        }
+
+        int checksum = (10 - sum % 10) % 10;
+
+        //attach checksum
+        return withoutChecksum + "" + checksum;
     }
 
     @Inject RepositoryService repositoryService;
