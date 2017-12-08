@@ -83,7 +83,11 @@ public class EcpCrmResource extends ResourceAbstract  {
             MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
     })
     @PrettyPrinting
-    public Response cardGame(@FormParam("request") String request) {
+    public Response cardGame(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         /* Marshalling request JSON string to parameters */
@@ -102,7 +106,7 @@ public class EcpCrmResource extends ResourceAbstract  {
             desc = descJson == null ? null : descJson.getAsString();
         }
 
-        return apiService.cardGame(cardNumber, win, desc).asResponse();
+        return apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc).asResponse();
     }
 
     @POST

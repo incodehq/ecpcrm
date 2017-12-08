@@ -103,16 +103,26 @@ public class ApiService {
     }
 
     public Result cardGame(
+            String deviceName,
+            String deviceSecret,
             String cardNumber,
             String win,
             String desc
     ) {
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if(device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
         if(Strings.isNullOrEmpty(cardNumber)) {
             return Result.error(302, "Invalid Parameter");
         }
 
+        Center center = device.getCenter();
         Card card = cardRepository.findByExactNumber(cardNumber);
-        if(card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED) {
+
+        if(card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
             return Result.error(303, "Invalid card");
         }
 
