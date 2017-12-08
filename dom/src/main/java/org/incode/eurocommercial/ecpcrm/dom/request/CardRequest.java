@@ -88,6 +88,11 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
     @Column(allowsNull = "false")
     @Property
     @Getter @Setter
+    private CardRequestType type;
+
+    @Column(allowsNull = "false")
+    @Property
+    @Getter @Setter
     private User requestingUser;
 
     @Column(allowsNull = "false")

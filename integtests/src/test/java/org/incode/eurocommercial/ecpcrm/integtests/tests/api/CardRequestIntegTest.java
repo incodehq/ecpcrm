@@ -40,6 +40,7 @@ import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
@@ -371,7 +372,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             card = cardList.get(new Random().nextInt(cardList.size()));
         }
 
-        cardRequestRepository.findOrCreate(user);
+        cardRequestRepository.findOrCreate(user, CardRequestType.SEND_TO_HOME);
         CardRequest cardRequest = cardRequestRepository.openRequestForUser(user);
         cardRequest.approve(card.getNumber());
 

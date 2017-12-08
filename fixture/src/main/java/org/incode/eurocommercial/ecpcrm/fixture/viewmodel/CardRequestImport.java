@@ -22,6 +22,7 @@ import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
@@ -41,6 +42,10 @@ public class CardRequestImport implements ExcelFixtureRowHandler, Importable {
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
     private String requestingUser;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String type;
 
     @Getter @Setter
     @Property
@@ -72,8 +77,9 @@ public class CardRequestImport implements ExcelFixtureRowHandler, Importable {
     public List<Object> importData(Object previousRow) {
         Center center = centerRepository.findByCode(getCenterCode());
         User user = userRepository.findByReference(requestingUser);
+        CardRequestType requestType = CardRequestType.valueOf(type);
 
-        CardRequest cardRequest = cardRequestRepository.findOrCreate(user);
+        CardRequest cardRequest = cardRequestRepository.findOrCreate(user, requestType);
 
         if(cardRequest == null) {
             return null;
@@ -81,8 +87,8 @@ public class CardRequestImport implements ExcelFixtureRowHandler, Importable {
 
         if(asBoolean(approved)) {
             cardRequest.approve(assignedCard);
-            if(cardRequest.getApproved() == null)
-                cardRequest.deny();
+//            if(cardRequest.getApproved() == null)
+//                cardRequest.deny();
         }
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");

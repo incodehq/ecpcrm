@@ -25,6 +25,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
@@ -38,6 +39,9 @@ public class CardRequestCreate extends FixtureScript {
     @Getter @Setter
     private User user;
 
+    @Getter @Setter
+    private CardRequestType type;
+
     @Getter
     private CardRequest cardRequest;
 
@@ -47,8 +51,12 @@ public class CardRequestCreate extends FixtureScript {
             user = userRepository.listAll().get(
                     new Random().nextInt(userRepository.listAll().size()));
         }
+        if(type == null) {
+            type = CardRequestType.values()[
+                    new Random().nextInt(CardRequestType.values().length)];
+        }
 
-        cardRequest = cardRequestRepository.findOrCreate(user);
+        cardRequest = cardRequestRepository.findOrCreate(user, type);
 
         ec.addResult(this, cardRequest);
     }

@@ -88,7 +88,8 @@ public class CardRequestRepository {
 
     @Programmatic
     private CardRequest newCardRequest(
-            User user
+            User user,
+            CardRequestType type
     ) {
         if(user == null) {
             return null;
@@ -97,6 +98,7 @@ public class CardRequestRepository {
         final CardRequest cardRequest = repositoryService.instantiate(CardRequest.class);
 
         cardRequest.setRequestingUser(user);
+        cardRequest.setType(type);
         cardRequest.setIssueDate(clockService.nowAsLocalDateTime());
 
         repositoryService.persist(cardRequest);
@@ -105,10 +107,11 @@ public class CardRequestRepository {
 
     @Programmatic
     public CardRequest findOrCreate(
-            User user
+            User user,
+            CardRequestType type
     ) {
         CardRequest cardRequest = openRequestForUser(user);
-        cardRequest = cardRequest != null ? cardRequest : newCardRequest(user);
+        cardRequest = cardRequest != null ? cardRequest : newCardRequest(user, type);
         return cardRequest;
     }
 

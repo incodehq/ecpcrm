@@ -79,6 +79,11 @@ SELECT
  request.id AS id,
  center.code AS centerCode,
  request.user_id AS requestingUser,
+ CASE request.hostess
+  WHEN 0 THEN "SEND_TO_HOME"
+  WHEN 1 THEN "PICK_UP_IN_CENTER" 
+  ELSE "UNKNOWN_IMPORT"
+ END AS type,
  request.created_at AS issueDate,
  request.performedat AS handleDate,
  CASE request.status
