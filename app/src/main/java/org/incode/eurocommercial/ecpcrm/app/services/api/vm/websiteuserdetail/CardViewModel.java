@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.app.services.api;
+package org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteuserdetail;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 

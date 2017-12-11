@@ -31,7 +31,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
-import org.incode.eurocommercial.ecpcrm.app.services.api.WebsiteUserCreateResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;

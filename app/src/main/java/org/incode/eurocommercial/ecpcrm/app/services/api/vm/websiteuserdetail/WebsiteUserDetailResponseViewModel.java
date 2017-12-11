@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.app.services.api;
+package org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteuserdetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import lombok.Data;
 import static org.incode.eurocommercial.ecpcrm.app.services.api.ApiService.asString;
 
 @Data(staticConstructor = "create")
-public class UserViewModel {
+public class WebsiteUserDetailResponseViewModel {
     private final String id;
     private final String title;
     private final String first_name;
@@ -33,7 +33,7 @@ public class UserViewModel {
     private final List<CardViewModel> cards;
     private final List<ChildCareViewModel> child_cares;
 
-    public static UserViewModel fromUser(final User user) {
+    public static WebsiteUserDetailResponseViewModel fromUser(final User user) {
         List<ChildViewModel> userChildren = user.getChildren().stream()
                 .map(ChildViewModel::fromChild)
                 .collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class UserViewModel {
                 .collect(Collectors.toList());
         List<String> boutiques = new ArrayList<>();
 
-        return UserViewModel.create(
+        return WebsiteUserDetailResponseViewModel.create(
                 user.getReference(),
                 user.getTitle().toString().toLowerCase(),
                 user.getFirstName(),

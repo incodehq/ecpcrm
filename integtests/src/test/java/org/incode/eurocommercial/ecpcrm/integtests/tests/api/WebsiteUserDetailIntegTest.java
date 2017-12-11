@@ -30,7 +30,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
-import org.incode.eurocommercial.ecpcrm.app.services.api.UserViewModel;
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteuserdetail.WebsiteUserDetailResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
@@ -167,10 +167,10 @@ public class WebsiteUserDetailIntegTest extends EcpCrmIntegTest {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse() instanceof UserViewModel);
+        assertThat(result.getResponse() instanceof WebsiteUserDetailResponseViewModel);
 
-        UserViewModel response = (UserViewModel) result.getResponse();
+        WebsiteUserDetailResponseViewModel response = (WebsiteUserDetailResponseViewModel) result.getResponse();
         assertThat(response.getId()).isEqualTo(user.getReference());
-        assertThat(response).isEqualTo(UserViewModel.fromUser(user));
+        assertThat(response).isEqualTo(WebsiteUserDetailResponseViewModel.fromUser(user));
     }
 }

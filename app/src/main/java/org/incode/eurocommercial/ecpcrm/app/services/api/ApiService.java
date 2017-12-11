@@ -28,6 +28,9 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardcheck.CardCheckResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteuserdetail.WebsiteUserDetailResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
@@ -46,7 +49,8 @@ import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 public class ApiService {
     public String computeCheckCode(String email) {
         try {
-            String toBeHashed = email + "320498FJEZR458FNBLA895HFLR48G";
+            String secret = "320498FJEZR458FNBLA895HFLR48G";
+            String toBeHashed = email + secret;
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             return DatatypeConverter.printHexBinary(md5.digest(toBeHashed.getBytes()));
         } catch(Exception e) {
@@ -264,7 +268,7 @@ public class ApiService {
             return Result.error(402, "Incorrect check code");
         }
 
-        return Result.ok(UserViewModel.fromUser(user));
+        return Result.ok(WebsiteUserDetailResponseViewModel.fromUser(user));
     }
 
     public static boolean asBoolean(final int i) {

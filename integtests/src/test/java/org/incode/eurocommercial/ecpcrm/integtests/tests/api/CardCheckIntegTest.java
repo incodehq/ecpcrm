@@ -29,7 +29,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
-import org.incode.eurocommercial.ecpcrm.app.services.api.CardCheckResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardcheck.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
