@@ -267,6 +267,15 @@ public class ApiService {
         return Result.ok(UserViewModel.fromUser(user));
     }
 
+    public static boolean asBoolean(final int i) {
+        return i > 0;
+    }
+    public static boolean asBoolean(final String s) {
+        if(s.toUpperCase().equals("TRUE")) {
+            return true;
+        }
+        return false;
+    }
     public static String asString(final int i) {
         return "" + i;
     }

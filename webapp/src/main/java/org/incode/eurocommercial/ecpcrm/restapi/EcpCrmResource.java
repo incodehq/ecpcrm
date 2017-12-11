@@ -9,9 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.assertj.core.util.Strings;
@@ -29,7 +27,6 @@ import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 
 @Path("/crm/api/6.0")
@@ -174,7 +171,7 @@ public class EcpCrmResource extends ResourceAbstract  {
 
             JsonElement hasCarJson = jsonParser.parse(request).getAsJsonObject().get("car");
             String hasCarString = hasCarJson == null ? null : hasCarJson.getAsString();
-            hasCar = hasCarString == null ? null : asBoolean(hasCarString);
+            hasCar = hasCarString == null ? null : ApiService.asBoolean(hasCarString);
 
             JsonElement addressJson = jsonParser.parse(request).getAsJsonObject().get("address");
             address = addressJson == null ? null : addressJson.getAsString();
@@ -190,19 +187,67 @@ public class EcpCrmResource extends ResourceAbstract  {
 
             JsonElement promotionalEmailsJson = jsonParser.parse(request).getAsJsonObject().get("optin");
             String promotionalEmailsString = promotionalEmailsJson == null ? null : promotionalEmailsJson.getAsString();
-            promotionalemails = promotionalEmailsString != null && asBoolean(promotionalEmailsString);
+            promotionalemails = promotionalEmailsString != null && ApiService.asBoolean(promotionalEmailsString);
 
             JsonElement checkItemJson = jsonParser.parse(request).getAsJsonObject().get("check_item");
             checkItem = checkItemJson == null ? null : checkItemJson.getAsString();
 
             JsonElement lostJson = jsonParser.parse(request).getAsJsonObject().get("lost");
             String lostString = lostJson == null ? null : lostJson.getAsString();
-            lost = lostString != null && asBoolean(lostString);
+            lost = lostString != null && ApiService.asBoolean(lostString);
         }
 
         return apiService.cardRequest(
                 deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children, nbChildren,
                 hasCar, address, zipcode, city, phoneNumber, promotionalemails, checkItem, lost).asResponse();
+    }
+
+    @POST
+    @Path("/website-user-create")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
+    @Produces({
+            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+    })
+    @PrettyPrinting
+    public Response websiteUserCreate(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
+        return null;
+    }
+
+    @POST
+    @Path("/website-user-modify")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
+    @Produces({
+            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+    })
+    @PrettyPrinting
+    public Response websiteUserModify(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
+        return null;
+    }
+
+    @POST
+    @Path("/website-user-detail")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
+    @Produces({
+            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+    })
+    @PrettyPrinting
+    public Response websiteUserDetail(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
+        return null;
     }
 
 //    @POST
@@ -486,78 +531,6 @@ public class EcpCrmResource extends ResourceAbstract  {
 //                        .toJsonString())
 //                .build();
 //    }
-
-    @POST
-    @Path("/user-detail")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD, MediaType.APPLICATION_FORM_URLENCODED })
-    @Produces({
-            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR
-    })
-    @PrettyPrinting
-    public Response userDetail(@FormParam("request") String request) {
-        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
-        Gson gson = new Gson();
-        JsonParser jsonParser = new JsonParser();
-        String reference = jsonParser.parse(request).getAsJsonObject().get("id").getAsString();
-
-        //TODO: Not sure how to implement 302 and 310
-
-        if(reference == null) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 302)
-                            .add("message", "Invalid parameter")
-                            .toJsonString())
-                    .build();
-        }
-
-        User user = userRepository.findByReference(reference);
-
-        if(user == null) {
-            return Response
-                    .ok()
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .entity(new JsonBuilder()
-                            .add("status", 304)
-                            .add("message", "Invalid user")
-                            .toJsonString())
-                    .build();
-        }
-
-        JsonObject userJson = gson.toJsonTree(UserViewModel.fromUser(user)).getAsJsonObject();
-
-        return Response
-                .ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(new JsonBuilder()
-                        .add("status", 200)
-                        .add("response", userJson)
-                        .toJsonString())
-                .build();
-    }
-
-    public static boolean asBoolean(final int i) {
-        return i > 0;
-    }
-    public static boolean asBoolean(final String s) {
-        if(s.toUpperCase().equals("TRUE")) {
-            return true;
-        } else if(Integer.parseInt(s) > 0) {
-            return true;
-        }
-        return false;
-    }
-    public static String asString(final int i) {
-        return "" + i;
-    }
-    public static String asString(final boolean bool) {
-        return bool ? "true" : "false";
-    }
-    public static String asString(final LocalDate localDate) {
-        return localDate == null ? null : localDate.toString();
-    }
 
     @Inject UserRepository userRepository;
     @Inject CardRepository cardRepository;
