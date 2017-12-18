@@ -16,13 +16,11 @@
  */
 package org.incode.eurocommercial.ecpcrm.app.services.api;
 
-import java.security.MessageDigest;
-
 import javax.inject.Inject;
-import javax.xml.bind.DatatypeConverter;
 
 import com.google.common.base.Strings;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainService;
@@ -48,14 +46,9 @@ import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 )
 public class ApiService {
     public String computeCheckCode(String email) {
-        try {
-            String secret = "320498FJEZR458FNBLA895HFLR48G";
-            String toBeHashed = email + secret;
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            return DatatypeConverter.printHexBinary(md5.digest(toBeHashed.getBytes()));
-        } catch(Exception e) {
-            return null;
-        }
+        String secret = "320498FJEZR458FNBLA895HFLR48G";
+        String toBeHashed = email + secret;
+        return DigestUtils.md5Hex(toBeHashed);
     }
 
     public Result cardCheck(
