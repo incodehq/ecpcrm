@@ -17,8 +17,11 @@
 package org.incode.eurocommercial.ecpcrm.dom.authentication;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -108,10 +111,13 @@ public class AuthenticationDeviceRepository {
             String name,
             boolean active
     ) {
-        // TODO: Generate secret
-        String secret = "GENERATE SECRET HERE";
-
+        String secret = generateSecret();
         return findOrCreate(center, type, name, secret, active);
+    }
+
+    @Programmatic
+    private String generateSecret() {
+        return DigestUtils.sha1Hex(new Random().nextInt() + "");
     }
 
     @Inject RepositoryService repositoryService;
