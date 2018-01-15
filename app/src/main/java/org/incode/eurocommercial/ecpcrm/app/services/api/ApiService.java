@@ -103,7 +103,7 @@ public class ApiService {
             String deviceName,
             String deviceSecret,
             String cardNumber,
-            String win,
+            Boolean win,
             String desc
     ) {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
@@ -131,7 +131,7 @@ public class ApiService {
             return Result.error(315, "Card has already played");
         }
 
-        card.play();
+        card.play(win);
 
         return Result.ok();
     }

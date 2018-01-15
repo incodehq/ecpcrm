@@ -36,6 +36,7 @@ import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceR
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.game.CardGame;
 import org.incode.eurocommercial.ecpcrm.dom.game.CardGameRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
@@ -83,7 +84,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
         String cardNumber = card.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -99,7 +100,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = "";
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -115,7 +116,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = center.nextValidCardNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -132,7 +133,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceSecret = device.getSecret();
         card.setStatus(CardStatus.DISABLED);
         String cardNumber = card.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -153,7 +154,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceSecret = device.getSecret();
         card.setStatus(CardStatus.DISABLED);
         String cardNumber = otherCard.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -173,7 +174,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = cardWithoutOwner.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -197,7 +198,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = cardWithOwner.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -221,7 +222,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = cardWithOwner.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
@@ -232,7 +233,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
     }
 
     @Test
-    public void when_card_exists_and_can_play_game_we_expect_happy_response() throws Exception {
+    public void when_card_exists_and_can_play_game_we_expect_happy_response_win() throws Exception {
         Card cardWithOwnerWhichCanPlay = cardRepository.listAll().stream()
                 .filter(card -> card.getOwner() != null && card.canPlay())
                 .collect(Collectors.toList())
@@ -243,15 +244,43 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = cardWithOwnerWhichCanPlay.getNumber();
-        String win = "";
+        boolean win = true;
         String desc = "";
 
         // when
         Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        CardGame createdCardGame = cardGameRepository.findByCardAndDate(cardWithOwnerWhichCanPlay, clockService.now());
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
+        assertThat(createdCardGame).isNotNull();
+        assertThat(createdCardGame.isOutcome()).isTrue();
         assertThat(cardWithOwnerWhichCanPlay.canPlay()).isFalse();
     }
 
+    @Test
+    public void when_card_exists_and_can_play_game_we_expect_happy_response_lose() throws Exception {
+        Card cardWithOwnerWhichCanPlay = cardRepository.listAll().stream()
+                .filter(card -> card.getOwner() != null && card.canPlay())
+                .collect(Collectors.toList())
+                .get(0);
+        Center center = cardWithOwnerWhichCanPlay.getCenter();
+        AuthenticationDevice device = authenticationDeviceRepository.findByCenter(center).get(0);
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String cardNumber = cardWithOwnerWhichCanPlay.getNumber();
+        boolean win = false;
+        String desc = "";
+
+        // when
+        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        CardGame createdCardGame = cardGameRepository.findByCardAndDate(cardWithOwnerWhichCanPlay, clockService.now());
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(200);
+        assertThat(createdCardGame).isNotNull();
+        assertThat(createdCardGame.isOutcome()).isFalse();
+        assertThat(cardWithOwnerWhichCanPlay.canPlay()).isFalse();
+    }
 }

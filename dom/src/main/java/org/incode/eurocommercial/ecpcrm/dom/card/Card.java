@@ -195,6 +195,17 @@ public class Card implements Comparable<Card>, HasAtPath {
         return cardGameRepository.newCardGame(this, clockService.now(), new Random().nextBoolean());
     }
 
+    @Programmatic
+    public CardGame play(Boolean outcome) {
+        if(outcome == null) {
+            return play();
+        }
+        if(!canPlay()) {
+            return null;
+        }
+        return cardGameRepository.newCardGame(this, clockService.now(), outcome);
+    }
+
     public boolean hideGivenToUserAt() {
         return getGivenToUserAt() == null;
     }
