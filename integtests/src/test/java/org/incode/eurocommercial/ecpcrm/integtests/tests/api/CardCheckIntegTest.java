@@ -29,8 +29,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
-import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardcheck.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
+import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardcheck.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
@@ -178,9 +178,25 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     }
 
     @Test
-    @Ignore
-    // TODO: Not sure how to test this
     public void when_card_exists_but_is_not_the_same_center_as_device_we_expect_317_error() throws Exception {
+        // given
+        Center otherCenter = fs.getCenters().stream()
+                .filter(c -> !c.equals(center))
+                .findFirst().get();
+        Card otherCard = cardRepository.findByCenter(otherCenter).stream()
+                .filter(card -> card.getStatus() != CardStatus.DISABLED)
+                .findFirst().get();
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String cardNumber = otherCard.getNumber();
+        String origin = "borne";
+
+        // when
+        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(317);
     }
 
     @Test
