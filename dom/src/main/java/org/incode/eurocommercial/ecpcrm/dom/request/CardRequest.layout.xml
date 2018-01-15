@@ -23,7 +23,9 @@
                                         <cpt:action id="deny"/>
                                         <cpt:action id="reapprove"/>
                                         <cpt:property id="requestingUser"/>
-                                        <cpt:property id="date"/>
+                                        <cpt:property id="issueDate"/>
+                                        <cpt:property id="handleDate"/>
+                                        <cpt:property id="type"/>
                                         <cpt:property id="approved"/>
                                         <cpt:property id="assignedCard"/>
                                     </cpt:fieldSet>
