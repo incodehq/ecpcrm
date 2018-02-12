@@ -39,6 +39,7 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
@@ -230,16 +231,16 @@ public class User implements Comparable<User>, HasAtPath {
         return this;
     }
 
-    public String validateNewCard(String cardNumber) {
+    public TranslatableString validateNewCard(String cardNumber) {
         if(cardNumber == null) {
-            return "No number entered";
+            return TranslatableString.tr("No number entered");
         }
         if(!cardRepository.cardNumberIsValid(cardNumber, center.getCode())) {
-            return "Card number " + cardNumber + " is invalid";
+            return TranslatableString.tr("Card number {cardNumber} is invalid", "cardNumber", cardNumber);
         }
         Card card = cardRepository.findByExactNumber(cardNumber);
         if(card != null && card.getOwner() != null) {
-            return "Card with number " + cardNumber + " already has an owner: " + card.getOwner().title();
+            return TranslatableString.tr("Card with number {cardNumber}  already has an owner: {owner}", "cardNumber", card.getNumber(), "owner", card.getOwner());
         }
 
         return null;

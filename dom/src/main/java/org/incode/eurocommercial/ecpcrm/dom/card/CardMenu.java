@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -81,7 +82,7 @@ public class CardMenu {
         return cardRepository.findOrCreate(number, CardStatus.DISABLED, center);
     }
 
-    public String validateNewCard(String number, Center center) {
+    public TranslatableString validateNewCard(String number, Center center) {
         return cardRepository.validateFindOrCreate(number, CardStatus.DISABLED, center);
     }
 

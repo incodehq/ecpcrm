@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
@@ -133,7 +134,7 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
         return this;
     }
 
-    public String validateApprove(String cardNumber) {
+    public TranslatableString validateApprove(String cardNumber) {
         return requestingUser.validateNewCard(cardNumber);
     }
 
@@ -149,7 +150,7 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
         return approve(cardNumber);
     }
 
-    public String validateReapprove(String cardNumber) {
+    public TranslatableString validateReapprove(String cardNumber) {
         return validateApprove(cardNumber);
     }
 

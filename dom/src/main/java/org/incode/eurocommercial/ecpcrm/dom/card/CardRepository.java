@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
@@ -213,8 +214,8 @@ public class CardRepository {
     }
 
     @Programmatic
-    public String validateFindOrCreate(final String number, final CardStatus status, final Center center) {
-        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number, center.getCode()) ? null : "Card number is invalid";
+    public TranslatableString validateFindOrCreate(final String number, final CardStatus status, final Center center) {
+        return Strings.isNullOrEmpty(number) || cardNumberIsValid(number, center.getCode()) ? null : TranslatableString.tr("Card number is invalid");
     }
 
     @Programmatic

@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.dom.Title;
@@ -172,7 +173,7 @@ public class UserRepository {
     }
 
     @Programmatic
-    public String validateNewUser(
+    public TranslatableString validateNewUser(
             final boolean enabled,
             final Title title,
             final String firstName,
@@ -189,7 +190,7 @@ public class UserRepository {
             String reference
     ) {
         if(findByExactEmailAndCenter(email, center) != null) {
-            return "User with email " + email + " already exists";
+            return TranslatableString.tr("User with email {email} already exists", "email", email);
         }
         return validateFindOrCreate(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, reference);
     }
@@ -236,7 +237,7 @@ public class UserRepository {
     }
 
     @Programmatic
-    public String validateFindOrCreate(
+    public TranslatableString validateFindOrCreate(
             final boolean enabled,
             final Title title,
             final String firstName,
@@ -256,10 +257,10 @@ public class UserRepository {
             return null;
         }
         if(!cardRepository.cardNumberIsValid(cardNumber, center.getCode())) {
-            return "Card number " + cardNumber + " is invalid";
+            return TranslatableString.tr("Card number {cardNumber} is invalid", "cardNumber", cardNumber);
         }
         if(!cardRepository.cardExists(cardNumber)) {
-            return "Card with number " + cardNumber + " doesn't exist";
+            return  TranslatableString.tr("Card with number {cardNumber} doesn't exist", "cardNumber", cardNumber);
         }
         return null;
     }

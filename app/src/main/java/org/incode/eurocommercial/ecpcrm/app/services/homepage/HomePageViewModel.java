@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.ViewModel;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
@@ -57,8 +58,8 @@ public class HomePageViewModel {
         return this;
     }
 
-    public String validateDeleteCustomer(final User user, final boolean delete) {
-        return delete ? null : "You have to agree";
+    public TranslatableString validateDeleteCustomer(final User user, final boolean delete) {
+        return delete ? null : TranslatableString.tr("You have to agree");
     }
 
     public List<User> choices0DeleteCustomer() {
@@ -66,11 +67,11 @@ public class HomePageViewModel {
     }
     public User default0DeleteCustomer() {
         final List<User> choices = choices0DeleteCustomer();
-        return choices.isEmpty()? null: choices.get(0);
+        return choices.isEmpty() ? null: choices.get(0);
     }
 
-    public String disableDeleteCustomer() {
-        return choices0DeleteCustomer().isEmpty()? "No customers": null;
+    public TranslatableString disableDeleteCustomer() {
+        return choices0DeleteCustomer().isEmpty() ? TranslatableString.tr("No customers"): null;
     }
 
     @javax.inject.Inject

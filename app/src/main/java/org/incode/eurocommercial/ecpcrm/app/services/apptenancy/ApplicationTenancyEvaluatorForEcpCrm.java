@@ -18,6 +18,7 @@ package org.incode.eurocommercial.ecpcrm.app.services.apptenancy;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyEvaluator;
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
@@ -45,10 +46,10 @@ public class ApplicationTenancyEvaluatorForEcpCrm implements ApplicationTenancyE
             return null;
         }
         if(userAtPath == null) {
-            return "hidden";
+            return TranslatableString.tr("hidden").toString();
         }
 
-        return !(userAtPath.startsWith(objAtPath) || objAtPath.startsWith(userAtPath)) ? "hidden" : null;
+        return !(userAtPath.startsWith(objAtPath) || objAtPath.startsWith(userAtPath)) ? TranslatableString.tr("hidden").toString() : null;
     }
 
     @Override public String disables(final Object domainObject, final ApplicationUser applicationUser) {
@@ -64,10 +65,12 @@ public class ApplicationTenancyEvaluatorForEcpCrm implements ApplicationTenancyE
             return null;
         }
         if(userAtPath == null) {
-            return String.format("Cannot edit the object with atPath of '%s'", hasAtPath);
+            return TranslatableString.tr("Cannot edit the object with atPath of '{objAtPath}'", "objAtPath", objAtPath).toString();
         }
 
-        return !objAtPath.startsWith(userAtPath) ? String.format("User with atPath of '%s' cannot edit the object with atPath of '%s'", userAtPath, objAtPath) : null;
+        return !objAtPath.startsWith(userAtPath) ? TranslatableString.tr(
+                "User with atPath of '{userAtPath}' cannot edit the object with atPath of '{objAtPath}'",
+                "userAtPath", userAtPath, "objAtPath", objAtPath).toString() : null;
     }
 }
 

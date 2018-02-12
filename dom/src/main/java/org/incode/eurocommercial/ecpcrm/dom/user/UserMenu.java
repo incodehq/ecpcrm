@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
@@ -102,7 +103,7 @@ public class UserMenu {
                 enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
-    public String validateNewUser(
+    public TranslatableString validateNewUser(
             final boolean enabled,
             final Title title,
             final String firstName,

@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.userprof.UserProfileService;
 
 import org.isisaddons.module.security.app.user.MeService;
@@ -41,15 +42,10 @@ public class UserProfileServiceShowingTenancy implements UserProfileService {
     public String userProfileName() {
         final ApplicationUser applicationUser = meService.me();
 
-        final StringBuilder buf = new StringBuilder();
         final String username = applicationUser.getName();
         final String tenancyPath = applicationUser.getAtPath();
 
-        buf.append("Hi ");
-        buf.append(username);
-        buf.append(" @").append(tenancyPath);
-
-        return buf.toString();
+        return TranslatableString.tr("Hi {username} @{tenancyPath}", "username", username, "tenancyPath", tenancyPath).toString();
     }
 
 
