@@ -43,25 +43,23 @@ public class ChildCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        name = defaultParam("name", ec,
-                faker.name().firstName());
-        gender = defaultParam("gender", ec,
-                Gender.values()[new Random().nextInt(Gender.values().length)]);
-        birthdate = defaultParam("birthdate", ec,
-                LocalDate.fromDateFields(
-                        faker.date().between(
-                                clockService.now().minusYears(30).toDate(),
-                                clockService.now().toDate())));
-        parent = defaultParam("parent", ec,
-                userRepository.listAll().get(
-                        new Random().nextInt(userRepository.listAll().size())));
+        if (name == null)
+            name = faker.name().firstName();
+        if (gender == null)
+            gender = Gender.values()[new Random().nextInt(Gender.values().length)];
+        if (birthdate == null)
+            birthdate = LocalDate.fromDateFields(faker.date().between(
+                    clockService.now().minusYears(30).toDate(),
+                    clockService.now().toDate()));
+        if (parent == null)
+            parent = userRepository.listAll().get(new Random().nextInt(userRepository.listAll().size()));
 
         child = childRepository.findOrCreate(name(), gender(), birthdate(), parent());
 
         ec.addResult(this, child());
     }
 
-    @Inject ChildRepository childRepository;
-    @Inject UserRepository userRepository;
-    @Inject ClockService clockService;
+    @Inject private ChildRepository childRepository;
+    @Inject private UserRepository userRepository;
+    @Inject private ClockService clockService;
 }

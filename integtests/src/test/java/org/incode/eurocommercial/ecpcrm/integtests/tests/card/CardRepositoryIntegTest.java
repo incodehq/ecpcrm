@@ -216,7 +216,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> foundCards = cardRepository.findByNumberContains(cardNumber);
 
             // then
-            assertThat(foundCards.size()).isEqualTo(fs.NUM_CARDS);
+            assertThat(foundCards.size()).isEqualTo(fs.CARDS_PER_CENTER * fs.NUM_CENTERS);
             assertThat(foundCards).isEqualTo(fs.getCards());
         }
     }

@@ -34,18 +34,16 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.sudo.SudoService;
 
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
-import org.incode.eurocommercial.ecpcrm.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.card.AuthenticationDeviceCreate;
-import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.card.AuthenticationDeviceTearDown;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.AuthenticationDeviceCreate;
+import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.AuthenticationDeviceTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.center.CenterCreate;
@@ -69,13 +67,14 @@ public class DemoFixture extends FixtureScript {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-    public final int NUM_CENTERS         = 5;
-    public final int NUM_CARDS           = 50;
-    public final int NUM_USERS           = 30;
-    public final int NUM_CARD_REQUESTS   = 5;
-    public final int NUM_CHILDREN        = 20;
-    public final int NUM_CHILDCARES      = 40;
-    public final int NUM_OPEN_CHILDCARES = 5;
+    public final int NUM_CENTERS                    = 2;
+    public final int CARDS_PER_CENTER               = 7;
+    public final int USERS_WITH_CARDS_PER_CENTER    = 4;
+    public final int USERS_WITHOUT_CARDS_PER_CENTER = 4;
+    public final int CARD_REQUESTS_PER_CENTER       = 2;
+    public final int CHILDREN_PER_USER              = 1;
+    public final int CLOSED_CHILDCARES_PER_CHILD    = 2;
+    public final int OPEN_CHILDCARES_PER_CENTER     = 2;
 
     @Getter
     private final List<Center> centers = Lists.newArrayList();
@@ -103,8 +102,6 @@ public class DemoFixture extends FixtureScript {
         sudoService.sudo(EcpCrmAdminUser.USER_NAME, Arrays.asList(EcpCrmRegularRoleAndPermissions.ROLE_NAME, EcpCrmFixtureServiceRoleAndPermissions.ROLE_NAME),
                 new Runnable() {
                     @Override public void run() {
-                        String cardNumber;
-
                         /* First, tear everything down hierarchically */
                         ec.executeChild(DemoFixture.this, new CardRequestTearDown());
                         ec.executeChild(DemoFixture.this, new CardTearDown());
@@ -115,89 +112,80 @@ public class DemoFixture extends FixtureScript {
                         ec.executeChild(DemoFixture.this, new CenterTearDown());
                         ec.executeChild(DemoFixture.this, new NumeratorTearDown());
 
-                        for(int i = 0; i < NUM_CENTERS; i++) {
-                            ec.setParameter("id", i + 1);
-                            ec.executeChild(DemoFixture.this, new CenterCreate());
-                        }
+                        for (int i = 0; i < NUM_CENTERS; i++) {
+                            CenterCreate centerCreateFixture = new CenterCreate()
+                                    .id("" + i + 1);
+                            ec.executeChild(DemoFixture.this, centerCreateFixture);
 
-                        /* Add all created centers to the centers List */
-                        getCenters().addAll(
-                                ec.getResults().stream()
-                                        .map(FixtureResult::getObject)
-                                        .filter(c -> c instanceof Center)
-                                        .map(c -> (Center) c)
-                                        .collect(Collectors.toList()));
+                            Center center = centerCreateFixture.center();
+                            AuthenticationDeviceCreate authenticationDeviceCreateFixture = new AuthenticationDeviceCreate()
+                                    .center(center);
+                            ec.executeChild(DemoFixture.this, authenticationDeviceCreateFixture);
 
-                        for(Center center : getCenters()) {
-                            ec.executeChild(DemoFixture.this, new AuthenticationDeviceCreate().center(center));
-                        }
-
-                        for(int i = 0; i < NUM_CARDS; i++) {
-                            Center center = getCenters().get(new Random().nextInt(getCenters().size()));
-
-                            cardNumber = center.nextValidCardNumber();
-
-                            ec.setParameter("number", cardNumber);
-                            ec.executeChild(DemoFixture.this, new CardCreate().center(center));
-                        }
-
-                        for(int i = 0; i < NUM_USERS - NUM_CARD_REQUESTS; i++) {
-                            ec.executeChild(DemoFixture.this, new UserCreate());
-                        }
-                        for(int i = NUM_USERS - NUM_CARD_REQUESTS; i < NUM_USERS; i++) {
-                            ec.setParameter("cardNumber", "");
-                            ec.executeChild(DemoFixture.this, new UserCreate());
-                        }
-
-                        /* Add all created users to the users List */
-                        getUsers().addAll(
-                                ec.getResults().stream()
-                                        .map(FixtureResult::getObject)
-                                        .filter(u -> u instanceof User)
-                                        .map(u -> (User) u)
-                                        .collect(Collectors.toList()));
-
-                        for(int i = 0; i < NUM_CARD_REQUESTS; i++) {
-                            /* Only users without cards can request a card */
-                            List<User> availableUsers = getUsers().stream()
-                                    .filter(u -> u.getCards().isEmpty())
-                                    .collect(Collectors.toList());
-
-                            User requestingUser;
-
-                            if(availableUsers.size() > 0) {
-                                requestingUser = availableUsers.get(new Random().nextInt(availableUsers.size()));
+                            for (int j = 0; j < CARDS_PER_CENTER; j++) {
+                                String cardNumber = center.nextValidCardNumber();
+                                CardCreate cardCreateFixture = new CardCreate()
+                                        .center(center)
+                                        .number(cardNumber);
+                                ec.executeChild(DemoFixture.this, cardCreateFixture);
                             }
-                            /* Unless no such users are available */
-                            else {
-                                requestingUser = getUsers().get(new Random().nextInt(getUsers().size()));
+                            for (int j = 0; j < USERS_WITHOUT_CARDS_PER_CENTER + USERS_WITH_CARDS_PER_CENTER; j++) {
+                                UserCreate userCreateFixture = new UserCreate()
+                                        .center(center);
+                                if (j < USERS_WITHOUT_CARDS_PER_CENTER) {
+                                    userCreateFixture.cardNumber("");
+                                }
+                                ec.executeChild(DemoFixture.this, userCreateFixture);
+
+                                User user = userCreateFixture.user();
+
+                                /* Add card requests and children to all odd users */
+                                if (j % 2 == 1) {
+                                    if (j < CARD_REQUESTS_PER_CENTER * 2) {
+                                        CardRequestCreate cardRequestCreateFixture = new CardRequestCreate()
+                                                .user(user);
+                                        ec.executeChild(DemoFixture.this, cardRequestCreateFixture);
+                                    }
+
+                                    for (int k = 0; k < CHILDREN_PER_USER; k++) {
+                                        ChildCreate childCreateFixture = new ChildCreate()
+                                                .parent(user);
+                                        ec.executeChild(DemoFixture.this, childCreateFixture);
+
+                                        Child child = childCreateFixture.child();
+
+                                        for (int h = 0; h < CLOSED_CHILDCARES_PER_CHILD; h++) {
+                                            ChildCareCreate childCareCreateFixture = new ChildCareCreate()
+                                                    .child(child);
+                                            ec.executeChild(DemoFixture.this, childCareCreateFixture);
+                                        }
+                                    }
+
+                                    if (j < OPEN_CHILDCARES_PER_CENTER) {
+                                        Child child = user.getChildren().first();
+                                        ChildCareCreate childCareCreateFixture = new ChildCareCreate()
+                                                .child(child)
+                                                .checkIn(clockService.nowAsLocalDateTime().minusMinutes(new Random().nextInt(ChildCareCreate.MAX_DURATION)));
+                                        ec.executeChild(DemoFixture.this, childCareCreateFixture);
+                                    }
+                                }
                             }
-
-                            ec.executeChild(DemoFixture.this, new CardRequestCreate().user(requestingUser));
                         }
-
-                        for(int i = 0; i < NUM_CHILDREN; i++) {
-                            ec.executeChild(DemoFixture.this, new ChildCreate());
-                        }
-
-                        for(int i = 0; i < NUM_CHILDCARES - NUM_OPEN_CHILDCARES; i++) {
-                            ec.executeChild(DemoFixture.this, new ChildCareCreate());
-                        }
-                        for(int i = NUM_CHILDCARES - NUM_OPEN_CHILDCARES; i < NUM_CHILDCARES; i++) {
-                            ec.setParameter("checkIn", clockService.nowAsLocalDateTime().minusMinutes(new Random().nextInt(ChildCareCreate.MAX_DURATION)));
-                            ec.executeChild(DemoFixture.this, new ChildCareCreate());
-                        }
-
-                        final MaryHostessFixtureScript maryScript = new MaryHostessFixtureScript();
-                        ec.executeChild(DemoFixture.this, maryScript);
-
-                        Center center = getCenters().get(new Random().nextInt(getCenters().size()));
-                        maryScript.getApplicationUser().setAtPath(center.getAtPath());
 
                         /* Add all created Domain Objects to their respective Lists */
                         List<Object> results  = ec.getResults().stream()
                                 .map(FixtureResult::getObject)
                                 .collect(Collectors.toList());
+
+                        getCenters().addAll(results.stream()
+                                .filter(c -> c instanceof Center)
+                                .map(c -> (Center) c)
+                                .collect(Collectors.toList()));
+
+                        getUsers().addAll(results.stream()
+                                .filter(u -> u instanceof User)
+                                .map(u -> (User) u)
+                                .collect(Collectors.toList()));
 
                         getCards().addAll(results.stream()
                                 .filter(c -> c instanceof Card)
@@ -218,11 +206,15 @@ public class DemoFixture extends FixtureScript {
                                 .filter(c -> c instanceof ChildCare)
                                 .map(c -> (ChildCare) c)
                                 .collect(Collectors.toList()));
+
+                        final MaryHostessFixtureScript maryScript = new MaryHostessFixtureScript();
+                        ec.executeChild(DemoFixture.this, maryScript);
+
+                        Center center = getCenters().get(new Random().nextInt(getCenters().size()));
+                        maryScript.getApplicationUser().setAtPath(center.getAtPath());
                     }
                 });
     }
 
-    @Inject NumeratorRepository numeratorRepository;
-    @Inject CardRepository cardRepository;
     @Inject ClockService clockService;
 }

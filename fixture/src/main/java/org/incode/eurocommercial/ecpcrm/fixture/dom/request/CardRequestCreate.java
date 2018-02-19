@@ -22,7 +22,6 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType;
@@ -47,21 +46,16 @@ public class CardRequestCreate extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-        if(user == null) {
-            user = userRepository.listAll().get(
-                    new Random().nextInt(userRepository.listAll().size()));
-        }
-        if(type == null) {
-            type = CardRequestType.values()[
-                    new Random().nextInt(CardRequestType.values().length)];
-        }
+        if(user == null)
+            user = userRepository.listAll().get(new Random().nextInt(userRepository.listAll().size()));
+        if(type == null)
+            type = CardRequestType.values()[new Random().nextInt(CardRequestType.values().length)];
 
         cardRequest = cardRequestRepository.findOrCreate(user, type);
 
         ec.addResult(this, cardRequest);
     }
 
-    @Inject CardRequestRepository cardRequestRepository;
-    @Inject CardRepository cardRepository;
-    @Inject UserRepository userRepository;
+    @Inject private CardRequestRepository cardRequestRepository;
+    @Inject private UserRepository userRepository;
 }

@@ -1,10 +1,8 @@
-package org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.card;
+package org.incode.eurocommercial.ecpcrm.fixture.dom.authentication;
 
 import java.util.Random;
 
 import javax.inject.Inject;
-
-import com.github.javafaker.Faker;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -40,16 +38,14 @@ public class AuthenticationDeviceCreate extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-        Faker faker = new Faker();
-
-        if(center == null) {
-            center = defaultParam("center", ec,
-                    centerRepository.listAll().get(
-                            new Random().nextInt(centerRepository.listAll().size())));
-        }
-        type = defaultParam("number", ec, AuthenticationDeviceType.APP);
-        name = defaultParam("name", ec, center.getName());
-        secret = defaultParam("secret", ec, center.getCode() + center.getName() + center.getId());
+        if (center == null)
+            center = centerRepository.listAll().get(new Random().nextInt(centerRepository.listAll().size()));
+        if (type == null)
+            type = AuthenticationDeviceType.APP;
+        if (name == null)
+            name = center.getName();
+        if (secret == null)
+            secret = center.getCode() + center.getName() + center.getId();
         active = defaultParam("active", ec, true);
 
         device = wrap(menu).newAuthenticationDevice(center, type, name, secret, active);
@@ -57,6 +53,6 @@ public class AuthenticationDeviceCreate extends FixtureScript {
         ec.addResult(this, device);
     }
 
-    @Inject AuthenticationDeviceMenu menu;
-    @Inject CenterRepository centerRepository;
+    @Inject private AuthenticationDeviceMenu menu;
+    @Inject private CenterRepository centerRepository;
 }

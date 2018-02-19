@@ -72,34 +72,34 @@ public class UserCreate extends FixtureScript {
         Faker faker = new Faker();
 
         enabled = defaultParam("enabled", ec, true);
-        title = defaultParam("title", ec,
-                Title.values()[new Random().nextInt(Title.values().length)]);
-        firstName = defaultParam("firstName", ec, faker.name().firstName());
-        lastName = defaultParam("lastName", ec, faker.name().lastName());
-        email = defaultParam("email", ec,
-                faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase());
-        address = defaultParam("address", ec, faker.address().streetAddress());
-        zipcode = defaultParam("zipcode", ec, faker.address().zipCode());
-        city = defaultParam("city", ec, faker.address().city());
-        phoneNumber = defaultParam("phoneNumber", ec, faker.phoneNumber().cellPhone());
-        center = defaultParam("center", ec,
-                centerRepository.listAll().get(
-                        new Random().nextInt(centerRepository.listAll().size())));
-
-        cardNumber = null;
-        /* Only cards without owners can be asssigned */
-        List<Card> availableCards = cardRepository.findByCenter(center()).stream()
-                .filter(c -> c.getOwner() == null)
-                .collect(Collectors.toList());
-
-        if(availableCards.size() > 0) {
-            cardNumber = defaultParam("cardNumber", ec,
-                    availableCards.get(
-                            new Random().nextInt(availableCards.size())).getNumber());
+        if (title == null)
+            title = Title.values()[new Random().nextInt(Title.values().length)];
+        if (firstName == null)
+            firstName = faker.name().firstName();
+        if (lastName == null)
+            lastName = faker.name().lastName();
+        if (email == null)
+            email = faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase();
+        if (address == null)
+            address = faker.address().streetAddress();
+        if (zipcode == null)
+            zipcode = faker.address().zipCode();
+        if (city == null)
+            city = faker.address().city();
+        if (phoneNumber == null)
+            phoneNumber = faker.phoneNumber().cellPhone();
+        if(center == null)
+            center = centerRepository.listAll().get(new Random().nextInt(centerRepository.listAll().size()));
+        if (cardNumber == null) {
+            List<Card> availableCards = cardRepository.findByCenter(center()).stream()
+                    .filter(c -> c.getOwner() == null)
+                    .collect(Collectors.toList());
+            if (availableCards.size() > 0)
+                cardNumber = availableCards.get(new Random().nextInt(availableCards.size())).getNumber();
         }
-
         promotionalEmails = defaultParam("promotionalEmails", ec, faker.bool().bool());
-        hasCar = defaultParam("hasCar", ec, faker.bool().bool());
+        if (hasCar == null)
+            hasCar = faker.bool().bool();
 
         this.user = wrap(menu).newUser(
                 enabled(),
@@ -121,7 +121,7 @@ public class UserCreate extends FixtureScript {
     }
 
 
-    @Inject UserMenu menu;
-    @Inject CenterRepository centerRepository;
-    @Inject CardRepository cardRepository;
+    @Inject private UserMenu menu;
+    @Inject private CenterRepository centerRepository;
+    @Inject private CardRepository cardRepository;
 }

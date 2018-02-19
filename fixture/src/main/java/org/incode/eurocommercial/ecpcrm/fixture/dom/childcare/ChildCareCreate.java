@@ -27,7 +27,7 @@ public class ChildCareCreate extends FixtureScript {
     public static final int MAX_DURATION = 80;
     public static final int OPEN_HOUR = 8;
     public static final int CLOSE_HOUR = 18;
-    public static final int DATE_RANGE = 3;
+    public static final int MONTH_RANGE = 3;
 
     @Getter @Setter
     private Child child;
@@ -45,27 +45,23 @@ public class ChildCareCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        child = defaultParam("child", ec,
-                childRepository.listAll().get(
-                        new Random().nextInt(childRepository.listAll().size())));
+        if (child == null)
+            child = childRepository.listAll().get(new Random().nextInt(childRepository.listAll().size()));
 
-        Date date = faker.date().between(
-                clockService.now().minusMonths(DATE_RANGE).toDate(),
-                clockService.now().toDate());
+        if (checkIn == null) {
+            Date date = faker.date().between(
+                    clockService.now().minusMonths(MONTH_RANGE).toDate(),
+                    clockService.now().minusDays(1).toDate());
+            checkIn = LocalDateTime.fromDateFields(date)
+                    .plusHours(OPEN_HOUR)
+                    .plusHours(new Random().nextInt(CLOSE_HOUR - OPEN_HOUR))
+                    .plusMinutes(new Random().nextInt(60));
+        }
 
-        checkIn = defaultParam("checkIn", ec,
-                LocalDateTime.fromDateFields(date)
-                        .plusHours(OPEN_HOUR)
-                        .plusHours(new Random().nextInt(CLOSE_HOUR - OPEN_HOUR))
-                        .plusMinutes(new Random().nextInt(60)));
-
-        if(checkIn().plusMinutes(MAX_DURATION).compareTo(clockService.nowAsLocalDateTime()) == 1) {
+        if(checkIn.plusMinutes(MAX_DURATION).isAfter(clockService.nowAsLocalDateTime()))
             checkOut = null;
-        }
-        else {
-            checkOut = defaultParam("checkOut", ec,
-                    checkIn.plusMinutes(new Random().nextInt(MAX_DURATION)));
-        }
+        else
+            checkOut = checkIn.plusMinutes(new Random().nextInt(MAX_DURATION));
 
         child.checkIn();
         childCare = childCareRepository.findActiveChildCareByChild(child);
@@ -75,7 +71,7 @@ public class ChildCareCreate extends FixtureScript {
         ec.addResult(this, childCare());
     }
 
-    @Inject ChildRepository childRepository;
-    @Inject ChildCareRepository childCareRepository;
-    @Inject ClockService clockService;
+    @Inject private ChildRepository childRepository;
+    @Inject private ChildCareRepository childCareRepository;
+    @Inject private ClockService clockService;
 }

@@ -33,19 +33,16 @@ public class CardCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        number = defaultParam("number", ec,
-                "" + faker.number().randomNumber(13, true));
-        if(center == null) {
-            center = defaultParam("center", ec,
-                    centerRepository.listAll().get(
-                            new Random().nextInt(centerRepository.listAll().size())));
-        }
+        if (number == null)
+            number = "" + faker.number().randomNumber(13, true);
+        if(center == null)
+            center = centerRepository.listAll().get(new Random().nextInt(centerRepository.listAll().size()));
 
         card = wrap(menu).newCard(number(), center());
 
         ec.addResult(this, card);
     }
 
-    @Inject CardMenu menu;
-    @Inject CenterRepository centerRepository;
+    @Inject private CardMenu menu;
+    @Inject private CenterRepository centerRepository;
 }

@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-package org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.card;
+package org.incode.eurocommercial.ecpcrm.fixture.dom.authentication;
 
 import javax.inject.Inject;
 

@@ -8,6 +8,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.center.CenterMenu;
+import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,17 +33,21 @@ public class CenterCreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
         Faker faker = new Faker();
 
-        name = defaultParam("name", ec,
-                faker.gameOfThrones().city());
-        code = defaultParam("code", ec,
-                "0" + faker.number().randomNumber(2, true));
-        id = defaultParam("id", ec,
-                "" + faker.number().randomNumber(2, true));
+        if (name == null)
+            name = faker.gameOfThrones().city();
+        if (id == null)
+            id = "" + faker.number().randomNumber(2, true);
+        if (code == null) {
+            do {
+                code = "0" + faker.number().randomNumber(2, true);
+            } while (centerRepository.findByCode(code) != null);
+        }
 
         center = wrap(menu).newCenter(code(), name(), id());
 
         ec.addResult(this, center);
     }
 
-    @Inject CenterMenu menu;
+    @Inject private CenterMenu menu;
+    @Inject private CenterRepository centerRepository;
 }
