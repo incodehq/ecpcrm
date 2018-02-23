@@ -68,9 +68,9 @@ public class DemoFixture extends FixtureScript {
     }
 
     public final int NUM_CENTERS                    = 2;
-    public final int CARDS_PER_CENTER               = 7;
-    public final int USERS_WITH_CARDS_PER_CENTER    = 4;
-    public final int USERS_WITHOUT_CARDS_PER_CENTER = 4;
+    public final int CARDS_PER_CENTER               = 5;
+    public final int USERS_WITH_CARDS_PER_CENTER    = 3;
+    public final int USERS_WITHOUT_CARDS_PER_CENTER = 3;
     public final int CARD_REQUESTS_PER_CENTER       = 2;
     public final int CHILDREN_PER_USER              = 1;
     public final int CLOSED_CHILDCARES_PER_CHILD    = 2;
