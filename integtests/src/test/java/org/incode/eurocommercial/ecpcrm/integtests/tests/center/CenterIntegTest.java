@@ -19,7 +19,6 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.center;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -31,19 +30,16 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CenterIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-    @Inject CenterRepository centerRepository;
+    @Inject private FixtureScripts fixtureScripts;
     @Inject CardRepository cardRepository;
 
     DemoFixture fs;
-
     Center center;
 
     @Before
@@ -52,7 +48,7 @@ public class CenterIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+        center = fs.getCenters().get(0);
         assertThat(center).isNotNull();
     }
 
@@ -60,42 +56,43 @@ public class CenterIntegTest extends EcpCrmIntegTest {
         @Test
         public void it_should_return_only_valid_numbers() {
             // given
-            int testSize = 100;
+            int testSize = 20;
             List<String> cardNumbers = new ArrayList<>();
 
             // when
-            while(cardNumbers.size() < testSize) {
+            while (cardNumbers.size() < testSize) {
                 String cardNumber = center.nextValidCardNumber();
                 cardNumbers.add(cardNumber);
                 cardRepository.newCard(cardNumber, CardStatus.ENABLED, center);
             }
 
             // then
-            cardNumbers.forEach(c ->
-                    assertThat(cardRepository.cardNumberIsValid(c, center.getCode())).isTrue()
-            );
+            for (String number : cardNumbers) {
+                assertThat(cardRepository.cardNumberIsValid(number, center.getCode())).isTrue();
+            }
         }
 
         @Test
         public void it_should_return_all_valid_numbers() {
             // given
-            int testSize = 100;
-            List<String> cardNumbers = new ArrayList<>();
+            int testSize = 20;
+            List<BigInteger> cardNumbers = new ArrayList<>();
 
             // when
-            // when
-            while(cardNumbers.size() < testSize) {
+            while (cardNumbers.size() < testSize) {
                 String cardNumber = center.nextValidCardNumber();
-                cardNumbers.add(cardNumber);
+                cardNumbers.add(new BigInteger(cardNumber));
                 cardRepository.newCard(cardNumber, CardStatus.ENABLED, center);
             }
 
             // then
-            for(int i = 1; i < cardNumbers.size(); i++) {
-                BigInteger start = new BigInteger(cardNumbers.get(i - 1)).add(BigInteger.ONE);
-                BigInteger end = new BigInteger(cardNumbers.get(i));
-                for(BigInteger cardNumber = start; cardNumber.compareTo(end) == -1; cardNumber = cardNumber.add(BigInteger.ONE)) {
-                    assertThat(cardRepository.cardNumberIsValid(cardNumber.toString(), center.getCode())).isFalse();
+            BigInteger start = cardNumbers.get(0);
+            BigInteger end = cardNumbers.get(cardNumbers.size() - 1);
+            BigInteger step = BigInteger.ONE;
+
+            for (BigInteger i = start; i.compareTo(end) < 0; i = i.add(step)) {
+                if (!cardNumbers.contains(i)) {
+                    assertThat(cardRepository.cardNumberIsValid(i.toString(), center.getCode())).isFalse();
                 }
             }
         }
@@ -105,42 +102,44 @@ public class CenterIntegTest extends EcpCrmIntegTest {
         @Test
         public void it_should_return_only_valid_numbers() {
             // given
-            int testSize = 100;
+            int testSize = 20;
             List<String> cardNumbers = new ArrayList<>();
 
             // when
             // when
-            while(cardNumbers.size() < testSize) {
+            while (cardNumbers.size() < testSize) {
                 String cardNumber = center.nextFakeCardNumber();
                 cardNumbers.add(cardNumber);
                 cardRepository.newFakeCard(CardStatus.ENABLED, center);
             }
 
             // then
-            cardNumbers.forEach(c ->
-                    assertThat(cardRepository.cardNumberIsValid(c, center.getCode())).isTrue()
-            );
+            for (String number : cardNumbers) {
+                assertThat(cardRepository.cardNumberIsValid(number, center.getCode())).isTrue();
+            }
         }
 
         @Test
         public void it_should_return_all_valid_numbers() {
             // given
-            int testSize = 100;
-            List<String> cardNumbers = new ArrayList<>();
+            int testSize = 20;
+            List<BigInteger> cardNumbers = new ArrayList<>();
 
             // when
-            while(cardNumbers.size() < testSize) {
+            while (cardNumbers.size() < testSize) {
                 String cardNumber = center.nextFakeCardNumber();
-                cardNumbers.add(cardNumber);
+                cardNumbers.add(new BigInteger(cardNumber));
                 cardRepository.newFakeCard(CardStatus.ENABLED, center);
             }
 
             // then
-            for(int i = 1; i < cardNumbers.size(); i++) {
-                BigInteger start = new BigInteger(cardNumbers.get(i - 1)).add(BigInteger.ONE);
-                BigInteger end = new BigInteger(cardNumbers.get(i));
-                for(BigInteger cardNumber = start; cardNumber.compareTo(end) == -1; cardNumber = cardNumber.add(BigInteger.ONE)) {
-                    assertThat(cardRepository.cardNumberIsValid(cardNumber.toString(), center.getCode())).isFalse();
+            BigInteger start = cardNumbers.get(0);
+            BigInteger end = cardNumbers.get(cardNumbers.size() - 1);
+            BigInteger step = BigInteger.ONE;
+
+            for (BigInteger i = start; i.compareTo(end) < 0; i = i.add(step)) {
+                if (!cardNumbers.contains(i)) {
+                    assertThat(cardRepository.cardNumberIsValid(i.toString(), center.getCode())).isFalse();
                 }
             }
         }
@@ -148,20 +147,20 @@ public class CenterIntegTest extends EcpCrmIntegTest {
         @Test
         public void it_should_return_only_fake_numbers() {
             // given
-            int testSize = 100;
+            int testSize = 20;
             List<String> cardNumbers = new ArrayList<>();
 
             // when
-            while(cardNumbers.size() < testSize) {
+            while (cardNumbers.size() < testSize) {
                 String cardNumber = center.nextFakeCardNumber();
                 cardNumbers.add(cardNumber);
                 cardRepository.newFakeCard(CardStatus.ENABLED, center);
             }
 
             // then
-            cardNumbers.forEach(c ->
-                    assertThat(c.indexOf("987")).isEqualTo(4)
-            );
+            for (String number : cardNumbers) {
+                assertThat(number.indexOf("987")).isEqualTo(4);
+            }
         }
     }
 

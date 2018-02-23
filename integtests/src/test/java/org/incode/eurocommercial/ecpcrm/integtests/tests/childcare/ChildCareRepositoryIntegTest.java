@@ -17,7 +17,6 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.childcare;
 
 import java.util.List;
-import java.util.Random;
 import java.util.TreeSet;
 
 import javax.inject.Inject;
@@ -44,12 +43,9 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject ClockService clockService;
-
     @Inject ChildCareRepository childCareRepository;
-
     @Inject ChildRepository childRepository;
 
     DemoFixture fs;
@@ -61,7 +57,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+        center = fs.getCenters().get(0);
     }
 
     public static class ListAll extends ChildCareRepositoryIntegTest {
@@ -79,7 +75,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_child_has_no_child_cares_no_result_should_be_returned() {
             // given
-            User user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+            User user = fs.getUsers().get(0);
             Child child = childRepository.findOrCreate("Test Child", Gender.MALE, clockService.now().minusYears(8), user);
 
             // when
@@ -92,7 +88,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_child_has_child_cares_they_should_be_returned() {
             // given
-            Child child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
+            Child child = fs.getChildren().get(0);
             childCareRepository.newChildCare(child);
 
             // when
@@ -135,7 +131,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_no_child_cares_in_range_no_results_should_be_returned() {
             // given
-            Child child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
+            Child child = fs.getChildren().get(0);
             LocalDateTime start = clockService.nowAsLocalDateTime().plusYears(50);
             LocalDateTime end = start.plusYears(1);
 
@@ -149,7 +145,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_child_cares_are_in_range_they_should_be_returned() {
             // given
-            Child child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
+            Child child = fs.getChildren().get(0);
             childCareRepository.newChildCare(child);
 
             LocalDateTime start = clockService.nowAsLocalDateTime().minusYears(50);
@@ -167,7 +163,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_child_has_no_child_cares_no_result_is_returned() {
             // given
-            User user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+            User user = fs.getUsers().get(0);
             Child child = childRepository.findOrCreate("Test Child", Gender.MALE, clockService.now().minusYears(8), user);
 
             // when
@@ -180,7 +176,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_child_has_no_active_child_care_no_result_is_returned() {
             // given
-            User user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+            User user = fs.getUsers().get(0);
             Child child = childRepository.findOrCreate("Test Child", Gender.MALE, clockService.now().minusYears(8), user);
             ChildCare childCare = childCareRepository.newChildCare(child);
             childCare.doCheckOut();
@@ -195,7 +191,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_child_has_an_active_child_care_it_is_returned() {
             // given
-            User user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+            User user = fs.getUsers().get(0);
             Child child = childRepository.findOrCreate("Test Child", Gender.MALE, clockService.now().minusYears(8), user);
             childCareRepository.newChildCare(child);
 
@@ -211,8 +207,8 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_no_child_cares_are_active_no_result_is_returned() {
             // given
-            for(ChildCare childCare : fs.getChildCares()) {
-                if(childCare.getCheckOut() == null)
+            for (ChildCare childCare : fs.getChildCares()) {
+                if (childCare.getCheckOut() == null)
                     childCare.doCheckOut();
             }
 
@@ -229,7 +225,7 @@ public class ChildCareRepositoryIntegTest extends EcpCrmIntegTest {
             List<ChildCare> activeChildCares = Lists.newArrayList();
 
             // when
-            for(Center center : fs.getCenters()) {
+            for (Center center : fs.getCenters()) {
                 activeChildCares.addAll(childCareRepository.findActiveChildCares(center));
             }
 

@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
@@ -39,7 +38,7 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardRequestIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
+    @Inject private FixtureScripts fixtureScripts;
     @Inject ClockService clockService;
     @Inject CardRequestRepository cardRequestRepository;
     @Inject CardRepository cardRepository;
@@ -54,15 +53,11 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        cardRequest = fs.getCardRequests().get(
-                new Random().nextInt(fs.getCardRequests().size()));
+        cardRequest = fs.getCardRequests().get(0);
 
         availableUnassignedCards = cardRepository.listUnassignedCards().stream()
                 .filter(c -> c.getCenter() == cardRequest.getRequestingUser().getCenter())
                 .collect(Collectors.toList());
-        if(availableUnassignedCards.isEmpty()) {
-            availableUnassignedCards.add(cardRepository.newCard(null, CardStatus.DISABLED, cardRequest.getRequestingUser().getCenter()));
-        }
         assertThat(cardRequest).isNotNull();
     }
 
@@ -84,7 +79,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_valid_card_request_is_approved_and_card_is_assigned() {
             // given
-            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
+            Card card = availableUnassignedCards.get(0);
 
             // when
             cardRequest.approve(card.getNumber());
@@ -95,10 +90,11 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
             assertThat(cardRequest.getHandleDate()).isNotNull();
         }
 
+        // TODO: What about pick up requests?
         @Test
         public void when_card_is_approved_its_sent_at_is_set() {
             // given
-            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
+            Card card = availableUnassignedCards.get(0);
 
             // when
             cardRequest.approve(card.getNumber());
@@ -152,7 +148,7 @@ public class CardRequestIntegTest extends EcpCrmIntegTest {
         public void when_card_is_valid_when_reapproving_card_request_is_approved_and_card_is_assigned() {
             // given
             cardRequest.deny();
-            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
+            Card card = availableUnassignedCards.get(0);
 
             // when
             cardRequest.reapprove(card.getNumber());

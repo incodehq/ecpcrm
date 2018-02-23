@@ -17,7 +17,6 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.child;
 
 import java.util.List;
-import java.util.Random;
 import java.util.TreeSet;
 
 import javax.inject.Inject;
@@ -36,8 +35,7 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject ChildRepository childRepository;
 
     DemoFixture fs;
@@ -65,10 +63,10 @@ public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_no_children_no_result_should_be_returned() {
             // given
-            User user;
-            do {
-                user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
-            } while(!user.getChildren().isEmpty());
+            User user = fs.getUsers().stream()
+                    .filter(u -> u.getChildren().isEmpty())
+                    .findAny()
+                    .get();
 
             // when
             List<Child> noChildren = childRepository.findByParent(user);
@@ -80,8 +78,7 @@ public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_children_they_should_be_returned() {
             // given
-            User user = fs.getChildren().get(
-                    new Random().nextInt(fs.getChildren().size())).getParent();
+            User user = fs.getChildren().get(0).getParent();
 
             // when
             List<Child> children = childRepository.findByParent(user);
@@ -96,10 +93,10 @@ public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_no_children_no_result_should_be_returned() {
             // given
-            User user;
-            do {
-                user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
-            } while(!user.getChildren().isEmpty());
+            User user = fs.getUsers().stream()
+                    .filter(u -> u.getChildren().isEmpty())
+                    .findAny()
+                    .get();
             String childName = "Bob";
 
             // when
@@ -112,9 +109,8 @@ public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_children_but_not_this_one_no_result_should_be_returned() {
             // given
-            Child child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
-            User user = child.getParent();
-            String childName = child.getName() + child.getName().substring(2);
+            User user = fs.getChildren().get(0).getParent();
+            String childName = "Not an actual child name";
 
             // when
             Child foundChild = childRepository.findByParentAndName(user, childName);
@@ -126,7 +122,7 @@ public class ChildRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_specified_child_it_should_be_returned() {
             // given
-            Child child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
+            Child child = fs.getChildren().get(0);
             User user = child.getParent();
 
             // when

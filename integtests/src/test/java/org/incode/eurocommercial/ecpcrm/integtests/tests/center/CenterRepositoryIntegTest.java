@@ -17,7 +17,6 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.center;
 
 import java.util.List;
-import java.util.Random;
 import java.util.TreeSet;
 
 import javax.inject.Inject;
@@ -35,12 +34,10 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject CenterRepository centerRepository;
 
     DemoFixture fs;
-
     Center center;
 
     @Before
@@ -49,7 +46,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
+        center = fs.getCenters().get(0);
         assertThat(center).isNotNull();
     }
 
@@ -66,7 +63,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByExactName extends CenterRepositoryIntegTest {
         @Test
-        public void when_center_doesnt_exist_no_center_should_be_returned() {
+        public void when_center_does_not_exist_no_center_should_be_returned() {
             // given
             String centerName = "This is not the name of an actual Center";
 
@@ -89,7 +86,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByNameContains extends CenterRepositoryIntegTest {
         @Test
-        public void when_center_doesnt_exist_no_center_should_be_returned() {
+        public void when_center_does_not_exist_no_center_should_be_returned() {
             // given
             String centerName = "This is not the name of an actual Center";
 
@@ -97,7 +94,7 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
             List<Center> foundCenters = centerRepository.findByNameContains(centerName);
 
             // then
-            assertThat(foundCenters.size()).isZero();
+            assertThat(foundCenters).isEmpty();
         }
 
         @Test
@@ -116,13 +113,13 @@ public class CenterRepositoryIntegTest extends EcpCrmIntegTest {
             List<Center> foundCenters = centerRepository.findByNameContains("");
 
             // then
-            assertThat(foundCenters.size()).isGreaterThan(1);
+            assertThat(foundCenters).isEqualTo(centerRepository.listAll());
         }
     }
 
     public static class FindByCode extends CenterRepositoryIntegTest {
         @Test
-        public void when_center_doesnt_exist_no_center_should_be_returned() {
+        public void when_center_does_not_exist_no_center_should_be_returned() {
             // given
             String centerCode = "This is not the code of an actual Center";
 

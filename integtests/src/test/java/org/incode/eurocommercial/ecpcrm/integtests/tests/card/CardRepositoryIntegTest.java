@@ -18,7 +18,6 @@ package org.incode.eurocommercial.ecpcrm.integtests.tests.card;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Random;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -28,13 +27,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
 import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
@@ -42,19 +39,11 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardRepositoryIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
-    @Inject ClockService clockService;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject CardRepository cardRepository;
-    @Inject CenterRepository centerRepository;
 
     DemoFixture fs;
-
     Center center;
-
-    String startNumber;
-    int batchSize;
 
     @Before
     public void setUp() throws Exception {
@@ -62,12 +51,8 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));
-
+        center = fs.getCenters().get(0);
         assertThat(center).isNotNull();
-
-        startNumber = "2" + center.getCode() + "000000000";
-        batchSize = 1000;
     }
 
     public static class ListAll extends CardRepositoryIntegTest {
@@ -85,31 +70,24 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Before
         public void setUpEnabledCardsWithoutOwner() {
             // given
-            for(Card c : cardRepository.findByOwner(null)) {
-                if(new Random().nextInt(10) > 6) {
-                    c.setStatus(CardStatus.ENABLED);
+            int cardsToSetup = 3;
+            for (Card c : cardRepository.findByOwner(null)) {
+                c.setStatus(CardStatus.ENABLED);
+                cardsToSetup--;
+                if (cardsToSetup <= 0) {
+                    break;
                 }
             }
         }
 
         @Test
-        public void all_returned_cards_should_have_no_owner() {
+        public void all_returned_cards_should_be_enabled_andwithout_owner() {
             // when
             List<Card> allEnabledCardsWithoutOwner = cardRepository.allEnabledCardsWithoutOwner();
 
             // then
-            for(Card c : allEnabledCardsWithoutOwner) {
+            for (Card c : allEnabledCardsWithoutOwner) {
                 assertThat(c.getOwner()).isNull();
-            }
-        }
-
-        @Test
-        public void all_returned_cards_should_be_enabled() {
-            // when
-            List<Card> allEnabledCardsWithoutOwner = cardRepository.allEnabledCardsWithoutOwner();
-
-            // then
-            for(Card c : allEnabledCardsWithoutOwner) {
                 assertThat(c.getStatus()).isEqualTo(CardStatus.ENABLED);
             }
         }
@@ -133,12 +111,14 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class ListUnassignedCards extends CardRepositoryIntegTest {
         @Test
-        public void only_unassigned_cards_should_be_returned() {
+        public void all_returned_cards_should_be_unassigned() {
             // when
             List<Card> unassignedCards = cardRepository.listUnassignedCards();
 
             // then
-            unassignedCards.forEach(c -> assertThat(c.getOwner()).isNull());
+            for (Card c : unassignedCards) {
+                assertThat(c.getOwner()).isNull();
+            }
         }
 
         @Test
@@ -148,16 +128,18 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
             // when
             List<Card> unassignedCards = cardRepository.listUnassignedCards();
+            cardList.removeAll(unassignedCards);
 
             // then
-            cardList.removeAll(unassignedCards);
-            cardList.forEach(c -> assertThat(c.getOwner()).isNotNull());
+            for (Card c : cardList) {
+                assertThat(c.getOwner()).isNotNull();
+            }
         }
     }
 
     public static class FindByExactNumber extends CardRepositoryIntegTest {
         @Test
-        public void when_card_doesnt_exist_no_card_should_be_returned() {
+        public void when_card_does_not_exist_no_card_should_be_returned() {
             // given
             String cardNumber = "100";
 
@@ -171,19 +153,19 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_exists_it_should_be_returned() {
             // given
-            Card randomCard = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
+            Card card = fs.getCards().get(0);
 
             // when
-            Card foundCard = cardRepository.findByExactNumber(randomCard.getNumber());
+            Card foundCard = cardRepository.findByExactNumber(card.getNumber());
 
             // then
-            assertThat(foundCard).isEqualTo(randomCard);
+            assertThat(foundCard).isEqualTo(card);
         }
     }
 
     public static class FindByNumberContains extends CardRepositoryIntegTest {
         @Test
-        public void when_nonexisting_number_is_entered_no_result_should_be_returned() {
+        public void when_card_does_not_exist_no_card_should_be_returned() {
             // given
             String cardNumber = "1000000000000";
 
@@ -191,20 +173,20 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> foundCards = cardRepository.findByNumberContains(cardNumber);
 
             // then
-            assertThat(foundCards.size()).isZero();
+            assertThat(foundCards).isEmpty();
         }
 
         @Test
         public void when_entire_number_is_entered_single_result_should_be_returned() {
             // given
-            Card randomCard = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
+            Card card = fs.getCards().get(0);
 
             // when
-            List<Card> foundCards = cardRepository.findByNumberContains(randomCard.getNumber());
+            List<Card> foundCards = cardRepository.findByNumberContains(card.getNumber());
 
             // then
             assertThat(foundCards.size()).isEqualTo(1);
-            assertThat(foundCards.get(0)).isEqualTo(randomCard);
+            assertThat(foundCards.get(0)).isEqualTo(card);
         }
 
         @Test
@@ -216,7 +198,6 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> foundCards = cardRepository.findByNumberContains(cardNumber);
 
             // then
-            assertThat(foundCards.size()).isEqualTo(fs.CARDS_PER_CENTER * fs.NUM_CENTERS);
             assertThat(foundCards).isEqualTo(fs.getCards());
         }
     }
@@ -228,7 +209,9 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
             List<Card> centerCards = cardRepository.findByCenter(center);
 
             // then
-            centerCards.forEach(c -> assertThat(c.getCenter()).isEqualTo(center));
+            for (Card c : centerCards) {
+                assertThat(c.getCenter()).isEqualTo(center);
+            }
         }
 
         @Test
@@ -238,10 +221,12 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
             // when
             List<Card> centerCards = cardRepository.findByCenter(center);
+            cardList.removeAll(centerCards);
 
             // then
-            cardList.removeAll(centerCards);
-            cardList.forEach(c -> assertThat(c.getCenter()).isNotEqualTo(center));
+            for (Card c : cardList) {
+                assertThat(c.getCenter()).isNotEqualTo(center);
+            }
         }
     }
 
@@ -249,11 +234,10 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
         @Test
         public void if_user_has_cards_they_should_be_returned() {
             // given
-            List<Card> cardsWithOwners = fs.getCards().stream()
+            Card cardWithOwner = fs.getCards().stream()
                     .filter(c -> c.getOwner() != null)
-                    .collect(Collectors.toList());
-
-            Card cardWithOwner = cardsWithOwners.get(new Random().nextInt(cardsWithOwners.size()));
+                    .findAny()
+                    .get();
 
             // when
             List<Card> foundCards = cardRepository.findByOwner(cardWithOwner.getOwner());
@@ -287,7 +271,7 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
             // then
             assertThat(card).isNull();
-            assertThat(allCards).isEqualTo(cardRepository.listAll());
+            assertThat(cardRepository.listAll()).isEqualTo(allCards);
         }
 
         @Test
@@ -301,12 +285,13 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
             // then
             assertThat(card).isNotNull();
-            assertThat(allCards.size() + 1).isEqualTo(cardRepository.listAll().size());
+            assertThat(cardRepository.listAll().size()).isEqualTo(allCards.size() + 1);
         }
 
         @Test
         public void when_no_card_number_is_passed_a_new_valid_card_is_created() {
             // given
+            String expectedNumber = center.nextValidCardNumber();
             List<Card> allCards = cardRepository.listAll();
 
             // when
@@ -314,53 +299,53 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
             // then
             assertThat(card).isNotNull();
-            assertThat(allCards.size() + 1).isEqualTo(cardRepository.listAll().size());
-        }
-
-        @Test
-        public void when_a_card_is_created_its_created_at_is_set() {
-            // given
-            String number = center.nextValidCardNumber();
-
-            // when
-            Card card = cardRepository.newCard(number, CardStatus.ENABLED, center);
-
-            // then
-            assertThat(card.getCreatedAt().toLocalDate()).isEqualTo(clockService.now());
+            assertThat(card.getNumber()).isEqualTo(expectedNumber);
+            assertThat(cardRepository.listAll().size()).isEqualTo(allCards.size() + 1);
         }
     }
 
     public static class NewBatch extends CardRepositoryIntegTest {
-        // given
-        private CardStatus status = CardStatus.ENABLED;
-
         @Test
         public void all_cards_in_batch_are_valid() {
+            // given
+            String startNumber = center.nextValidCardNumber();
+            int batchSize = 100;
+
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, CardStatus.ENABLED, center);
 
             // then
-            createdCards.forEach(c -> assertThat(
-                    cardRepository.cardNumberIsValid(c.getNumber(), center.getCode())));
+            for (Card c : createdCards) {
+                assertThat(cardRepository.cardNumberIsValid(c.getNumber(), center.getCode())).isTrue();
+            }
         }
 
         @Test
         public void all_card_numbers_come_after_start_number() {
+            // given
+            String startNumber = center.nextValidCardNumber();
+            int batchSize = 100;
+
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, CardStatus.ENABLED, center);
 
             // then
-            List<BigInteger> numbers = createdCards.stream()
+            BigInteger minNumber = createdCards.stream()
                     .map(c -> new BigInteger(c.getNumber()))
                     .sorted()
-                    .collect(Collectors.toList());
-            assertThat(numbers.get(0)).isGreaterThanOrEqualTo(new BigInteger(startNumber));
+                    .collect(Collectors.toList())
+                    .get(0);
+            assertThat(minNumber).isGreaterThanOrEqualTo(new BigInteger(startNumber));
         }
 
         @Test
         public void correct_number_of_cards_are_created() {
+            // given
+            String startNumber = center.nextValidCardNumber();
+            int batchSize = 100;
+
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, CardStatus.ENABLED, center);
 
             // then
             assertThat(createdCards.size()).isEqualTo(batchSize);
@@ -368,12 +353,18 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
 
         @Test
         public void all_cards_are_being_persisted() {
+            // given
+            String startNumber = center.nextValidCardNumber();
+            int batchSize = 100;
+
             // when
-            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, status, center);
+            List<Card> createdCards = cardRepository.newBatch(startNumber, batchSize, CardStatus.ENABLED, center);
 
             // then
-            createdCards.forEach(card -> assertThat(
-                    cardRepository.listAll()).contains(card));
+            List<Card> allCards = cardRepository.listAll();
+            for (Card c : createdCards) {
+                assertThat(allCards).contains(c);
+            }
         }
     }
 

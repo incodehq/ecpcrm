@@ -17,7 +17,6 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
 import java.util.List;
-import java.util.Random;
 import java.util.TreeSet;
 
 import javax.inject.Inject;
@@ -38,12 +37,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserRepositoryIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
-
     @Inject UserRepository userRepository;
     @Inject CenterRepository centerRepository;
 
     DemoFixture fs;
-
     User user;
 
     @Before
@@ -52,7 +49,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+        user = fs.getUsers().get(0);
         assertThat(user).isNotNull();
     }
 
@@ -69,7 +66,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByExactEmailAndCenter extends UserRepositoryIntegTest {
         @Test
-        public void when_user_doesnt_exist_no_user_should_be_returned() {
+        public void when_user_does_not_exist_no_user_should_be_returned() {
             // given
             String userEmail = "This is not the email of an actual User";
             Center center = user.getCenter();
@@ -94,7 +91,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         public void when_user_exists_but_not_for_given_center_no_user_should_be_returned() {
             // given
             int centerCode = 10;
-            while(centerRepository.findByCode("0" + centerCode) != null) {
+            while (centerRepository.findByCode("0" + centerCode) != null) {
                 centerCode++;
             }
             Center center = centerRepository.findOrCreate("0" + centerCode, "New Center", "" + centerCode);
@@ -112,7 +109,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
         public void when_center_has_no_users_no_users_should_be_returned() {
             // given
             int centerCode = 10;
-            while(centerRepository.findByCode("0" + centerCode) != null) {
+            while (centerRepository.findByCode("0" + centerCode) != null) {
                 centerCode++;
             }
             Center center = centerRepository.findOrCreate("0" + centerCode, "New Center", "" + centerCode);
@@ -133,7 +130,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
             List<User> foundUsers = userRepository.findByCenter(center);
 
             // then
-            for(User foundUser : foundUsers) {
+            for (User foundUser : foundUsers) {
                 assertThat(foundUser.getCenter()).isEqualTo(center);
             }
         }
@@ -157,7 +154,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByEmaiLContains extends UserRepositoryIntegTest {
         @Test
-        public void when_user_doesnt_exist_no_user_should_be_returned() {
+        public void when_user_does_not_exist_no_user_should_be_returned() {
             // given
             String userEmail = "This is not the email of an actual User";
 
@@ -190,7 +187,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByNameContains extends UserRepositoryIntegTest {
         @Test
-        public void when_user_doesnt_exist_no_user_should_be_returned() {
+        public void when_user_does_not_exist_no_user_should_be_returned() {
             // given
             String userName = "This is not the name of an actual User";
 
@@ -224,7 +221,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByFirstAndLastName extends UserRepositoryIntegTest {
         @Test
-        public void when_user_doesnt_exist_no_user_should_be_returned() {
+        public void when_user_does_not_exist_no_user_should_be_returned() {
             // given
             String userName = "This is not the name of an actual User";
 
@@ -268,7 +265,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
 
     public static class FindByReference extends UserRepositoryIntegTest {
         @Test
-        public void when_user_doesnt_exist_no_user_should_be_returned() {
+        public void when_user_does_not_exist_no_user_should_be_returned() {
             // given
             String userReference = "This is not the reference of an actual User";
 

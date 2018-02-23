@@ -17,7 +17,6 @@
 package org.incode.eurocommercial.ecpcrm.integtests.tests.user;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -44,8 +43,7 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject ClockService clockService;
     @Inject CardRepository cardRepository;
     @Inject ChildRepository childRepository;
@@ -61,15 +59,12 @@ public class UserIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        user = fs.getUsers().get(new Random().nextInt(fs.getUsers().size()));
+        user = fs.getUsers().get(0);
 
         availableUnassignedCards = cardRepository.listUnassignedCards().stream()
                 .filter(c -> c.getCenter() == user.getCenter())
                 .collect(Collectors.toList());
         /* Make sure that there is at least one available card */
-        if(availableUnassignedCards.isEmpty()) {
-            availableUnassignedCards.add(cardRepository.newCard(null, CardStatus.DISABLED, user.getCenter()));
-        }
 
         availableAssignedCards = fs.getCards().stream()
                 .filter(c -> c.getOwner() != null && c.getOwner() != user && c.getCenter() == user.getCenter())
@@ -81,7 +76,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
     public static class NewCard extends UserIntegTest {
 
         @Test
-        public void when_card_number_is_invalid_it_isnt_assigned() {
+        public void when_card_number_is_invalid_it_is_not_assigned() {
             // given
             List<Card> cardsFromListAll = cardRepository.listAll();
             List<Card> cardsFromQuery = cardRepository.findByOwner(user);
@@ -99,7 +94,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_number_is_valid_but_card_doesnt_exist_it_is_created_and_assigned() {
+        public void when_card_number_is_valid_but_card_does_not_exist_it_is_created_and_assigned() {
             // given
             List<Card> cardsFromListAll = cardRepository.listAll();
             List<Card> cardsFromQuery = cardRepository.findByOwner(user);
@@ -126,10 +121,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_already_assigned_to_user_nothing_changes() {
             // given
-            List<User> usersWithCards = fs.getUsers().stream()
+            user = fs.getUsers().stream()
                     .filter(u -> !u.getCards().isEmpty())
-                    .collect(Collectors.toList());
-            user = usersWithCards.get(new Random().nextInt(usersWithCards.size()));
+                    .findAny()
+                    .get();
 
             Card card = user.getCards().first();
             card.unenable();
@@ -155,7 +150,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
             List<Card> cardsFromQuery = cardRepository.findByOwner(user);
             List<Card> cardsOnUser = Lists.newArrayList(user.getCards());
 
-            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
+            Card card = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == user.getCenter())
+                    .findAny()
+                    .get();
 
             // when
             user.newCard(card.getNumber());
@@ -172,9 +170,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_was_assigned_to_another_user_nothing_happens() {
             // given
-            List<Card> cardsFromListAll = cardRepository.listAll();
-
-            Card card = availableAssignedCards.get(new Random().nextInt(availableAssignedCards.size()));
+            Card card = fs.getCards().stream()
+                    .filter(c -> c.getOwner() != null && c.getOwner() != user && c.getCenter() == user.getCenter())
+                    .findAny()
+                    .get();
 
             User firstOwner = card.getOwner();
 
@@ -192,7 +191,11 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_assigned_to_user_its_given_at_is_set() {
             // given
-            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
+            Card card = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == user.getCenter())
+                    .findAny()
+                    .get();
+
 
             // when
             user.newCard(card.getNumber());
@@ -204,7 +207,10 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_is_assigned_to_user_its_sent_at_is_not_set() {
             // given
-            Card card = availableUnassignedCards.get(new Random().nextInt(availableUnassignedCards.size()));
+            Card card = cardRepository.listUnassignedCards().stream()
+                    .filter(c -> c.getCenter() == user.getCenter())
+                    .findAny()
+                    .get();
 
             // when
             user.newCard(card.getNumber());
@@ -218,10 +224,11 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_no_children_a_new_child_is_created() {
             // given
-            List<User> usersWithoutChildren = fs.getUsers().stream()
+            user = fs.getUsers().stream()
                     .filter(u -> u.getChildren().isEmpty())
-                    .collect(Collectors.toList());
-            user = usersWithoutChildren.get(new Random().nextInt(usersWithoutChildren.size()));
+                    .findAny()
+                    .get();
+
             String childName = "Bob";
             LocalDate date = clockService.now();
 
@@ -236,7 +243,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_user_has_some_children_but_not_this_one_it_is_created() {
             // given
-            User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
+            user = fs.getChildren().get(0).getParent();
             int numberOfChildren = user.getChildren().size();
             Child child = user.getChildren().first();
             String childName = child.getName().substring(2) + child.getName();
@@ -253,7 +260,7 @@ public class UserIntegTest extends EcpCrmIntegTest {
 
         @Test
         public void when_child_already_exists_for_user_no_new_child_is_created() {
-            User user = fs.getChildren().get(new Random().nextInt(fs.getChildren().size())).getParent();
+            user = fs.getChildren().get(0).getParent();
             int numberOfChildren = user.getChildren().size();
             Child child = user.getChildren().first();
 

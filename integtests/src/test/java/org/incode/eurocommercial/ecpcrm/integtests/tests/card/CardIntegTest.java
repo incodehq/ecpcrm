@@ -16,8 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.card;
 
-import java.util.Random;
-
 import javax.inject.Inject;
 
 import org.junit.Before;
@@ -36,12 +34,9 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject ClockService clockService;
-
     @Inject CardGameRepository cardGameRepository;
-
 
     DemoFixture fs;
     Card card;
@@ -52,7 +47,7 @@ public class CardIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
+        card = fs.getCards().get(0);
         assertThat(card).isNotNull();
     }
 
@@ -60,10 +55,11 @@ public class CardIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_has_not_played_and_is_enabled_it_can_play() throws Exception {
             // given
+            card = fs.getCards().stream()
+                    .filter(c -> cardGameRepository.findByCardAndDate(c, clockService.now()) == null)
+                    .findAny()
+                    .get();
             card.setStatus(CardStatus.ENABLED);
-            while(cardGameRepository.findByCardAndDate(card, clockService.now()) != null) {
-                card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
-            }
 
             // when
             boolean canPlay = card.canPlay();
@@ -73,7 +69,7 @@ public class CardIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_has_played_it_cant_play() throws Exception {
+        public void when_card_has_played_it_can_not_play() throws Exception {
             // given
             card.setStatus(CardStatus.ENABLED);
             card.play();
@@ -86,15 +82,17 @@ public class CardIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_is_disabled_or_lost_it_cant_play() throws Exception {
+        public void when_card_is_disabled_or_lost_it_can_not_play() throws Exception {
             // given
-            while(cardGameRepository.findByCardAndDate(card, clockService.now()) != null) {
-                card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
-            }
+            card = fs.getCards().stream()
+                    .filter(c -> cardGameRepository.findByCardAndDate(c, clockService.now()) == null)
+                    .findAny()
+                    .get();
 
             // when
             card.setStatus(CardStatus.DISABLED);
             boolean canPlayWhenDisabled = card.canPlay();
+
             card.setStatus(CardStatus.LOST);
             boolean canPlayWhenLost = card.canPlay();
 
@@ -106,9 +104,10 @@ public class CardIntegTest extends EcpCrmIntegTest {
         @Test
         public void when_card_can_play_and_plays_a_card_game_is_created() throws Exception {
             // given
-            while(!card.canPlay()) {
-                card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
-            }
+            card = fs.getCards().stream()
+                    .filter(Card::canPlay)
+                    .findAny()
+                    .get();
 
             // when
             CardGame cardGame = card.play();
@@ -121,16 +120,16 @@ public class CardIntegTest extends EcpCrmIntegTest {
         }
 
         @Test
-        public void when_card_cant_play_and_plays_no_card_game_is_created() throws Exception {
+        public void when_card_can_not_play_and_plays_no_card_game_is_created() throws Exception {
             // given
-            CardGame cardGame = card.play();
+            card.play();
             int sizeOnCard = card.getCardGames().size();
             int sizeOnRepository = cardGameRepository.listAll().size();
 
             assertThat(card.canPlay()).isFalse();
 
             // when
-            cardGame = card.play();
+            CardGame cardGame = card.play();
 
             // then
             assertThat(cardGame).isNull();

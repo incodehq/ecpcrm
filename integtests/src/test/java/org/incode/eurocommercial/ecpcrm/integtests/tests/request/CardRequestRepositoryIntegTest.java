@@ -35,8 +35,7 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject CardRequestRepository cardRequestRepository;
     @Inject ClockService clockService;
 
@@ -67,7 +66,9 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
             List<CardRequest> openRequests = cardRequestRepository.listOpenRequests();
 
             // then
-            openRequests.forEach(c -> assertThat(c.getApproved()).isNull());
+            for (CardRequest r : openRequests) {
+                assertThat(r.getApproved()).isNull();
+            }
         }
 
         @Test
@@ -80,7 +81,10 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
 
             // then
             cardRequestList.removeAll(openRequests);
-            cardRequestList.forEach(c -> assertThat(c.getApproved()).isNotNull());
+
+            for (CardRequest r : cardRequestList) {
+                assertThat(r.getApproved()).isNotNull();
+            }
         }
     }
 
@@ -95,8 +99,9 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
             List<CardRequest> recentRequests = cardRequestRepository.listRecentlyIssuedRequests();
 
             // then
-            recentRequests.forEach(c -> assertThat(
-                    c.getIssueDate()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusDays(7)));
+            for (CardRequest r : recentRequests) {
+                assertThat(r.getIssueDate()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusDays(7));
+            }
             assertThat(recentRequests).doesNotContain(oldRequest);
         }
 
@@ -112,8 +117,9 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
 
             // then
             allRequests.removeAll(recentRequests);
-            allRequests.forEach(c -> assertThat(
-                    c.getIssueDate()).isLessThan(clockService.nowAsLocalDateTime().minusDays(7)));
+            for (CardRequest r : allRequests) {
+                assertThat(r.getIssueDate()).isLessThan(clockService.nowAsLocalDateTime().minusDays(7));
+            }
             assertThat(allRequests).contains(oldRequest);
         }
     }
@@ -129,8 +135,9 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
             List<CardRequest> recentRequests = cardRequestRepository.listRecentlyHandledRequests();
 
             // then
-            recentRequests.forEach(c -> assertThat(
-                    c.getHandleDate()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusDays(7)));
+            for (CardRequest r : recentRequests) {
+                assertThat(r.getHandleDate()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusDays(7));
+            }
             assertThat(recentRequests).doesNotContain(oldRequest);
         }
 
@@ -146,8 +153,8 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
 
             // then
             allRequests.removeAll(recentRequests);
-            for(CardRequest request : allRequests) {
-                if(request.getHandleDate() != null) {
+            for (CardRequest request : allRequests) {
+                if (request.getHandleDate() != null) {
                     assertThat(request.getHandleDate())
                             .isLessThan(clockService.nowAsLocalDateTime().minusDays(7));
                 }

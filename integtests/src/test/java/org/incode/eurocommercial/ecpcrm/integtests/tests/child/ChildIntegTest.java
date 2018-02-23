@@ -16,7 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.child;
 
-import java.util.Random;
 import java.util.SortedSet;
 
 import javax.inject.Inject;
@@ -30,7 +29,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
-import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
@@ -41,12 +39,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ChildIntegTest extends EcpCrmIntegTest {
     @Inject FixtureScripts fixtureScripts;
     @Inject TransactionService transactionService;
-
-    @Inject ChildRepository childRepository;
     @Inject ChildCareRepository childCareRepository;
 
     DemoFixture fs;
-
     Child child;
 
     @Before
@@ -55,7 +50,7 @@ public class ChildIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
+        child = fs.getChildren().get(0);
     }
 
     public static class CheckIn extends ChildIntegTest {

@@ -182,10 +182,10 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
         // given
         Center otherCenter = fs.getCenters().stream()
                 .filter(c -> !c.equals(center))
-                .findFirst().get();
+                .findAny().get();
         Card otherCard = cardRepository.findByCenter(otherCenter).stream()
                 .filter(card -> card.getStatus() != CardStatus.DISABLED)
-                .findFirst().get();
+                .findAny().get();
 
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();

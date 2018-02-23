@@ -16,8 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.childcare;
 
-import java.util.Random;
-
 import javax.inject.Inject;
 
 import org.joda.time.LocalDateTime;
@@ -28,7 +26,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
-import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
@@ -37,13 +34,9 @@ import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChildCareIntegTest extends EcpCrmIntegTest {
-    @Inject FixtureScripts fixtureScripts;
-
+    @Inject private FixtureScripts fixtureScripts;
     @Inject ClockService clockService;
-
     @Inject ChildCareRepository childCareRepository;
-
-    @Inject ChildRepository childRepository;
 
     DemoFixture fs;
     Child child;
@@ -54,21 +47,21 @@ public class ChildCareIntegTest extends EcpCrmIntegTest {
         fs = new DemoFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
-        child = fs.getChildren().get(new Random().nextInt(fs.getChildren().size()));
+        child = fs.getChildren().get(0);
     }
 
     public static class DoCheckOut extends ChildCareIntegTest {
         @Test
-        public void if_child_care_is_not_checked_out_it_is_checked_out() {
+        public void if_child_care_was_not_checked_out_it_is_checked_out() {
             // given
             ChildCare childCare = childCareRepository.newChildCare(child);
+            assertThat(childCare.getCheckOut()).isNull();
 
             // when
             childCare.doCheckOut();
 
             //then
-            assertThat(childCare.getCheckOut()).isGreaterThanOrEqualTo(clockService.nowAsLocalDateTime().minusSeconds(10));
-            assertThat(childCare.getCheckOut()).isLessThanOrEqualTo(clockService.nowAsLocalDateTime());
+            assertThat(childCare.getCheckOut()).isNotNull();
         }
 
         @Test
