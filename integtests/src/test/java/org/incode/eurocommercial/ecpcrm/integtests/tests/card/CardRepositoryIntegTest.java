@@ -33,7 +33,7 @@ import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,13 +42,13 @@ public class CardRepositoryIntegTest extends EcpCrmIntegTest {
     @Inject private FixtureScripts fixtureScripts;
     @Inject CardRepository cardRepository;
 
-    DemoFixture fs;
+    IntegTestFixture fs;
     Center center;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new DemoFixture();
+        fs = new IntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         center = fs.getCenters().get(0);

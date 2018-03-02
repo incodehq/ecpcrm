@@ -17,20 +17,20 @@
  *  under the License.
  */
 
-package org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo;
+package org.incode.eurocommercial.ecpcrm.fixture.scenarios.test;
 
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.EcpCrmFixture;
 
-public class DemoFixture extends EcpCrmFixture {
-    public DemoFixture() {
+public class IntegTestFixture extends EcpCrmFixture {
+    public IntegTestFixture() {
         super();
-        NUM_CENTERS = 5;
-        CARDS_PER_CENTER = 10;
-        USERS_WITH_CARDS_PER_CENTER = 10;
-        USERS_WITHOUT_CARDS_PER_CENTER = 10;
-        CARD_REQUESTS_PER_CENTER = 5;
-        CHILDREN_PER_USER = 2;
+        NUM_CENTERS = 2;
+        CARDS_PER_CENTER = 5;
+        USERS_WITH_CARDS_PER_CENTER = 3;
+        USERS_WITHOUT_CARDS_PER_CENTER = 3;
+        CARD_REQUESTS_PER_CENTER = 2;
+        CHILDREN_PER_USER = 1;
         CLOSED_CHILDCARES_PER_CHILD = 2;
-        OPEN_CHILDCARES_PER_CENTER = 5;
+        OPEN_CHILDCARES_PER_CENTER = 2;
     }
 }

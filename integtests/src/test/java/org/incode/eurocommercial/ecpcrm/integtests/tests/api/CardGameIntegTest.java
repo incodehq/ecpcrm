@@ -38,7 +38,7 @@ import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.game.CardGame;
 import org.incode.eurocommercial.ecpcrm.dom.game.CardGameRepository;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,7 +54,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
 
     @Inject ApiService apiService;
 
-    private DemoFixture fs;
+    private IntegTestFixture fs;
     private Card card;
     private Center center;
     private AuthenticationDevice device;
@@ -63,7 +63,7 @@ public class CardGameIntegTest extends EcpCrmIntegTest {
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new DemoFixture();
+        fs = new IntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));

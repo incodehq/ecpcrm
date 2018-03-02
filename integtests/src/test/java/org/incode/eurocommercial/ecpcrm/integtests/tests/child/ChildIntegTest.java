@@ -31,7 +31,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,13 +41,13 @@ public class ChildIntegTest extends EcpCrmIntegTest {
     @Inject TransactionService transactionService;
     @Inject ChildCareRepository childCareRepository;
 
-    DemoFixture fs;
+    IntegTestFixture fs;
     Child child;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new DemoFixture();
+        fs = new IntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         child = fs.getChildren().get(0);

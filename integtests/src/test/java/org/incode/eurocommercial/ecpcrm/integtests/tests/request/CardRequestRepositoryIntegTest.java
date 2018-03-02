@@ -29,7 +29,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,12 +39,12 @@ public class CardRequestRepositoryIntegTest extends EcpCrmIntegTest{
     @Inject CardRequestRepository cardRequestRepository;
     @Inject ClockService clockService;
 
-    DemoFixture fs;
+    IntegTestFixture fs;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new DemoFixture();
+        fs = new IntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
     }
 

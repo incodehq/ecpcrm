@@ -34,7 +34,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.eurocommercial.ecpcrm.app.services.homepage.HomePageService;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 
 /**
  * Enables fixtures to be installed from the application.
@@ -57,7 +57,7 @@ public class EcpCrmPrototypingExtensions {
     @MemberOrder(sequence = "500.10.2")
     public Object recreateSimpleObjectsThenOpenDashboard() {
         final FixtureScript fs = fixtureScripts.findFixtureScriptFor(
-                DemoFixture.class);
+                IntegTestFixture.class);
         final List<FixtureResult> unusedResults = fs.run(null);
         return homePageService.homePage();
     }
