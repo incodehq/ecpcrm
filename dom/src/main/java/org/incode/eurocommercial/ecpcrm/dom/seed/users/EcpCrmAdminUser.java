@@ -55,7 +55,6 @@ public class EcpCrmAdminUser extends AbstractUserAndRolesFixtureScript {
                         ));
     }
 
-
     @Override
     protected void execute(ExecutionContext executionContext) {
         super.execute(executionContext);

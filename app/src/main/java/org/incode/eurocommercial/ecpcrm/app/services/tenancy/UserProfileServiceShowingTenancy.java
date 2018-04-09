@@ -24,6 +24,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.services.i18n.TranslationService;
 import org.apache.isis.applib.services.userprof.UserProfileService;
 
 import org.isisaddons.module.security.app.user.MeService;
@@ -45,9 +46,13 @@ public class UserProfileServiceShowingTenancy implements UserProfileService {
         final String username = applicationUser.getName();
         final String tenancyPath = applicationUser.getAtPath();
 
-        return TranslatableString.tr("Hi {username} @{tenancyPath}", "username", username, "tenancyPath", tenancyPath).toString();
+        final TranslatableString greetingString = TranslatableString.tr("Hi {username} @{tenancyPath}", "username", username, "tenancyPath", tenancyPath);
+        return greetingString.translate(translationService, UserProfileServiceShowingTenancy.class.getName() + "#userProfileName");
     }
 
+
+    @Inject
+    private TranslationService translationService;
 
     @Inject
     private MeService meService;
