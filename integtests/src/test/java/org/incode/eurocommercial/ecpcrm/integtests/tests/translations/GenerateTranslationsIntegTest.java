@@ -16,8 +16,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.integtests.tests.translations;
 
-import java.util.Arrays;
-
 import javax.inject.Inject;
 
 import org.assertj.core.api.Assertions;
@@ -33,15 +31,11 @@ import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserMenu;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
-import org.incode.module.userimpersonate.impl.UserServiceWithImpersonation;
 
 public class GenerateTranslationsIntegTest extends EcpCrmIntegTest {
     @Inject private FixtureScripts fixtureScripts;
@@ -50,7 +44,6 @@ public class GenerateTranslationsIntegTest extends EcpCrmIntegTest {
     @Inject CardRequestRepository cardRequestRepository;
     @Inject UserMenu userMenu;
     @Inject UserRepository userRepository;
-    @Inject UserServiceWithImpersonation userService;
 
     IntegTestFixture fs;
     Center center;
@@ -69,7 +62,6 @@ public class GenerateTranslationsIntegTest extends EcpCrmIntegTest {
                 .findFirst()
                 .orElse(null);
         user = userRepository.findByCenter(center).get(0);
-        userService.setUser(EcpCrmAdminUser.USER_NAME, Arrays.asList(EcpCrmRegularRoleAndPermissions.ROLE_NAME, EcpCrmFixtureServiceRoleAndPermissions.ROLE_NAME));
     }
 
     public static class CardMenuValidateNewCard extends GenerateTranslationsIntegTest {

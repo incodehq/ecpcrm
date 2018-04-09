@@ -23,11 +23,17 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>ecpcrm</artifactId>
-        <version>1.14.0-SNAPSHOT</version>
+        <version>1.16.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>ecpcrm-dom</artifactId>
     <name>Eurocommercial CRM System DOM</name>
+
+    <properties>
+        <isis-maven-plugin.validate.appManifest>org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomManifest</isis-maven-plugin.validate.appManifest>
+        <mavenmixin-isisvalidate.version>0.0.2</mavenmixin-isisvalidate.version>
+        <axon-core.version>2.4</axon-core.version>
+    </properties>
 
     <build>
         <resources>
@@ -75,17 +81,13 @@
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>isisvalidate</artifactId>
+                            <version>${mavenmixin-isisvalidate.version}</version>
                         </mixin>
                     </mixins>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <isis-maven-plugin.validate.appManifest>org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomManifest</isis-maven-plugin.validate.appManifest>
-    </properties>
-
 
     <dependencies>
 
@@ -132,7 +134,7 @@
                 <dependency>
                     <groupId>org.axonframework</groupId>
                     <artifactId>axon-core</artifactId>
-                    <version>2.4</version>
+                    <version>${axon-core.version}</version>
                 </dependency>
             </dependencies>
         </profile>

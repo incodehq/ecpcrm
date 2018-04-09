@@ -68,6 +68,8 @@ public class EcpCrmAppManifest implements AppManifest {
         );
     }
 
+
+
     /**
      * Use shiro for authentication.
      *

@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>ecpcrm</artifactId>
-        <version>1.14.0-SNAPSHOT</version>
+        <version>1.16.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>ecpcrm-webapp</artifactId>
@@ -49,6 +49,9 @@
 
         <geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
 
+        <json-unit.version>1.16.0</json-unit.version>
+        <isis-module-flywaydb-dom.version>1.16.2</isis-module-flywaydb-dom.version>
+        <json-unit-fluent.version>1.16.0</json-unit-fluent.version>
     </properties>
 
     <build>
@@ -132,20 +135,12 @@
             <artifactId>ecpcrm-app</artifactId>
         </dependency>
 
-
-        <!--
-        can't use because is 1.14.0, still references old artifact names
         <dependency>
-            <groupId>org.incode.mavendeps</groupId>
-            <artifactId>isiswebapp</artifactId>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-webapp</artifactId>
             <version>${mavendeps-isiswebapp.version}</version>
             <type>pom</type>
         </dependency>
-        -->
-
-        <!--
-        so instead just inline here:
-        -->
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
@@ -172,15 +167,6 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-security</artifactId>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.incode.mavendeps</groupId>
-            <artifactId>isisintellij</artifactId>
-            <version>${mavendeps-isisintellij.version}</version>
-            <type>pom</type>
-        </dependency>
-
 
         <!-- enable -parameters support -->
         <dependency>
@@ -248,21 +234,21 @@
         <dependency>
             <groupId>net.javacrumbs.json-unit</groupId>
             <artifactId>json-unit</artifactId>
-            <version>1.16.0</version>
+            <version>${json-unit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>net.javacrumbs.json-unit</groupId>
             <artifactId>json-unit-fluent</artifactId>
-            <version>1.16.0</version>
+            <version>${json-unit-fluent.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.isisaddons.module.flywaydb</groupId>
             <artifactId>isis-module-flywaydb-dom</artifactId>
-            <version>1.14.0</version>
+            <version>${isis-module-flywaydb-dom.version}</version>
         </dependency>
 
         <dependency>
@@ -273,8 +259,8 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>org.incode.mavendeps</groupId>
-            <artifactId>isistesting</artifactId>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-testing</artifactId>
             <version>${mavendeps-isistesting.version}</version>
             <type>pom</type>
             <scope>test</scope>

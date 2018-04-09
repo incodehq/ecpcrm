@@ -24,12 +24,12 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.14.0</version>
+        <version>1.16.2</version>
     </parent>
 
     <groupId>org.isisaddons.app</groupId>
     <artifactId>ecpcrm</artifactId>
-    <version>1.14.0-SNAPSHOT</version>
+    <version>1.16.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ECP CRM System</name>
@@ -55,34 +55,35 @@
     </developers>
 
     <properties>
-        <isis.version>1.14.0.20170518-0759</isis.version>
+        <isis.version>1.16.2</isis.version>
 
-        <mavendeps-isistesting.version>1.14.0</mavendeps-isistesting.version>
-        <mavendeps-isisintellij.version>1.14.0</mavendeps-isisintellij.version>
-        <mavendeps-isiswebapp.version>1.14.0</mavendeps-isiswebapp.version>
+        <mavendeps-isistesting.version>1.16.2</mavendeps-isistesting.version>
+        <mavendeps-isiswebapp.version>1.16.2</mavendeps-isiswebapp.version>
 
-        <isis-metamodel-paraname8.version>1.14.0</isis-metamodel-paraname8.version>
+        <isis-metamodel-paraname8.version>1.16.2</isis-metamodel-paraname8.version>
 
-        <isis-module-audit.version>1.14.0</isis-module-audit.version>
-        <isis-module-command.version>1.14.0</isis-module-command.version>
-        <isis-module-docx.version>1.14.0</isis-module-docx.version>
-        <isis-module-excel.version>1.14.2</isis-module-excel.version>
+        <isis-module-audit.version>1.16.2</isis-module-audit.version>
+        <isis-module-command.version>1.16.2</isis-module-command.version>
+        <isis-module-docx.version>1.16.2</isis-module-docx.version>
+        <isis-module-excel.version>1.16.2</isis-module-excel.version>
 
-        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
-        <isis-module-poly.version>1.14.0</isis-module-poly.version>
-        <isis-module-publishmq.version>1.14.0</isis-module-publishmq.version>
+        <isis-module-fakedata.version>1.16.2</isis-module-fakedata.version>
+        <isis-module-poly.version>1.16.2</isis-module-poly.version>
+        <isis-module-publishmq.version>1.16.2</isis-module-publishmq.version>
+        <!--For some reason this does not work above version 1.14.0-->
         <isis-module-security.version>1.14.0</isis-module-security.version>
-        <isis-module-sessionlogger.version>1.14.0</isis-module-sessionlogger.version>
-        <isis-module-settings.version>1.14.0</isis-module-settings.version>
-        <isis-module-servletapi.version>1.14.0</isis-module-servletapi.version>
-        <isis-module-stringinterpolator.version>1.14.0</isis-module-stringinterpolator.version>
+        <isis-module-sessionlogger.version>1.16.2</isis-module-sessionlogger.version>
+        <!--This has no version over 1.15.0-->
+        <isis-module-settings.version>1.15.0</isis-module-settings.version>
+        <isis-module-servletapi.version>1.16.2</isis-module-servletapi.version>
+        <isis-module-stringinterpolator.version>1.16.2</isis-module-stringinterpolator.version>
 
-        <isis-wicket-excel.version>1.14.0.20170516-1445</isis-wicket-excel.version>
-        <isis-wicket-fullcalendar2.version>1.14.0.20170516-1444</isis-wicket-fullcalendar2.version>
-        <isis-wicket-gmap3.version>1.14.0.20170516-1442</isis-wicket-gmap3.version>
+        <isis-wicket-excel.version>1.16.2</isis-wicket-excel.version>
+        <isis-wicket-fullcalendar2.version>1.16.2</isis-wicket-fullcalendar2.version>
+        <isis-wicket-gmap3.version>1.16.2</isis-wicket-gmap3.version>
 
-        <incode-module-note.version>1.14.0</incode-module-note.version>
-        <incode-module-commchannel.version>1.14.0</incode-module-commchannel.version>
+        <incode-module-note.version>1.16.2</incode-module-note.version>
+        <incode-module-commchannel.version>1.16.2</incode-module-commchannel.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
 
@@ -95,6 +96,7 @@
 
         <mysql-connector-java.version>5.1.6</mysql-connector-java.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <javafaker.version>0.14</javafaker.version>
     </properties>
 
     <repositories>
@@ -159,6 +161,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.javafaker</groupId>
+                <artifactId>javafaker</artifactId>
+                <version>${javafaker.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.isis.core</groupId>
