@@ -29,8 +29,12 @@ import org.incode.eurocommercial.ecpcrm.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardMenu;
 import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.dom.impersonation.UserServiceWithImpersonation;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
 import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserMenu;
 import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
@@ -44,6 +48,7 @@ public class GenerateTranslationsIntegTest extends EcpCrmIntegTest {
     @Inject CardRequestRepository cardRequestRepository;
     @Inject UserMenu userMenu;
     @Inject UserRepository userRepository;
+    @Inject UserServiceWithImpersonation userServiceWithImpersonation;
 
     IntegTestFixture fs;
     Center center;
@@ -62,6 +67,7 @@ public class GenerateTranslationsIntegTest extends EcpCrmIntegTest {
                 .findFirst()
                 .orElse(null);
         user = userRepository.findByCenter(center).get(0);
+        userServiceWithImpersonation.setUser(EcpCrmAdminUser.USER_NAME, EcpCrmRegularRoleAndPermissions.ROLE_NAME, EcpCrmFixtureServiceRoleAndPermissions.ROLE_NAME);
     }
 
     public static class CardMenuValidateNewCard extends GenerateTranslationsIntegTest {
