@@ -24,8 +24,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <!-- NB: also update incode-platform.version property below. -->
-        <version>1.16.2</version>
+        <version>1.16.2.20180707-1320-eca4c55a</version>
     </parent>
 
     <groupId>org.isisaddons.app</groupId>
@@ -65,7 +64,7 @@
         <isis.version>1.16.2</isis.version>
 
         <!-- NB: also update the parent of this pom.  -->
-        <incode-platform.version>1.16.2</incode-platform.version>
+        <incode-platform.version>1.16.2.20180707-1320-eca4c55a</incode-platform.version>
 
 
         <!--For some reason this does not work above version 1.14.0-->
@@ -87,46 +86,6 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <javafaker.version>0.14</javafaker.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>apache.snapshots</id>
-            <name>Apache Snapshots</name>
-            <url>https://repository.apache.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>Cloudbees snapshots</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>estatio.releases</id>
-            <name>Estatio Releases</name>
-            <url>http://repository-estatio.forge.cloudbees.com/release/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <pluginManagement>
@@ -259,6 +218,47 @@
 
 
     <profiles>
+        <!-- required to pull down parent pom (incode-parent) -->
+        <profile>
+            <id>incode-cloud-maven</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-cloud-maven</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>incode-cloud-maven</id>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven</id>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
         <profile>
             <id>isisaddons-module-audit</id>
             <activation>
@@ -501,6 +501,8 @@
                 <directory>target-ide</directory>
             </build>
         </profile>
+
+
     </profiles>
 
 </project>
