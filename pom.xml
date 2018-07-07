@@ -30,10 +30,10 @@
 
     <groupId>org.isisaddons.app</groupId>
     <artifactId>ecpcrm</artifactId>
-    <version>1.16.2-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>ECP CRM System</name>
+    <name>Eurocommercial CRM System</name>
 
     <url>https://www.github.com/incodehq/ecpcrm</url>
     <licenses>
@@ -60,6 +60,8 @@
     </developers>
 
     <properties>
+        <revision>1.16.2-SNAPSHOT</revision>
+
         <isis.version>1.16.2</isis.version>
 
         <!-- NB: also update the parent of this pom.  -->
@@ -136,6 +138,36 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <pomElements>
+                        <dependencyManagement>resolve</dependencyManagement>
+                        <dependencies>resolve</dependencies>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <modules>

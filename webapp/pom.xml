@@ -22,11 +22,11 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>ecpcrm</artifactId>
-        <version>1.16.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>ecpcrm-webapp</artifactId>
-    <name>ECP CRM System Webapp</name>
+    <name>Eurocommercial CRM System Webapp</name>
 
     <description>
         Packages ECP CRM as a standard Java webapp
