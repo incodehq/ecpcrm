@@ -330,26 +330,6 @@
             </dependencies>
         </profile>
 
-        <profile>
-            <id>incode-module-commchannel</id>
-            <activation>
-                <property>
-                    <name>!skip.incode-module-commchannel</name>
-                </property>
-            </activation>
-            <dependencies>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>incode-module-note</id>
-            <activation>
-                <property>
-                    <name>!skip.incode-module-note</name>
-                </property>
-            </activation>
-            <dependencies>
-            </dependencies>
-        </profile>
     </profiles>
 
 

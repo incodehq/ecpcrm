@@ -24,6 +24,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
+        <!-- NB: also update incode-platform.version property below. -->
         <version>1.16.2</version>
     </parent>
 
@@ -43,6 +44,10 @@
         </license>
     </licenses>
     <scm>
+        <!--
+        also:
+        <connection>scm:git:https://gitlab.com/incodehq-public/ecpcrm.git</connection>
+        -->
         <connection>scm:git:https://github.com/incodehq/ecpcrm.git</connection>
         <developerConnection>scm:git:https://github.com/incodehq/ecpcrm.git</developerConnection>
         <url>https://github.com/incodehq/ecpcrm.git</url>
@@ -57,33 +62,15 @@
     <properties>
         <isis.version>1.16.2</isis.version>
 
-        <mavendeps-isistesting.version>1.16.2</mavendeps-isistesting.version>
-        <mavendeps-isiswebapp.version>1.16.2</mavendeps-isiswebapp.version>
+        <!-- NB: also update the parent of this pom.  -->
+        <incode-platform.version>1.16.2</incode-platform.version>
 
-        <isis-metamodel-paraname8.version>1.16.2</isis-metamodel-paraname8.version>
 
-        <isis-module-audit.version>1.16.2</isis-module-audit.version>
-        <isis-module-command.version>1.16.2</isis-module-command.version>
-        <isis-module-docx.version>1.16.2</isis-module-docx.version>
-        <isis-module-excel.version>1.16.2</isis-module-excel.version>
-
-        <isis-module-fakedata.version>1.16.2</isis-module-fakedata.version>
-        <isis-module-poly.version>1.16.2</isis-module-poly.version>
-        <isis-module-publishmq.version>1.16.2</isis-module-publishmq.version>
         <!--For some reason this does not work above version 1.14.0-->
         <isis-module-security.version>1.14.0</isis-module-security.version>
-        <isis-module-sessionlogger.version>1.16.2</isis-module-sessionlogger.version>
         <!--This has no version over 1.15.0-->
         <isis-module-settings.version>1.15.0</isis-module-settings.version>
-        <isis-module-servletapi.version>1.16.2</isis-module-servletapi.version>
-        <isis-module-stringinterpolator.version>1.16.2</isis-module-stringinterpolator.version>
 
-        <isis-wicket-excel.version>1.16.2</isis-wicket-excel.version>
-        <isis-wicket-fullcalendar2.version>1.16.2</isis-wicket-fullcalendar2.version>
-        <isis-wicket-gmap3.version>1.16.2</isis-wicket-gmap3.version>
-
-        <incode-module-note.version>1.16.2</incode-module-note.version>
-        <incode-module-commchannel.version>1.16.2</incode-module-commchannel.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
 
@@ -178,7 +165,7 @@
             <dependency>
                 <groupId>org.isisaddons.metamodel.paraname8</groupId>
                 <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                <version>${isis-metamodel-paraname8.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
@@ -252,7 +239,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.audit</groupId>
                         <artifactId>isis-module-audit-dom</artifactId>
-                        <version>${isis-module-audit.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -269,7 +256,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.command</groupId>
                         <artifactId>isis-module-command-dom</artifactId>
-                        <version>${isis-module-command.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -286,7 +273,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.docx</groupId>
                         <artifactId>isis-module-docx-dom</artifactId>
-                        <version>${isis-module-docx.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -303,7 +290,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.excel</groupId>
                         <artifactId>isis-module-excel-dom</artifactId>
-                        <version>${isis-module-excel.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -320,7 +307,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.fakedata</groupId>
                         <artifactId>isis-module-fakedata-dom</artifactId>
-                        <version>${isis-module-fakedata.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -337,7 +324,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.poly</groupId>
                         <artifactId>isis-module-poly-dom</artifactId>
-                        <version>${isis-module-poly.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -354,7 +341,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.publishmq</groupId>
                         <artifactId>isis-module-publishmq-dom</artifactId>
-                        <version>${isis-module-publishmq.version}</version>
+                        <version>${incode-platform.version}</version>
                         <scope>import</scope>
                         <type>pom</type>
                     </dependency>
@@ -395,7 +382,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.servletapi</groupId>
                         <artifactId>isis-module-servletapi-dom</artifactId>
-                        <version>${isis-module-servletapi.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -412,7 +399,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.sessionlogger</groupId>
                         <artifactId>isis-module-sessionlogger-dom</artifactId>
-                        <version>${isis-module-sessionlogger.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -446,7 +433,7 @@
                     <dependency>
                         <groupId>org.isisaddons.module.stringinterpolator</groupId>
                         <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                        <version>${isis-module-stringinterpolator.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -464,7 +451,7 @@
                     <dependency>
                         <groupId>org.isisaddons.wicket.excel</groupId>
                         <artifactId>isis-wicket-excel-cpt</artifactId>
-                        <version>${isis-wicket-excel.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -481,7 +468,7 @@
                     <dependency>
                         <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
                         <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                        <version>${isis-wicket-fullcalendar2.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -498,42 +485,7 @@
                     <dependency>
                         <groupId>org.isisaddons.wicket.gmap3</groupId>
                         <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                        <version>${isis-wicket-gmap3.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>incode-module-commchannel</id>
-            <activation>
-                <property>
-                    <name>!skip.incode-module-commchannel</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.incode.module.commchannel</groupId>
-                        <artifactId>incode-module-commchannel-dom</artifactId>
-                        <version>${incode-module-commchannel.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>incode-module-note</id>
-            <activation>
-                <property>
-                    <name>!skip.incode-module-note</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.incode.module.note</groupId>
-                        <artifactId>incode-module-note-dom</artifactId>
-                        <version>${incode-module-note.version}</version>
+                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
