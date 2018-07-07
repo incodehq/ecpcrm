@@ -313,23 +313,6 @@
             </dependencyManagement>
         </profile>
         <profile>
-            <id>isisaddons-module-poly</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-poly</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.poly</groupId>
-                        <artifactId>isis-module-poly-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
             <id>isisaddons-module-publishmq</id>
             <activation>
                 <property>
@@ -371,23 +354,6 @@
             </dependencyManagement>
         </profile>
         <profile>
-            <id>isisaddons-module-servletapi</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-servletapi</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.servletapi</groupId>
-                        <artifactId>isis-module-servletapi-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
             <id>isisaddons-module-sessionlogger</id>
             <activation>
                 <property>
@@ -417,23 +383,6 @@
                         <groupId>org.isisaddons.module.settings</groupId>
                         <artifactId>isis-module-settings-dom</artifactId>
                         <version>${isis-module-settings.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-stringinterpolator</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-stringinterpolator</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.stringinterpolator</groupId>
-                        <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                        <version>${incode-platform.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
