@@ -42,15 +42,12 @@
 
         <docker-plugin.imageName>incodehq/${project.parent.artifactId}</docker-plugin.imageName>
         <docker-plugin.resource.include>${maven-war-plugin.warName}.war</docker-plugin.resource.include>
-        <docker-plugin.snapshotServerId>docker-hub</docker-plugin.snapshotServerId>
-        <docker-plugin.snapshotRegistryUrl>https://index.docker.io/v1/</docker-plugin.snapshotRegistryUrl>
-        <docker-plugin.releaseServerId>docker-hub</docker-plugin.releaseServerId>
-        <docker-plugin.releaseRegistryUrl>https://index.docker.io/v1/</docker-plugin.releaseRegistryUrl>
+        <docker-plugin.serverId>docker-hub</docker-plugin.serverId>
+        <docker-plugin.registryUrl>https://index.docker.io/v1/</docker-plugin.registryUrl>
 
         <geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
 
         <json-unit.version>1.16.0</json-unit.version>
-        <isis-module-flywaydb-dom.version>1.16.2</isis-module-flywaydb-dom.version>
         <json-unit-fluent.version>1.16.0</json-unit-fluent.version>
     </properties>
 
@@ -248,7 +245,7 @@
         <dependency>
             <groupId>org.isisaddons.module.flywaydb</groupId>
             <artifactId>isis-module-flywaydb-dom</artifactId>
-            <version>${isis-module-flywaydb-dom.version}</version>
+            <version>${incode-platform.version}</version>
         </dependency>
 
         <dependency>
