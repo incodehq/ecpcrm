@@ -45,7 +45,8 @@ build-package-push:
           clean install \
           -Drevision=$REVISION
     - >
-      mvn --batch-mode \
+      mvn -s .m2/settings.xml \
+          --batch-mode \
           docker:push@push-image-tagged \
           -pl webapp \
           -Drevision=$REVISION \
