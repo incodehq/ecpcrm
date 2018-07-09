@@ -42,11 +42,14 @@ build-package-push:
     - echo "REVISION=$REVISION"
     - >
       mvn $BUILD_ADDITIONAL_OPTIONS \
+          --batch-mode \
+          -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
           clean install \
           -Drevision=$REVISION
     - >
       mvn -s .m2/settings.xml \
           --batch-mode \
+          -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
           docker:push@push-image-tagged \
           -pl webapp \
           -Drevision=$REVISION \
