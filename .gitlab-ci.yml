@@ -45,7 +45,9 @@ build-package-push:
           --batch-mode \
           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
           clean install \
-          -Drevision=$REVISION
+          -Drevision=$REVISION \
+          -Dmavenmixin-docker \
+          -Ddocker-plugin.imageName=$DOCKER_REGISTRY_NAME/$DOCKER_REGISTRY_USERNAME/$APP_NAME
     - >
       mvn -s .m2/settings.xml \
           --batch-mode \
