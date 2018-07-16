@@ -8,7 +8,9 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -39,7 +41,10 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.dom.center.Center "
                         + "WHERE code == :code ")
 })
-@DomainObject(bounded = true)
+@DomainObject(
+        editing = Editing.DISABLED,
+        bounded = true
+)
 public class Center implements Comparable<Center>, HasAtPath {
 
     @Override
@@ -63,6 +68,7 @@ public class Center implements Comparable<Center>, HasAtPath {
 
     @Getter @Setter
     @Column(allowsNull = "false")
+    @Property(editing = Editing.ENABLED)
     private String name;
 
     @Getter @Setter
@@ -78,6 +84,11 @@ public class Center implements Comparable<Center>, HasAtPath {
     @Getter @Setter
     @Column(allowsNull = "false")
     private String atPath;
+
+    @Getter @Setter
+    @Column(allowsNull = "true")
+    @Property(editing = Editing.ENABLED)
+    private String mailchimpListId;
 
     @Programmatic
     public String nextValidCardNumber() {

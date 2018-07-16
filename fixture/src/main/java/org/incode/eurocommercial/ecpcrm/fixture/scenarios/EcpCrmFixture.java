@@ -93,8 +93,7 @@ public class EcpCrmFixture extends FixtureScript {
     @Getter
     private final List<ChildCare> childCares = Lists.newArrayList();
 
-    @Inject
-    SudoService sudoService;
+    @Inject SudoService sudoService;
 
     @Override
     protected void execute(final ExecutionContext ec) {

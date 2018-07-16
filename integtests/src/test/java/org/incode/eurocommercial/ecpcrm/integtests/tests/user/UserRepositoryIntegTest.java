@@ -94,7 +94,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
             while (centerRepository.findByCode("0" + centerCode) != null) {
                 centerCode++;
             }
-            Center center = centerRepository.findOrCreate("0" + centerCode, "New Center", "" + centerCode);
+            Center center = centerRepository.findOrCreate("0" + centerCode, "New Center", "" + centerCode, null);
 
             // when
             User foundUser = userRepository.findByExactEmailAndCenter(user.getEmail(), center);
@@ -112,7 +112,7 @@ public class UserRepositoryIntegTest extends EcpCrmIntegTest {
             while (centerRepository.findByCode("0" + centerCode) != null) {
                 centerCode++;
             }
-            Center center = centerRepository.findOrCreate("0" + centerCode, "New Center", "" + centerCode);
+            Center center = centerRepository.findOrCreate("0" + centerCode, "New Center", "" + centerCode, null);
 
             // when
             List<User> foundUsers = userRepository.findByCenter(center);

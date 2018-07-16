@@ -1,3 +1,5 @@
+webapp/src/main/webapp/WEB-INF/authentication.properties
+
 *~
 *.swp
 *.class
@@ -35,7 +37,6 @@ pom.xml.versionsBackup
 .clover/
 *.jdproj
 JArchitectOut/
-
 
 rebel.xml
 .flattened-pom.xml

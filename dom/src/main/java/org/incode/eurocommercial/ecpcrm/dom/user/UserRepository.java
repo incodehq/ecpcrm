@@ -149,8 +149,13 @@ public class UserRepository {
         user.setCity(city);
         user.setPhoneNumber(phoneNumber);
         user.setCenter(center);
-        user.setPromotionalEmails(promotionalEmails);
         user.setHasCar(hasCar);
+
+        if (promotionalEmails) {
+            user.subscribeToPromotionalEmails();
+        } else {
+            user.unsubscribeFromPromotionalEmails();
+        }
 
         if(reference == null) {
             reference = userNumerator.nextIncrementStr();

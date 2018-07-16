@@ -52,6 +52,7 @@ import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
+import org.incode.eurocommercial.ecpcrm.dom.mail.MailService;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -117,17 +118,17 @@ public class User implements Comparable<User>, HasAtPath {
     private String reference;
 
     @Column(allowsNull = "false")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private Title title;
 
     @Column(allowsNull="false", length = 40)
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String firstName;
 
     @Column(allowsNull="false", length = 40)
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String lastName;
 
@@ -137,22 +138,22 @@ public class User implements Comparable<User>, HasAtPath {
     private String email;
 
     @Column(allowsNull = "true")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String address;
 
     @Column(allowsNull = "true")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String zipcode;
 
     @Column(allowsNull = "true")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String city;
 
     @Column(allowsNull = "true")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String phoneNumber;
 
@@ -174,9 +175,30 @@ public class User implements Comparable<User>, HasAtPath {
     private boolean enabled;
 
     @Column(allowsNull = "false")
-    @Property
     @Getter @Setter
     private boolean promotionalEmails;
+
+    @Action
+    public User subscribeToPromotionalEmails() {
+        promotionalEmails = true;
+        mailService.subscribeUser(this);
+        return this;
+    }
+
+    @Action
+    public User unsubscribeFromPromotionalEmails() {
+        promotionalEmails = false;
+        mailService.unsubscribeUser(this);
+        return this;
+    }
+
+    public boolean hideSubscribeToPromotionalEmails() {
+        return promotionalEmails;
+    }
+
+    public boolean hideUnsubscribeFromPromotionalEmails() {
+        return !promotionalEmails;
+    }
 
     // region > children
 
@@ -249,7 +271,7 @@ public class User implements Comparable<User>, HasAtPath {
     // endregion > cards
 
     @Column(allowsNull = "true")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private Boolean hasCar;
 
@@ -260,5 +282,6 @@ public class User implements Comparable<User>, HasAtPath {
     @Inject private ClockService clockService;
     @Inject private CardRepository cardRepository;
     @Inject private ChildRepository childRepository;
+    @Inject private MailService mailService;
 
 }

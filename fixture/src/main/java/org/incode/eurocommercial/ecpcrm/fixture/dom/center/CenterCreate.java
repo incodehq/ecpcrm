@@ -26,6 +26,9 @@ public class CenterCreate extends FixtureScript {
     @Getter @Setter
     private String id;
 
+    @Getter @Setter
+    private String mailchimpListId;
+
     @Getter
     private Center center;
 
@@ -42,8 +45,11 @@ public class CenterCreate extends FixtureScript {
                 code = "0" + faker.number().randomNumber(2, true);
             } while (centerRepository.findByCode(code) != null);
         }
+        if (mailchimpListId == null) {
+            mailchimpListId = "ea56e8863e";
+        }
 
-        center = wrap(menu).newCenter(code(), name(), id());
+        center = wrap(menu).newCenter(code(), name(), id(), mailchimpListId());
 
         ec.addResult(this, center);
     }

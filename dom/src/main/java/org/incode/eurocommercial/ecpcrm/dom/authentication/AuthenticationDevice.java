@@ -23,6 +23,7 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Editing;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -47,7 +48,10 @@ import lombok.Setter;
                         + "WHERE center == :center"
         )
 })
-@DomainObject(bounded = true)
+@DomainObject(
+        editing = Editing.DISABLED,
+        bounded = true
+)
 public class AuthenticationDevice implements HasAtPath {
 
     public String title() {
