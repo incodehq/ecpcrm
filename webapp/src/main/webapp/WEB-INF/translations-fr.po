@@ -1,4 +1,4 @@
-msgid ""
+﻿msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "Action Sémantique"
 
 #: org.isisaddons.module.security.app.feature.ApplicationClass#actions
 msgid "Actions"
-msgstr "actes"
+msgstr "actions"
 
 #: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#active
 msgid "Active"
@@ -100,7 +100,7 @@ msgstr "Toutes les demandes ouvertes"
 
 #: org.isisaddons.module.security.app.feature.ApplicationFeatureViewModels#allPackages()
 msgid "All Packages"
-msgstr "Tous les forfaits"
+msgstr "Tous les packages"
 
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionMenu#allPermissions()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissions#allPermissions()
@@ -131,7 +131,7 @@ msgstr "Tous les utilisateurs"
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#allow()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionRule#ALLOW
 msgid "Allow"
-msgstr "Permettre"
+msgstr "Autoriser"
 
 #: org.apache.isis.applib.services.xactn.TransactionService3$Policy#ALWAYS
 msgid "Always"
@@ -182,7 +182,7 @@ msgstr "Au chemin"
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updateAtPath(java.lang.String)
 msgid "AtPath"
-msgstr "AtPath"
+msgstr "AuChemin"
 
 #: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceMenu
 msgid "Authentication Devices"
@@ -273,7 +273,7 @@ msgstr "Centres"
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#changing()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionMode#CHANGING
 msgid "Changing"
-msgstr "En changeant"
+msgstr "Modifier"
 
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#changingPermission
 msgid "Changing Permission"
@@ -325,7 +325,7 @@ msgstr "Classe"
 #: org.isisaddons.module.security.app.feature.ApplicationFeatureViewModel#className
 #: org.isisaddons.module.security.app.feature.ApplicationPackage#className
 msgid "Class Name"
-msgstr "Nom du cours"
+msgstr "Nom de la classe"
 
 #: org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu#resetTranslationCache()
 msgid "Clear translation cache"
@@ -354,15 +354,15 @@ msgstr "Calculer"
 
 #: org.incode.eurocommercial.ecpcrm.app.services.api.ApiService#computeCheckCode()
 msgid "Compute Check Code"
-msgstr "Calculer le code de contrôle"
+msgstr "Contrôler le code de présence"
 
 #: javax.ws.rs.core.MultivaluedMap#computeIfAbsent()
 msgid "Compute If Absent"
-msgstr "Calculer si absent"
+msgstr "Contrôler si absent"
 
 #: javax.ws.rs.core.MultivaluedMap#computeIfPresent()
 msgid "Compute If Present"
-msgstr "Calculer si présent"
+msgstr "Contrôler si présent"
 
 #: org.apache.isis.applib.services.config.ConfigurationServiceMenu#configuration()
 msgid "Configuration"
@@ -417,7 +417,7 @@ msgstr "Type de données"
 
 #: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#date
 msgid "Date"
-msgstr "Rendez-vous amoureux"
+msgstr "Date"
 
 #: org.apache.isis.applib.services.menu.MenuBarsService$Type#DEFAULT
 msgid "Default"
@@ -440,7 +440,7 @@ msgstr "Effacer"
 
 #: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#deny()
 msgid "Deny"
-msgstr "Nier"
+msgstr "Refuser"
 
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#derived
 #: org.isisaddons.module.security.app.feature.ApplicationClassProperty#derived
@@ -477,7 +477,7 @@ msgstr "Dérivé"
 #: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
 #: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 msgid "Description"
-msgstr "La description"
+msgstr "Description"
 
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection
@@ -780,7 +780,7 @@ msgstr "Fonctionnalité"
 
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#featureFqn
 msgid "Feature Fqn"
-msgstr "Feature Fqn"
+msgstr "Fonctionnalité Fqn"
 
 #: org.incode.eurocommercial.ecpcrm.dom.Gender#FEMALE
 msgid "Female"
@@ -800,15 +800,15 @@ msgstr "Nom de fichier"
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser#filterPermissions()
 msgid "Filter Permissions"
-msgstr "Autorisations de filtre"
+msgstr "Filtrer les autorisations"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findActiveChildCareByChild()
 msgid "Find Active Child Care By Child"
-msgstr "Trouver des services de garde d'enfants actifs par un enfant"
+msgstr "Trouver l'accueil enfants ouvert par un enfant"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findActiveChildCares()
 msgid "Find Active Child Cares"
-msgstr "Trouvez les soins aux enfants actifs"
+msgstr "Trouvez l'accueil enfants ouvert"
 
 #: org.isisaddons.module.settings.dom.ApplicationSettingMenu#find()
 #: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#find()
@@ -821,16 +821,16 @@ msgstr "Trouver par l'enfant"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findByChildAndDateRange()
 msgid "Find By Child And Date Range"
-msgstr "Trouver par enfant et plage de dates"
+msgstr "Trouver par enfant et dates"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareMenu#findByDateRange()
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findByDateRange()
 msgid "Find By Date Range"
-msgstr "Trouver par plage de dates"
+msgstr "Trouver par dates"
 
 #: org.incode.eurocommercial.ecpcrm.dom.user.UserMenu#findByEmail()
 msgid "Find By Email"
-msgstr "Trouver par courriel"
+msgstr "Trouver par e-mail"
 
 #: org.incode.eurocommercial.ecpcrm.dom.user.UserMenu#findByName()
 msgid "Find By Name"
@@ -848,7 +848,7 @@ msgstr "Trouver par référence"
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository#findMatching()
 #: org.isisaddons.module.security.dom.user.ApplicationUserRepository#findMatching()
 msgid "Find Matching"
-msgstr "Trouver l'appariement"
+msgstr "Trouver les correspondances"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findOrCreate()
 msgid "Find Or Create"
@@ -994,7 +994,7 @@ msgstr "Ignorer"
 
 #: org.apache.isis.applib.services.jaxb.JaxbService$IsisSchemas#INCLUDE
 msgid "Include"
-msgstr "Comprendre"
+msgstr "Inclure"
 
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newDelegateUser(java.lang.String,org.isisaddons.module.security.dom.role.ApplicationRole,java.lang.Boolean)
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newLocalUser(java.lang.String,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.isisaddons.module.security.dom.role.ApplicationRole,java.lang.Boolean,java.lang.String)
@@ -1063,7 +1063,7 @@ msgstr "Nom de famille"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareMenu#listActiveChildCares()
 msgid "List Active Child Cares"
-msgstr "Liste des soins actifs pour les enfants"
+msgstr "Liste des accueils ouverts pour les enfants"
 
 #: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceMenu#listAll()
 #: org.incode.eurocommercial.ecpcrm.dom.center.CenterMenu#listAll()
@@ -1230,7 +1230,7 @@ msgstr "Nouvel enfant"
 
 #: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#newChildCare()
 msgid "New Child Care"
-msgstr "Nouveau garde d'enfants"
+msgstr "Nouvel accueil d'enfants"
 
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newDelegateUser()
 msgid "New Delegate User"
@@ -1609,14 +1609,14 @@ msgstr "Numéro de téléphone"
 
 #: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType#PICK_UP_IN_CENTER
 msgid "Pick Up In Center"
-msgstr "Ramasser au centre"
+msgstr "Récupérer au centre"
 
 #: org.isisaddons.module.settings.dom.ApplicationSetting#previous()
 #: org.isisaddons.module.settings.dom.UserSetting#previous()
 #: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#previous()
 #: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#previous()
 msgid "Previous"
-msgstr "précédent"
+msgstr "Précédent"
 
 #: org.apache.isis.applib.services.swagger.SwaggerService$Visibility#PRIVATE
 msgid "Private"
@@ -2417,7 +2417,7 @@ msgstr "datanucleusIdLong"
 
 #: org.isisaddons.module.security.dom.role.ApplicationRole
 msgid "description"
-msgstr "la description"
+msgstr "description"
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 msgid "emailAddress"
