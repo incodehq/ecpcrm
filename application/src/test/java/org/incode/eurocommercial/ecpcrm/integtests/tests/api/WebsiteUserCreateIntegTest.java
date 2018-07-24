@@ -29,9 +29,9 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
-import org.incode.eurocommercial.ecpcrm.app.services.api.Result;
-import org.incode.eurocommercial.ecpcrm.app.services.api.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.application.service.api.ApiService;
+import org.incode.eurocommercial.ecpcrm.module.application.service.api.Result;
+import org.incode.eurocommercial.ecpcrm.module.application.service.api.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.dom.Title;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;

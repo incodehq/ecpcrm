@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 
+import org.incode.eurocommercial.ecpcrm.module.application.service.apptenancy.ApplicationTenancyEvaluatorForEcpCrm;
+
 public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
 

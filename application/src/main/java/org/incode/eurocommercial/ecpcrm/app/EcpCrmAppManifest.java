@@ -34,6 +34,7 @@ import org.isisaddons.module.security.facets.TenantedAuthorizationFacetFactory;
 
 import org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomainModule;
 import org.incode.eurocommercial.ecpcrm.fixture.EcpCrmFixtureModule;
+import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmAppModule;
 
 public class EcpCrmAppManifest implements AppManifest {
 
