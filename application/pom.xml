@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+         
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.isisaddons.app</groupId>
+        <artifactId>ecpcrm</artifactId>
+        <version>1.16.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ecpcrm-application</artifactId>
+    <name>Eurocommercial CRM Application</name>
+
+    <properties>
+        <mavenmixin-isisvalidate.version>0.0.2</mavenmixin-isisvalidate.version>
+        <axon-core.version>2.4</axon-core.version>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>surefire</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>datanucleusenhance</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>isisvalidate</artifactId>
+                            <version>${mavenmixin-isisvalidate.version}</version>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ecpcrm-fixture</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-viewer-restfulobjects-rendering</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.metamodel.paraname8</groupId>
+            <artifactId>isis-metamodel-paraname8-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-unittestsupport</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-integtestsupport</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-specsupport</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.danhaywood.java</groupId>
+            <artifactId>danhaywood-java-assertjext</artifactId>
+            <version>0.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+        </dependency>
+
+        <!-- Bytecode libraries (for mocking) -->
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ecwid</groupId>
+            <artifactId>maleorang</artifactId>
+            <version>3.0-0.9.6</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>axon-event-bus</id>
+            <activation>
+                <property>
+                    <name>axon-event-bus</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.axonframework</groupId>
+                    <artifactId>axon-core</artifactId>
+                    <version>${axon-core.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>lombok</id>
+            <activation>
+                <property>
+                    <name>!skip.lombok</name>
+                </property>
+            </activation>
+            <properties>
+                <lombok.version>1.16.6</lombok.version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-audit</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-audit</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.audit</groupId>
+                    <artifactId>isis-module-audit-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-command</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-command</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.command</groupId>
+                    <artifactId>isis-module-command-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-docx</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-docx</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.docx</groupId>
+                    <artifactId>isis-module-docx-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-excel</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-excel</name>
+                </property>
+            </activation>
+            <dependencies>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-fakedata</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-fakedata</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.fakedata</groupId>
+                    <artifactId>isis-module-fakedata-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-poly</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-poly</name>
+                </property>
+            </activation>
+            <dependencies>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-publishmq</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-publishmq</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-security</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-security</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.mindrot</groupId>
+                    <artifactId>jbcrypt</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-servletapi</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-servletapi</name>
+                </property>
+            </activation>
+            <dependencies>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-sessionlogger</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-sessionlogger</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.sessionlogger</groupId>
+                    <artifactId>isis-module-sessionlogger-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-settings</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-settings</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.settings</groupId>
+                    <artifactId>isis-module-settings-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-module-stringinterpolator</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-module-stringinterpolator</name>
+                </property>
+            </activation>
+            <dependencies>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>isisaddons-wicket-excel</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-wicket-excel</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.wicket.excel</groupId>
+                    <artifactId>isis-wicket-excel-cpt</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-wicket-fullcalendar2</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-wicket-fullcalendar2</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+                    <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.codehaus.jackson</groupId>
+                            <artifactId>jackson-core-asl</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.codehaus.jackson</groupId>
+                            <artifactId>jackson-mapper-asl</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>isisaddons-wicket-gmap3</id>
+            <activation>
+                <property>
+                    <name>!skip.isisaddons-wicket-gmap3</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.wicket.gmap3</groupId>
+                    <artifactId>isis-wicket-gmap3-cpt</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+    </profiles>
+</project>

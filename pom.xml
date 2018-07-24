@@ -130,10 +130,7 @@
     </build>
 
     <modules>
-        <module>app</module>
-        <module>dom</module>
-        <module>fixture</module>
-        <module>integtests</module>
+        <module>application</module>
         <module>webapp</module>
     </modules>
 
@@ -501,7 +498,6 @@
                 <directory>target-ide</directory>
             </build>
         </profile>
-
 
     </profiles>
 

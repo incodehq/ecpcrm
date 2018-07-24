@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.isisaddons.app</groupId>
         <artifactId>ecpcrm</artifactId>
-        <version>${revision}</version>
+        <version>1.16.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>ecpcrm-webapp</artifactId>
