@@ -26,12 +26,12 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

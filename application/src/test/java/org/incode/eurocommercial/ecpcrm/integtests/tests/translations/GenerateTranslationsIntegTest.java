@@ -25,21 +25,21 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.card.CardMenu;
-import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.impersonation.UserServiceWithImpersonation;
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserMenu;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser;
+import org.incode.eurocommercial.ecpcrm.module.application.service.impersonation.UserServiceWithImpersonation;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu;
 
 public class GenerateTranslationsIntegTest extends EcpCrmIntegTest {
     @Inject private FixtureScripts fixtureScripts;

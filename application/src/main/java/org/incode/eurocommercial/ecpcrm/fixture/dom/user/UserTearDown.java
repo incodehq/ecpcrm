@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 public class UserTearDown extends FixtureScript {
 

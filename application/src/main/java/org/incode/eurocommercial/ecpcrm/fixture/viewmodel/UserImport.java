@@ -15,10 +15,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
-import org.incode.eurocommercial.ecpcrm.dom.Title;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
 import lombok.Getter;
 import lombok.Setter;

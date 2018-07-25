@@ -6,9 +6,9 @@ import com.github.javafaker.Faker;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterMenu;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CenterMenu;
 
 import lombok.Getter;
 import lombok.Setter;

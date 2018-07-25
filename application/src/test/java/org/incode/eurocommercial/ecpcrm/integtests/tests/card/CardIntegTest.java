@@ -24,10 +24,10 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.game.CardGame;
-import org.incode.eurocommercial.ecpcrm.dom.game.CardGameRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGameRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 

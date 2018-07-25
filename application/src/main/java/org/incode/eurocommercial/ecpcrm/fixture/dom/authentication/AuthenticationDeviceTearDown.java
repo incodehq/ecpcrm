@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 
 public class AuthenticationDeviceTearDown extends FixtureScript {
 

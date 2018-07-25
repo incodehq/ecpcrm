@@ -6,11 +6,11 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceMenu;
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
+import org.incode.eurocommercial.ecpcrm.module.api.menu.AuthenticationDeviceMenu;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
 
 import lombok.Getter;
 import lombok.Setter;

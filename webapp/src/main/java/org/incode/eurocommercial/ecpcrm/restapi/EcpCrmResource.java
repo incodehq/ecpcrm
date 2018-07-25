@@ -18,10 +18,10 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationSer
 import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrinting;
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
-import org.incode.eurocommercial.ecpcrm.app.services.api.ApiService;
-import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardcheck.CardCheckRequestViewModel;
-import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardgame.CardGameRequestViewModel;
-import org.incode.eurocommercial.ecpcrm.app.services.api.vm.cardrequest.CardRequestRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 
 @Path("/crm/api/6.0")
 public class EcpCrmResource extends ResourceAbstract  {

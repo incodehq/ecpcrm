@@ -18,13 +18,13 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
-import org.incode.eurocommercial.ecpcrm.dom.Gender;
-import org.incode.eurocommercial.ecpcrm.dom.child.Child;
-import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.ChildRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Gender;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
 import lombok.Getter;
 import lombok.Setter;

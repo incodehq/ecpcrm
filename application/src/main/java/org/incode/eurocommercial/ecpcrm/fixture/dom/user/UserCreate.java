@@ -10,13 +10,13 @@ import com.github.javafaker.Faker;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.Title;
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.center.CenterRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserMenu;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu;
 
 import lombok.Getter;
 import lombok.Setter;

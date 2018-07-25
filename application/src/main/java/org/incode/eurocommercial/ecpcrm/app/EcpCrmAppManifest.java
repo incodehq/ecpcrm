@@ -32,34 +32,25 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory;
 import org.isisaddons.module.security.facets.TenantedAuthorizationFacetFactory;
 
-import org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomainModule;
 import org.incode.eurocommercial.ecpcrm.fixture.EcpCrmFixtureModule;
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmApiModule;
 import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmApplicationModule;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.EcpCrmLoyaltyCardsModule;
 
 public class EcpCrmAppManifest implements AppManifest {
 
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
+                EcpCrmLoyaltyCardsModule.class,
+                EcpCrmApiModule.class,
+                EcpCrmApplicationModule.class,
+                EcpCrmFixtureModule.class,
 
-                EcpCrmDomainModule.class     // entities and domain services
-                ,EcpCrmFixtureModule.class   // fixture scripts and FixtureScriptsSpecificationProvider
-                ,EcpCrmApplicationModule.class     // EcpCrmRolesAndPermissionsSeedService (requires security module)
-
-                ,org.isisaddons.module.excel.ExcelModule.class // to run fixtures
-                ,org.isisaddons.module.settings.SettingsModule.class // used by DomainAppUserSettingsThemeProvider
-
-//                ,org.isisaddons.module.audit.AuditModule.class
-//                ,org.isisaddons.module.command.CommandModule.class
-//                ,org.isisaddons.module.devutils.DevUtilsModule.class
-//                ,org.isisaddons.module.docx.DocxModule.class
-//                ,org.isisaddons.module.fakedata.FakeDataModule.class
-//                ,org.isisaddons.module.publishing.PublishingModule.class
-                ,org.isisaddons.module.security.SecurityModule.class
-//                ,org.isisaddons.module.sessionlogger.SessionLoggerModule.class
-//                ,org.incode.module.note.dom.NoteModule.class
-//                ,org.incode.module.commchannel.dom.CommChannelModule.class
-                );
+                org.isisaddons.module.excel.ExcelModule.class,
+                org.isisaddons.module.settings.SettingsModule.class,
+                org.isisaddons.module.security.SecurityModule.class
+        );
     }
 
     @Override

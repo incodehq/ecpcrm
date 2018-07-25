@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.app</groupId>
+        <groupId>org.incode.eurocommercial</groupId>
         <artifactId>ecpcrm</artifactId>
         <version>1.16.2-SNAPSHOT</version>
     </parent>
@@ -88,7 +88,6 @@
                     </execution>
                   </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -261,6 +260,16 @@
             <version>${isis.version}</version>
             <type>pom</type>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.settings</groupId>
+            <artifactId>isis-module-settings-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>ecpcrm-application</artifactId>
         </dependency>
 
     </dependencies>

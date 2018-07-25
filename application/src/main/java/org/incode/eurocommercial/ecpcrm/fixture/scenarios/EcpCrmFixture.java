@@ -33,15 +33,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.sudo.SudoService;
 
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.child.Child;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmFixtureServiceRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.EcpCrmRegularRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.dom.seed.users.EcpCrmAdminUser;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.AuthenticationDeviceCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.authentication.AuthenticationDeviceTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.card.CardCreate;
@@ -58,6 +49,15 @@ import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.request.CardRequestTearDown;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserCreate;
 import org.incode.eurocommercial.ecpcrm.fixture.dom.user.UserTearDown;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 import lombok.Getter;
 

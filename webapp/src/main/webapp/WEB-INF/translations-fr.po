@@ -43,7 +43,7 @@ msgstr "Action Sémantique"
 msgid "Actions"
 msgstr "actions"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#active
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#active
 msgid "Active"
 msgstr "actif"
 
@@ -90,11 +90,11 @@ msgstr "Toutes les classes"
 msgid "All Collections"
 msgstr "Toutes les collections"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu#allEnabledCardsWithoutOwner()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#allEnabledCardsWithoutOwner()
 msgid "All Enabled Cards Without Owner"
 msgstr "Toutes les cartes activées sans propriétaire"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestMenu#allOpenRequests()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu#allOpenRequests()
 msgid "All Open Requests"
 msgstr "Toutes les demandes ouvertes"
 
@@ -111,7 +111,7 @@ msgstr "Toutes les autorisations"
 msgid "All Properties"
 msgstr "Toutes les propriétés"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestMenu#allRecentlyHandledRequests()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu#allRecentlyHandledRequests()
 msgid "All Recently Handled Requests"
 msgstr "Toutes les demandes traitées récemment"
 
@@ -137,7 +137,7 @@ msgstr "Autoriser"
 msgid "Always"
 msgstr "Toujours"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType#APP
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#APP
 msgid "App"
 msgstr "App"
 
@@ -149,11 +149,11 @@ msgstr "Paramètre d'application"
 msgid "Application Settings"
 msgstr "Paramètres de l'application"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#approve()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#approve()
 msgid "Approve"
 msgstr "Approuver"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#approved
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#approved
 msgid "Approved"
 msgstr "Approuvé"
 
@@ -165,16 +165,16 @@ msgstr "Êtes-vous sûr?"
 msgid "As Response"
 msgstr "Comme réponse"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#assignedCard
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#assignedCard
 msgid "Assigned Card"
 msgstr "Carte assignée"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#atPath
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#atPath
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#atPath
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#atPath
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#atPath
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#atPath
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#atPath
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#atPath
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#atPath
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#atPath
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#atPath
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#atPath
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#atPath
 #: org.isisaddons.module.security.dom.user.ApplicationUser#atPath
 msgid "At Path"
@@ -184,7 +184,7 @@ msgstr "Au chemin"
 msgid "AtPath"
 msgstr "AuChemin"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceMenu
+#: org.incode.eurocommercial.ecpcrm.module.api.menu.AuthenticationDeviceMenu
 msgid "Authentication Devices"
 msgstr "Périphériques d'authentification"
 
@@ -192,7 +192,7 @@ msgstr "Périphériques d'authentification"
 msgid "Birth Date"
 msgstr "Date de naissance"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#birthdate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#birthdate
 msgid "Birthdate"
 msgstr "Date de naissance"
 
@@ -200,7 +200,7 @@ msgstr "Date de naissance"
 msgid "Boolean"
 msgstr "Booléen"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType#BORNE
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#BORNE
 msgid "Borne"
 msgstr "Borne"
 
@@ -208,7 +208,7 @@ msgstr "Borne"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#card
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#card
 msgid "Card"
 msgstr "Carte"
 
@@ -220,7 +220,7 @@ msgstr "Vérification de la carte"
 msgid "Card Game"
 msgstr "Jeu de cartes"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#cardGames
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#cardGames
 msgid "Card Games"
 msgstr "Jeux de cartes"
 
@@ -228,16 +228,16 @@ msgstr "Jeux de cartes"
 msgid "Card Request"
 msgstr "Demande de carte"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestMenu
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu
 msgid "Card Requests"
 msgstr "Demandes de cartes"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
 msgid "Card number is invalid"
 msgstr "Le numéro de carte est invalide"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#approve()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#reapprove()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#approve()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#reapprove()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#newCard()
 #: org.incode.eurocommercial.ecpcrm.dom.user.UserMenu#newUser()
 msgid "Card number {cardNumber} is invalid"
@@ -251,7 +251,7 @@ msgstr "La carte avec le numéro {cardNumber} a déjà un propriétaire: {owner}
 msgid "Card with number {cardNumber} doesn't exist"
 msgstr "La carte avec le numéro {cardNumber} n'existe pas"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#cards
 msgid "Cards"
 msgstr "Cartes"
@@ -260,13 +260,13 @@ msgstr "Cartes"
 msgid "Cause"
 msgstr "Cause"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#center
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#center
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#center
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#center
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#center
 msgid "Center"
 msgstr "Centre"
 
-#: org.incode.eurocommercial.ecpcrm.dom.center.CenterMenu
+#: org.incode.eurocommercial.ecpcrm.module.center.center.CenterMenu
 msgid "Centers"
 msgstr "Centres"
 
@@ -279,22 +279,22 @@ msgstr "Modifier"
 msgid "Changing Permission"
 msgstr "Modification de l'autorisation"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#checkIn()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#checkIn
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#checkIn()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#checkIn
 msgid "Check In"
 msgstr "Enregistrement"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#checkOut()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#checkOut
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#doCheckOut()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#checkOut()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#checkOut
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#doCheckOut()
 msgid "Check Out"
 msgstr "Check-out"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#child
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#child
 msgid "Child"
 msgstr "Enfant"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#childCares
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#childCares
 msgid "Child Cares"
 msgstr "Soins aux enfants"
 
@@ -331,7 +331,7 @@ msgstr "Nom de la classe"
 msgid "Clear translation cache"
 msgstr "Effacer le cache de traduction"
 
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#code
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#code
 msgid "Code"
 msgstr "Code"
 
@@ -397,7 +397,7 @@ msgstr "Contenu"
 msgid "Contributed"
 msgstr "Contribué"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#createdAt
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#createdAt
 msgid "Created At"
 msgstr "Créé à"
 
@@ -415,7 +415,7 @@ msgstr "Les clients"
 msgid "Data Type"
 msgstr "Type de données"
 
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#date
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#date
 msgid "Date"
 msgstr "Date"
 
@@ -438,7 +438,7 @@ msgstr "Délégué"
 msgid "Delete"
 msgstr "Effacer"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#deny()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#deny()
 msgid "Deny"
 msgstr "Refuser"
 
@@ -485,24 +485,24 @@ msgstr "Description"
 msgid "Detail"
 msgstr "Détail"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#unenable()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#unenable()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#lock()
 msgid "Disable"
 msgstr "Désactiver"
 
-#: org.incode.eurocommercial.ecpcrm.dom.CardStatus#DISABLED
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus#DISABLED
 #: org.isisaddons.module.security.dom.user.ApplicationUserStatus#DISABLED
 msgid "Disabled"
 msgstr "désactivé"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#downloadJdoMetadata()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#downloadJdoMetadata()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#downloadJdoMetadata()
@@ -643,14 +643,14 @@ msgstr "Télécharger Jdo Metadata"
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.app.services.api.Result#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.app.services.homepage.HomePageViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#downloadLayoutXml()
@@ -717,12 +717,12 @@ msgstr "Email"
 msgid "Email Address"
 msgstr "Adresse e-mail"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#enable()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#enable()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#unlock()
 msgid "Enable"
 msgstr "Activer"
 
-#: org.incode.eurocommercial.ecpcrm.dom.CardStatus#ENABLED
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus#ENABLED
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#enabled
 #: org.isisaddons.module.security.dom.user.ApplicationUserStatus#ENABLED
 msgid "Enabled"
@@ -750,7 +750,7 @@ msgstr "Exécuter dans la transaction"
 msgid "Existing password"
 msgstr "Mot de passe existant"
 
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#fakeNumerator
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#fakeNumerator
 msgid "Fake Numerator"
 msgstr "Faux Numérateur"
 
@@ -782,7 +782,7 @@ msgstr "Fonctionnalité"
 msgid "Feature Fqn"
 msgstr "Fonctionnalité Fqn"
 
-#: org.incode.eurocommercial.ecpcrm.dom.Gender#FEMALE
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Gender#FEMALE
 msgid "Female"
 msgstr "Femelle"
 
@@ -802,11 +802,11 @@ msgstr "Nom de fichier"
 msgid "Filter Permissions"
 msgstr "Filtrer les autorisations"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findActiveChildCareByChild()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#findActiveChildCareByChild()
 msgid "Find Active Child Care By Child"
 msgstr "Trouver l'accueil enfants ouvert par un enfant"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findActiveChildCares()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#findActiveChildCares()
 msgid "Find Active Child Cares"
 msgstr "Trouvez l'accueil enfants ouvert"
 
@@ -815,16 +815,16 @@ msgstr "Trouvez l'accueil enfants ouvert"
 msgid "Find Application Setting"
 msgstr "Rechercher un paramètre d'application"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findByChild()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#findByChild()
 msgid "Find By Child"
 msgstr "Trouver par l'enfant"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findByChildAndDateRange()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#findByChildAndDateRange()
 msgid "Find By Child And Date Range"
 msgstr "Trouver par enfant et dates"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareMenu#findByDateRange()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findByDateRange()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.ChildCareMenu#findByDateRange()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#findByDateRange()
 msgid "Find By Date Range"
 msgstr "Trouver par dates"
 
@@ -836,7 +836,7 @@ msgstr "Trouver par e-mail"
 msgid "Find By Name"
 msgstr "Trouver par nom"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu#findByNumber()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#findByNumber()
 msgid "Find By Number"
 msgstr "Trouver par numéro"
 
@@ -850,7 +850,7 @@ msgstr "Trouver par référence"
 msgid "Find Matching"
 msgstr "Trouver les correspondances"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#findOrCreate()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#findOrCreate()
 msgid "Find Or Create"
 msgstr "Trouver ou créer"
 
@@ -895,7 +895,7 @@ msgstr "Script de montage"
 msgid "For Each"
 msgstr "Pour chaque"
 
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#format
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#format
 msgid "Format"
 msgstr "Format"
 
@@ -903,7 +903,7 @@ msgstr "Format"
 msgid "Friendly Name"
 msgstr "Nom familier"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#gender
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#gender
 msgid "Gender"
 msgstr "Le genre"
 
@@ -920,7 +920,7 @@ msgstr "Donner une carte"
 msgid "Given Name"
 msgstr "Prénom"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#givenToUserAt
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#givenToUserAt
 msgid "Given To User At"
 msgstr "Donné à l'utilisateur à"
 
@@ -932,7 +932,7 @@ msgstr "Aller à Docs"
 msgid "HSQL DB Manager"
 msgstr "HSQL DB Manager"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#handleDate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#handleDate
 msgid "Handle Date"
 msgstr "Date de traitement"
 
@@ -953,15 +953,15 @@ msgid "Home Page"
 msgstr "Page d'accueil"
 
 #: org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong#prop()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#id
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#datanucleusIdLong()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#id
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusIdLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#datanucleusIdLong()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#datanucleusIdLong()
 #: org.isisaddons.module.security.app.feature.ApplicationClass
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction
@@ -1009,7 +1009,7 @@ msgstr "Int"
 msgid "Isis Documentation"
 msgstr "Documentation Isis"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#issueDate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#issueDate
 msgid "Issue Date"
 msgstr "Date d'émission"
 
@@ -1053,7 +1053,7 @@ msgstr "Clé"
 msgid "Known As"
 msgstr "Connu comme"
 
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#lastIncrement
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#lastIncrement
 msgid "Last Increment"
 msgstr "Dernière incrément"
 
@@ -1061,15 +1061,15 @@ msgstr "Dernière incrément"
 msgid "Last Name"
 msgstr "Nom de famille"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareMenu#listActiveChildCares()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.ChildCareMenu#listActiveChildCares()
 msgid "List Active Child Cares"
 msgstr "Liste des accueils ouverts pour les enfants"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceMenu#listAll()
-#: org.incode.eurocommercial.ecpcrm.dom.center.CenterMenu#listAll()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareMenu#listAll()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#listAll()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestMenu#listAll()
+#: org.incode.eurocommercial.ecpcrm.module.api.menu.AuthenticationDeviceMenu#listAll()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.CenterMenu#listAll()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.ChildCareMenu#listAll()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#listAll()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu#listAll()
 msgid "List All"
 msgstr "Tout lister"
 
@@ -1088,7 +1088,7 @@ msgstr "Lister tous les paramètres pour l'utilisateur"
 msgid "List All User Settings"
 msgstr "Lister tous les paramètres de l'utilisateur"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu#listUnassignedCards()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#listUnassignedCards()
 msgid "List Unassigned Cards"
 msgstr "Liste des cartes non attribuées"
 
@@ -1108,11 +1108,11 @@ msgstr "Longue"
 msgid "Looks up ApplicationUser entity corresponding to your user account"
 msgstr "Recherche l'entité ApplicationUser correspondant à votre compte d'utilisateur"
 
-#: org.incode.eurocommercial.ecpcrm.dom.CardStatus#LOST
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus#LOST
 msgid "Lost"
 msgstr "Perdu"
 
-#: org.incode.eurocommercial.ecpcrm.dom.Gender#MALE
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Gender#MALE
 msgid "Male"
 msgstr "Mâle"
 
@@ -1156,7 +1156,7 @@ msgstr "Métadonnées"
 msgid "Minimal"
 msgstr "Minimal"
 
-#: org.incode.eurocommercial.ecpcrm.dom.Title#MISS
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title#MISS
 msgid "Miss"
 msgstr "Mademoiselle"
 
@@ -1170,18 +1170,18 @@ msgstr "Mademoiselle"
 msgid "Mode"
 msgstr "Mode"
 
-#: org.incode.eurocommercial.ecpcrm.dom.Title#MR
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title#MR
 msgid "Mr"
 msgstr "M"
 
-#: org.incode.eurocommercial.ecpcrm.dom.Title#MRS
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title#MRS
 msgid "Mrs"
 msgstr "Madame"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#name
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#name
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#name
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#name
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#name
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#name
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#name
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#name
 #: org.isisaddons.module.security.dom.role.ApplicationRole#name
 #: org.isisaddons.module.security.dom.role.ApplicationRole#updateName(java.lang.String)
 #: org.isisaddons.module.security.dom.role.ApplicationRoleMenu#newRole(java.lang.String,java.lang.String)
@@ -1201,11 +1201,11 @@ msgstr "prénom"
 msgid "New Application Feature"
 msgstr "Nouvelle fonctionnalité d'application"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceMenu#newAuthenticationDevice()
+#: org.incode.eurocommercial.ecpcrm.module.api.menu.AuthenticationDeviceMenu#newAuthenticationDevice()
 msgid "New Authentication Device"
 msgstr "Nouveau périphérique d'authentification"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu#newBatch()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newBatch()
 msgid "New Batch"
 msgstr "Nouveau lot"
 
@@ -1216,11 +1216,11 @@ msgstr "Nouveau lot"
 msgid "New Boolean"
 msgstr "Nouveau booléen"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.CardMenu#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
 msgid "New Card"
 msgstr "Nouvelle carte"
 
-#: org.incode.eurocommercial.ecpcrm.dom.center.CenterMenu#newCenter()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.CenterMenu#newCenter()
 msgid "New Center"
 msgstr "Nouveau centre"
 
@@ -1228,7 +1228,7 @@ msgstr "Nouveau centre"
 msgid "New Child"
 msgstr "Nouvel enfant"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository#newChildCare()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCareRepository#newChildCare()
 msgid "New Child Care"
 msgstr "Nouvel accueil d'enfants"
 
@@ -1313,19 +1313,19 @@ msgstr "Non Idempotent Êtes-vous sûr"
 msgid "Normalized"
 msgstr "Normalisé"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#notes
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#notes
 msgid "Notes"
 msgstr "Remarques"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#number
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#number
 msgid "Number"
 msgstr "Nombre"
 
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#numerator
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#numerator
 msgid "Numerator"
 msgstr "Numérateur"
 
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareMenu
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.ChildCareMenu
 msgid "Nursery"
 msgstr "Garderie"
 
@@ -1466,14 +1466,14 @@ msgstr "Ouvrir"
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.app.services.api.Result#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.app.services.homepage.HomePageViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#openRestApi()
@@ -1510,11 +1510,11 @@ msgstr "Open Rest Api"
 msgid "Open Swagger Ui"
 msgstr "Open Swagger Ui"
 
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#outcome
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#outcome
 msgid "Outcome"
 msgstr "Résultat"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#owner
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#owner
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -1544,7 +1544,7 @@ msgstr "Nom du paquet"
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#parent
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#parent
 #: org.isisaddons.module.security.app.feature.ApplicationClass
 #: org.isisaddons.module.security.app.feature.ApplicationClass#parent
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction
@@ -1607,7 +1607,7 @@ msgstr "Téléphone"
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType#PICK_UP_IN_CENTER
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequestType#PICK_UP_IN_CENTER
 msgid "Pick Up In Center"
 msgstr "Récupérer au centre"
 
@@ -1674,7 +1674,7 @@ msgstr "Objets rapides"
 msgid "Re-enter password"
 msgstr "Retaper le mot de passe"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#reapprove()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#reapprove()
 msgid "Reapprove"
 msgstr "Réapprocher"
 
@@ -1808,14 +1808,14 @@ msgstr "Réapprocher"
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.app.services.api.Result#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.app.services.homepage.HomePageViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#rebuildMetamodel()
@@ -1874,14 +1874,14 @@ msgstr "Reconstruire le métamodèle"
 #: org.incode.eurocommercial.ecpcrm.app.services.activity.RecentActivityContributions#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.app.services.api.Result#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.app.services.homepage.HomePageViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#recentActivity()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#recentActivity()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#recentActivity()
@@ -1944,7 +1944,7 @@ msgstr "Remplacer"
 msgid "Replace All"
 msgstr "Remplace tout"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#requestingUser
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#requestingUser
 msgid "Requesting User"
 msgstr "Utilisateur demandeur"
 
@@ -2022,7 +2022,7 @@ msgstr "Paramètres spécifiques au script (le cas échéant). Le format dépend
 msgid "Search"
 msgstr "Chercher"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#secret
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#secret
 msgid "Secret"
 msgstr "Secret"
 
@@ -2035,11 +2035,11 @@ msgstr "Secret"
 msgid "Security"
 msgstr "Sécurité"
 
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType#SEND_TO_HOME
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequestType#SEND_TO_HOME
 msgid "Send To Home"
 msgstr "Envoyer à la maison"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#sentToUserAt
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#sentToUserAt
 msgid "Sent To User At"
 msgstr "Envoyé à l'utilisateur à"
 
@@ -2051,12 +2051,12 @@ msgstr "Envoyé à l'utilisateur à"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType#SITE
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#SITE
 msgid "Site"
 msgstr "Site"
 
 #: org.incode.eurocommercial.ecpcrm.app.services.api.Result#status
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#status
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#status
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 #: org.isisaddons.module.security.dom.user.ApplicationUser#status
 msgid "Status"
@@ -2082,7 +2082,7 @@ msgstr "Passer à la lecture des traductions"
 msgid "Switch To Writing Translations"
 msgstr "Passer aux traductions d'écriture"
 
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#tagAsLost()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#tagAsLost()
 msgid "Tag As Lost"
 msgstr "Tag comme perdu"
 
@@ -2098,12 +2098,12 @@ msgstr "Exceller"
 msgid "To Excel Pivot"
 msgstr "Pour Excel Pivot"
 
-#: org.incode.eurocommercial.ecpcrm.dom.CardStatus#TOCHANGE
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus#TOCHANGE
 msgid "Tochange"
 msgstr "Changer"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#type
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#type
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#type
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#type
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#type
 #: org.isisaddons.module.security.dom.role.ApplicationRole#removePermission(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureType,java.lang.String)
 #: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#type
@@ -2116,9 +2116,9 @@ msgstr "Type"
 msgid "Typical Length"
 msgstr "Longueur typique"
 
-#: org.incode.eurocommercial.ecpcrm.dom.Gender#UNKNOWN_IMPORT
-#: org.incode.eurocommercial.ecpcrm.dom.Title#UNKNOWN_IMPORT
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType#UNKNOWN_IMPORT
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Gender#UNKNOWN_IMPORT
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title#UNKNOWN_IMPORT
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequestType#UNKNOWN_IMPORT
 msgid "Unknown Import"
 msgstr "Importation inconnue"
 
@@ -2329,22 +2329,22 @@ msgstr "Verbe"
 
 #: org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionLong#prop()
 #: org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp#prop()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.card.Card#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.center.Center#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.child.Child#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.game.CardGame#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.numerator.Numerator#datanucleusVersionTimestamp()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#datanucleusVersionLong()
-#: org.incode.eurocommercial.ecpcrm.dom.request.CardRequest#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.center.center.Center#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.childcare.ChildCare#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.game.CardGame#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusVersionTimestamp()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#datanucleusVersionLong()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.request.CardRequest#datanucleusVersionTimestamp()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#datanucleusVersionLong()
 #: org.incode.eurocommercial.ecpcrm.dom.user.User#datanucleusVersionTimestamp()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#datanucleusVersionLong()
@@ -2388,7 +2388,7 @@ msgstr "Détail de l'utilisateur du site"
 msgid "Website User Modify"
 msgstr "Utilisateur du site Web Modifier"
 
-#: org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType#WIFI
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#WIFI
 msgid "Wifi"
 msgstr "Wifi"
 

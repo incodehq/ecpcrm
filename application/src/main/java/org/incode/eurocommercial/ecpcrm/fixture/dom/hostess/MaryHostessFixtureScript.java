@@ -21,7 +21,7 @@ import java.util.Arrays;
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions;
 
 public class MaryHostessFixtureScript extends AbstractUserAndRolesFixtureScript {
 

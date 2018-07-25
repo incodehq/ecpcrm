@@ -27,8 +27,8 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 

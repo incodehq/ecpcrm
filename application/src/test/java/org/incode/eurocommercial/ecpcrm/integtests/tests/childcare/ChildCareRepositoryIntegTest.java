@@ -30,15 +30,15 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.dom.Gender;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.dom.child.Child;
-import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.ChildRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Gender;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

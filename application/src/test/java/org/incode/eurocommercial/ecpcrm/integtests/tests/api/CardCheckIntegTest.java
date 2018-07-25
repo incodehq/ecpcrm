@@ -28,18 +28,18 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.module.application.service.api.ApiService;
-import org.incode.eurocommercial.ecpcrm.module.application.service.api.Result;
-import org.incode.eurocommercial.ecpcrm.module.application.service.api.vm.cardcheck.CardCheckResponseViewModel;
-import org.incode.eurocommercial.ecpcrm.dom.CardStatus;
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDevice;
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceRepository;
-import org.incode.eurocommercial.ecpcrm.dom.authentication.AuthenticationDeviceType;
-import org.incode.eurocommercial.ecpcrm.dom.card.Card;
-import org.incode.eurocommercial.ecpcrm.dom.card.CardRepository;
-import org.incode.eurocommercial.ecpcrm.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
+import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,7 +53,6 @@ public class CardCheckIntegTest extends EcpCrmIntegTest {
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
     @Inject ApiService apiService;
-
 
     private IntegTestFixture fs;
     private Card card;

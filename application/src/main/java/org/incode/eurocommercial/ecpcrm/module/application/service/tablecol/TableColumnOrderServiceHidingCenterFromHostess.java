@@ -28,7 +28,7 @@ import org.isisaddons.module.security.app.user.MeService;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 
-import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

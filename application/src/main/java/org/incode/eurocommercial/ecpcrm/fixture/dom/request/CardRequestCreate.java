@@ -22,11 +22,11 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequest;
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestRepository;
-import org.incode.eurocommercial.ecpcrm.dom.request.CardRequestType;
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
 import lombok.Getter;
 import lombok.Setter;

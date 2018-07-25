@@ -25,13 +25,14 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.eurocommercial.ecpcrm.dom.user.User;
-import org.incode.eurocommercial.ecpcrm.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
 @ViewModel
 public class HomePageViewModel {
@@ -43,7 +44,7 @@ public class HomePageViewModel {
 
     @Collection(editing = Editing.DISABLED)
     @CollectionLayout(paged=200)
-    @org.apache.isis.applib.annotation.HomePage
+    @HomePage
     public List<User> getCustomers() {
         return userRepository.listAll();
     }

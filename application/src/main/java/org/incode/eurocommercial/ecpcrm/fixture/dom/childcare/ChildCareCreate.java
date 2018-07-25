@@ -12,10 +12,10 @@ import org.joda.time.LocalDateTime;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.dom.child.Child;
-import org.incode.eurocommercial.ecpcrm.dom.child.ChildRepository;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCare;
-import org.incode.eurocommercial.ecpcrm.dom.childcare.ChildCareRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.ChildRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository;
 
 import lombok.Getter;
 import lombok.Setter;

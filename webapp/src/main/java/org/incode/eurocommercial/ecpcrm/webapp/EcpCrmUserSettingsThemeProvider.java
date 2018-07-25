@@ -97,6 +97,4 @@ public class EcpCrmUserSettingsThemeProvider implements ActiveThemeProvider {
         return IsisContext.getSessionFactory();
     }
 
-
-
 }
