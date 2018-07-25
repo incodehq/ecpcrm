@@ -53,6 +53,4 @@ public class HideIsisAddonsSettingsFunctionality extends AbstractSubscriber {
         }
     }
 
-    //region > injected services
-    //endregion
 }

@@ -18,6 +18,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.application;
 
-public final class EcpCrmAppModule {
-    private EcpCrmAppModule(){}
+public final class EcpCrmApplicationModule {
+    private EcpCrmApplicationModule(){}
 }

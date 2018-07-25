@@ -34,7 +34,7 @@ import org.isisaddons.module.security.facets.TenantedAuthorizationFacetFactory;
 
 import org.incode.eurocommercial.ecpcrm.dom.EcpCrmDomainModule;
 import org.incode.eurocommercial.ecpcrm.fixture.EcpCrmFixtureModule;
-import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmAppModule;
+import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmApplicationModule;
 
 public class EcpCrmAppManifest implements AppManifest {
 
@@ -44,7 +44,7 @@ public class EcpCrmAppManifest implements AppManifest {
 
                 EcpCrmDomainModule.class     // entities and domain services
                 ,EcpCrmFixtureModule.class   // fixture scripts and FixtureScriptsSpecificationProvider
-                ,EcpCrmAppModule.class     // EcpCrmRolesAndPermissionsSeedService (requires security module)
+                ,EcpCrmApplicationModule.class     // EcpCrmRolesAndPermissionsSeedService (requires security module)
 
                 ,org.isisaddons.module.excel.ExcelModule.class // to run fixtures
                 ,org.isisaddons.module.settings.SettingsModule.class // used by DomainAppUserSettingsThemeProvider

@@ -59,6 +59,4 @@ public class HideContributionForSettings extends AbstractSubscriber {
         }
     }
 
-    //region > injected services
-    //endregion
 }

@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.application.service.externallinks;
+package org.incode.eurocommercial.ecpcrm.module.application.menu.prototyping;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,7 +36,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "500.30"
 )
-public class ExternalLinksService {
+public class ExternalLinksMenu {
 
     public static enum ExternalLink {
         ISIS_DOCUMENTATION("Apache Isis docs", "http://isis.apache.org/documentation.html"),

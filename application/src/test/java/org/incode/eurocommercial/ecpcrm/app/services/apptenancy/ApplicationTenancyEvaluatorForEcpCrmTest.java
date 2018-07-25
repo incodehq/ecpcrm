@@ -12,7 +12,6 @@ import org.incode.eurocommercial.ecpcrm.module.application.service.apptenancy.Ap
 
 public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
-
     ApplicationTenancyEvaluatorForEcpCrm evaluator;
 
     HasAtPath domainObject;
@@ -37,7 +36,6 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
     @After
     public void tearDown() throws Exception {
-
     }
 
     public static class HidesTest extends ApplicationTenancyEvaluatorForEcpCrmTest {
@@ -100,7 +98,6 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
         }
 
-
         @Test
         public void when_obj_has_no_atPath() throws Exception {
 
@@ -116,7 +113,6 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
         }
 
-
         @Test
         public void when_user_has_no_atPath() throws Exception {
 
@@ -131,7 +127,6 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
             Assertions.assertThat(result).isNotNull();
 
         }
-
 
     }
 
@@ -194,7 +189,6 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
         }
 
-
         @Test
         public void when_obj_has_no_atPath() throws Exception {
 
@@ -209,7 +203,6 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
             Assertions.assertThat(result).isNull();
 
         }
-
 
         @Test
         public void when_user_has_no_atPath() throws Exception {
@@ -226,7 +219,5 @@ public class ApplicationTenancyEvaluatorForEcpCrmTest {
 
         }
     }
-
-
 
 }

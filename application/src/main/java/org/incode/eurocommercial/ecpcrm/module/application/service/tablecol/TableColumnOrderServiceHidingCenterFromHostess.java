@@ -34,7 +34,7 @@ import org.incode.eurocommercial.ecpcrm.dom.seed.roles.HostessRoleAndPermissions
         nature = NatureOfService.DOMAIN,
         menuOrder = "100"
 )
-public class EcpCrmTableColumnOrderService implements TableColumnOrderService {
+public class TableColumnOrderServiceHidingCenterFromHostess implements TableColumnOrderService {
 
     @Override public List<String> orderParented(
             Object parent,

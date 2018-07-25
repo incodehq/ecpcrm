@@ -14,9 +14,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.application.service.tenancy;
+package org.incode.eurocommercial.ecpcrm.module.application.menu.prototyping;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.Action;
@@ -34,23 +36,19 @@ import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel;
 
-
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
 )
 @DomainServiceLayout(
-        menuBar = DomainServiceLayout.MenuBar.TERTIARY
+        named = "Prototyping",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "500.40"
 )
-public class TenancySwitcher extends AbstractService {
-
+public class TenancySwitcherMenu extends AbstractService {
 
     //region > switchTenancy (action)
-    @Action(
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    @ActionLayout(
-            cssClassFa = "fa-exchange"
-    )
+    @Action(semantics = SemanticsOf.IDEMPOTENT)
+    @ActionLayout(cssClassFa = "fa-exchange")
     public HomePageViewModel switchTenancy(final ApplicationTenancy applicationTenancy) {
         final ApplicationUser applicationUser = meService.me();
         applicationUser.updateAtPath(applicationTenancy.getPath());
@@ -69,14 +67,9 @@ public class TenancySwitcher extends AbstractService {
     //endregion
 
     //region > injected services
-    @javax.inject.Inject
-    private MeService meService;
-
-    @javax.inject.Inject
-    private ApplicationTenancyRepository applicationTenancyRepository;
-
-    @javax.inject.Inject
-    private HomePageService homePageService;
+    @Inject private MeService meService;
+    @Inject private ApplicationTenancyRepository applicationTenancyRepository;
+    @Inject private HomePageService homePageService;
     //endregion
 
 }

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.application.service.prototyping;
+package org.incode.eurocommercial.ecpcrm.module.application.menu.prototyping;
 
 import java.util.List;
 
@@ -33,8 +33,8 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
 
 /**
  * Enables fixtures to be installed from the application.
@@ -46,18 +46,13 @@ import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
         named = "Prototyping",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "500.10")
-public class EcpCrmPrototypingExtensions {
+public class FixtureMenu {
 
-    @Action(
-            restrictTo = RestrictTo.PROTOTYPING
-    )
-    @ActionLayout(
-        cssClassFa="fa fa-refresh"
-    )
+    @Action(restrictTo = RestrictTo.PROTOTYPING)
+    @ActionLayout(cssClassFa="fa fa-refresh")
     @MemberOrder(sequence = "500.10.2")
-    public Object recreateSimpleObjectsThenOpenDashboard() {
-        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(
-                IntegTestFixture.class);
+    public Object recreateDummyData() {
+        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(DemoFixture.class);
         final List<FixtureResult> unusedResults = fs.run(null);
         return homePageService.homePage();
     }
