@@ -44,7 +44,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
-import org.incode.eurocommercial.ecpcrm.module.application.service.mail.MailService;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.services.mail.MailService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;

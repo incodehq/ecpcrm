@@ -33,7 +33,7 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.demo.DemoFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService;
 
 /**

@@ -32,7 +32,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory;
 import org.isisaddons.module.security.facets.TenantedAuthorizationFacetFactory;
 
-import org.incode.eurocommercial.ecpcrm.fixture.EcpCrmFixtureModule;
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmApiModule;
 import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmApplicationModule;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.EcpCrmLoyaltyCardsModule;
@@ -45,7 +44,6 @@ public class EcpCrmAppManifest implements AppManifest {
                 EcpCrmLoyaltyCardsModule.class,
                 EcpCrmApiModule.class,
                 EcpCrmApplicationModule.class,
-                EcpCrmFixtureModule.class,
 
                 org.isisaddons.module.excel.ExcelModule.class,
                 org.isisaddons.module.settings.SettingsModule.class,

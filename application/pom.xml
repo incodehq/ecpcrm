@@ -30,7 +30,6 @@
     <name>Eurocommercial CRM Application</name>
 
     <properties>
-        <mavenmixin-isisvalidate.version>0.0.2</mavenmixin-isisvalidate.version>
         <axon-core.version>2.4</axon-core.version>
     </properties>
 
@@ -74,11 +73,6 @@
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>datanucleusenhance</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>isisvalidate</artifactId>
-                            <version>${mavenmixin-isisvalidate.version}</version>
                         </mixin>
                     </mixins>
                 </configuration>

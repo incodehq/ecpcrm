@@ -25,7 +25,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.fixture.jdbc.EcpCrmJdbcImportFixture;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture;
 
 public class EcpCrmAppManifestWithImportFixture extends EcpCrmAppManifest {
 

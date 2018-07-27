@@ -128,7 +128,7 @@
         <!-- this app -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>ecpcrm-app</artifactId>
+            <artifactId>ecpcrm-application</artifactId>
         </dependency>
 
         <dependency>
@@ -265,11 +265,7 @@
         <dependency>
             <groupId>org.isisaddons.module.settings</groupId>
             <artifactId>isis-module-settings-dom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>${groupId}</groupId>
-            <artifactId>ecpcrm-application</artifactId>
+            <version>${isis-module-settings.version}</version>
         </dependency>
 
     </dependencies>

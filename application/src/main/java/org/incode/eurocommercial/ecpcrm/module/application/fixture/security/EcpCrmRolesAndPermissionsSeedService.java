@@ -31,7 +31,6 @@ import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.role
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.DevUtilsModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions;
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmVetoSelectedMembersPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.PublishingModuleRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SessionLoggerModuleRoleAndPermissions;
@@ -65,7 +64,6 @@ public class EcpCrmRolesAndPermissionsSeedService {
         protected void execute(final ExecutionContext executionContext) {
             executionContext.executeChild(this, new EcpCrmRegularRoleAndPermissions());
             executionContext.executeChild(this, new HostessRoleAndPermissions());
-            executionContext.executeChild(this, new EcpCrmVetoSelectedMembersPermissions());
             executionContext.executeChild(this, new EcpCrmFixtureServiceRoleAndPermissions());
 
             executionContext.executeChild(this, new AuditModuleRoleAndPermissions());

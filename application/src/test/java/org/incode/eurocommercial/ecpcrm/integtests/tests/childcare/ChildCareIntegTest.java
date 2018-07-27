@@ -28,7 +28,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;

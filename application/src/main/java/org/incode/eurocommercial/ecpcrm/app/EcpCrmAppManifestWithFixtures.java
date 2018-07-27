@@ -25,7 +25,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.demo.DemoFixture;
 
 public class EcpCrmAppManifestWithFixtures extends EcpCrmAppManifest {
 

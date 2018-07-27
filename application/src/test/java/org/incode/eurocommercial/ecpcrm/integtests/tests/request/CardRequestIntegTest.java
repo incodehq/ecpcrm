@@ -32,7 +32,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
-import org.incode.eurocommercial.ecpcrm.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.integtests.tests.EcpCrmIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
