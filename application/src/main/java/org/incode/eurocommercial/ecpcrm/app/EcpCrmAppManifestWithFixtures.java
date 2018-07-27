@@ -22,13 +22,14 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationDemoFixture;
+
 
 public class EcpCrmAppManifestWithFixtures extends EcpCrmAppManifest {
 
     @Override
     protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(DemoFixture.class);
+        fixtureScripts.add(EcpCrmApplicationDemoFixture.class);
     }
 
 }

@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame;
@@ -38,13 +38,13 @@ public class CardIntegTest extends LoyaltyCardModuleIntegTestAbstract {
     @Inject ClockService clockService;
     @Inject CardGameRepository cardGameRepository;
 
-    IntegTestFixture fs;
+    LoyaltyCardsIntegTestFixture fs;
     Card card;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new IntegTestFixture();
+        fs = new LoyaltyCardsIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         card = fs.getCards().get(0);

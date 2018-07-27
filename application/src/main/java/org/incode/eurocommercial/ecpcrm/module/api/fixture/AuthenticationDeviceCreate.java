@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.module.api.fixture.authentication;
+package org.incode.eurocommercial.ecpcrm.module.api.fixture;
 
 import java.util.Random;
 

@@ -28,7 +28,6 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.excel.ExcelModule;
-import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.settings.SettingsModule;
 
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmApiModule;
@@ -56,7 +55,6 @@ public final class EcpCrmApplicationModule extends ModuleAbstract {
         return Sets.newHashSet(
                 new EcpCrmLoyaltyCardsModule(),
                 new EcpCrmApiModule(),
-                new SecurityModule(),
                 new ExcelModule()
         );
     }

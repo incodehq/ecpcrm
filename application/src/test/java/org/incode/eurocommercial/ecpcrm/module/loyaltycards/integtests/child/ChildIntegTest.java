@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository;
@@ -41,13 +41,13 @@ public class ChildIntegTest extends LoyaltyCardModuleIntegTestAbstract {
     @Inject TransactionService transactionService;
     @Inject ChildCareRepository childCareRepository;
 
-    IntegTestFixture fs;
+    LoyaltyCardsIntegTestFixture fs;
     Child child;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new IntegTestFixture();
+        fs = new LoyaltyCardsIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         child = fs.getChildren().get(0);

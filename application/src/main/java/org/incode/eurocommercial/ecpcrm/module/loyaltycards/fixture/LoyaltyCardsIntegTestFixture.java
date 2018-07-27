@@ -17,12 +17,10 @@
  *  under the License.
  */
 
-package org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test;
+package org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.EcpCrmFixture;
-
-public class IntegTestFixture extends EcpCrmFixture {
-    public IntegTestFixture() {
+public class LoyaltyCardsIntegTestFixture extends LoyaltyCardsModuleFixture {
+    public LoyaltyCardsIntegTestFixture() {
         super();
         NUM_CENTERS = 2;
         CARDS_PER_CENTER = 5;

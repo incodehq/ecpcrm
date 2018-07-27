@@ -30,9 +30,9 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
@@ -56,7 +56,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
     @Inject ApiService apiService;
 
 
-    private IntegTestFixture fs;
+    private ApiIntegTestFixture fs;
     private Card card;
     private Center center;
     private User user;
@@ -66,7 +66,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new IntegTestFixture();
+        fs = new ApiIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         center = fs.getCenters().get(new Random().nextInt(fs.getCenters().size()));

@@ -33,7 +33,7 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.demo.DemoFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService;
 
 /**
@@ -52,7 +52,7 @@ public class FixtureMenu {
     @ActionLayout(cssClassFa="fa fa-refresh")
     @MemberOrder(sequence = "500.10.2")
     public Object recreateDummyData() {
-        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(DemoFixture.class);
+        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(LoyaltyCardsDemoFixture.class);
         final List<FixtureResult> unusedResults = fs.run(null);
         return homePageService.homePage();
     }

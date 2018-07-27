@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.integtests.LoyaltyCardModuleIntegTestAbstract;
@@ -37,13 +37,13 @@ public class CenterRepositoryIntegTest extends LoyaltyCardModuleIntegTestAbstrac
     @Inject private FixtureScripts fixtureScripts;
     @Inject CenterRepository centerRepository;
 
-    IntegTestFixture fs;
+    LoyaltyCardsIntegTestFixture fs;
     Center center;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new IntegTestFixture();
+        fs = new LoyaltyCardsIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         center = fs.getCenters().get(0);

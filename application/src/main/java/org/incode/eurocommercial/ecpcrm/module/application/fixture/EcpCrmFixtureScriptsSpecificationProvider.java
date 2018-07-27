@@ -24,7 +24,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 
 /**
  * Specifies where to find fixtures, and other settings.
@@ -36,9 +36,9 @@ public class EcpCrmFixtureScriptsSpecificationProvider implements FixtureScripts
         return FixtureScriptsSpecification
                 .builder(EcpCrmFixtureScriptsSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
-                .withRunScriptDefault(IntegTestFixture.class)
+                .withRunScriptDefault(LoyaltyCardsIntegTestFixture.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
-                .withRecreate(IntegTestFixture.class)
+                .withRecreate(LoyaltyCardsIntegTestFixture.class)
                 .build();
     }
 }

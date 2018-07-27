@@ -17,12 +17,10 @@
  *  under the License.
  */
 
-package org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.demo;
+package org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.EcpCrmFixture;
-
-public class DemoFixture extends EcpCrmFixture {
-    public DemoFixture() {
+public class LoyaltyCardsDemoFixture extends LoyaltyCardsModuleFixture {
+    public LoyaltyCardsDemoFixture() {
         super();
         NUM_CENTERS = 5;
         CARDS_PER_CENTER = 10;

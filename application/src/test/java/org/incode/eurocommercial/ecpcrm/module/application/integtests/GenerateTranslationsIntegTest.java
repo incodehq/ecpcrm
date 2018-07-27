@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser;
@@ -49,7 +49,7 @@ public class GenerateTranslationsIntegTest extends ApplicationModuleIntegTestAbs
     @Inject UserRepository userRepository;
     @Inject UserServiceWithImpersonation userServiceWithImpersonation;
 
-    IntegTestFixture fs;
+    LoyaltyCardsIntegTestFixture fs;
     Center center;
     CardRequest request;
     User user;
@@ -57,7 +57,7 @@ public class GenerateTranslationsIntegTest extends ApplicationModuleIntegTestAbs
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new IntegTestFixture();
+        fs = new LoyaltyCardsIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
         center = fs.getCenters().get(0);

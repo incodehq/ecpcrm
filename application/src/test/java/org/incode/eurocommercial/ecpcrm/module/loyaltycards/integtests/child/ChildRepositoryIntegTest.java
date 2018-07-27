@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.eurocommercial.ecpcrm.module.application.fixture.scenarios.test.IntegTestFixture;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.ChildRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
@@ -38,12 +38,12 @@ public class ChildRepositoryIntegTest extends LoyaltyCardModuleIntegTestAbstract
     @Inject private FixtureScripts fixtureScripts;
     @Inject ChildRepository childRepository;
 
-    IntegTestFixture fs;
+    LoyaltyCardsIntegTestFixture fs;
 
     @Before
     public void setUp() throws Exception {
         // given
-        fs = new IntegTestFixture();
+        fs = new LoyaltyCardsIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
     }
 

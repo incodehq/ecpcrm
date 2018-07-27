@@ -25,11 +25,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.ecwid.maleorang.MailchimpObject;
 import com.google.common.collect.Sets;
 
+import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
+import org.isisaddons.module.security.SecurityModule;
+
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
@@ -39,6 +43,13 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 @XmlRootElement(name = "module")
 public final class EcpCrmLoyaltyCardsModule extends ModuleAbstract {
+
+    @Override
+    public Set<Module> getDependencies() {
+        return Sets.newHashSet(
+                new SecurityModule()
+        );
+    }
 
     @Override
     public Set<Class<?>> getAdditionalModules() {
@@ -52,6 +63,7 @@ public final class EcpCrmLoyaltyCardsModule extends ModuleAbstract {
         return new TeardownFixtureAbstract2() {
             @Override protected void execute(final ExecutionContext executionContext) {
                 deleteFrom(CardRequest.class);
+                deleteFrom(CardGame.class);
                 deleteFrom(Card.class);
                 deleteFrom(ChildCare.class);
                 deleteFrom(Child.class);
