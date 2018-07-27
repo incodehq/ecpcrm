@@ -18,6 +18,37 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api;
 
-public final class EcpCrmApiModule {
+import java.util.Set;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.google.common.collect.Sets;
+
+import org.apache.isis.applib.Module;
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
+
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.EcpCrmLoyaltyCardsModule;
+
+@XmlRootElement(name = "module")
+public final class EcpCrmApiModule extends ModuleAbstract {
+
+    @Override
+    public Set<Module> getDependencies() {
+        return Sets.newHashSet(
+                new EcpCrmLoyaltyCardsModule()
+        );
+    }
+
+    @Override
+    public FixtureScript getTeardownFixture() {
+        return new TeardownFixtureAbstract2() {
+            @Override protected void execute(final FixtureScript.ExecutionContext executionContext) {
+                deleteFrom(AuthenticationDevice.class);
+            }
+        };
+    }
 
 }

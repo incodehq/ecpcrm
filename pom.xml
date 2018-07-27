@@ -66,7 +66,7 @@
 
 
         <!--For some reason this does not work above version 1.14.0-->
-        <isis-module-security.version>1.14.0</isis-module-security.version>
+        <isis-module-security.version>${incode-platform.version}</isis-module-security.version>
         <!--This has no version over 1.15.0-->
         <isis-module-settings.version>1.15.0</isis-module-settings.version>
 

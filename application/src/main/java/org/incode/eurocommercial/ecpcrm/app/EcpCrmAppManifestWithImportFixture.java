@@ -19,9 +19,6 @@
 package org.incode.eurocommercial.ecpcrm.app;
 
 import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -29,21 +26,9 @@ import org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJd
 
 public class EcpCrmAppManifestWithImportFixture extends EcpCrmAppManifest {
 
-    /**
-     * Fixtures to be installed.
-     */
     @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.newArrayList(EcpCrmJdbcImportFixture.class);
-    }
-
-    /**
-     * Force fixtures to be loaded.
-     */
-    @Override
-    protected void appendConfigurationProperties(final Map<String, String> props) {
-        super.appendConfigurationProperties(props);
-        props.put("isis.persistor.datanucleus.install-fixtures","true");
+    protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(EcpCrmJdbcImportFixture.class);
     }
 
 }

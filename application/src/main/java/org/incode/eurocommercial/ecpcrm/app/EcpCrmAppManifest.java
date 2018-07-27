@@ -18,103 +18,33 @@
  */
 package org.incode.eurocommercial.ecpcrm.app;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.base.Joiner;
-import com.google.common.collect.Maps;
+import com.google.common.collect.ImmutableMap;
 
-import org.apache.isis.applib.AppManifest;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.AppManifestAbstract2;
 
 import org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory;
 import org.isisaddons.module.security.facets.TenantedAuthorizationFacetFactory;
 
-import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmApiModule;
 import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmApplicationModule;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.EcpCrmLoyaltyCardsModule;
 
-public class EcpCrmAppManifest implements AppManifest {
+public class EcpCrmAppManifest extends AppManifestAbstract2 {
 
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                EcpCrmLoyaltyCardsModule.class,
-                EcpCrmApiModule.class,
-                EcpCrmApplicationModule.class,
+    public static final AppManifestAbstract2.Builder BUILDER =
+            AppManifestAbstract2.Builder.forModule(new EcpCrmApplicationModule())
+                    .withAuthMechanism("shiro")
+                    .withConfigurationPropertiesFile(
+                            EcpCrmAppManifest.class, "isis-non-changing.properties")
+                    .withConfigurationProperties(
+                            ImmutableMap.of(
+                                    "isis.reflector.facets.include",
+                                    Joiner.on(',').join(
+                                            NamedFacetOnParameterParaname8Factory.class.getName(),
+                                            TenantedAuthorizationFacetFactory.class.getName()))
+                            );
 
-                org.isisaddons.module.excel.ExcelModule.class,
-                org.isisaddons.module.settings.SettingsModule.class,
-                org.isisaddons.module.security.SecurityModule.class
-        );
-    }
-
-    @Override
-    public List<Class<?>> getAdditionalServices() {
-        return Arrays.asList(
-                org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt.class
-        );
-    }
-
-
-
-    /**
-     * Use shiro for authentication.
-     *
-     * <p>
-     *     NB: this is ignored for integration tests, which always use "bypass".
-     * </p>
-     */
-    @Override
-    public String getAuthenticationMechanism() {
-        return "shiro";
-    }
-
-    /**
-     * Use shiro for authorization.
-     *
-     * <p>
-     *     NB: this is ignored for integration tests, which always use "bypass".
-     * </p>
-     */
-    @Override
-    public String getAuthorizationMechanism() {
-        return "shiro";
-    }
-
-    /**
-     * No fixtures.
-     */
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Collections.emptyList();
-    }
-
-    /**
-     * configure metamodel facets (paraname8 and tenanted authorization)
-     */
-    @Override
-    public final Map<String, String> getConfigurationProperties() {
-        Map<String,String> props = Maps.newHashMap();
-
-        props.put(
-                "isis.reflector.facets.include",
-                Joiner.on(',').join(
-                        NamedFacetOnParameterParaname8Factory.class.getName()
-                        , TenantedAuthorizationFacetFactory.class.getName()
-                ));
-
-        appendConfigurationProperties(props);
-        return props.isEmpty()? null: props;
-
-    }
-
-    /**
-     * Optional hook for subclasses
-     */
-    protected void appendConfigurationProperties(final Map<String, String> props) {
+    public EcpCrmAppManifest() {
+        super(BUILDER);
     }
 
 }

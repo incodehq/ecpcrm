@@ -18,6 +18,48 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards;
 
-public final class EcpCrmLoyaltyCardsModule {
+import java.util.Set;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.ecwid.maleorang.MailchimpObject;
+import com.google.common.collect.Sets;
+
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
+
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+
+@XmlRootElement(name = "module")
+public final class EcpCrmLoyaltyCardsModule extends ModuleAbstract {
+
+    @Override
+    public Set<Class<?>> getAdditionalModules() {
+        return Sets.newHashSet(
+                MailchimpObject.class
+        );
+    }
+
+    @Override
+    public FixtureScript getTeardownFixture() {
+        return new TeardownFixtureAbstract2() {
+            @Override protected void execute(final ExecutionContext executionContext) {
+                deleteFrom(CardRequest.class);
+                deleteFrom(Card.class);
+                deleteFrom(ChildCare.class);
+                deleteFrom(Child.class);
+                deleteFrom(User.class);
+                deleteFrom(Center.class);
+                deleteFrom(Numerator.class);
+            }
+        };
+    }
 
 }

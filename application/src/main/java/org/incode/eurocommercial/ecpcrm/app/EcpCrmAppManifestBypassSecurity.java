@@ -24,12 +24,8 @@ package org.incode.eurocommercial.ecpcrm.app;
 public class EcpCrmAppManifestBypassSecurity extends EcpCrmAppManifest {
 
     @Override
-    public String getAuthenticationMechanism() {
+    public String overrideAuthMechanism() {
         return "bypass";
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }
