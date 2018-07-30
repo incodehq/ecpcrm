@@ -193,6 +193,14 @@
                 <version>${commons-beanutils.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom</artifactId>
+                <version>${incode-platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

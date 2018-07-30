@@ -28,6 +28,8 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.excel.ExcelModule;
+import org.isisaddons.module.publishmq.PublishMqModule;
+import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.settings.SettingsModule;
 
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmApiModule;
@@ -46,7 +48,7 @@ public final class EcpCrmApplicationModule extends ModuleAbstract {
     @Override
     public Set<Class<?>> getAdditionalServices() {
         return Sets.newHashSet(
-                org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt.class
+                PasswordEncryptionServiceUsingJBcrypt.class
         );
     }
 
@@ -55,7 +57,8 @@ public final class EcpCrmApplicationModule extends ModuleAbstract {
         return Sets.newHashSet(
                 new EcpCrmLoyaltyCardsModule(),
                 new EcpCrmApiModule(),
-                new ExcelModule()
+                new ExcelModule(),
+                new PublishMqModule()
         );
     }
 }
