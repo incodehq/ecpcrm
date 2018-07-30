@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ixn:interactionDto xmlns:com="http://isis.apache.org/schema/common" xmlns:cmd="http://isis.apache.org/schema/cmd" xmlns:ixn="http://isis.apache.org/schema/ixn">
+    <ixn:majorVersion>1</ixn:majorVersion>
+    <ixn:minorVersion>0</ixn:minorVersion>
+    <ixn:transactionId>42c069ae-a60c-4e79-aef9-5b5d3d7081f0</ixn:transactionId>
+    <ixn:execution xsi:type="ixn:actionInvocationDto" interactionType="action_invocation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <ixn:sequence>0</ixn:sequence>
+        <ixn:target type="org.estatio.dom.invoice.Invoice" id="114716"/>
+        <ixn:logicalMemberIdentifier>org.estatio.dom.invoice.Invoice#$$()</ixn:logicalMemberIdentifier>
+        <ixn:memberIdentifier>org.estatio.module.lease.dom.invoicing.InvoiceForLease$_invoice#$$()</ixn:memberIdentifier>
+        <ixn:user>estatio-admin</ixn:user>
+        <ixn:title>org.estatio.dom.invoice.Invoice:114716: $$()</ixn:title>
+        <ixn:metrics>
+            <ixn:timings>
+                <com:startedAt>2018-04-23T15:21:55.973+02:00</com:startedAt>
+                <com:completedAt>2018-04-23T15:21:56.000+02:00</com:completedAt>
+            </ixn:timings>
+            <ixn:objectCounts>
+                <ixn:loaded before="3" after="10"/>
+                <ixn:dirtied before="0" after="2"/>
+            </ixn:objectCounts>
+        </ixn:metrics>
+        <ixn:parameters>
+            <cmd:parameter name="Invoice Date" type="jodaLocalDate" null="false">
+                <com:localDate>2018-04-23</com:localDate>
+            </cmd:parameter>
+        </ixn:parameters>
+        <ixn:returned type="reference" null="false">
+            <com:reference type="org.estatio.dom.invoice.Invoice" id="114716"/>
+        </ixn:returned>
+    </ixn:execution>
+</ixn:interactionDto>

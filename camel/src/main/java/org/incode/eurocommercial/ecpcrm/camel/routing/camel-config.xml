@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+
+        <route id="inToOutRoute" errorHandlerRef="myDeadLetterErrorHandler">
+            <from uri="activemq-broker:queue:memberInteractionsQueue"/>
+            <unmarshal>
+                <jaxb contextPath="org.apache.isis.schema.ixn.v1" prettyPrint="true"/>
+            </unmarshal>
+
+            <camel:process ref="addExchangeHeaders"/>
+            <camel:process ref="helloWorld"/>
+
+            <camel:to uri="stream:out"/>
+        </route>
+
+        <route id="deadLetterRoute">
+            <from uri="direct:myDLC"/>
+            <log logName="CamelDeadLetterRoute" loggingLevel="ERROR" message="Exception from Camel route" />
+            <camel:process ref="exceptionLogger"/>
+            <to uri="stream:err"/>
+        </route>
+
+    </camelContext>
+
+    <bean id="myDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
+        <property name="deadLetterUri" value="direct:myDLC"/>
+    </bean>
+
+    <!-- [currently unused] we could define a redelivery policy for the above dead letter handler -->
+    <bean id="myRedeliveryPolicyConfig" class="org.apache.camel.processor.RedeliveryPolicy">
+        <property name="maximumRedeliveries" value="3"/>
+        <property name="redeliveryDelay" value="250"/>
+    </bean>
+
+    <bean id="fetchFromRestfulObjects" abstract="true">
+        <property name="base"
+                  value="${estatioRo.base}"/>
+        <property name="username"
+                  value="${estatioRo.username}"/>
+        <property name="password"
+                  value="${estatioRo.password}"/>
+    </bean>
+
+    <bean id="exceptionLogger"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.exceptions.ExceptionLogger">
+        <property name="statusMessageClient"
+                  ref="statusMessageClient"/>
+    </bean>
+
+    <bean id="addExchangeHeaders"
+          class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
+
+    <bean id="statusMessageClient"
+          parent="fetchFromRestfulObjects"
+          class="org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient"
+          init-method="init"/>
+
+    <bean id="helloWorld"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.helloworld.HelloWorldProcessor">
+    </bean>
+
+    <bean id="activemq-broker"
+          class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="brokerURL"
+                  value="vm://broker?create=false&amp;waitForStart=5000"/>
+    </bean>
+
+</beans>

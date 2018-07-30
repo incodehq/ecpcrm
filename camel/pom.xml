@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode.eurocommercial</groupId>
+        <artifactId>ecpcrm</artifactId>
+        <version>1.16.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ecpcrm-camel</artifactId>
+    <name>Eurocommercial CRM Camel Webapp</name>
+
+    <properties>
+
+        <maven-war-plugin.warName>${project.artifactId}</maven-war-plugin.warName>
+
+        <docker-plugin.imageName>incodehq/${project.artifactId}</docker-plugin.imageName>
+        <docker-plugin.resource.include>${maven-war-plugin.warName}.war</docker-plugin.resource.include>
+        <docker-plugin.serverId>docker-hub</docker-plugin.serverId>
+        <docker-plugin.registryUrl>https://index.docker.io/v1/</docker-plugin.registryUrl>
+
+        <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
+
+        <activemq-web.version>5.14.3</activemq-web.version>
+        <spring.version>4.1.9.RELEASE</spring.version>
+        <camel.version>2.16.3</camel.version>
+        <jetty.version>9.4.3.v20170317</jetty.version>
+
+        <lombok.version>1.18.0</lombok.version>
+
+        <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources-filtered</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>surefire</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>jettywar</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>jettyconsole</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>docker</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>maven-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.apache.isis.core</groupId>
+                <artifactId>isis</artifactId>
+                <version>${isis.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- testing -->
+            <dependency>
+                <groupId>org.apache.isis.mavendeps</groupId>
+                <artifactId>isis-mavendeps-testing</artifactId>
+                <version>${mavendeps-isistesting.version}</version>
+                <type>pom</type>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-schema</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-webapp</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-intellij</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+            <version>${incode-platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-camel</artifactId>
+            <version>${incode-platform.version}</version>
+        </dependency>
+
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+            <version>${incode-platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+
+        <!-- required to pull down parent pom (incode-parent) -->
+        <profile>
+            <id>incode-cloud-maven</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-cloud-maven</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>incode-cloud-maven</id>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven</id>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <profile>
+            <id>camel</id>
+            <activation>
+                <property>
+                    <name>!skip.camel</name>
+                </property>
+            </activation>
+            <dependencies>
+
+                <!-- camel -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-core</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jms</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-stream</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-ognl</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jaxb</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jackson</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-juel</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-cxf</artifactId>
+                    <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-test-spring</artifactId>
+                    <scope>test</scope>
+                    <version>${camel.version}</version>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>activemq-camel</id>
+            <activation>
+                <property>
+                    <name>!skip.activemq-camel</name>
+                </property>
+            </activation>
+
+            <properties>
+                <slf4j.version>1.6.6</slf4j.version>
+            </properties>
+
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.activemq</groupId>
+                        <artifactId>activemq-all</artifactId>
+                        <version>${activemq-web.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                    <version>${spring.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-web</artifactId>
+                    <version>${activemq-web.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>ognl</groupId>
+                    <artifactId>ognl</artifactId>
+                    <version>3.0.9</version>
+                    <exclusions>
+                        <exclusion>
+                            <!-- bundles old version, so hitting https://code.google.com/archive/p/reflections/issues/178 -->
+                            <groupId>org.javassist</groupId>
+                            <artifactId>javassist</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+
+                <dependency>
+                    <groupId>io.fabric8.insight</groupId>
+                    <artifactId>insight-log4j</artifactId>
+                    <version>1.2.0.Beta4</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.jolokia</groupId>
+                    <artifactId>jolokia-core</artifactId>
+                    <version>1.3.1</version>
+                </dependency>
+
+                <!-- xbean is required for ActiveMQ broker configuration in the spring xml file -->
+                <dependency>
+                    <groupId>org.apache.xbean</groupId>
+                    <artifactId>xbean-spring</artifactId>
+                    <version>4.3</version>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>jdbc-drivers</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-drivers</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>9.1-901.jdbc4</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
+                    <version>6.4.0.jre8</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.lazyluke</groupId>
+                    <artifactId>log4jdbc-remix</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>resolving-conflicts</id>
+            <activation>
+                <property>
+                    <name>!skip.resolving-conflicts</name>
+                </property>
+            </activation>
+
+            <dependencyManagement>
+                <dependencies>
+                    <!-- not yet analyzed; check dependency:tree -->
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+    </profiles>
+
+</project>
