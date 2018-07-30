@@ -62,7 +62,7 @@
         <isis.version>1.16.2</isis.version>
 
         <!-- NB: also update the parent of this pom.  -->
-        <incode-platform.version>1.16.2.20180707-1320-eca4c55a</incode-platform.version>
+        <incode-platform.version>1.16.2.20180710-1343-21c38b2f</incode-platform.version>
 
 
         <!--For some reason this does not work above version 1.14.0-->
