@@ -32,7 +32,26 @@
             </unmarshal>
 
             <camel:process ref="addExchangeHeaders"/>
-            <camel:process ref="helloWorld"/>
+
+            <camel:choice>
+                <camel:when>
+                    <camel:simple>
+                        ${header.ixn[execution$memberIdentifier]} == 'org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#subscribeToPromotionalEmails()'
+                    </camel:simple>
+                    <camel:process ref="fetchUserFromSubscribeAction"/>
+                    <camel:process ref="fetchCenterFromUser"/>
+                    <camel:process ref="subscribe"/>
+                </camel:when>
+
+                <camel:when>
+                    <camel:simple>
+                        ${header.ixn[execution$memberIdentifier]} == 'org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#unsubscribeFromPromotionalEmails()'
+                    </camel:simple>
+                    <camel:process ref="fetchUserFromSubscribeAction"/>
+                    <camel:process ref="fetchCenterFromUser"/>
+                    <camel:process ref="unsubscribe"/>
+                </camel:when>
+            </camel:choice>
 
             <camel:to uri="stream:out"/>
         </route>
@@ -58,11 +77,23 @@
 
     <bean id="fetchFromRestfulObjects" abstract="true">
         <property name="base"
-                  value="${estatioRo.base}"/>
+                  value="${ecpcrmRo.base}"/>
         <property name="username"
-                  value="${estatioRo.username}"/>
+                  value="${ecpcrmRo.username}"/>
         <property name="password"
-                  value="${estatioRo.password}"/>
+                  value="${ecpcrmRo.password}"/>
+    </bean>
+
+    <bean id="fetchUserFromSubscribeAction"
+          parent="fetchFromRestfulObjects"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.enrich.FetchUserFromSubscribeAction"
+          init-method="init">
+    </bean>
+
+    <bean id="fetchCenterFromUser"
+          parent="fetchFromRestfulObjects"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.enrich.FetchCenterFromUser"
+          init-method="init">
     </bean>
 
     <bean id="exceptionLogger"
@@ -81,6 +112,14 @@
 
     <bean id="helloWorld"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.helloworld.HelloWorldProcessor">
+    </bean>
+
+    <bean id="subscribe"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.Subscribe">
+    </bean>
+
+    <bean id="unsubscribe"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.Unsubscribe">
     </bean>
 
     <bean id="activemq-broker"

@@ -235,7 +235,6 @@
             <version>${incode-platform.version}</version>
         </dependency>
 
-
         <!-- test -->
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
@@ -249,6 +248,18 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.eurocommercial</groupId>
+            <artifactId>ecpcrm-canonical</artifactId>
+            <version>2.0.0-M1.20180801-1711-d00210c1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ecwid</groupId>
+            <artifactId>maleorang</artifactId>
+            <version>3.0-0.9.6</version>
         </dependency>
 
     </dependencies>
