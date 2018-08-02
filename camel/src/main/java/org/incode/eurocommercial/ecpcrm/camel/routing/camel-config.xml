@@ -51,6 +51,14 @@
                     <camel:process ref="fetchCenterFromUser"/>
                     <camel:process ref="unsubscribe"/>
                 </camel:when>
+
+                <camel:when>
+                    <camel:simple>
+                        ${header.ixn[execution$memberIdentifier]} == 'org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()'
+                    </camel:simple>
+                    <camel:process ref="addUserToMailingList"/>
+                </camel:when>
+
             </camel:choice>
 
             <camel:to uri="stream:out"/>
@@ -110,16 +118,34 @@
           class="org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient"
           init-method="init"/>
 
-    <bean id="helloWorld"
-          class="org.incode.eurocommercial.ecpcrm.camel.processor.helloworld.HelloWorldProcessor">
-    </bean>
-
     <bean id="subscribe"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.Subscribe">
     </bean>
 
     <bean id="unsubscribe"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.Unsubscribe">
+    </bean>
+
+    <bean id="addUserToMailingList"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.AddUserToMailingList">
+    </bean>
+
+    <bean id="mailService"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.MailService"
+          init-method="init"
+          destroy-method="tearDown">
+        <property name="apiKey" value="${mailchimp.apiKey}"/>
+    </bean>
+
+    <bean id="enrichmentService"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.enrich.EnrichmentService"
+          init-method="init">
+        <property name="base"
+                  value="${ecpcrmRo.base}"/>
+        <property name="username"
+                  value="${ecpcrmRo.username}"/>
+        <property name="password"
+                  value="${ecpcrmRo.password}"/>
     </bean>
 
     <bean id="activemq-broker"
