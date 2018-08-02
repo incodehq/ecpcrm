@@ -149,12 +149,7 @@ public class UserRepository {
         user.setPhoneNumber(phoneNumber);
         user.setCenter(center);
         user.setHasCar(hasCar);
-
-        if (promotionalEmails) {
-            user.subscribeToPromotionalEmails();
-        } else {
-            user.unsubscribeFromPromotionalEmails();
-        }
+        user.setPromotionalEmails(promotionalEmails);
 
         if(reference == null) {
             reference = userNumerator.nextIncrementStr();

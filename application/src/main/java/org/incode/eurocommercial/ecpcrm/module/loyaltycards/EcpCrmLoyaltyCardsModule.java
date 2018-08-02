@@ -22,7 +22,6 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.ecwid.maleorang.MailchimpObject;
 import com.google.common.collect.Sets;
 
 import org.apache.isis.applib.Module;
@@ -48,13 +47,6 @@ public final class EcpCrmLoyaltyCardsModule extends ModuleAbstract {
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
                 new SecurityModule()
-        );
-    }
-
-    @Override
-    public Set<Class<?>> getAdditionalModules() {
-        return Sets.newHashSet(
-                MailchimpObject.class
         );
     }
 

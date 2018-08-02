@@ -159,12 +159,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.ecwid</groupId>
-            <artifactId>maleorang</artifactId>
-            <version>3.0-0.9.6</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.isisaddons.module.excel</groupId>
             <artifactId>isis-module-excel-dom</artifactId>
         </dependency>

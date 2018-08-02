@@ -44,7 +44,6 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.services.mail.MailService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
@@ -179,14 +178,12 @@ public class User implements Comparable<User>, HasAtPath {
     @Action
     public User subscribeToPromotionalEmails() {
         promotionalEmails = true;
-        mailService.subscribeUser(this);
         return this;
     }
 
     @Action
     public User unsubscribeFromPromotionalEmails() {
         promotionalEmails = false;
-        mailService.unsubscribeUser(this);
         return this;
     }
 
@@ -280,6 +277,4 @@ public class User implements Comparable<User>, HasAtPath {
     @Inject private ClockService clockService;
     @Inject private CardRepository cardRepository;
     @Inject private ChildRepository childRepository;
-    @Inject private MailService mailService;
-
 }
