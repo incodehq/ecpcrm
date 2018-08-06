@@ -8,6 +8,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.NumeratorRepository;
@@ -43,6 +44,14 @@ public class CenterRepository {
                         Center.class,
                         "findByNameContains",
                         "name", name));
+    }
+
+    @Programmatic
+    public List<Center> findByMailchimpListId(
+            final String mailchimpListId
+    ) {
+        QCenter center = QCenter.candidate();
+        return isisJdoSupport.executeQuery(Center.class, center.mailchimpListId.eq(mailchimpListId));
     }
 
     @Programmatic
@@ -82,4 +91,5 @@ public class CenterRepository {
 
     @Inject private RepositoryService repositoryService;
     @Inject private NumeratorRepository numeratorRepository;
+    @Inject private IsisJdoSupport isisJdoSupport;
 }
