@@ -51,9 +51,30 @@ public class EnrichmentService {
     private JaxRsClient jaxRsClient;
 
     public void init() {
-        uriBuilder = UriBuilder.fromUri(base + "objects/{objectType}/{objectInstance}");
-
         jaxRsClient = new JaxRsClient.Default();
+    }
+
+    public void invokeAction(String service, String action, String queryString) throws Exception {
+        uriBuilder = UriBuilder
+                .fromUri(base + "services/{service}/actions/{action}/invoke/")
+                .replaceQuery(queryString);
+        final URI uri = uriBuilder.build(service, action);
+
+        JaxRsResponse jaxRsResponse = jaxRsClient.get(uri, username, password);
+
+        final int status = jaxRsResponse.getStatus();
+        if(status != 200) {
+            final String responseEntity = jaxRsResponse.readEntity(String.class);
+
+            statusMessageClient.log(
+                    StatusMessage.builder("", 0,"Failed to invoke " + service + "#" + action + "/?" + queryString)
+                            .withUri(uri)
+                            .withStatus(-1) // TODO: perhaps something a bit more nuanced here?
+                            .withDetail(responseEntity)
+            );
+
+            throw new Exception(responseEntity);
+        }
     }
 
     public <T> T retrieveDto(Message message, OidDto oidDto, Class<T> dtoClass) throws Exception {
@@ -61,6 +82,7 @@ public class EnrichmentService {
         final String objectType = oidDto.getType() != null? oidDto.getType() : oidDto.getObjectType();
         final String objectIdentifier = oidDto.getId() != null ? oidDto.getId(): oidDto.getObjectIdentifier();
 
+        uriBuilder = UriBuilder.fromUri(base + "objects/{objectType}/{objectInstance}");
         final URI uri = uriBuilder.build(objectType, objectIdentifier);
 
         JaxRsResponse jaxRsResponse = jaxRsClient.invoke(uri, dtoClass, username, password);

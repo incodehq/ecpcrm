@@ -20,6 +20,7 @@ public interface JaxRsClient {
     JaxRsResponse invoke(URI uri, Class<?> dtoClass, String username, String password);
 
     JaxRsResponse post(URI uri, String bodyJson, String username, String password);
+    JaxRsResponse get(URI uri, String username, String password);
 
     class Default implements JaxRsClient {
 
@@ -44,6 +45,31 @@ public interface JaxRsClient {
 
                 final Invocation.Builder invocationBuilder = webTarget.request();
                 invocationBuilder.accept(mediaTypeFor(dtoClass));
+                addBasicAuth(username, password, invocationBuilder);
+
+                final Invocation invocation = invocationBuilder.buildGet();
+
+                final Response response = invocation.invoke();
+                return new JaxRsResponse.Default(response);
+            } finally {
+                closeQuietly(client);
+            }
+        }
+
+        @Override
+        public JaxRsResponse get(
+                final URI uri,
+                final String username,
+                final String password) {
+
+            final Client client = this.clientBuilder.build();
+
+            try {
+                final WebTarget webTarget = client.target(uri);
+                configureInvocationBuilder(webTarget);
+
+                final Invocation.Builder invocationBuilder = webTarget.request();
+                invocationBuilder.accept("application/json;profile=\"urn:org.apache.isis/v1\"");
                 addBasicAuth(username, password, invocationBuilder);
 
                 final Invocation invocation = invocationBuilder.buildGet();

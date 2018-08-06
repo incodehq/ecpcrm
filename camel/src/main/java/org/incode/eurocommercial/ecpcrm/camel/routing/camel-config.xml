@@ -40,7 +40,7 @@
                     </camel:simple>
                     <camel:process ref="fetchUserFromSubscribeAction"/>
                     <camel:process ref="fetchCenterFromUser"/>
-                    <camel:process ref="subscribe"/>
+                    <camel:process ref="subscribeToMailChimpMailingList"/>
                 </camel:when>
 
                 <camel:when>
@@ -49,7 +49,7 @@
                     </camel:simple>
                     <camel:process ref="fetchUserFromSubscribeAction"/>
                     <camel:process ref="fetchCenterFromUser"/>
-                    <camel:process ref="unsubscribe"/>
+                    <camel:process ref="unsubscribeFromMailChimpMailingList"/>
                 </camel:when>
 
                 <camel:when>
@@ -60,6 +60,13 @@
                 </camel:when>
 
             </camel:choice>
+
+            <camel:to uri="stream:out"/>
+        </route>
+
+        <route id="mailchimpWebhookRoute">
+            <from uri="servlet:///mailchimp-webhook"/>
+            <process ref="propagateUnsubscriptionToCrm"/>
 
             <camel:to uri="stream:out"/>
         </route>
@@ -118,16 +125,20 @@
           class="org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient"
           init-method="init"/>
 
-    <bean id="subscribe"
-          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.Subscribe">
+    <bean id="subscribeToMailChimpMailingList"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.SubscribeToMailChimpMailingList">
     </bean>
 
-    <bean id="unsubscribe"
-          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.Unsubscribe">
+    <bean id="unsubscribeFromMailChimpMailingList"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.UnsubscribeFromMailChimpMailingList">
     </bean>
 
     <bean id="addUserToMailingList"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.AddUserToMailingList">
+    </bean>
+
+    <bean id="propagateUnsubscriptionToCrm"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.PropagateUnsubscriptionToCrm">
     </bean>
 
     <bean id="mailService"
@@ -146,6 +157,8 @@
                   value="${ecpcrmRo.username}"/>
         <property name="password"
                   value="${ecpcrmRo.password}"/>
+        <property name="statusMessageClient"
+                  ref="statusMessageClient"/>
     </bean>
 
     <bean id="activemq-broker"

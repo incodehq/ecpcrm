@@ -20,10 +20,6 @@ language governing permissions and limitations under the License.
 
     <display-name>EcpCrm-Camel-Webapp</display-name>
 
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
-
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -43,8 +39,6 @@ language governing permissions and limitations under the License.
         <param-value>classpath:org/incode/eurocommercial/ecpcrm/camel/routing/spring.properties</param-value>
     </context-param>
 
-
-
     <servlet>
         <servlet-name>jolokia-agent</servlet-name>
         <servlet-class>org.jolokia.http.AgentServlet</servlet-class>
@@ -61,8 +55,20 @@ language governing permissions and limitations under the License.
 
     <servlet-mapping>
         <servlet-name>jolokia-agent</servlet-name>
-        <!-- using same convention as standalone ActiveMQ -->
         <url-pattern>/api/jolokia/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Camel servlet -->
+    <servlet>
+        <servlet-name>CamelServlet</servlet-name>
+        <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Camel servlet mapping -->
+    <servlet-mapping>
+        <servlet-name>CamelServlet</servlet-name>
+        <url-pattern>/camel/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

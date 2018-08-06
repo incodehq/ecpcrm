@@ -54,6 +54,7 @@
     </properties>
 
     <build>
+
         <resources>
             <resource>
                 <filtering>false</filtering>
@@ -74,6 +75,7 @@
                 </excludes>
             </resource>
         </resources>
+
         <testResources>
             <testResource>
                 <filtering>false</filtering>
@@ -371,6 +373,12 @@
                     <groupId>org.apache.camel</groupId>
                     <artifactId>camel-test-spring</artifactId>
                     <scope>test</scope>
+                    <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-servlet</artifactId>
                     <version>${camel.version}</version>
                 </dependency>
 
