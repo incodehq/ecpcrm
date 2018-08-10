@@ -25,7 +25,7 @@
 
     <camelContext xmlns="http://camel.apache.org/schema/spring">
 
-        <route id="inToOutRoute" errorHandlerRef="myDeadLetterErrorHandler">
+        <route id="mainRoute" errorHandlerRef="myDeadLetterErrorHandler">
             <from uri="activemq-broker:queue:memberInteractionsQueue"/>
             <unmarshal>
                 <jaxb contextPath="org.apache.isis.schema.ixn.v1" prettyPrint="true"/>
@@ -41,6 +41,7 @@
                     <camel:process ref="fetchUserFromSubscribeAction"/>
                     <camel:process ref="fetchCenterFromUser"/>
                     <camel:process ref="subscribeToMailChimpMailingList"/>
+                    <camel:process ref="subscribedToPromotionalEmails"/>
                 </camel:when>
 
                 <camel:when>
@@ -56,7 +57,16 @@
                     <camel:simple>
                         ${header.ixn[execution$memberIdentifier]} == 'org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()'
                     </camel:simple>
+                    <camel:process ref="fetchUserFromNewUser"/>
+                    <camel:process ref="fetchCenterFromUser"/>
                     <camel:process ref="addUserToMailingList"/>
+                </camel:when>
+
+                <camel:when>
+                    <camel:simple>
+                        ${header.ixn[execution$memberIdentifier]} == 'org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository#findOrCreate()'
+                    </camel:simple>
+                    <camel:process ref="cardRequestCreated"/>
                 </camel:when>
 
             </camel:choice>
@@ -90,6 +100,28 @@
         <property name="redeliveryDelay" value="250"/>
     </bean>
 
+    <bean id="exceptionLogger"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.exceptions.ExceptionLogger">
+        <property name="statusMessageClient"
+                  ref="statusMessageClient"/>
+    </bean>
+
+    <bean id="addExchangeHeaders"
+          class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
+
+    <bean id="statusMessageClient"
+          parent="fetchFromRestfulObjects"
+          class="org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient"
+          init-method="init"/>
+
+    <bean id="activemq-broker"
+          class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="brokerURL"
+                  value="vm://broker?create=false&amp;waitForStart=5000"/>
+    </bean>
+
+    <!---================ Fetch ================-->
+
     <bean id="fetchFromRestfulObjects" abstract="true">
         <property name="base"
                   value="${ecpcrmRo.base}"/>
@@ -105,25 +137,17 @@
           init-method="init">
     </bean>
 
+    <bean id="fetchUserFromNewUser"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.enrich.FetchUserFromNewUser">
+    </bean>
+
     <bean id="fetchCenterFromUser"
           parent="fetchFromRestfulObjects"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.enrich.FetchCenterFromUser"
           init-method="init">
     </bean>
 
-    <bean id="exceptionLogger"
-          class="org.incode.eurocommercial.ecpcrm.camel.processor.exceptions.ExceptionLogger">
-        <property name="statusMessageClient"
-                  ref="statusMessageClient"/>
-    </bean>
-
-    <bean id="addExchangeHeaders"
-          class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
-
-    <bean id="statusMessageClient"
-          parent="fetchFromRestfulObjects"
-          class="org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient"
-          init-method="init"/>
+    <!---============ Subscriptions ============-->
 
     <bean id="subscribeToMailChimpMailingList"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.SubscribeToMailChimpMailingList">
@@ -141,11 +165,30 @@
           class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.PropagateUnsubscriptionToCrm">
     </bean>
 
+    <!---============ Transactional ============-->
+
+    <bean id="cardRequestCreated"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.transactional.CardRequestCreated">
+    </bean>
+
+    <bean id="subscribedToPromotionalEmails"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.transactional.SubscribedToPromotionalEmails">
+    </bean>
+
+    <!---============== Services ===============-->
+
     <bean id="mailService"
           class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.MailService"
           init-method="init"
           destroy-method="tearDown">
         <property name="apiKey" value="${mailchimp.apiKey}"/>
+    </bean>
+
+    <bean id="transactionalMailService"
+          class="org.incode.eurocommercial.ecpcrm.camel.processor.mail.transactional.TransactionalMailService"
+          init-method="init"
+          destroy-method="tearDown">
+        <property name="apiKey" value="${mandrill.apiKey}"/>
     </bean>
 
     <bean id="enrichmentService"
@@ -159,12 +202,6 @@
                   value="${ecpcrmRo.password}"/>
         <property name="statusMessageClient"
                   ref="statusMessageClient"/>
-    </bean>
-
-    <bean id="activemq-broker"
-          class="org.apache.activemq.camel.component.ActiveMQComponent">
-        <property name="brokerURL"
-                  value="vm://broker?create=false&amp;waitForStart=5000"/>
     </bean>
 
 </beans>

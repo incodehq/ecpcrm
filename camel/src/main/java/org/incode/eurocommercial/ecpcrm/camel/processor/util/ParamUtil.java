@@ -27,6 +27,6 @@ public class ParamUtil {
                 .filter(paramDto -> paramDto.getName().equalsIgnoreCase(paramName))
                 .map(getter)
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 }

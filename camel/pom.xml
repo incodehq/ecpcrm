@@ -51,6 +51,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <maleorang.version>3.0-0.9.6</maleorang.version>
+        <lutung.version>0.0.8</lutung.version>
+        <ecpcrm-canonical.version>2.0.0-M1.20180808-1244-df59937d</ecpcrm-canonical.version>
     </properties>
 
     <build>
@@ -255,13 +258,19 @@
         <dependency>
             <groupId>org.incode.eurocommercial</groupId>
             <artifactId>ecpcrm-canonical</artifactId>
-            <version>2.0.0-M1.20180801-1711-d00210c1</version>
+            <version>${ecpcrm-canonical.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.ecwid</groupId>
             <artifactId>maleorang</artifactId>
-            <version>3.0-0.9.6</version>
+            <version>${maleorang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mandrillapp.wrapper.lutung</groupId>
+            <artifactId>lutung</artifactId>
+            <version>${lutung.version}</version>
         </dependency>
 
     </dependencies>
@@ -380,6 +389,12 @@
                     <groupId>org.apache.camel</groupId>
                     <artifactId>camel-servlet</artifactId>
                     <version>${camel.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.assertj</groupId>
+                    <artifactId>assertj-core</artifactId>
+                    <scope>test</scope>
                 </dependency>
 
             </dependencies>

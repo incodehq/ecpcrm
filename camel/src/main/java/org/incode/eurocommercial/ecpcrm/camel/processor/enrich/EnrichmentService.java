@@ -113,4 +113,12 @@ public class EnrichmentService {
         T dto = retrieveDto(message, oidDto, dtoClass);
         MessageUtil.setHeader(message, dto, role);
     }
+
+    public <T> void enrichMessageWithLocalDto(Message message, T dto) {
+        enrichMessageWithLocalDto(message, dto, "default");
+    }
+
+    public <T> void enrichMessageWithLocalDto(Message message, T dto, String role) {
+        MessageUtil.setHeader(message, dto, role);
+    }
 }

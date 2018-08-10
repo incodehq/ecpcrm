@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import org.joda.time.LocalDateTime;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -105,7 +106,7 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    @Programmatic
+    @Action
     public CardRequest findOrCreate(
             User user,
             CardRequestType type
