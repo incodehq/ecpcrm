@@ -66,7 +66,7 @@ public class CenterRepository {
     }
 
     @Programmatic
-    private Center newCenter(final String code, final String name, final String id, final String mailchimpListId) {
+    private Center newCenter(final String code, final String name, final String id, final String mailchimpListId, final String contactEmail) {
         Center center = repositoryService.instantiate(Center.class);
         center.setCode(code);
         center.setId(id);
@@ -77,15 +77,16 @@ public class CenterRepository {
                 "fake_" + name, "%d", Long.parseLong("2" + code + "987" + "000000")));
         center.setAtPath("/FRA/" + code);
         center.setMailchimpListId(mailchimpListId);
+        center.setContactEmail(contactEmail);
         repositoryService.persist(center);
         return center;
     }
 
     @Programmatic
-    public Center findOrCreate(final String code, final String name, final String id, final String mailchimpListId) {
+    public Center findOrCreate(final String code, final String name, final String id, final String mailchimpListId, final String contactEmail) {
         Center center = findByCode(code);
         center = center != null ? center : findByExactName(name);
-        center = center != null ? center : newCenter(code, name, id, mailchimpListId);
+        center = center != null ? center : newCenter(code, name, id, mailchimpListId, contactEmail);
         return center;
     }
 

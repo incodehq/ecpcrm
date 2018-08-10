@@ -90,6 +90,11 @@ public class Center implements Comparable<Center>, HasAtPath {
     @Property(editing = Editing.ENABLED)
     private String mailchimpListId;
 
+    @Getter @Setter
+    @Column(allowsNull = "true")
+    @Property(editing = Editing.ENABLED)
+    private String contactEmail;
+
     @Programmatic
     public String nextValidCardNumber() {
         return cardRepository.nextCardNumber(numerator);

@@ -20,6 +20,7 @@ public class CenterDtoFactory extends DtoFactoryAbstract {
         dto.setCode(center.getCode());
         dto.setName(center.getName());
         dto.setMailchimpListId(center.getMailchimpListId());
+        dto.setContactEmail(center.getContactEmail());
 
         return dto;
     }

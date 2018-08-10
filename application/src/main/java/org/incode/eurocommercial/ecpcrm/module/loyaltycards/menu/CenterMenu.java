@@ -56,9 +56,9 @@ public class CenterMenu {
             final String code,
             final String name,
             final String id,
-            final String mailchimpListId
-    ) {
-        return centerRepository.findOrCreate(code, name, id, mailchimpListId);
+            final String mailchimpListId,
+            final String contactEmail) {
+        return centerRepository.findOrCreate(code, name, id, mailchimpListId, contactEmail);
     }
 
     @Inject CenterRepository centerRepository;

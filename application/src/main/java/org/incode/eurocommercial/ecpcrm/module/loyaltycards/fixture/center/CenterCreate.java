@@ -29,6 +29,9 @@ public class CenterCreate extends FixtureScript {
     @Getter @Setter
     private String mailchimpListId;
 
+    @Getter @Setter
+    private String contactEmail;
+
     @Getter
     private Center center;
 
@@ -49,7 +52,11 @@ public class CenterCreate extends FixtureScript {
             mailchimpListId = "ea56e8863e";
         }
 
-        center = wrap(menu).newCenter(code(), name(), id(), mailchimpListId());
+        if (contactEmail == null) {
+            contactEmail = "contact@lesportesdetaverny.com";
+        }
+
+        center = wrap(menu).newCenter(code(), name(), id(), mailchimpListId(), contactEmail());
 
         ec.addResult(this, center);
     }

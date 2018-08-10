@@ -31,6 +31,7 @@
 
     <properties>
         <axon-core.version>2.4</axon-core.version>
+        <ecpcrm-canonical.version>2.0.0-M1.20180808-1244-df59937d</ecpcrm-canonical.version>
     </properties>
 
     <build>
@@ -171,7 +172,7 @@
         <dependency>
             <groupId>org.incode.eurocommercial</groupId>
             <artifactId>ecpcrm-canonical</artifactId>
-            <version>2.0.0-M1.20180801-1711-d00210c1</version>
+            <version>${ecpcrm-canonical.version}</version>
         </dependency>
 
     </dependencies>
