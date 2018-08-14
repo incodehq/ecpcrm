@@ -12,13 +12,11 @@ public class WebsiteUserCreateResponseViewModel {
 
     public static WebsiteUserCreateResponseViewModel fromUser(final User user) {
         Card card = user.getCards().first();
-        if(card == null) {
-            return null;
-        }
+        String cardNumber = card != null ? card.getNumber() : "";
 
         return WebsiteUserCreateResponseViewModel.create(
                 user.getReference(),
-                card.getNumber()
+                cardNumber
         );
     }
 }

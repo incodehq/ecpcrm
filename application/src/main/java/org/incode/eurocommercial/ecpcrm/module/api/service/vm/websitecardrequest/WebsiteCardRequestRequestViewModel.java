@@ -14,7 +14,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest;
+package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -26,12 +26,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class CardRequestRequestViewModel {
+public class WebsiteCardRequestRequestViewModel {
     @Getter
     private final String origin;
 
     @Getter
-    private final String hostess;
+    @SerializedName("center_id")
+    private final String centerId;
 
     @Getter
     private final Title title;
@@ -46,6 +47,9 @@ public class CardRequestRequestViewModel {
 
     @Getter
     private final String email;
+
+    @Getter
+    private final String passwword;
 
     @Getter
     private final LocalDate birthdate;
@@ -76,12 +80,12 @@ public class CardRequestRequestViewModel {
 
     @Getter
     @SerializedName("optin")
-    private final boolean promotionalemails;
+    private final Boolean promotionalEmails;
 
     @Getter
-    @SerializedName("check_item")
-    private final String checkItem;
+    @SerializedName("check_code")
+    private final String checkCode;
 
     @Getter
-    private final boolean lost;
+    private final String boutiques;
 }

@@ -47,6 +47,8 @@ import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.ChildRepository;
@@ -270,6 +272,17 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private Boolean hasCar;
 
+    @Property
+    public CardRequest getOpenCardRequest() {
+        return cardRequestRepository.openRequestForUser(this);
+    }
+
+    public boolean hideOpenCardRequest() {
+        return getOpenCardRequest() == null;
+    }
+
+
+
     @Override public String getAtPath() {
         return getCenter().getAtPath();
     }
@@ -277,4 +290,5 @@ public class User implements Comparable<User>, HasAtPath {
     @Inject private ClockService clockService;
     @Inject private CardRepository cardRepository;
     @Inject private ChildRepository childRepository;
+    @Inject private CardRequestRepository cardRequestRepository;
 }

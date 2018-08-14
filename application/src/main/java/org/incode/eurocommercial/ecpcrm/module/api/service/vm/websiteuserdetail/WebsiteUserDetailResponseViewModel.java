@@ -20,7 +20,7 @@ public class WebsiteUserDetailResponseViewModel {
     private final String zipcode;
     private final String city;
     private final String full_address;
-    private final String phoneNumber;
+    private final String phone;
     private final String birthDate;
     private final String center;
     private final String enabled;
@@ -31,7 +31,7 @@ public class WebsiteUserDetailResponseViewModel {
     private final String nb_children;
     private final List<ChildViewModel> children;
     private final List<CardViewModel> cards;
-    private final List<ChildCareViewModel> child_cares;
+    private final String request;
 
     public static WebsiteUserDetailResponseViewModel fromUser(final User user) {
         List<ChildViewModel> userChildren = user.getChildren().stream()
@@ -40,10 +40,11 @@ public class WebsiteUserDetailResponseViewModel {
         List<CardViewModel> userCards = user.getCards().stream()
                 .map(CardViewModel::fromCard)
                 .collect(Collectors.toList());
-        List<ChildCareViewModel> userChildCares = user.getChildren().stream()
-                .map(ChildCareViewModel::fromChild)
-                .collect(Collectors.toList());
+//        List<ChildCareViewModel> userChildCares = user.getChildren().stream()
+//                .map(ChildCareViewModel::fromChild)
+//                .collect(Collectors.toList());
         List<String> boutiques = new ArrayList<>();
+        String requestStatus = user.getOpenCardRequest() != null ? "new" : null;
 
         return WebsiteUserDetailResponseViewModel.create(
                 user.getReference(),
@@ -66,7 +67,7 @@ public class WebsiteUserDetailResponseViewModel {
                 ApiService.asString(userChildren.size()),
                 userChildren,
                 userCards,
-                userChildCares
+                requestStatus
         );
     }
 }

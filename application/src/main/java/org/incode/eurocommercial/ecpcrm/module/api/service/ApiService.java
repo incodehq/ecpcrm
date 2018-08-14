@@ -35,6 +35,8 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
@@ -59,11 +61,11 @@ public class ApiService {
     ) {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        if(device == null || !device.isActive()) {
+        if (device == null || !device.isActive()) {
             return Result.error(301, "Invalid device");
         }
 
-        if(Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
+        if (Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
             return Result.error(302, "Invalid parameter");
         }
 
@@ -71,24 +73,24 @@ public class ApiService {
 
         Card card = cardRepository.findByExactNumber(cardNumber);
 
-        if(card != null) {
-            if(card.getStatus() == CardStatus.TOCHANGE) {
+        if (card != null) {
+            if (card.getStatus() == CardStatus.TOCHANGE) {
                 return Result.error(319, "Outdated card");
             }
-            if(card.getStatus() != CardStatus.ENABLED) {
+            if (card.getStatus() != CardStatus.ENABLED) {
                 return Result.error(303, "Invalid card");
             }
-            if(card.getCenter() != center) {
+            if (card.getCenter() != center) {
                 return Result.error(317, "Card center is not equal to device center");
             }
-            if(card.getOwner() == null || !card.getOwner().isEnabled()) {
+            if (card.getOwner() == null || !card.getOwner().isEnabled()) {
                 return Result.error(304, "Invalid user");
             }
         } else {
-            if(device.getType() != AuthenticationDeviceType.APP && cardNumber.startsWith("3933")) {
+            if (device.getType() != AuthenticationDeviceType.APP && cardNumber.startsWith("3922")) {
                 return Result.error(319, "Outdated card");
             }
-            if(!cardRepository.cardNumberIsValid(cardNumber)) {
+            if (!cardRepository.cardNumberIsValid(cardNumber)) {
                 return Result.error(312, "Invalid card number");
             }
 
@@ -108,26 +110,26 @@ public class ApiService {
     ) {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        if(device == null || !device.isActive()) {
+        if (device == null || !device.isActive()) {
             return Result.error(301, "Invalid device");
         }
 
-        if(Strings.isNullOrEmpty(cardNumber)) {
+        if (Strings.isNullOrEmpty(cardNumber)) {
             return Result.error(302, "Invalid Parameter");
         }
 
         Center center = device.getCenter();
         Card card = cardRepository.findByExactNumber(cardNumber);
 
-        if(card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
+        if (card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
             return Result.error(303, "Invalid card");
         }
 
-        if(!card.getOwner().isEnabled()) {
+        if (!card.getOwner().isEnabled()) {
             return Result.error(304, "Invalid user");
         }
 
-        if(!card.canPlay()) {
+        if (!card.canPlay()) {
             return Result.error(315, "Card has already played");
         }
 
@@ -136,11 +138,61 @@ public class ApiService {
         return Result.ok();
     }
 
-    public Result cardRequest(
+    public Result websiteCardRequest(
             String deviceName,
             String deviceSecret,
             String origin,
-            String hostess,
+            String centerId,
+            Title title,
+            String firstName,
+            String lastName,
+            String email,
+            String password,
+            LocalDate birthdate,
+            String children,
+            String nbChildren,
+            Boolean hasCar,
+            String address,
+            String zipcode,
+            String city,
+            String phoneNumber,
+            Boolean promotionalEmails,
+            String checkCode,
+            String boutiques
+    ) {
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if (device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
+        if (Strings.isNullOrEmpty(centerId) || title == null || Strings.isNullOrEmpty(firstName) ||
+                Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
+                Strings.isNullOrEmpty(zipcode)  || Strings.isNullOrEmpty(city) || Strings.isNullOrEmpty(checkCode)) {
+            return Result.error(302, "Invalid parameter");
+        }
+
+        Center center = device.getCenter();
+        User user = userRepository.findByExactEmailAndCenter(email, center);
+
+        if (user == null) {
+            return Result.error(304, "Invalid user");
+        }
+
+        if (!checkCode.equals(this.computeCheckCode(email))) {
+            return Result.error(402, "Incorrect check code");
+        }
+
+        cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
+
+        return Result.ok();
+    }
+
+    public Result websiteUserCreate(
+            String deviceName,
+            String deviceSecret,
+            String centerId,
+            String checkCode,
             Title title,
             String firstName,
             String lastName,
@@ -153,50 +205,27 @@ public class ApiService {
             String zipcode,
             String city,
             String phoneNumber,
-            boolean promotionalEmails,
-            String checkItem,
-            boolean lost
-    ) {
-        return Result.ok();
-    }
-
-    public Result websiteUserCreate(
-            String deviceName,
-            String deviceSecret,
-            String checkCode,
-            Title title,
-            String firstName,
-            String lastName,
-            String email,
-            LocalDate birthdate,
-            Boolean hasChildren,
-            String nbChildren,
-            Boolean hasCar,
-            String address,
-            String zipcode,
-            String city,
-            String phoneNumber,
-            boolean promotionalEmails
+            Boolean promotionalEmails
     ) {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        if(device == null || !device.isActive()) {
+        if (device == null || !device.isActive()) {
             return Result.error(301, "Invalid device");
         }
 
-        if(Strings.isNullOrEmpty(checkCode) || title == null || Strings.isNullOrEmpty(firstName) ||
-           Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)) {
+        if (Strings.isNullOrEmpty(centerId) || Strings.isNullOrEmpty(checkCode) || title == null ||
+                Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)) {
             return Result.error(302, "Invalid parameter");
+        }
+
+        if (!checkCode.equals(this.computeCheckCode(email))) {
+            return Result.error(402, "Incorrect check code");
         }
 
         Center center = device.getCenter();
 
-        if(userRepository.findByExactEmailAndCenter(email, center) != null) {
-            return Result.error(304, "Invalid user");
-        }
-
-        if(!checkCode.equals(this.computeCheckCode(email))) {
-            return Result.error(402, "Incorrect check code");
+        if (userRepository.findByExactEmailAndCenter(email, center) != null) {
+            return Result.error(305, "Email already exists");
         }
 
         User user = userRepository.findOrCreate(
@@ -216,20 +245,75 @@ public class ApiService {
             String deviceSecret,
             String checkCode,
             String cardNumber,
+            String email,
             Title title,
             String firstName,
             String lastName,
-            String email,
             LocalDate birthdate,
-            Boolean hasChildren,
+            String children,
             String nbChildren,
             Boolean hasCar,
             String address,
             String zipcode,
             String city,
             String phoneNumber,
-            boolean promotionalEmails
+            Boolean promotionalEmails
     ) {
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if (device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
+        if (Strings.isNullOrEmpty(checkCode) || Strings.isNullOrEmpty(email) || title == null) {
+            return Result.error(302, "Invalid parameter");
+        }
+
+        Center center = device.getCenter();
+        User user = userRepository.findByExactEmailAndCenter(email, center);
+
+        if (user == null) {
+            return Result.error(304, "Invalid user");
+        }
+
+        user.setTitle(title);
+
+        if (!Strings.isNullOrEmpty(firstName)) {
+            user.setFirstName(firstName);
+        }
+
+        if (!Strings.isNullOrEmpty(lastName)) {
+            user.setLastName(lastName);
+        }
+
+        if (birthdate != null) {
+            user.setBirthDate(birthdate);
+        }
+
+        if (hasCar != null) {
+            user.setHasCar(hasCar);
+        }
+
+        if (!Strings.isNullOrEmpty(address)) {
+            user.setAddress(address);
+        }
+
+        if (!Strings.isNullOrEmpty(zipcode)) {
+            user.setZipcode(zipcode);
+        }
+
+        if (!Strings.isNullOrEmpty(city)) {
+            user.setCity(city);
+        }
+
+        if (!Strings.isNullOrEmpty(phoneNumber)) {
+            user.setPhoneNumber(phoneNumber);
+        }
+
+        if (promotionalEmails != null) {
+            user.setPromotionalEmails(promotionalEmails);
+        }
+
         return Result.ok();
     }
 
@@ -241,11 +325,11 @@ public class ApiService {
     ) {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        if(device == null || !device.isActive()) {
+        if (device == null || !device.isActive()) {
             return Result.error(301, "Invalid device");
         }
 
-        if(Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(checkCode)) {
+        if (Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(checkCode)) {
             return Result.error(302, "Invalid parameter");
         }
 
@@ -253,11 +337,11 @@ public class ApiService {
 
         User user = userRepository.findByExactEmailAndCenter(email, center);
 
-        if(user == null) {
+        if (user == null) {
             return Result.error(304, "Invalid user");
         }
 
-        if(!checkCode.equals(this.computeCheckCode(email))) {
+        if (!checkCode.equals(this.computeCheckCode(email))) {
             return Result.error(402, "Incorrect check code");
         }
 
@@ -268,10 +352,7 @@ public class ApiService {
         return i > 0;
     }
     public static boolean asBoolean(final String s) {
-        if(s.toUpperCase().equals("TRUE")) {
-            return true;
-        }
-        return false;
+        return s.toUpperCase().equals("TRUE");
     }
     public static String asString(final int i) {
         return "" + i;
@@ -284,6 +365,7 @@ public class ApiService {
     }
 
     @Inject CardRepository cardRepository;
+    @Inject CardRequestRepository cardRequestRepository;
     @Inject UserRepository userRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 }

@@ -16,5 +16,67 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.LocalDate;
+
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public class WebsiteUserModifyRequestViewModel {
+    @Getter
+    @SerializedName("check_code")
+    private final String checkCode;
+
+    @Getter
+    @SerializedName("card")
+    private final String cardNumber;
+
+    @Getter
+    private final String email;
+
+    @Getter
+    private final Title title;
+
+    @Getter
+    @SerializedName("first_name")
+    private final String firstName;
+
+    @Getter
+    @SerializedName("last_name")
+    private final String lastName;
+
+    @Getter
+    private final LocalDate birthdate;
+
+    @Getter
+    private final String children;
+
+    @SerializedName("nb_children")
+    @Getter
+    private final String nbChildren;
+
+    @SerializedName("car")
+    @Getter
+    private final Boolean hasCar;
+
+    @Getter
+    private final String address;
+
+    @Getter
+    private final String zipcode;
+
+    @Getter
+    private final String city;
+
+    @Getter
+    @SerializedName("phone")
+    private final String phoneNumber;
+
+    @Getter
+    @SerializedName("optin")
+    private final Boolean promotionalEmails;
 }

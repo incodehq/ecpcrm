@@ -16,5 +16,17 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail;
 
+import com.google.gson.annotations.SerializedName;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public class WebsiteUserDetailRequestViewModel {
+    @Getter
+    private final String email;
+
+    @Getter
+    @SerializedName("check_code")
+    private final String checkCode;
 }
