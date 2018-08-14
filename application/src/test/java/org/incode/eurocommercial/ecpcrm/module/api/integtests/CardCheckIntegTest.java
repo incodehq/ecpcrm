@@ -22,11 +22,9 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -42,11 +40,8 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
 public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
     @Inject FixtureScripts fixtureScripts;
-
-    @Inject ClockService clockService;
 
     @Inject CardRepository cardRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
@@ -64,8 +59,10 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         // given
         fs = new ApiIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
-
-        card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
+        card = fs.getCards().stream()
+                .filter(c -> c.canPlay() && c.getOwner() != null)
+                .findAny()
+                .get();
 
         center = card.getCenter();
 
@@ -111,6 +108,8 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
     /* When the device type is not app and the card number contains 3922 */
     public void when_card_does_not_exist_and_is_outdated_we_expect_319_error() throws Exception {
         // given
+        device.setType(AuthenticationDeviceType.BORNE);
+
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = "3922000000000";
@@ -197,24 +196,21 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         assertThat(result.getStatus()).isEqualTo(317);
     }
 
-    @Test
-    @Ignore
-    // TODO: Empty users aren't created for cards. This can't happen in our new system.
-    public void when_card_does_not_exist_or_is_unbound_and_a_new_user_cant_be_created_for_it_we_expect_313_error() throws Exception {
-    }
-
-    @Test
-    @Ignore
-    // TODO: Empty users aren't created for cards. This can't happen in our new system.
-    public void when_card_does_not_exist_or_is_unbound_and_a_new_user_is_created_for_it_but_they_cant_be_linked_we_expect_314_error() throws Exception {
-    }
+//    @Test
+//    @Ignore
+//    // Empty users aren't created for cards. This can't happen in our new system.
+//    public void when_card_does_not_exist_or_is_unbound_and_a_new_user_cant_be_created_for_it_we_expect_313_error() throws Exception {
+//    }
+//
+//    @Test
+//    @Ignore
+//    // Empty users aren't created for cards. This can't happen in our new system.
+//    public void when_card_does_not_exist_or_is_unbound_and_a_new_user_is_created_for_it_but_they_cant_be_linked_we_expect_314_error() throws Exception {
+//    }
 
     @Test
     public void when_card_exists_but_card_user_is_invalid_we_expect_304_error() throws Exception {
         // given
-        while(card.getOwner() == null) {
-            card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
-        }
         card.getOwner().setEnabled(false);
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
@@ -244,7 +240,7 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse() instanceof CardCheckResponseViewModel);
+        assertThat(result.getResponse()).isInstanceOf(CardCheckResponseViewModel.class);
         CardCheckResponseViewModel response = (CardCheckResponseViewModel) result.getResponse();
         assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
         assertThat(response.isGame()).isFalse();
@@ -253,9 +249,6 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
     @Test
     public void when_card_exists_and_can_play_game_we_expect_happy_response() throws Exception {
         // given
-        while(!card.canPlay()) {
-            card = fs.getCards().get(new Random().nextInt(fs.getCards().size()));
-        }
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = card.getNumber();
@@ -266,7 +259,7 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse() instanceof CardCheckResponseViewModel);
+        assertThat(result.getResponse()).isInstanceOf(CardCheckResponseViewModel.class);
         CardCheckResponseViewModel response = (CardCheckResponseViewModel) result.getResponse();
         assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
         assertThat(response.isGame()).isTrue();

@@ -26,7 +26,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -34,10 +33,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailResponseViewModel;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
@@ -46,16 +42,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
     @Inject FixtureScripts fixtureScripts;
 
-    @Inject ClockService clockService;
-
-    @Inject CardRepository cardRepository;
-    @Inject CardRequestRepository cardRequestRepository;
     @Inject UserRepository userRepository;
-    @Inject NumeratorRepository numeratorRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
     @Inject ApiService apiService;
-
 
     private ApiIntegTestFixture fs;
     private Center center;
@@ -166,7 +156,7 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
 
         // then
         assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse() instanceof WebsiteUserDetailResponseViewModel);
+        assertThat(result.getResponse()).isInstanceOf(WebsiteUserDetailResponseViewModel.class);
 
         WebsiteUserDetailResponseViewModel response = (WebsiteUserDetailResponseViewModel) result.getResponse();
         assertThat(response.getId()).isEqualTo(user.getReference());

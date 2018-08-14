@@ -44,7 +44,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
     @Inject FixtureScripts fixtureScripts;
-
     @Inject ClockService clockService;
 
     @Inject CardRepository cardRepository;
