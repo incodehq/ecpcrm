@@ -16,19 +16,39 @@
   KIND, either express or implied.  See the License for the
   specific language governing permissions and limitations
   under the License.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.eurocommercial</groupId>
-        <artifactId>ecpcrm</artifactId>
-        <version>1.16.2-SNAPSHOT</version>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <!-- NB: also update incode-platform.version property below. -->
+        <version>1.16.2.20180710-1343-21c38b2f</version>
+        <relativePath/>
     </parent>
 
+    <groupId>org.incode.eurocommercial</groupId>
     <artifactId>ecpcrm-camel</artifactId>
-    <name>Eurocommercial CRM Camel Webapp</name>
+    <version>${revision}</version>
+    <packaging>war</packaging>
+
+    <name>Incode Example Camel Webapp</name>
+    <description>
+        Camel event bus running as a webapp.
+    </description>
 
     <properties>
+        <revision>1.16.2-SNAPSHOT</revision>
+        <!--<isis.version>1.16.2</isis.version>-->
+
+        <isis.version>1.16.2.20180709-1350-5d9f4f7c</isis.version>
+
+        <!--
+        Also specify the incode-platform.version by changing the parent's version, above.
+         -->
+        <incode-platform.version>1.16.2.20180710-1343-21c38b2f</incode-platform.version>
 
         <maven-war-plugin.warName>${project.artifactId}</maven-war-plugin.warName>
 
@@ -206,6 +226,12 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.cxf</groupId>-->
+            <!--<artifactId>cxf-common-utilities</artifactId>-->
+            <!--<version>2.0.6</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
