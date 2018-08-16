@@ -29,7 +29,7 @@
 
     <groupId>org.incode.eurocommercial</groupId>
     <artifactId>ecpcrm</artifactId>
-    <version>1.16.2-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>Eurocommercial CRM System</name>
@@ -59,6 +59,7 @@
     </developers>
 
     <properties>
+        <revision>1.16.2-SNAPSHOT</revision>
         <isis.version>1.16.2</isis.version>
 
         <!-- NB: also update the parent of this pom.  -->
