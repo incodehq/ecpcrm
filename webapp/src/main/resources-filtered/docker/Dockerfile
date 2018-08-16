@@ -1,7 +1,6 @@
-FROM incodehq/tomcat
-RUN rm -rf ${DEPLOYMENT_DIR}/ROOT
-COPY ${docker-plugin.resource.include} ${DEPLOYMENT_DIR}/ROOT.war
+FROM incodehq/tomcat:1.7.2
+ADD ${docker-plugin.resource.include} ${DEPLOYMENT_DIR}/ROOT.war
 ADD entrypoint.sh /
 RUN chmod 755 /entrypoint.sh
-ENTRYPOINT /entrypoint.sh
+CMD /entrypoint.sh
 EXPOSE 8080
