@@ -22,15 +22,6 @@ if [ -s /run/secrets/*.shiro.ini ];
     echo "shiro.ini NOT FOUND, proceeding with default config"
 fi
 
-if [ -s /run/secrets/*.spring.properties ];
-  then
-    # Symlink spring.properties.
-    ln -sf /run/secrets/*.spring.properties /run/conf/spring.properties
-    echo "FOUND spring.properties."
-  else
-    echo "spring.properties NOT FOUND, proceeding with default config"
-fi
-
 if [ -s /run/secrets/*.setenv.sh ];
   then
     # Symlink setenv.sh.
@@ -40,11 +31,10 @@ if [ -s /run/secrets/*.setenv.sh ];
     echo "setenv.sh NOT FOUND, proceeding with default config"
 fi
 
-if [ -s /run/secrets/*.isis.properties ] && [ -s /run/secrets/*.viewer_wicket.properties ] && [ -s /run/secrets/*.logging.properties ];
+if [ -s /run/secrets/*.isis.properties ] && [ -s /run/secrets/*.logging.properties ];
   then
     # Symlink isis.properties.
     ln -sf /run/secrets/*.isis.properties /run/conf/isis.properties
-    ln -sf /run/secrets/*.viewer_wicket.properties /run/conf/viewer_wicket.properties
     ln -sf /run/secrets/*.logging.properties /run/conf/logging.properties
     echo "FOUND isis.properties and viewer_wicket.properties and logging.properties."
   else
