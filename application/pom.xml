@@ -32,6 +32,7 @@
     <properties>
         <axon-core.version>2.4</axon-core.version>
         <ecpcrm-canonical.version>2.0.0-M1.20180808-1244-df59937d</ecpcrm-canonical.version>
+        <mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
     </properties>
 
     <build>
@@ -139,6 +140,12 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>${mssql-jdbc.version}</version>
         </dependency>
 
         <!-- Bytecode libraries (for mocking) -->
