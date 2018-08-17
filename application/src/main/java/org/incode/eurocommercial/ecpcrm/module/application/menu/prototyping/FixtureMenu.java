@@ -18,8 +18,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.application.menu.prototyping;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
@@ -29,12 +27,10 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RestrictTo;
-import org.apache.isis.applib.fixturescripts.FixtureResult;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture;
 
 /**
  * Enables fixtures to be installed from the application.
@@ -52,8 +48,9 @@ public class FixtureMenu {
     @ActionLayout(cssClassFa="fa fa-refresh")
     @MemberOrder(sequence = "500.10.2")
     public Object recreateDummyData() {
-        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(LoyaltyCardsDemoFixture.class);
-        final List<FixtureResult> unusedResults = fs.run(null);
+        fixtureScripts.runFixtureScript(new LoyaltyCardsDemoFixture(), null);
+//        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(LoyaltyCardsDemoFixture.class);
+//        final List<FixtureResult> unusedResults = fs.run(null);
         return homePageService.homePage();
     }
 
