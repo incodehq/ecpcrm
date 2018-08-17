@@ -36,9 +36,9 @@ if [ -s /run/secrets/*.isis.properties ] && [ -s /run/secrets/*.logging.properti
     # Symlink isis.properties.
     ln -sf /run/secrets/*.isis.properties /run/conf/isis.properties
     ln -sf /run/secrets/*.logging.properties /run/conf/logging.properties
-    echo "FOUND isis.properties and viewer_wicket.properties and logging.properties."
+    echo "FOUND isis.properties and logging.properties."
   else
-    echo "isis.properties and/or viewer_wicket.properties and/or logging.properties NOT FOUND, proceeding with default config"
+    echo "isis.properties and/or logging.properties NOT FOUND, proceeding with default config"
 fi
 
 # Running Catalina
