@@ -41,6 +41,15 @@ if [ -s /run/secrets/*.isis.properties ] && [ -s /run/secrets/*.logging.properti
     echo "isis.properties and/or logging.properties NOT FOUND, proceeding with default config"
 fi
 
+if [ -s /run/secrets/*.translations-fr.po ];
+  then
+    # Symlink isis.properties.
+    ln -sf /run/secrets/*.translations-fr.po /run/conf/translations-fr.po
+    echo "FOUND translations-fr.po."
+  else
+    echo "translations-fr.po NOT FOUND, proceeding with default config"
+fi
+
 # Running Catalina
 echo "Starting Catalina:"
 ${SERVER_HOME}/bin/catalina.sh run
