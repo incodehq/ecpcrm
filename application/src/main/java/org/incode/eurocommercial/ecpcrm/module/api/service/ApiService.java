@@ -311,7 +311,11 @@ public class ApiService {
         }
 
         if (promotionalEmails != null) {
-            user.setPromotionalEmails(promotionalEmails);
+            if (promotionalEmails) {
+                user.subscribeToPromotionalEmails();
+            } else {
+                user.unsubscribeFromPromotionalEmails();
+            }
         }
 
         return Result.ok();
