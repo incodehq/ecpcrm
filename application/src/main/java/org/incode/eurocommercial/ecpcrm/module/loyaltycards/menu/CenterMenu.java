@@ -28,6 +28,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
@@ -56,10 +58,11 @@ public class CenterMenu {
             final String code,
             final String name,
             final String id,
-            final String mailchimpListId,
-            final String contactEmail) {
+            final @Parameter(optionality = Optionality.OPTIONAL) String mailchimpListId,
+            final @Parameter(optionality = Optionality.OPTIONAL) String contactEmail
+    ) {
         return centerRepository.findOrCreate(code, name, id, mailchimpListId, contactEmail);
     }
 
-    @Inject CenterRepository centerRepository;
+    @Inject private CenterRepository centerRepository;
 }

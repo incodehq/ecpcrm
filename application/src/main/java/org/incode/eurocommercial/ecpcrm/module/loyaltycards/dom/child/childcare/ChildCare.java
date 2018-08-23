@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare;
 
+import java.util.Comparator;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -33,7 +35,6 @@ import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.services.clock.ClockService;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -85,10 +86,6 @@ import lombok.Setter;
         paged = 1000
 )
 public class ChildCare implements Comparable<ChildCare>, HasAtPath {
-    @Override
-    public int compareTo(final ChildCare other) {
-        return ObjectContracts.compare(this, other, "child", "checkIn");
-    }
 
     public String title() {
         return getChild().getName() + " - " + getCheckIn().toLocalDate().toString();
@@ -132,5 +129,13 @@ public class ChildCare implements Comparable<ChildCare>, HasAtPath {
         return getChild().getAtPath();
     }
 
-    @Inject ClockService clockService;
+    @Override
+    public int compareTo(final ChildCare other) {
+        return Comparator
+                .comparing(ChildCare::getChild)
+                .thenComparing(ChildCare::getCheckIn)
+                .compare(this, other);
+    }
+
+    @Inject private ClockService clockService;
 }

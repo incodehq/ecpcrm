@@ -54,7 +54,6 @@ public class ApiIntegTestFixture extends FixtureScript {
         loyaltyCardsIntegTestFixture = new LoyaltyCardsIntegTestFixture();
         ec.executeChild(ApiIntegTestFixture.this, loyaltyCardsIntegTestFixture);
         ec.executeChild(ApiIntegTestFixture.this, new AuthenticationDeviceFixture());
-
     }
 
 }

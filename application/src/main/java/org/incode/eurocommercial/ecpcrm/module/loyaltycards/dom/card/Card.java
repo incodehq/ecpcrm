@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card;
 
+import java.util.Comparator;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -42,13 +43,12 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGameRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 import lombok.Getter;
@@ -95,11 +95,6 @@ import lombok.Setter;
         bounded = true
 )
 public class Card implements Comparable<Card>, HasAtPath {
-
-    @Override
-    public int compareTo(final Card other) {
-        return ObjectContracts.compare(this, other, "number");
-    }
 
     public String title() {
         return getNumber();
@@ -150,7 +145,6 @@ public class Card implements Comparable<Card>, HasAtPath {
     @CollectionLayout(hidden = Where.EVERYWHERE)
     @Getter @Setter
     private SortedSet<CardGame> cardGames = new TreeSet<>();
-
 
     @Action
     @ActionLayout(named = "Disable")
@@ -217,8 +211,13 @@ public class Card implements Comparable<Card>, HasAtPath {
         return getCenter().getAtPath();
     }
 
-    @Inject CardGameRepository cardGameRepository;
-    @Inject ClockService clockService;
+    @Override
+    public int compareTo(final Card other) {
+        return Comparator
+                .comparing(Card::getNumber)
+                .compare(this, other);
+    }
 
-
+    @Inject private CardGameRepository cardGameRepository;
+    @Inject private ClockService clockService;
 }

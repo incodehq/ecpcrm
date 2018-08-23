@@ -36,7 +36,6 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
@@ -92,10 +91,10 @@ public class UserMenu {
             final String firstName,
             final String lastName,
             final String email,
-            final String address,
-            final String zipcode,
-            final String city,
-            final String phoneNumber,
+            final @Parameter(optionality = Optionality.OPTIONAL) String address,
+            final @Parameter(optionality = Optionality.OPTIONAL) String zipcode,
+            final @Parameter(optionality = Optionality.OPTIONAL) String city,
+            final @Parameter(optionality = Optionality.OPTIONAL) String phoneNumber,
             final Center center,
             final @Parameter(optionality = Optionality.OPTIONAL) String cardNumber,
             final boolean promotionalEmails,
@@ -123,6 +122,5 @@ public class UserMenu {
         return userRepository.validateNewUser(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
-    @Inject UserRepository userRepository;
-    @Inject CenterRepository centerRepository;
+    @Inject private UserRepository userRepository;
 }

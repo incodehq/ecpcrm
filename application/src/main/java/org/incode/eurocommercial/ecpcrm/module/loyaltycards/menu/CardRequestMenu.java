@@ -53,5 +53,5 @@ public class CardRequestMenu {
         return cardRequestRepository.listRecentlyHandledRequests();
     }
 
-    @Inject CardRequestRepository cardRequestRepository;
+    @Inject private CardRequestRepository cardRequestRepository;
 }

@@ -60,5 +60,5 @@ public class ChildCareMenu {
         return childCareRepository.findByDateRange(center, start, end);
     }
 
-    @Inject ChildCareRepository childCareRepository;
+    @Inject private ChildCareRepository childCareRepository;
 }

@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child;
 
+import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -37,9 +38,7 @@ import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -74,11 +73,6 @@ import lombok.Setter;
         paged = 1000
 )
 public class Child implements Comparable<Child>, HasAtPath {
-
-    @Override
-    public int compareTo(final Child other) {
-        return ObjectContracts.compare(this, other, "parent", "name", "birthdate");
-    }
 
     public String title() {
         return getName();
@@ -116,7 +110,7 @@ public class Child implements Comparable<Child>, HasAtPath {
 
     @Persistent(mappedBy = "child", dependentElement = "true")
     @Collection
-    @CollectionLayout(render = RenderType.EAGERLY)
+    @CollectionLayout(defaultView = "table")
     @Getter @Setter
     private SortedSet<ChildCare> childCares = new TreeSet<>();
 
@@ -152,5 +146,14 @@ public class Child implements Comparable<Child>, HasAtPath {
         return getParent().getAtPath();
     }
 
-    @Inject ChildCareRepository childCareRepository;
+    @Override
+    public int compareTo(final Child other) {
+        return Comparator
+                .comparing(Child::getParent)
+                .thenComparing(Child::getName)
+                .thenComparing(Child::getBirthdate, Comparator.nullsFirst(Comparator.naturalOrder()))
+                .compare(this, other);
+    }
+
+    @Inject private ChildCareRepository childCareRepository;
 }

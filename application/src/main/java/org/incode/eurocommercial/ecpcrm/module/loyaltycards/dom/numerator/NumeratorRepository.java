@@ -71,5 +71,5 @@ public class NumeratorRepository {
         return numerator;
     }
 
-    @Inject RepositoryService repositoryService;
+    @Inject private RepositoryService repositoryService;
 }

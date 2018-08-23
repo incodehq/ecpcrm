@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game;
 
+import java.util.Comparator;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -35,7 +37,6 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
@@ -87,7 +88,10 @@ public class CardGame implements Comparable<CardGame> {
     private boolean outcome;
 
     @Override
-    public int compareTo(final CardGame o) {
-        return ObjectContracts.compare(this, o, "card", "date");
+    public int compareTo(final CardGame other) {
+        return Comparator
+                .comparing(CardGame::getCard)
+                .thenComparing(CardGame::getDate)
+                .compare(this, other);
     }
 }

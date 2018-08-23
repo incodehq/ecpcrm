@@ -108,7 +108,6 @@ public class ChildCareRepository {
         return childCare;
     }
 
-
     @Inject private RepositoryService repositoryService;
     @Inject private ClockService clockService;
 }

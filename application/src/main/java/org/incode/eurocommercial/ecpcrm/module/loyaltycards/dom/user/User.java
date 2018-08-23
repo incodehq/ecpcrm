@@ -16,6 +16,7 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user;
 
+import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -36,11 +37,11 @@ import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -80,14 +81,14 @@ import lombok.Setter;
                 name = "findByNameContains", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User "
-                        + "WHERE firstName.indexOf(:name) >= 0 "
-                        + "|| lastName.indexOf(:name) >= 0"),
+                        + "WHERE firstName.toUpperCase().indexOf(:name) >= 0 "
+                        + "|| lastName.toUpperCase().indexOf(:name) >= 0"),
         @Query(
                 name = "findByFirstAndLastName", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User "
-                        + "WHERE firstName.indexOf(:firstName) >= 0 "
-                        + "&& lastName.indexOf(:lastName) >= 0"),
+                        + "WHERE firstName.toUpperCase().indexOf(:firstName) >= 0 "
+                        + "&& lastName.toUpperCase().indexOf(:lastName) >= 0"),
         @Query(
                 name = "findByCode", language = "JDOQL",
                 value = "SELECT "
@@ -101,11 +102,6 @@ import lombok.Setter;
         paged = 1000
 )
 public class User implements Comparable<User>, HasAtPath {
-
-    @Override
-    public int compareTo(final User other) {
-        return ObjectContracts.compare(this, other, "email");
-    }
 
     public String title() {
         return getFirstName() + " " + getLastName();
@@ -201,12 +197,16 @@ public class User implements Comparable<User>, HasAtPath {
 
     @Persistent(mappedBy = "parent", dependentElement = "true")
     @Collection
-    @CollectionLayout(render = RenderType.EAGERLY)
+    @CollectionLayout(defaultView = "table")
     @Getter @Setter
     private SortedSet<Child> children = new TreeSet<>();
 
     @Action
-    public User newChild(String name, Gender gender, LocalDate birthdate) {
+    public User newChild(
+            final String name,
+            final Gender gender,
+            final @Parameter(optionality = Optionality.OPTIONAL) LocalDate birthdate
+    ) {
         childRepository.findOrCreate(name, gender, birthdate, this);
         return this;
     }
@@ -217,7 +217,7 @@ public class User implements Comparable<User>, HasAtPath {
 
     @Persistent(mappedBy = "owner", dependentElement = "false")
     @Collection
-    @CollectionLayout(render = RenderType.EAGERLY)
+    @CollectionLayout(defaultView = "table")
     @Getter @Setter
     private SortedSet<Card> cards = new TreeSet<>();
 
@@ -281,10 +281,16 @@ public class User implements Comparable<User>, HasAtPath {
         return getOpenCardRequest() == null;
     }
 
-
-
     @Override public String getAtPath() {
         return getCenter().getAtPath();
+    }
+
+    @Override
+    public int compareTo(final User other) {
+        return Comparator
+                .comparing(User::getEmail)
+                .thenComparing(User::getCenter)
+                .compare(this, other);
     }
 
     @Inject private ClockService clockService;

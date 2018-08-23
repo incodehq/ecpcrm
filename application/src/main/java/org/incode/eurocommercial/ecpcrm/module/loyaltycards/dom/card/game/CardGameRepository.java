@@ -82,5 +82,5 @@ public class CardGameRepository {
         return cardGame;
     }
 
-    @Inject RepositoryService repositoryService;
+    @Inject private RepositoryService repositoryService;
 }

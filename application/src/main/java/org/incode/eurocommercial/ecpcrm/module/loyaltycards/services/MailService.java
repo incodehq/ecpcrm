@@ -55,6 +55,6 @@ public class MailService {
         return users;
     }
 
-    @Inject UserRepository userRepository;
-    @Inject CenterRepository centerRepository;
+    @Inject private UserRepository userRepository;
+    @Inject private CenterRepository centerRepository;
 }

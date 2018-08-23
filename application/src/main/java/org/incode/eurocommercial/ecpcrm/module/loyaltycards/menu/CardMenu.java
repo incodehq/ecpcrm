@@ -39,7 +39,6 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
@@ -98,6 +97,5 @@ public class CardMenu {
         return cardRepository.newBatch(startNumber, batchSize, CardStatus.DISABLED, center);
     }
 
-    @Inject CardRepository cardRepository;
-    @Inject CenterRepository centerRepository;
+    @Inject private CardRepository cardRepository;
 }

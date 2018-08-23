@@ -1,5 +1,7 @@
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center;
 
+import java.util.Comparator;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -13,7 +15,6 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -46,11 +47,6 @@ import lombok.Setter;
         bounded = true
 )
 public class Center implements Comparable<Center>, HasAtPath {
-
-    @Override
-    public int compareTo(final Center other) {
-        return ObjectContracts.compare(this, other, "code", "name");
-    }
 
     public String title() {
         return getName();
@@ -105,6 +101,14 @@ public class Center implements Comparable<Center>, HasAtPath {
         return cardRepository.nextCardNumber(fakeNumerator);
     }
 
-    @Inject CardRepository cardRepository;
+    @Override
+    public int compareTo(final Center other) {
+        return Comparator
+                .comparing(Center::getCode)
+                .thenComparing(Center::getName)
+                .compare(this, other);
+    }
+
+    @Inject private CardRepository cardRepository;
 
 }

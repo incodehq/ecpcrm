@@ -368,8 +368,8 @@ public class ApiService {
         return localDate == null ? null : localDate.toString();
     }
 
-    @Inject CardRepository cardRepository;
-    @Inject CardRequestRepository cardRequestRepository;
-    @Inject UserRepository userRepository;
-    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
+    @Inject private CardRepository cardRepository;
+    @Inject private CardRequestRepository cardRequestRepository;
+    @Inject private UserRepository userRepository;
+    @Inject private AuthenticationDeviceRepository authenticationDeviceRepository;
 }

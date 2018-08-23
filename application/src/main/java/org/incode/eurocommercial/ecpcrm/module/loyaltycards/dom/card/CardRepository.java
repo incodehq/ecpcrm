@@ -35,7 +35,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.NumeratorRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 @DomainService(
@@ -303,9 +302,8 @@ public class CardRepository {
         return withoutChecksum + "" + checksum;
     }
 
-    @Inject RepositoryService repositoryService;
-    @Inject ClockService clockService;
-    @Inject NumeratorRepository numeratorRepository;
-    @Inject CenterRepository centerRepository;
+    @Inject private RepositoryService repositoryService;
+    @Inject private ClockService clockService;
+    @Inject private CenterRepository centerRepository;
 
 }

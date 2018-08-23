@@ -72,5 +72,5 @@ public class AuthenticationDeviceMenu {
         }
     }
 
-    @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
+    @Inject private AuthenticationDeviceRepository authenticationDeviceRepository;
 }

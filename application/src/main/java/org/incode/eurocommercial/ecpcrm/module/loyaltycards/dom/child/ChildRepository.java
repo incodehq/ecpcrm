@@ -98,5 +98,5 @@ public class ChildRepository {
         return child;
     }
 
-    @Inject RepositoryService repositoryService;
+    @Inject private RepositoryService repositoryService;
 }

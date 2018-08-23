@@ -89,7 +89,7 @@ public class UserRepository {
                 new QueryDefault<>(
                         User.class,
                         "findByNameContains",
-                        "name", name));
+                        "name", name.toUpperCase()));
     }
 
     @Programmatic
@@ -101,8 +101,8 @@ public class UserRepository {
                 new QueryDefault<>(
                         User.class,
                         "findByFirstAndLastName",
-                        "firstName", firstName,
-                        "lastName", lastName));
+                        "firstName", firstName.toUpperCase(),
+                        "lastName", lastName.toUpperCase()));
     }
 
     @Programmatic
@@ -129,7 +129,7 @@ public class UserRepository {
             final String city,
             final String phoneNumber,
             final Center center,
-            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final String cardNumber,
             final boolean promotionalEmails,
             final Boolean hasCar,
             String reference
@@ -269,7 +269,7 @@ public class UserRepository {
         repositoryService.remove(user);
     }
 
-    @Inject RepositoryService repositoryService;
-    @Inject CardRepository cardRepository;
-    @Inject NumeratorRepository numeratorRepository;
+    @Inject private RepositoryService repositoryService;
+    @Inject private CardRepository cardRepository;
+    @Inject private NumeratorRepository numeratorRepository;
 }

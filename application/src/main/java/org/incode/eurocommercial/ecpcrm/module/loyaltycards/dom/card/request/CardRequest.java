@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request;
 
+import java.util.Comparator;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -34,7 +36,6 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -77,11 +78,6 @@ import lombok.Setter;
         editing = Editing.DISABLED
 )
 public class CardRequest implements Comparable<CardRequest>, HasAtPath {
-    @Override
-    public int compareTo(final CardRequest other) {
-        return ObjectContracts.compare(this, other, "requestingUser", "issueDate", "handleDate");
-    }
-
     public String title() {
         return requestingUser.getFirstName() + " " + requestingUser.getLastName() + " - " + issueDate.toString();
     }
@@ -182,6 +178,15 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
         return getRequestingUser().getAtPath();
     }
 
-    @Inject ClockService clockService;
-    @Inject CardRepository cardRepository;
+    @Override
+    public int compareTo(final CardRequest other) {
+        return Comparator
+                .comparing(CardRequest::getRequestingUser)
+                .thenComparing(CardRequest::getIssueDate)
+                .thenComparing(CardRequest::getHandleDate, Comparator.nullsFirst(Comparator.naturalOrder()))
+                .compare(this, other);
+    }
+
+    @Inject private ClockService clockService;
+    @Inject private CardRepository cardRepository;
 }

@@ -49,8 +49,6 @@ public class FixtureMenu {
     @MemberOrder(sequence = "500.10.2")
     public Object recreateDummyData() {
         fixtureScripts.runFixtureScript(new LoyaltyCardsDemoFixture(), null);
-//        final FixtureScript fs = fixtureScripts.findFixtureScriptFor(LoyaltyCardsDemoFixture.class);
-//        final List<FixtureResult> unusedResults = fs.run(null);
         return homePageService.homePage();
     }
 

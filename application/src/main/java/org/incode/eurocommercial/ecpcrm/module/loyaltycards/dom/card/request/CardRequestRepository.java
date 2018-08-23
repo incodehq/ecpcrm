@@ -116,6 +116,6 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    @Inject RepositoryService repositoryService;
-    @Inject ClockService clockService;
+    @Inject private RepositoryService repositoryService;
+    @Inject private ClockService clockService;
 }
