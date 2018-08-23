@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-07-30 16:17:20+\n"
+"POT-Creation-Date: 2018-08-23 10:13:59+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,8 +58,14 @@ msgstr ""
 
 
 #: org.apache.isis.applib.services.appfeat.ApplicationMemberType#ACTION
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#targetAction
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addAction(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String,java.lang.String)
 msgid "Action"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventType#ACTION_INVOCATION
+msgid "Action Invocation"
 msgstr ""
 
 
@@ -75,6 +81,11 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#active
 msgid "Active"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishingServiceMenu
+msgid "Activity"
 msgstr ""
 
 
@@ -246,6 +257,11 @@ msgid "AtPath"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract$ChangeType#AUDIT_ENTRY
+msgid "Audit Entry"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.api.menu.AuthenticationDeviceMenu
 msgid "Authentication Devices"
 msgstr ""
@@ -293,11 +309,6 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#cardGames
 msgid "Card Games"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#cardRequest()
-msgid "Card Request"
 msgstr ""
 
 
@@ -352,6 +363,11 @@ msgid "Centers"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventType#CHANGED_OBJECTS
+msgid "Changed Objects"
+msgstr ""
+
+
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#changing()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionMode#CHANGING
 msgid "Changing"
@@ -399,6 +415,8 @@ msgstr ""
 
 
 #: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureType$2#CLASS
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#targetClass
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#targetClass
 #: org.isisaddons.module.security.app.user.ApplicationUser_filterPermissions#$$(java.lang.String,java.lang.String)
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addAction(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String,java.lang.String)
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addClass(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String)
@@ -440,6 +458,11 @@ msgid "Collections"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract$ChangeType#COMMAND
+msgid "Command"
+msgstr ""
+
+
 #: org.apache.isis.applib.services.layout.LayoutService$Style#COMPLETE
 msgid "Complete"
 msgstr ""
@@ -477,6 +500,11 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 msgid "Contact Details"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center#contactEmail
+msgid "Contact Email"
 msgstr ""
 
 
@@ -596,6 +624,9 @@ msgid "Description"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#detail
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection
 #: org.isisaddons.module.security.app.feature.ApplicationClassProperty
@@ -615,6 +646,11 @@ msgid "Disabled"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
+msgid "Domain Change"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#downloadJdoMetadata()
@@ -624,6 +660,8 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#downloadJdoMetadata()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#downloadJdoMetadata()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#downloadJdoMetadata()
@@ -634,8 +672,6 @@ msgid "Download Jdo Metadata"
 msgstr ""
 
 
-#: com.ecwid.maleorang.MailchimpObject#downloadLayoutXml()
-#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#downloadLayoutXml()
 #: java.io.Closeable#downloadLayoutXml()
 #: java.io.InputStream#downloadLayoutXml()
 #: java.io.Serializable#downloadLayoutXml()
@@ -763,6 +799,7 @@ msgstr ""
 #: org.apache.isis.core.runtime.persistence.FixturesInstalledFlag#downloadLayoutXml()
 #: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#downloadLayoutXml()
 #: org.apache.isis.core.runtime.system.transaction.TransactionalClosure#downloadLayoutXml()
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#downloadLayoutXml()
 #: org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport#downloadLayoutXml()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService#downloadLayoutXml()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationService#downloadLayoutXml()
@@ -770,6 +807,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#downloadLayoutXml()
@@ -778,6 +816,10 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#downloadLayoutXml()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#downloadLayoutXml()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#downloadLayoutXml()
+#: org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository#downloadLayoutXml()
+#: org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#downloadLayoutXml()
@@ -873,6 +915,11 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser#encryptedPassword
 msgid "Encrypted Password"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#eventType
+msgid "Event Type"
 msgstr ""
 
 
@@ -1014,6 +1061,7 @@ msgid "Find Matching"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository#findOrCreate()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findOrCreate()
 msgid "Find Or Create"
 msgstr ""
@@ -1021,6 +1069,21 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionMenu#findOrphanedPermissions()
 msgid "Find Orphaned Permissions"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishingServiceMenu#findPublishedEvents()
+msgid "Find Published Events"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishingServiceMenu#findPublishedEventsByTransactionId()
+msgid "Find Published Events By Transaction Id"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository#findRecentByTarget()
+msgid "Find Recent By Target"
 msgstr ""
 
 
@@ -1077,6 +1140,11 @@ msgstr ""
 
 #: org.apache.isis.applib.fixturescripts.FixtureScript#friendlyName
 msgid "Friendly Name"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishingServiceMenu#findPublishedEvents(org.joda.time.LocalDate,org.joda.time.LocalDate)
+msgid "From"
 msgstr ""
 
 
@@ -1153,6 +1221,9 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#datanucleusIdLong()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusIdLong()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#datanucleusIdLong()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#datanucleusIdLong()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#datanucleusIdLong()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#id()
 #: org.isisaddons.module.security.app.feature.ApplicationClass
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection
@@ -1178,6 +1249,12 @@ msgstr ""
 
 #: org.apache.isis.applib.annotation.SemanticsOf#IDEMPOTENT_ARE_YOU_SURE
 msgid "Idempotent Are You Sure"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
+msgid "Identifiers"
 msgstr ""
 
 
@@ -1312,6 +1389,11 @@ msgid "Local Date"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log()
+msgid "Log"
+msgstr ""
+
+
 #: org.isisaddons.module.settings.dom.SettingType#LONG
 msgid "Long"
 msgstr ""
@@ -1332,6 +1414,11 @@ msgid "Mailchimp List Id"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.services.MailService#mailchimpWebhookCallback()
+msgid "Mailchimp Webhook Callback"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Gender#MALE
 msgid "Male"
 msgstr ""
@@ -1348,7 +1435,13 @@ msgstr ""
 
 
 #: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureType$3#MEMBER
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#targetAction
 msgid "Member"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#memberIdentifier
+msgid "Member Identifier"
 msgstr ""
 
 
@@ -1369,6 +1462,8 @@ msgstr ""
 
 
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#message
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#message
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#messageOnForm
 msgid "Message"
 msgstr ""
 
@@ -1591,15 +1686,32 @@ msgid "Nursery"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#targetStr
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#targetStr
+msgid "Object"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#oid
+msgid "Oid"
+msgstr ""
+
+
 #: org.apache.isis.applib.services.HasUsername#open()
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#openTargetObject()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#open()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#openTargetObject()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#open()
 #: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#open()
 msgid "Open"
 msgstr ""
 
 
-#: com.ecwid.maleorang.MailchimpObject#openRestApi()
-#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#openCardRequest
+msgid "Open Card Request"
+msgstr ""
+
+
 #: java.io.Closeable#openRestApi()
 #: java.io.InputStream#openRestApi()
 #: java.io.Serializable#openRestApi()
@@ -1728,6 +1840,7 @@ msgstr ""
 #: org.apache.isis.core.runtime.persistence.FixturesInstalledFlag#openRestApi()
 #: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#openRestApi()
 #: org.apache.isis.core.runtime.system.transaction.TransactionalClosure#openRestApi()
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#openRestApi()
 #: org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport#openRestApi()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService#openRestApi()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationService#openRestApi()
@@ -1735,6 +1848,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#openRestApi()
@@ -1743,6 +1857,10 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#openRestApi()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#openRestApi()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#openRestApi()
+#: org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository#openRestApi()
+#: org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#openRestApi()
@@ -1895,6 +2013,18 @@ msgid "Pick Up In Center"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#postValue
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#postValue
+msgid "Post Value"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#preValue
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#preValue
+msgid "Pre Value"
+msgstr ""
+
+
 #: org.isisaddons.module.settings.dom.ApplicationSetting#previous()
 #: org.isisaddons.module.settings.dom.UserSetting#previous()
 #: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#previous()
@@ -1939,6 +2069,17 @@ msgid "Property"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventType#PROPERTY_EDIT
+msgid "Property Edit"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#propertyId
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#propertyId
+msgid "Property Id"
+msgstr ""
+
+
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsDefault
 #: org.apache.isis.applib.services.hsqldb.HsqlDbManagerMenu
 #: org.apache.isis.applib.services.layout.LayoutServiceMenu
@@ -1958,6 +2099,29 @@ msgid "Public"
 msgstr ""
 
 
+#: org.apache.isis.applib.services.HasTransactionId#publishedEvent()
+#: org.apache.isis.applib.services.command.Command#publishedEvent()
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract$ChangeType#PUBLISHED_EVENT
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#publishedEvent()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#publishedEvent()
+msgid "Published Event"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.HasTransactionId#publishedEventsInTransaction()
+#: org.apache.isis.applib.services.command.Command#publishedEventsInTransaction()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#publishedEventsInTransaction()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#publishedEventsInTransaction()
+msgid "Published Events In Transaction"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract$ChangeType#PUBLISHED_INTERACTION
+msgid "Published Interaction"
+msgstr ""
+
+
 #: javax.ws.rs.core.MultivaluedMap#putIfAbsent()
 msgid "Put If Absent"
 msgstr ""
@@ -1973,8 +2137,6 @@ msgid "Reapprove"
 msgstr ""
 
 
-#: com.ecwid.maleorang.MailchimpObject#rebuildMetamodel()
-#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#rebuildMetamodel()
 #: java.io.Closeable#rebuildMetamodel()
 #: java.io.InputStream#rebuildMetamodel()
 #: java.io.Serializable#rebuildMetamodel()
@@ -2102,6 +2264,7 @@ msgstr ""
 #: org.apache.isis.core.runtime.persistence.FixturesInstalledFlag#rebuildMetamodel()
 #: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#rebuildMetamodel()
 #: org.apache.isis.core.runtime.system.transaction.TransactionalClosure#rebuildMetamodel()
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#rebuildMetamodel()
 #: org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport#rebuildMetamodel()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService#rebuildMetamodel()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationService#rebuildMetamodel()
@@ -2109,6 +2272,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#rebuildMetamodel()
@@ -2117,6 +2281,10 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#rebuildMetamodel()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#rebuildMetamodel()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#rebuildMetamodel()
+#: org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository#rebuildMetamodel()
+#: org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#rebuildMetamodel()
@@ -2149,8 +2317,6 @@ msgid "Rebuild Metamodel"
 msgstr ""
 
 
-#: com.ecwid.maleorang.MailchimpObject#recentActivity()
-#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#recentActivity()
 #: java.io.InputStream#recentActivity()
 #: java.lang.Class#recentActivity()
 #: java.lang.Object#recentActivity()
@@ -2174,11 +2340,13 @@ msgstr ""
 #: org.apache.isis.core.metamodel.spec.FreeStandingList#recentActivity()
 #: org.apache.isis.core.runtime.authorization.AuthorizationManagerAbstract#recentActivity()
 #: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#recentActivity()
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#recentActivity()
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.activity.RecentActivityContributions#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#recentActivity()
@@ -2187,6 +2355,8 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#recentActivity()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#recentActivity()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#recentActivity()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#recentActivity()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#recentActivity()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#recentActivity()
@@ -2206,6 +2376,14 @@ msgstr ""
 #: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#recentActivity()
 #: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#recentActivity()
 msgid "Recent Activity"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.HasUsername#recentEventsPublishedByUser()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#recentEventsPublishedByUser()
+#: org.isisaddons.module.security.dom.user.ApplicationUser#recentEventsPublishedByUser()
+#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#recentEventsPublishedByUser()
+msgid "Recent Events Published By User"
 msgstr ""
 
 
@@ -2255,6 +2433,11 @@ msgstr ""
 
 #: javax.ws.rs.core.MultivaluedMap#replaceAll()
 msgid "Replace All"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#republish()
+msgid "Republish"
 msgstr ""
 
 
@@ -2377,12 +2560,27 @@ msgid "Sent To User At"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#sequence
+msgid "Sequence"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#serializedForm
+msgid "Serialized Form"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.application.service.settings.EcpCrmSettingsService
 #: org.incode.eurocommercial.ecpcrm.module.application.service.settings.EcpCrmUserSettingContributions#userSettingsFor()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#userSettingsFor()
 #: org.isisaddons.module.settings.dom.ApplicationSettingMenu
 #: org.isisaddons.module.settings.dom.UserSettingMenu
 msgid "Settings"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#siblingEvents()
+msgid "Sibling Events"
 msgstr ""
 
 
@@ -2393,9 +2591,23 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#status
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#status
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#status
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 #: org.isisaddons.module.security.dom.user.ApplicationUser#status
 msgid "Status"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage
+msgid "Status Message"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.HasTransactionId#statusMessagesInTransaction()
+#: org.apache.isis.applib.services.command.Command#statusMessagesInTransaction()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#statusMessagesInTransaction()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#statusMessagesInTransaction()
+msgid "Status Messages In Transaction"
 msgstr ""
 
 
@@ -2411,11 +2623,6 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#subscribeToPromotionalEmails()
 msgid "Subscribe To Promotional Emails"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.services.mail.MailService#subscribeUser()
-msgid "Subscribe User"
 msgstr ""
 
 
@@ -2439,8 +2646,33 @@ msgid "Tag As Lost"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
+msgid "Target"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
+msgid "TargetStr"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#timestamp
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#timestamp
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#timestamp
+msgid "Timestamp"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#title
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#title
 msgid "Title"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishingServiceMenu#findPublishedEvents(org.joda.time.LocalDate,org.joda.time.LocalDate)
+msgid "To"
 msgstr ""
 
 
@@ -2454,19 +2686,22 @@ msgid "To Excel Pivot"
 msgstr ""
 
 
-#: com.ecwid.maleorang.MailchimpObject#toJson()
-#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#toJson()
-msgid "To Json"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus#TOCHANGE
 msgid "Tochange"
 msgstr ""
 
 
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#transactionId
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#transactionId
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#transactionId
+msgid "Transaction Id"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#type
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#type
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#type
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#type
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#type
 #: org.isisaddons.module.security.dom.role.ApplicationRole#removePermission(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureType,java.lang.String)
 #: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#type
@@ -2495,11 +2730,6 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#unsubscribeFromPromotionalEmails()
 msgid "Unsubscribe From Promotional Emails"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.services.mail.MailService#unsubscribeUser()
-msgid "Unsubscribe User"
 msgstr ""
 
 
@@ -2598,6 +2828,13 @@ msgid "Update Username"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#uri
+msgid "Uri"
+msgstr ""
+
+
+#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#user
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#user
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#user
 #: org.isisaddons.module.security.dom.user.HasUsername_open
 #: org.isisaddons.module.settings.dom.UserSettingMenu#find(java.lang.String,java.lang.String)
@@ -2752,6 +2989,10 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusVersionTimestamp()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#datanucleusVersionLong()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#datanucleusVersionTimestamp()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#datanucleusVersionLong()
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#datanucleusVersionTimestamp()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#datanucleusVersionLong()
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#datanucleusVersionTimestamp()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#datanucleusVersionLong()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#datanucleusVersionTimestamp()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#datanucleusVersionLong()
@@ -2782,6 +3023,11 @@ msgstr ""
 
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#viewingPermission
 msgid "Viewing Permission"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteCardRequest()
+msgid "Website Card Request"
 msgstr ""
 
 
@@ -2838,6 +3084,11 @@ msgid "description"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "detail"
+msgstr ""
+
+
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 msgid "emailAddress"
 msgstr ""
@@ -2858,9 +3109,19 @@ msgid "knownAs"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "message"
+msgstr ""
+
+
 #: org.isisaddons.module.security.dom.role.ApplicationRole
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy
 msgid "name"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "oid"
 msgstr ""
 
 
@@ -2881,6 +3142,28 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 msgid "roles"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "status"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent_republish
+#: org.isisaddons.module.publishmq.dom.jdo.mixins.HasTransactionId_publishedEvent
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "transactionId"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "uri"
+msgstr ""
+
+
+#: org.isisaddons.module.publishmq.dom.jdo.mixins.HasUsername_recentEventsPublishedByUser
+msgid "user"
 msgstr ""
 
 
