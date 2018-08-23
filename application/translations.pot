@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-08-23 10:13:59+\n"
+"POT-Creation-Date: 2018-08-23 17:22:09+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -309,6 +309,11 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#cardGames
 msgid "Card Games"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#cardRequest()
+msgid "Card Request"
 msgstr ""
 
 

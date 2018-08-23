@@ -56,6 +56,11 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "
                         + "WHERE approved == :approved "),
         @Query(
+                name = "findByUser", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "
+                        + "WHERE requestingUser == :requestingUser "),
+        @Query(
                 name = "findByApprovedAndUser", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "

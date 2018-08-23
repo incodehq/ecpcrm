@@ -21,6 +21,7 @@ import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel;
@@ -92,6 +93,46 @@ public class EcpCrmResource extends ResourceAbstract  {
     }
 
     @POST
+    @Path("/card-request")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
+    @Produces({
+            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+    })
+    @PrettyPrinting
+    public Response cardRequest(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ) {
+        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+
+        CardRequestRequestViewModel requestViewModel = gson.fromJson(request, CardRequestRequestViewModel.class);
+
+        return apiService.cardRequest(
+                deviceName,
+                deviceSecret,
+                requestViewModel.getOrigin(),
+                requestViewModel.getHostess(),
+                requestViewModel.getTitle(),
+                requestViewModel.getFirstName(),
+                requestViewModel.getLastName(),
+                requestViewModel.getEmail(),
+                requestViewModel.getBirthdate(),
+                requestViewModel.getChildren(),
+                requestViewModel.getNbChildren(),
+                requestViewModel.getHasCar(),
+                requestViewModel.getAddress(),
+                requestViewModel.getZipcode(),
+                requestViewModel.getCity(),
+                requestViewModel.getPhoneNumber(),
+                requestViewModel.getPromotionalEmails(),
+                requestViewModel.getCheckItem(),
+                requestViewModel.getLost()
+        ).asResponse();
+    }
+
+    @POST
     @Path("/website-card-request")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
     @Produces({
@@ -117,7 +158,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
-                requestViewModel.getAddress(),
+                requestViewModel.getPasswword(),
                 requestViewModel.getBirthdate(),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),

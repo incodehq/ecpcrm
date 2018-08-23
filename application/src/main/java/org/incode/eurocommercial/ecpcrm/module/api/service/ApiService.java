@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import com.google.common.base.Strings;
@@ -35,6 +37,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
@@ -47,6 +50,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserReposit
         menuOrder = "100"
 )
 public class ApiService {
+
     public String computeCheckCode(String email) {
         String secret = "320498FJEZR458FNBLA895HFLR48G";
         String toBeHashed = email + secret;
@@ -86,6 +90,9 @@ public class ApiService {
             if (card.getOwner() == null || !card.getOwner().isEnabled()) {
                 return Result.error(304, "Invalid user");
             }
+
+            return Result.ok(CardCheckResponseViewModel.fromCard(card));
+
         } else {
             if (device.getType() != AuthenticationDeviceType.APP && cardNumber.startsWith("3922")) {
                 return Result.error(319, "Outdated card");
@@ -97,8 +104,6 @@ public class ApiService {
             //TODO: In the old code, a new blank user is created for a nonexisting card, why?
             return Result.error(314, "Unable to bind user to card");
         }
-
-        return Result.ok(CardCheckResponseViewModel.fromCard(card));
     }
 
     public Result cardGame(
@@ -138,6 +143,93 @@ public class ApiService {
         return Result.ok();
     }
 
+    public Result cardRequest(
+            String deviceName,
+            String deviceSecret,
+            String origin,
+            String hostess,
+            Title title,
+            String firstName,
+            String lastName,
+            String email,
+            LocalDate birthdate,
+            String children,
+            String nbChildren,
+            Boolean hasCar,
+            String address,
+            String zipcode,
+            String city,
+            String phoneNumber,
+            Boolean promotionalEmails,
+            String checkItem,
+            Boolean lost
+    ) {
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        if (device == null || !device.isActive()) {
+            return Result.error(301, "Invalid device");
+        }
+
+        if (Strings.isNullOrEmpty(origin) || title == null || Strings.isNullOrEmpty(firstName) ||
+            Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
+            Strings.isNullOrEmpty(zipcode) || Strings.isNullOrEmpty(city) || promotionalEmails == null
+        ) {
+            return Result.error(302, "Invalid parameter");
+        }
+
+        Center center = device.getCenter();
+        User user = userRepository.findByExactEmailAndCenter(email, center);
+
+        if (user != null) {
+            if (!lost) {
+                if (Strings.isNullOrEmpty(checkItem)) {
+                    if (firstName.equals(user.getFirstName()) && lastName.equals(user.getLastName())) {
+                        return Result.error(318, "Email exists, valid check, ask if lost");
+                    } else {
+                        return Result.error(305, "Email already exists");
+                    }
+                } else {
+                    if (checkItem.equals(user.getFirstName() + " " + user.getLastName())) {
+                        return Result.error(318, "Email exists, valid check, ask if lost");
+                    } else {
+                        return Result.error(306, "Email already exists, invalid check");
+                    }
+                }
+            }
+        } else {
+            user = userRepository.findOrCreate(
+                    true,
+                    title,
+                    firstName,
+                    lastName,
+                    email,
+                    address,
+                    zipcode,
+                    city,
+                    phoneNumber,
+                    center,
+                    null,
+                    promotionalEmails,
+                    hasCar,
+                    null
+            );
+        }
+
+        if (lost) {
+            if (!user.getCards().isEmpty()) {
+                user.getCards().first().setStatus(CardStatus.LOST);
+            }
+            List<CardRequest> existingRequests = cardRequestRepository.findByUser(user);
+            if (existingRequests.isEmpty()) {
+                cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
+            } else {
+                return Result.error(307, "TODO");
+            }
+        }
+
+        return Result.ok();
+    }
+
     public Result websiteCardRequest(
             String deviceName,
             String deviceSecret,
@@ -167,8 +259,9 @@ public class ApiService {
         }
 
         if (Strings.isNullOrEmpty(centerId) || title == null || Strings.isNullOrEmpty(firstName) ||
-                Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
-                Strings.isNullOrEmpty(zipcode)  || Strings.isNullOrEmpty(city) || Strings.isNullOrEmpty(checkCode)) {
+            Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
+            Strings.isNullOrEmpty(zipcode)  || Strings.isNullOrEmpty(city) || Strings.isNullOrEmpty(checkCode)
+        ) {
             return Result.error(302, "Invalid parameter");
         }
 
@@ -214,7 +307,8 @@ public class ApiService {
         }
 
         if (Strings.isNullOrEmpty(centerId) || Strings.isNullOrEmpty(checkCode) || title == null ||
-                Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)) {
+            Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)
+        ) {
             return Result.error(302, "Invalid parameter");
         }
 

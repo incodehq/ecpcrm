@@ -76,6 +76,17 @@ public class CardRequestRepository {
     }
 
     @Programmatic
+    public List<CardRequest> findByUser(
+            User user
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        CardRequest.class,
+                        "findByUser",
+                        "requestingUser", user));
+    }
+
+    @Programmatic
     public CardRequest openRequestForUser(
             User user
     ) {
