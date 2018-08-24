@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
@@ -23,6 +24,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardReposit
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -72,14 +74,16 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
         CardStatus status = CardStatus.valueOf(getStatus());
         Center center = centerRepository.findByCode(getCenterCode());
 
-        Card card = cardRepository.findOrCreate(
+        if (cardMenu.validateNewCard(getNumber(), center) != null) {
+            return null;
+        }
+
+        Card card = wrapperFactory.wrap(cardMenu).newCard(
                 getNumber(),
-                status,
                 center
         );
 
-        if(card == null)
-            return null;
+        card.setStatus(status);
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime createdAtDate = getCreatedAt() == null ? card.getCreatedAt() : dtf.parseLocalDateTime(getCreatedAt().replace("T", " ").replace(".000", ""));
@@ -93,6 +97,8 @@ public class CardImport implements ExcelFixtureRowHandler, Importable {
         return null;
     }
 
+    @Inject private CardMenu cardMenu;
     @Inject private CardRepository cardRepository;
+    @Inject private WrapperFactory wrapperFactory;
     @Inject private CenterRepository centerRepository;
 }

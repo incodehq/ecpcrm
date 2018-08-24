@@ -14,6 +14,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
@@ -73,8 +74,9 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
     @Override
     public List<Object> importData(Object previousRow) {
         User user = userRepository.findByReference(parentReference);
-        if(user == null)
+        if (user == null) {
             return null;
+        }
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         LocalDate birthdate = dtf.parseLocalDate(getBirthdate().replace("T", " ").replace(".000", ""));
@@ -82,8 +84,10 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
         LocalDateTime checkOut = getEndTime() == null ? null : dtf.parseLocalDateTime(getEndTime().replace("T", " ").replace(".000", ""));
         Gender gender = Gender.valueOf(getGender());
 
-        Child child = childRepository.findOrCreate(getName(), gender, birthdate, user);
-        if(checkIn != null) {
+        wrapperFactory.wrap(user).newChild(getName(), gender, birthdate);
+        final Child child = childRepository.findByParentAndName(user, getName());
+
+        if (checkIn != null) {
             child.checkIn();
             ChildCare childCare = childCareRepository.findActiveChildCareByChild(child);
             childCare.setCheckIn(checkIn);
@@ -93,6 +97,7 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
         return null;
     }
 
+    @Inject private WrapperFactory wrapperFactory;
     @Inject private ChildRepository childRepository;
     @Inject private ChildCareRepository childCareRepository;
     @Inject private UserRepository userRepository;

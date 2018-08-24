@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture;
 
@@ -49,6 +50,14 @@ public class FixtureMenu {
     @MemberOrder(sequence = "500.10.2")
     public Object recreateDummyData() {
         fixtureScripts.runFixtureScript(new LoyaltyCardsDemoFixture(), null);
+        return homePageService.homePage();
+    }
+
+    @Action(restrictTo = RestrictTo.PROTOTYPING)
+    @ActionLayout(cssClassFa="fa fa-refresh")
+    @MemberOrder(sequence = "500.10.2")
+    public Object rerunImport() {
+        fixtureScripts.runFixtureScript(new EcpCrmJdbcImportFixture(), null);
         return homePageService.homePage();
     }
 

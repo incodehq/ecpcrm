@@ -24,8 +24,6 @@ import com.google.common.base.Strings;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -183,7 +181,7 @@ public class UserRepository {
             final String city,
             final String phoneNumber,
             final Center center,
-            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final String cardNumber,
             final boolean promotionalEmails,
             final Boolean hasCar,
             String reference
@@ -206,7 +204,7 @@ public class UserRepository {
             final String city,
             final String phoneNumber,
             final Center center,
-            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final String cardNumber,
             final boolean promotionalEmails,
             final Boolean hasCar,
             final String reference
@@ -247,7 +245,7 @@ public class UserRepository {
             final String city,
             final String phoneNumber,
             final Center center,
-            @Parameter(optionality = Optionality.OPTIONAL) final String cardNumber,
+            final String cardNumber,
             final boolean promotionalEmails,
             final Boolean hasCar,
             final String reference

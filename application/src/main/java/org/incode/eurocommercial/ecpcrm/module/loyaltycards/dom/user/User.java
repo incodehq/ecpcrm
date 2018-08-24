@@ -40,6 +40,7 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
@@ -173,13 +174,13 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private boolean promotionalEmails;
 
-    @Action
+    @Action(publishing = Publishing.ENABLED)
     public User subscribeToPromotionalEmails() {
         promotionalEmails = true;
         return this;
     }
 
-    @Action
+    @Action(publishing = Publishing.ENABLED)
     public User unsubscribeFromPromotionalEmails() {
         promotionalEmails = false;
         return this;

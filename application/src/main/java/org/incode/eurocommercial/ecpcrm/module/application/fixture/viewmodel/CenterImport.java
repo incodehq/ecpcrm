@@ -9,12 +9,13 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.Importable;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CenterMenu;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,14 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
     @Property(optionality = Optionality.MANDATORY)
     private String name;
 
+    @Getter @Setter
+    @Property
+    private String mailchimpListId;
+
+    @Getter @Setter
+    @Property
+    private String contactEmail;
+
     @Override
     public List<Class> importAfter() {
         return Lists.newArrayList();
@@ -45,9 +54,10 @@ public class CenterImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-        centerRepository.findOrCreate(getCode(), getName(), getId(), null, null);
+        wrapperFactory.wrap(centerMenu).newCenter(getCode(), getName(), getId(), getMailchimpListId(), getContactEmail());
         return null;
     }
 
-    @Inject private CenterRepository centerRepository;
+    @Inject private CenterMenu centerMenu;
+    @Inject private WrapperFactory wrapperFactory;
 }

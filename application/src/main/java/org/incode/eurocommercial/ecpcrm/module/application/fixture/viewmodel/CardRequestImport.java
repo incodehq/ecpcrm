@@ -18,12 +18,9 @@ import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.Importable;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.CenterRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
@@ -76,7 +73,6 @@ public class CardRequestImport implements ExcelFixtureRowHandler, Importable {
 
     @Override
     public List<Object> importData(Object previousRow) {
-        Center center = centerRepository.findByCode(getCenterCode());
         User user = userRepository.findByReference(requestingUser);
         CardRequestType requestType = CardRequestType.valueOf(type);
 
@@ -105,8 +101,6 @@ public class CardRequestImport implements ExcelFixtureRowHandler, Importable {
         return booleanString != null && Integer.parseInt(booleanString) != 0;
     }
 
-    @Inject private CardRepository cardRepository;
-    @Inject private CenterRepository centerRepository;
     @Inject private UserRepository userRepository;
     @Inject private CardRequestRepository cardRequestRepository;
 }

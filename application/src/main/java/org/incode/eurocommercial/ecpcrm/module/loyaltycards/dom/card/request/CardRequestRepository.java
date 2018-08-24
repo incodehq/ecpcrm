@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -117,7 +118,7 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    @Action
+    @Action(publishing = Publishing.ENABLED)
     public CardRequest findOrCreate(
             User user,
             CardRequestType type

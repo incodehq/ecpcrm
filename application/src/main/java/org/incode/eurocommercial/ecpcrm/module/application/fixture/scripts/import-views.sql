@@ -5,7 +5,9 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DE
 SELECT
  center.id AS id,
  center.label AS name,
- ifnull(center.code,concat('0',cast(center.id as char(2) charset utf8))) AS code
+ ifnull(center.code,concat('0',cast(center.id as char(2) charset utf8))) AS code,
+ null AS mailchimpListId,
+ null AS contactEmail
  FROM `crm`.`eurocommercial_center` AS center;
 
 

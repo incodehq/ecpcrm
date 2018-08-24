@@ -31,6 +31,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -83,7 +84,7 @@ public class UserMenu {
 
     public static class CreateDomainEvent extends ActionDomainEvent<UserMenu> {}
 
-    @Action(domainEvent = CreateDomainEvent.class)
+    @Action(domainEvent = CreateDomainEvent.class, publishing = Publishing.ENABLED)
     @MemberOrder(sequence = "4")
     public User newUser(
             final boolean enabled,
