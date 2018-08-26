@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.module.security.app.user.MeService;
@@ -47,7 +48,10 @@ import org.incode.eurocommercial.ecpcrm.module.application.service.homepage.Home
 public class TenancySwitcherMenu extends AbstractService {
 
     //region > switchTenancy (action)
-    @Action(semantics = SemanticsOf.IDEMPOTENT)
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
     @ActionLayout(cssClassFa = "fa-exchange")
     public HomePageViewModel switchTenancy(final ApplicationTenancy applicationTenancy) {
         final ApplicationUser applicationUser = meService.me();
