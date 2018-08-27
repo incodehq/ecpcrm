@@ -28,7 +28,7 @@ public class CardGameRequestViewModel {
     private final String cardNumber;
 
     @Getter
-    private final Boolean win;
+    private final String win;
 
     @Getter
     private final String desc;

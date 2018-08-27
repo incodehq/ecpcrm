@@ -181,7 +181,17 @@ public class ApiService {
         User user = userRepository.findByExactEmailAndCenter(email, center);
 
         if (user != null) {
-            if (!lost) {
+            if (lost) {
+                if (!user.getCards().isEmpty()) {
+                    user.getCards().first().setStatus(CardStatus.LOST);
+                }
+                List<CardRequest> existingRequests = cardRequestRepository.findByUser(user);
+                if (existingRequests.isEmpty()) {
+                    cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
+                } else {
+                    return Result.error(307, "TODO");
+                }
+            } else {
                 if (Strings.isNullOrEmpty(checkItem)) {
                     if (firstName.equals(user.getFirstName()) && lastName.equals(user.getLastName())) {
                         return Result.error(318, "Email exists, valid check, ask if lost");
@@ -213,18 +223,7 @@ public class ApiService {
                     hasCar,
                     null
             );
-        }
-
-        if (lost) {
-            if (!user.getCards().isEmpty()) {
-                user.getCards().first().setStatus(CardStatus.LOST);
-            }
-            List<CardRequest> existingRequests = cardRequestRepository.findByUser(user);
-            if (existingRequests.isEmpty()) {
-                cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
-            } else {
-                return Result.error(307, "TODO");
-            }
+            cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
         }
 
         return Result.ok();
@@ -446,11 +445,14 @@ public class ApiService {
         return Result.ok(WebsiteUserDetailResponseViewModel.fromUser(user));
     }
 
-    public static boolean asBoolean(final int i) {
+    public static Boolean asBoolean(final int i) {
         return i > 0;
     }
-    public static boolean asBoolean(final String s) {
-        return s.toUpperCase().equals("TRUE");
+    public static Boolean asBoolean(final String s) {
+        return s == null ? null : s.toUpperCase().equals("TRUE");
+    }
+    public static Title asTitle(final String title) {
+        return title == null ? null : Title.valueOf(title.toUpperCase());
     }
     public static String asString(final int i) {
         return "" + i;

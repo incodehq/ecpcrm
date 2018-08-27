@@ -20,8 +20,6 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.LocalDate;
 
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -34,7 +32,7 @@ public class CardRequestRequestViewModel {
     private final String hostess;
 
     @Getter
-    private final Title title;
+    private final String title;
 
     @Getter
     @SerializedName("first_name")
@@ -59,7 +57,7 @@ public class CardRequestRequestViewModel {
 
     @SerializedName("car")
     @Getter
-    private final Boolean hasCar;
+    private final String hasCar;
 
     @Getter
     private final String address;
@@ -76,12 +74,12 @@ public class CardRequestRequestViewModel {
 
     @Getter
     @SerializedName("optin")
-    private final Boolean promotionalEmails;
+    private final String promotionalEmails;
 
     @Getter
     @SerializedName("check_item")
     private final String checkItem;
 
     @Getter
-    private final Boolean lost;
+    private final String lost;
 }

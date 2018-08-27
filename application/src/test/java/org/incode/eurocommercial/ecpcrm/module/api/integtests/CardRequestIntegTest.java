@@ -494,5 +494,6 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         assertThat(result.getStatus()).isEqualTo(200);
         User newUser = userRepository.findByExactEmailAndCenter(email, center);
         assertThat(newUser).isNotNull();
+        assertThat(newUser.getOpenCardRequest()).isNotNull();
     }
 }

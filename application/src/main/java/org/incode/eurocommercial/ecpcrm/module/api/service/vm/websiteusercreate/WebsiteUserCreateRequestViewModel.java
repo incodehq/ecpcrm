@@ -36,7 +36,7 @@ public class WebsiteUserCreateRequestViewModel {
     private final String checkCode;
 
     @Getter
-    private final Title title;
+    private final String title;
 
     @Getter
     @SerializedName("first_name")
@@ -61,7 +61,7 @@ public class WebsiteUserCreateRequestViewModel {
 
     @SerializedName("car")
     @Getter
-    private final Boolean hasCar;
+    private final String hasCar;
 
     @Getter
     private final String address;
@@ -78,5 +78,5 @@ public class WebsiteUserCreateRequestViewModel {
 
     @Getter
     @SerializedName("optin")
-    private final Boolean promotionalEmails;
+    private final String promotionalEmails;
 }

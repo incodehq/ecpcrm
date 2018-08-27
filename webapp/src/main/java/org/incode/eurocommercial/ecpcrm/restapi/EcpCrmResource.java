@@ -87,7 +87,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 deviceName,
                 deviceSecret,
                 requestViewModel.getCardNumber(),
-                requestViewModel.getWin(),
+                ApiService.asBoolean(requestViewModel.getWin()),
                 requestViewModel.getDesc()
         ).asResponse();
     }
@@ -114,21 +114,21 @@ public class EcpCrmResource extends ResourceAbstract  {
                 deviceSecret,
                 requestViewModel.getOrigin(),
                 requestViewModel.getHostess(),
-                requestViewModel.getTitle(),
+                ApiService.asTitle(requestViewModel.getTitle()),
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
                 requestViewModel.getBirthdate(),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
-                requestViewModel.getHasCar(),
+                ApiService.asBoolean(requestViewModel.getHasCar()),
                 requestViewModel.getAddress(),
                 requestViewModel.getZipcode(),
                 requestViewModel.getCity(),
                 requestViewModel.getPhoneNumber(),
-                requestViewModel.getPromotionalEmails(),
+                ApiService.asBoolean(requestViewModel.getPromotionalEmails()),
                 requestViewModel.getCheckItem(),
-                requestViewModel.getLost()
+                ApiService.asBoolean(requestViewModel.getLost())
         ).asResponse();
     }
 
@@ -154,7 +154,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 deviceSecret,
                 requestViewModel.getOrigin(),
                 requestViewModel.getCenterId(),
-                requestViewModel.getTitle(),
+                ApiService.asTitle(requestViewModel.getTitle()),
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
@@ -162,12 +162,12 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getBirthdate(),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
-                requestViewModel.getHasCar(),
+                ApiService.asBoolean(requestViewModel.getHasCar()),
                 requestViewModel.getAddress(),
                 requestViewModel.getZipcode(),
                 requestViewModel.getCity(),
                 requestViewModel.getPhoneNumber(),
-                requestViewModel.getPromotionalEmails(),
+                ApiService.asBoolean(requestViewModel.getPromotionalEmails()),
                 requestViewModel.getCheckCode(),
                 requestViewModel.getBoutiques()
         ).asResponse();
@@ -195,19 +195,19 @@ public class EcpCrmResource extends ResourceAbstract  {
                 deviceSecret,
                 requestViewModel.getCenterId(),
                 requestViewModel.getCheckCode(),
-                requestViewModel.getTitle(),
+                ApiService.asTitle(requestViewModel.getTitle()),
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
                 requestViewModel.getBirthdate(),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
-                requestViewModel.getHasCar(),
+                ApiService.asBoolean(requestViewModel.getHasCar()),
                 requestViewModel.getAddress(),
                 requestViewModel.getZipcode(),
                 requestViewModel.getCity(),
                 requestViewModel.getPhoneNumber(),
-                requestViewModel.getPromotionalEmails()
+                ApiService.asBoolean(requestViewModel.getPromotionalEmails())
         ).asResponse();
     }
 
