@@ -1,6 +1,7 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
 import javax.inject.Inject;
+import javax.validation.constraints.Null;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -19,6 +20,7 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrin
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
@@ -265,6 +267,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         WebsiteUserDetailRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserDetailRequestViewModel.class);
+        if(requestViewModel == null) {
+            requestViewModel = new WebsiteUserDetailRequestViewModel();
+        }
 
         return apiService.websiteUserDetail(
                 deviceName,
