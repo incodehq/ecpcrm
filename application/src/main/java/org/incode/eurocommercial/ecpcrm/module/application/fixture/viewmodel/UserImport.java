@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
@@ -52,6 +53,10 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
     private String email;
+
+    @Getter @Setter
+    @Property(optionality = Optionality.MANDATORY)
+    private String birthDate;
 
     @Getter @Setter
     @Property(optionality = Optionality.MANDATORY)
@@ -102,6 +107,8 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
         User user = userRepository.findByExactEmailAndCenter(getEmail(), center);
 
+        LocalDate birthDate = null;
+
         if (user == null) {
             user = wrapperFactory.wrap(userMenu).newUser(
                     asBoolean(getEnabled()),
@@ -109,6 +116,7 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
                     StringUtils.trim(getFirstName()),
                     StringUtils.trim(getLastName()),
                     StringUtils.trim(getEmail()),
+                    birthDate,
                     StringUtils.trim(getAddress()),
                     StringUtils.trim(getZipcode()),
                     StringUtils.trim(getCity()),

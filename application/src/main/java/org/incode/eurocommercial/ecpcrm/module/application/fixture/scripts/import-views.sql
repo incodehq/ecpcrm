@@ -26,6 +26,7 @@ SELECT
  IFNULL(u.first_name,"UNKNOWN_IMPORT") AS firstName,
  IFNULL(u.last_name,"UNKNOWN_IMPORT") AS lastName,
  u.email AS email,
+ u.birthdate AS birthDate,
  IFNULL(u.address, "UNKNOWN_IMPORT") AS address,
  IFNULL(u.zipcode, "UNKNOWN_IMPORT") AS zipcode,
  IFNULL(u.city, "UNKNOWN_IMPORT") AS city,

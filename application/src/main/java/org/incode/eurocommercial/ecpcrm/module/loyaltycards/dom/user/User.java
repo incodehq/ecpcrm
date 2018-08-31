@@ -153,7 +153,6 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private String phoneNumber;
 
-    /* This is in Biggerband's domain model, but not implemented */
     @Column(allowsNull = "true")
     @Property
     @Persistent

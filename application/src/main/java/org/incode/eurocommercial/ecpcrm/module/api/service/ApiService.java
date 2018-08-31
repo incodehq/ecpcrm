@@ -29,6 +29,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -46,6 +47,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -209,12 +211,13 @@ public class ApiService {
                 }
             }
         } else {
-            user = userRepository.findOrCreate(
+            user = wrapperFactory.wrap(userMenu).newUser(
                     true,
                     title,
                     firstName,
                     lastName,
                     email,
+                    birthdate,
                     address,
                     zipcode,
                     city,
@@ -222,8 +225,7 @@ public class ApiService {
                     center,
                     null,
                     promotionalEmails,
-                    hasCar,
-                    null
+                    hasCar
             );
             cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
         }
@@ -323,11 +325,26 @@ public class ApiService {
             return Result.error(305, "Email already exists");
         }
 
-        User user = userRepository.findOrCreate(
-                true, title, firstName, lastName, email, address, zipcode, city,
-                phoneNumber, center, null, promotionalEmails, hasCar, null
-        );
-        user.setBirthDate(birthdate);
+        User user = userRepository.findByExactEmailAndCenter(email, center);
+
+        if (user == null) {
+            user = wrapperFactory.wrap(userMenu).newUser(
+                    true,
+                    title,
+                    firstName,
+                    lastName,
+                    email,
+                    birthdate,
+                    address,
+                    zipcode,
+                    city,
+                    phoneNumber,
+                    center,
+                    null,
+                    promotionalEmails,
+                    hasCar
+            );
+        }
 
         Card card = cardRepository.newFakeCard(CardStatus.ENABLED, center);
         user.newCard(card.getNumber());
@@ -405,11 +422,11 @@ public class ApiService {
             user.setPhoneNumber(phoneNumber);
         }
 
-        if (promotionalEmails != null) {
+        if (promotionalEmails != null && promotionalEmails != user.isPromotionalEmails()) {
             if (promotionalEmails) {
-                user.subscribeToPromotionalEmails();
+                wrapperFactory.wrap(user).subscribeToPromotionalEmails();
             } else {
-                user.unsubscribeFromPromotionalEmails();
+                wrapperFactory.wrap(user).unsubscribeFromPromotionalEmails();
             }
         }
 
@@ -478,4 +495,6 @@ public class ApiService {
     @Inject private CardRequestRepository cardRequestRepository;
     @Inject private UserRepository userRepository;
     @Inject private AuthenticationDeviceRepository authenticationDeviceRepository;
+    @Inject private WrapperFactory wrapperFactory;
+    @Inject private UserMenu userMenu;
 }

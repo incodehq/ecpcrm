@@ -22,6 +22,8 @@ import javax.inject.Inject;
 
 import com.google.common.base.Strings;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -122,6 +124,7 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final LocalDate birthDate,
             final String address,
             final String zipcode,
             final String city,
@@ -141,6 +144,7 @@ public class UserRepository {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setBirthDate(birthDate);
         user.setAddress(address);
         user.setZipcode(zipcode);
         user.setCity(city);
@@ -176,6 +180,7 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final LocalDate birthDate,
             final String address,
             final String zipcode,
             final String city,
@@ -189,7 +194,7 @@ public class UserRepository {
         if(findByExactEmailAndCenter(email, center) != null) {
             return TranslatableString.tr("User with email {email} already exists", "email", email);
         }
-        return validateFindOrCreate(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, reference);
+        return validateFindOrCreate(enabled, title, firstName, lastName, email, birthDate, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, reference);
     }
 
     @Programmatic
@@ -199,6 +204,7 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final LocalDate birthDate,
             final String address,
             final String zipcode,
             final String city,
@@ -220,6 +226,7 @@ public class UserRepository {
                     firstName,
                     lastName,
                     email,
+                    birthDate,
                     address,
                     zipcode,
                     city,
@@ -240,6 +247,7 @@ public class UserRepository {
             final String firstName,
             final String lastName,
             final String email,
+            final LocalDate birthDate,
             final String address,
             final String zipcode,
             final String city,

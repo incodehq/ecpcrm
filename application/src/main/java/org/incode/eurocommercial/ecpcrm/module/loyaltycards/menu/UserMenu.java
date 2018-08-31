@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -92,6 +94,7 @@ public class UserMenu {
             final String firstName,
             final String lastName,
             final String email,
+            final @Parameter(optionality = Optionality.OPTIONAL) LocalDate birthDate,
             final @Parameter(optionality = Optionality.OPTIONAL) String address,
             final @Parameter(optionality = Optionality.OPTIONAL) String zipcode,
             final @Parameter(optionality = Optionality.OPTIONAL) String city,
@@ -102,7 +105,7 @@ public class UserMenu {
             final @Parameter(optionality = Optionality.OPTIONAL) Boolean hasCar
     ) {
         return userRepository.newUser(
-                enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
+                enabled, title, firstName, lastName, email, birthDate, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
     public TranslatableString validateNewUser(
@@ -111,6 +114,7 @@ public class UserMenu {
             final String firstName,
             final String lastName,
             final String email,
+            final LocalDate birthDate,
             final String address,
             final String zipcode,
             final String city,
@@ -120,7 +124,7 @@ public class UserMenu {
             final boolean promotionalEmails,
             final Boolean hasCar
     ) {
-        return userRepository.validateNewUser(enabled, title, firstName, lastName, email, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
+        return userRepository.validateNewUser(enabled, title, firstName, lastName, email, birthDate, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
     }
 
     @Inject private UserRepository userRepository;

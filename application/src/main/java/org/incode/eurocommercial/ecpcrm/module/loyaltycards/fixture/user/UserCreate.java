@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import com.github.javafaker.Faker;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
@@ -39,6 +41,9 @@ public class UserCreate extends FixtureScript {
 
     @Getter @Setter
     private String email;
+
+    @Getter @Setter
+    private LocalDate birthDate;
 
     @Getter @Setter
     private String address;
@@ -80,6 +85,8 @@ public class UserCreate extends FixtureScript {
             lastName = faker.name().lastName();
         if (email == null)
             email = faker.internet().emailAddress((firstName() + "." + lastName())).toLowerCase();
+        if (birthDate == null)
+            birthDate = new LocalDate(faker.date().birthday());
         if (address == null)
             address = faker.address().streetAddress();
         if (zipcode == null)
@@ -107,6 +114,7 @@ public class UserCreate extends FixtureScript {
                 firstName(),
                 lastName(),
                 email(),
+                birthDate(),
                 address(),
                 zipcode(),
                 city(),
