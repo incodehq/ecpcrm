@@ -24,6 +24,8 @@ import com.google.common.base.Strings;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -454,6 +456,11 @@ public class ApiService {
     public static Title asTitle(final String title) {
         return title == null ? null : Title.valueOf(title.toUpperCase());
     }
+    public static LocalDate asLocalDate(final String localDate) {
+        return DateTimeFormat.forPattern("dd/MM/yyyy").parseLocalDate(localDate);
+    }
+
+
     public static String asString(final int i) {
         return "" + i;
     }
@@ -461,7 +468,10 @@ public class ApiService {
         return bool ? "true" : "false";
     }
     public static String asString(final LocalDate localDate) {
-        return localDate == null ? null : localDate.toString();
+        return localDate == null ? null : localDate.toString("dd/MM/yyyy");
+    }
+    public static String asDateString(final LocalDateTime localDateTime) {
+        return localDateTime == null ? null : localDateTime.toString("dd/MM/yyyy");
     }
 
     @Inject private CardRepository cardRepository;

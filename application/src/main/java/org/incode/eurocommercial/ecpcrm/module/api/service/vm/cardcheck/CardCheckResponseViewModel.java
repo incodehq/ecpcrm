@@ -1,10 +1,10 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck;
 
+import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 import lombok.Data;
-import static org.incode.eurocommercial.ecpcrm.module.api.service.ApiService.asString;
 
 @Data(staticConstructor = "create")
 public class CardCheckResponseViewModel {
@@ -32,8 +32,8 @@ public class CardCheckResponseViewModel {
                 user.getTitle().toString().toLowerCase(),
                 user.getFirstName(),
                 user.getLastName(),
-                asString(user.getBirthDate()),
-                asString(user.isPromotionalEmails()),
+                ApiService.asString(user.getBirthDate()),
+                ApiService.asString(user.isPromotionalEmails()),
                 card.canPlay(),
                 ""
         );

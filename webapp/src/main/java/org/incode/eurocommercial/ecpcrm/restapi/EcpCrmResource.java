@@ -1,7 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
 import javax.inject.Inject;
-import javax.validation.constraints.Null;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -20,7 +19,6 @@ import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrin
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
 
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
-import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
@@ -38,7 +36,8 @@ public class EcpCrmResource extends ResourceAbstract  {
     protected void init(
             final RepresentationType representationType,
             final Where where,
-            final RepresentationService.Intent intent) {
+            final RepresentationService.Intent intent
+    ) {
         super.init(representationType, where, intent);
         this.getServicesInjector().injectServicesInto(this);
     }
@@ -59,6 +58,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         CardCheckRequestViewModel requestViewModel = gson.fromJson(request, CardCheckRequestViewModel.class);
+        if (requestViewModel == null) {
+            requestViewModel = new CardCheckRequestViewModel();
+        }
 
         return apiService.cardCheck(
                 deviceName,
@@ -84,6 +86,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         CardGameRequestViewModel requestViewModel = gson.fromJson(request, CardGameRequestViewModel.class);
+        if (requestViewModel == null) {
+            requestViewModel = new CardGameRequestViewModel();
+        }
 
         return apiService.cardGame(
                 deviceName,
@@ -110,6 +115,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         CardRequestRequestViewModel requestViewModel = gson.fromJson(request, CardRequestRequestViewModel.class);
+        if (requestViewModel == null) {
+            requestViewModel = new CardRequestRequestViewModel();
+        }
 
         return apiService.cardRequest(
                 deviceName,
@@ -120,7 +128,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
-                requestViewModel.getBirthdate(),
+                ApiService.asLocalDate(requestViewModel.getBirthdate()),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
                 ApiService.asBoolean(requestViewModel.getHasCar()),
@@ -150,6 +158,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         WebsiteCardRequestRequestViewModel requestViewModel = gson.fromJson(request, WebsiteCardRequestRequestViewModel.class);
+        if (requestViewModel == null) {
+            requestViewModel = new WebsiteCardRequestRequestViewModel();
+        }
 
         return apiService.websiteCardRequest(
                 deviceName,
@@ -161,7 +172,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
                 requestViewModel.getPasswword(),
-                requestViewModel.getBirthdate(),
+                ApiService.asLocalDate(requestViewModel.getBirthdate()),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
                 ApiService.asBoolean(requestViewModel.getHasCar()),
@@ -191,6 +202,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         WebsiteUserCreateRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserCreateRequestViewModel.class);
+        if (requestViewModel == null) {
+            requestViewModel = new WebsiteUserCreateRequestViewModel();
+        }
 
         return apiService.websiteUserCreate(
                 deviceName,
@@ -201,7 +215,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
-                requestViewModel.getBirthdate(),
+                ApiService.asLocalDate(requestViewModel.getBirthdate()),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
                 ApiService.asBoolean(requestViewModel.getHasCar()),
@@ -229,6 +243,9 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         WebsiteUserModifyRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserModifyRequestViewModel.class);
+        if (requestViewModel == null) {
+            requestViewModel = new WebsiteUserModifyRequestViewModel();
+        }
 
         return apiService.websiteUserModify(
                 deviceName,
@@ -236,18 +253,18 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getCheckCode(),
                 requestViewModel.getCardNumber(),
                 requestViewModel.getEmail(),
-                requestViewModel.getTitle(),
+                ApiService.asTitle(requestViewModel.getTitle()),
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
-                requestViewModel.getBirthdate(),
+                ApiService.asLocalDate(requestViewModel.getBirthdate()),
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
-                requestViewModel.getHasCar(),
+                ApiService.asBoolean(requestViewModel.getHasCar()),
                 requestViewModel.getAddress(),
                 requestViewModel.getZipcode(),
                 requestViewModel.getCity(),
                 requestViewModel.getPhoneNumber(),
-                requestViewModel.getPromotionalEmails()
+                ApiService.asBoolean(requestViewModel.getPromotionalEmails())
         ).asResponse();
     }
 
@@ -267,7 +284,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
         WebsiteUserDetailRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserDetailRequestViewModel.class);
-        if(requestViewModel == null) {
+        if (requestViewModel == null) {
             requestViewModel = new WebsiteUserDetailRequestViewModel();
         }
 

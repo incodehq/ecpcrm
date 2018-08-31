@@ -18,13 +18,11 @@ package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.LocalDate;
-
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class WebsiteUserCreateRequestViewModel {
     @Getter
@@ -50,7 +48,7 @@ public class WebsiteUserCreateRequestViewModel {
     private final String email;
 
     @Getter
-    private final LocalDate birthdate;
+    private final String birthdate;
 
     @Getter
     private final String children;

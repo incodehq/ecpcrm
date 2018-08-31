@@ -18,13 +18,11 @@ package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.LocalDate;
-
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class WebsiteUserModifyRequestViewModel {
     @Getter
@@ -39,7 +37,7 @@ public class WebsiteUserModifyRequestViewModel {
     private final String email;
 
     @Getter
-    private final Title title;
+    private final String title;
 
     @Getter
     @SerializedName("first_name")
@@ -50,7 +48,7 @@ public class WebsiteUserModifyRequestViewModel {
     private final String lastName;
 
     @Getter
-    private final LocalDate birthdate;
+    private final String birthdate;
 
     @Getter
     private final String children;
@@ -61,7 +59,7 @@ public class WebsiteUserModifyRequestViewModel {
 
     @SerializedName("car")
     @Getter
-    private final Boolean hasCar;
+    private final String hasCar;
 
     @Getter
     private final String address;
@@ -78,5 +76,5 @@ public class WebsiteUserModifyRequestViewModel {
 
     @Getter
     @SerializedName("optin")
-    private final Boolean promotionalEmails;
+    private final String promotionalEmails;
 }

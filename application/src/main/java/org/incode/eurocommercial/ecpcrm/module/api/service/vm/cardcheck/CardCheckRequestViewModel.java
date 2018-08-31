@@ -20,7 +20,9 @@ import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class CardCheckRequestViewModel {
     @Getter

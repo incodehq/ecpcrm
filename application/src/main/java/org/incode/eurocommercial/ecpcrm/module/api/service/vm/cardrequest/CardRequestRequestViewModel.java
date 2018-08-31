@@ -18,11 +18,11 @@ package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class CardRequestRequestViewModel {
     @Getter
@@ -46,7 +46,7 @@ public class CardRequestRequestViewModel {
     private final String email;
 
     @Getter
-    private final LocalDate birthdate;
+    private final String birthdate;
 
     @Getter
     private final String children;
