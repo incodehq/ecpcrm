@@ -260,6 +260,11 @@ msgstr "Le numéro de carte {cardNumber} est invalide"
 msgid "Card with number {cardNumber}  already has an owner: {owner}"
 msgstr "La carte avec le numéro {cardNumber} a déjà un propriétaire: {owner}"
 
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#validateFindOrCreate()
+msgid "Card with number {cardNumber} is already assigned to a user"
+msgstr "Le numéro de carte {cardNumber} a déjà un propriétaire"
+
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
 msgid "Card with number {cardNumber} doesn't exist"
 msgstr "La carte avec le numéro {cardNumber} n'existe pas"

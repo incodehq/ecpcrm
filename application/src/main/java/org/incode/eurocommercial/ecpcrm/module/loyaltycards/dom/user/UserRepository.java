@@ -31,6 +31,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator;
@@ -266,6 +267,11 @@ public class UserRepository {
         }
         if(!cardRepository.cardExists(cardNumber)) {
             return  TranslatableString.tr("Card with number {cardNumber} doesn't exist", "cardNumber", cardNumber);
+        }
+
+        Card card = cardRepository.findByExactNumber(cardNumber);
+        if(card.getOwner() != null){
+            return TranslatableString.tr("Card with number {cardNumber} is already assigned to a user", "cardNumber", cardNumber);
         }
         return null;
     }
