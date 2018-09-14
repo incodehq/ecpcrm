@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
@@ -107,33 +110,56 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
 
         User user = userRepository.findByExactEmailAndCenter(getEmail(), center);
 
-        LocalDate birthDate = null;
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDate birthDate = getBirthDate() == null ? null : dtf.parseLocalDate(getBirthDate().replace("T", " ").replace(".000", ""));
 
         if (user == null) {
-            user = wrapperFactory.wrap(userMenu).newUser(
-                    asBoolean(getEnabled()),
-                    title,
-                    StringUtils.trim(getFirstName()),
-                    StringUtils.trim(getLastName()),
-                    StringUtils.trim(getEmail()),
-                    birthDate,
-                    StringUtils.trim(getAddress()),
-                    StringUtils.trim(getZipcode()),
-                    StringUtils.trim(getCity()),
-                    StringUtils.trim(getPhoneNumber()),
-                    center,
-                    null,
-                    asBoolean(getPromotionalEmails()),
-                    asBoolean(getHasCar())
-            );
-        }
+            try {
+                user = wrapperFactory.wrap(userMenu).newUser(
+                        asBoolean(getEnabled()),
+                        title,
+                        StringUtils.trim(getFirstName()),
+                        StringUtils.trim(getLastName()),
+                        StringUtils.trim(getEmail()),
+                        birthDate,
+                        StringUtils.trim(getAddress()),
+                        StringUtils.trim(getZipcode()),
+                        StringUtils.trim(getCity()),
+                        StringUtils.trim(getPhoneNumber()),
+                        center,
+                        null,
+                        asBoolean(getPromotionalEmails()),
+                        asBoolean(getHasCar())
+                );
 
-        if (user.validateNewCard(StringUtils.trim(getCardNumber())) == null) {
-            user.newCard(StringUtils.trim(getCardNumber()));
-        }
+                if (user.validateNewCard(StringUtils.trim(getCardNumber())) == null) {
+                    user.newCard(StringUtils.trim(getCardNumber()));
+                }
 
-        if (getReference() != null) {
-            user.setReference(getReference());
+                if (getReference() != null) {
+                    user.setReference(getReference());
+                }
+
+            } catch (Exception e) {
+                return null;
+            }
+        } else {
+            if ((user.getTitle() == null || user.getTitle() == Title.UNKNOWN_IMPORT) && title != Title.UNKNOWN_IMPORT)
+                user.setTitle(title);
+            if ((Strings.isNullOrEmpty(user.getFirstName()) || user.getFirstName().equals("UNKNOWN_IMPORT")) && !Strings.isNullOrEmpty(getFirstName()))
+                user.setFirstName(getFirstName());
+            if ((Strings.isNullOrEmpty(user.getLastName()) || user.getLastName().equals("UNKNOWN_IMPORT")) && !Strings.isNullOrEmpty(getLastName()))
+                user.setLastName(getLastName());
+            if (user.getBirthDate() == null && birthDate != null)
+                user.setBirthDate(birthDate);
+            if ((Strings.isNullOrEmpty(user.getAddress()) || user.getAddress().equals("UNKNOWN_IMPORT")) && !Strings.isNullOrEmpty(getAddress()))
+                user.setAddress(getAddress());
+            if ((Strings.isNullOrEmpty(user.getZipcode()) || user.getZipcode().equals("UNKNOWN_IMPORT")) && !Strings.isNullOrEmpty(getZipcode()))
+                user.setZipcode(getZipcode());
+            if ((Strings.isNullOrEmpty(user.getCity()) || user.getCity().equals("UNKNOWN_IMPORT")) && !Strings.isNullOrEmpty(getCity()))
+                user.setCity(getCity());
+            if ((Strings.isNullOrEmpty(user.getPhoneNumber()) || user.getPhoneNumber().equals("UNKNOWN_IMPORT")) && !Strings.isNullOrEmpty(getPhoneNumber()))
+                user.setPhoneNumber(getPhoneNumber());
         }
 
         return null;
