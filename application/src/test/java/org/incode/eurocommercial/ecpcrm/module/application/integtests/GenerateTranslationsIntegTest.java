@@ -20,12 +20,12 @@ import javax.inject.Inject;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser;
@@ -37,9 +37,11 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.Car
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu;
 
+@Ignore
 public class GenerateTranslationsIntegTest extends ApplicationModuleIntegTestAbstract {
     @Inject private FixtureScripts fixtureScripts;
     @Inject CardMenu cardMenu;
@@ -183,32 +185,6 @@ public class GenerateTranslationsIntegTest extends ApplicationModuleIntegTestAbs
         public void when_card_number_is_invalid_we_expect_invalid_exception() {
             // given
             String number = "89469q649836";
-
-            // then
-            Assertions.assertThatThrownBy(() -> {
-                // when
-                wrap(userMenu).newUser(
-                        user.isEnabled(),
-                        user.getTitle(),
-                        user.getFirstName(),
-                        user.getLastName(),
-                        user.getFirstName() + user.getLastName() + "12345@gmail.com",
-                        user.getBirthDate(),
-                        user.getAddress(),
-                        user.getZipcode(),
-                        user.getCity(),
-                        user.getPhoneNumber(),
-                        center,
-                        number,
-                        user.isPromotionalEmails(),
-                        user.getHasCar()
-                );
-            }).isInstanceOf(InvalidException.class);
-        }
-        @Test
-        public void when_card_number_does_not_exist_we_expect_invalid_exception() {
-            // given
-            String number = center.nextValidCardNumber();
 
             // then
             Assertions.assertThatThrownBy(() -> {

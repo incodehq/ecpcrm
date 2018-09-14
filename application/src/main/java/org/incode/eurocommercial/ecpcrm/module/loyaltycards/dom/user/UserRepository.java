@@ -195,7 +195,24 @@ public class UserRepository {
         if(findByExactEmailAndCenter(email, center) != null) {
             return TranslatableString.tr("User with email {email} already exists", "email", email);
         }
-        return validateFindOrCreate(enabled, title, firstName, lastName, email, birthDate, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, reference);
+
+        return validateFindOrCreate(
+                enabled,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                center,
+                cardNumber,
+                promotionalEmails,
+                hasCar,
+                reference
+        );
     }
 
     @Programmatic
@@ -217,9 +234,11 @@ public class UserRepository {
             final String reference
     ) {
         User user = findByExactEmailAndCenter(email, center);
+
         if(user == null) {
             user = findByReference(reference);
         }
+
         if(user == null) {
             user = newUser(
                     enabled,
@@ -262,15 +281,13 @@ public class UserRepository {
         if(Strings.isNullOrEmpty(cardNumber)) {
             return null;
         }
+
         if(!cardRepository.cardNumberIsValid(cardNumber, center.getCode())) {
             return TranslatableString.tr("Card number {cardNumber} is invalid", "cardNumber", cardNumber);
         }
-        if(!cardRepository.cardExists(cardNumber)) {
-            return  TranslatableString.tr("Card with number {cardNumber} doesn't exist", "cardNumber", cardNumber);
-        }
 
         Card card = cardRepository.findByExactNumber(cardNumber);
-        if(card.getOwner() != null){
+        if(card != null && card.getOwner() != null) {
             return TranslatableString.tr("Card with number {cardNumber} is already assigned to a user", "cardNumber", cardNumber);
         }
         return null;

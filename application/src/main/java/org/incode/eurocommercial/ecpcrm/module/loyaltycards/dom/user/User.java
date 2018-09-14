@@ -254,12 +254,14 @@ public class User implements Comparable<User>, HasAtPath {
         if(cardNumber == null) {
             return TranslatableString.tr("No number entered");
         }
+
         if(!cardRepository.cardNumberIsValid(cardNumber, center.getCode())) {
             return TranslatableString.tr("Card number {cardNumber} is invalid", "cardNumber", cardNumber);
         }
+
         Card card = cardRepository.findByExactNumber(cardNumber);
         if(card != null && card.getOwner() != null) {
-            return TranslatableString.tr("Card with number {cardNumber}  already has an owner: {owner}", "cardNumber", card.getNumber(), "owner", card.getOwner());
+            return TranslatableString.tr("Card with number {cardNumber} is already assigned to a user", "cardNumber", cardNumber);
         }
 
         return null;
