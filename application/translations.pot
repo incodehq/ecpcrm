@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-08-23 17:22:09+\n"
+"POT-Creation-Date: 2018-09-14 13:53:32+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -319,24 +319,6 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu
 msgid "Card Requests"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
-msgid "Card number is invalid"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#approve()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#reapprove()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "Card number {cardNumber} is invalid"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
-msgid "Card with number {cardNumber}  already has an owner: {owner}"
 msgstr ""
 
 
@@ -2451,6 +2433,11 @@ msgid "Requesting User"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.application.menu.prototyping.FixtureMenu#rerunImport()
+msgid "Rerun Import"
+msgstr ""
+
+
 #: org.isisaddons.module.security.dom.user.ApplicationUser#resetPassword()
 msgid "Reset Password"
 msgstr ""
@@ -2863,11 +2850,6 @@ msgstr ""
 
 #: org.isisaddons.module.settings.dom.jdo.UserSettingJdo
 msgid "User Setting"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "User with email {email} already exists"
 msgstr ""
 
 
