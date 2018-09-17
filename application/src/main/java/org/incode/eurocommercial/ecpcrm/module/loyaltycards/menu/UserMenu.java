@@ -105,7 +105,22 @@ public class UserMenu {
             final @Parameter(optionality = Optionality.OPTIONAL) Boolean hasCar
     ) {
         return userRepository.newUser(
-                enabled, title, firstName, lastName, email, birthDate, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
+                enabled,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                center,
+                cardNumber,
+                promotionalEmails,
+                hasCar,
+                null
+        );
     }
 
     public TranslatableString validateNewUser(
@@ -124,7 +139,23 @@ public class UserMenu {
             final boolean promotionalEmails,
             final Boolean hasCar
     ) {
-        return userRepository.validateNewUser(enabled, title, firstName, lastName, email, birthDate, address, zipcode, city, phoneNumber, center, cardNumber, promotionalEmails, hasCar, null);
+        return userRepository.validateNewUser(
+                enabled,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                center,
+                cardNumber,
+                promotionalEmails,
+                hasCar,
+                null
+        );
     }
 
     @Inject private UserRepository userRepository;
