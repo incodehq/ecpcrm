@@ -55,7 +55,7 @@ public class UserMenuIntegTest extends LoyaltyCardModuleIntegTestAbstract {
                     Title.MR,
                     "fname",
                     "lname",
-                    "email",
+                    "email@domain.com",
                     null,
                     null,
                     null,
@@ -109,7 +109,7 @@ public class UserMenuIntegTest extends LoyaltyCardModuleIntegTestAbstract {
                     Title.MR,
                     "fname",
                     "lname",
-                    "email",
+                    "email@domain.com",
                     null,
                     null,
                     null,
@@ -123,9 +123,63 @@ public class UserMenuIntegTest extends LoyaltyCardModuleIntegTestAbstract {
         }
 
         @Test
-        public void user_with_invalid_email() throws Exception {
+        public void user_with_white_space_in_email() throws Exception {
             // given
-            String badEmail = "bad ly ., formated @@@ email address";
+            String badEmail = "email _ withWhiteSpace@domain.com";
+
+            // then
+            expectedExceptions.expectMessage("This email address is invalid");
+
+            // when
+            wrap(userMenu).newUser(
+                    true,
+                    Title.MR,
+                    "fname",
+                    "lname",
+                    badEmail,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    center,
+                    null,
+                    false,
+                    null
+            );
+        }
+
+        @Test
+        public void user_with_no_top_level_domain_in_email() throws Exception {
+            // given
+            String badEmail = "email@domain";
+
+            // then
+            expectedExceptions.expectMessage("This email address is invalid");
+
+            // when
+            wrap(userMenu).newUser(
+                    true,
+                    Title.MR,
+                    "fname",
+                    "lname",
+                    badEmail,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    center,
+                    null,
+                    false,
+                    null
+            );
+        }
+
+        @Test
+        public void user_with_no_at_in_email() throws Exception {
+            // given
+            String badEmail = "emailatdomain.com";
 
             // then
             expectedExceptions.expectMessage("This email address is invalid");
