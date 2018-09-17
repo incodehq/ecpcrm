@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
@@ -19,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserMenuIntegTest extends LoyaltyCardModuleIntegTestAbstract {
     @Inject FixtureScripts fixtureScripts;
     @Inject UserMenu userMenu;
+    @Inject CardRepository cardRepository;
 
     LoyaltyCardsIntegTestFixture fs;
     User user;
@@ -41,9 +44,10 @@ public class UserMenuIntegTest extends LoyaltyCardModuleIntegTestAbstract {
             // given
             String cardToGive = center.nextValidCardNumber();
             user.newCard(cardToGive);
+            Card card = cardRepository.findByExactNumber(cardToGive);
 
             // then
-            expectedExceptions.expectMessage("Card with number " + cardToGive + " is already assigned to a user.");
+            expectedExceptions.expectMessage("Card with number " + cardToGive + " is already assigned to " + card.getOwner().getEmail());
 
             // when
             wrap(userMenu).newUser(
