@@ -117,5 +117,32 @@ public class UserMenuIntegTest extends LoyaltyCardModuleIntegTestAbstract {
                     null
             );
         }
+
+        @Test
+        public void user_with_invalid_email() throws Exception {
+            // given
+            String badEmail = "bad ly ., formated @@@ email address";
+
+            // then
+            expectedExceptions.expectMessage("This email address is invalid");
+
+            // when
+            wrap(userMenu).newUser(
+                    true,
+                    Title.MR,
+                    "fname",
+                    "lname",
+                    badEmail,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    center,
+                    null,
+                    false,
+                    null
+            );
+        }
     }
 }

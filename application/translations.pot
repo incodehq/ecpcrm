@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-09-14 17:52:49+\n"
+"POT-Creation-Date: 2018-09-17 11:15:29+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2661,6 +2661,11 @@ msgstr ""
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
 msgid "TargetStr"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "This email address is invalid"
 msgstr ""
 
 
