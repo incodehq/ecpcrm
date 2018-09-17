@@ -194,7 +194,7 @@ public class UserRepository {
             String reference
     ) {
 
-        final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+        final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("\\S+\\@\\S+[\\.]\\S+");
         if(!VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches()) {
             return TranslatableString.tr("This email address is invalid");
         }
@@ -295,7 +295,7 @@ public class UserRepository {
 
         Card card = cardRepository.findByExactNumber(cardNumber);
         if(card != null && card.getOwner() != null) {
-            return TranslatableString.tr("Card with number {cardNumber} is already assigned to a user", "cardNumber", cardNumber);
+            return TranslatableString.tr("Card with number {cardNumber} is already assigned to {cardUserEmail}", "cardNumber", cardNumber, "cardUserEmail", card.getOwner().getEmail());
         }
         return null;
     }

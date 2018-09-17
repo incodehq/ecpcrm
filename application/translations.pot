@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-09-17 11:15:29+\n"
+"POT-Creation-Date: 2018-09-17 17:33:34+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -337,7 +337,7 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "Card with number {cardNumber} is already assigned to a user"
+msgid "Card with number {cardNumber} is already assigned to {cardUserEmail}"
 msgstr ""
 
 
