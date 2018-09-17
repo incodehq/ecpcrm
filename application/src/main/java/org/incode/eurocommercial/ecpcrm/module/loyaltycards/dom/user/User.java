@@ -261,7 +261,7 @@ public class User implements Comparable<User>, HasAtPath {
 
         Card card = cardRepository.findByExactNumber(cardNumber);
         if(card != null && card.getOwner() != null) {
-            return TranslatableString.tr("Card with number {cardNumber} is already assigned to a user", "cardNumber", cardNumber);
+            return TranslatableString.tr("Card with number {cardNumber} is already assigned to {cardUserEmail}", "cardNumber", cardNumber, "cardUserEmail", card.getOwner().getEmail());
         }
 
         return null;
