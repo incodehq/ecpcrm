@@ -49,7 +49,7 @@ public class JdbcClient {
         this.databaseName = databaseName;
         this.password = password;
         this.userName = userName;
-        this.connectionUrl = "jdbc:mysql://localhost:3306/" + databaseName + "?profileSQL=true";
+        this.connectionUrl = "jdbc:mysql://10.0.151.7:3306/" + databaseName + "?profileSQL=true";
     }
 
     public Connection getConnection() {

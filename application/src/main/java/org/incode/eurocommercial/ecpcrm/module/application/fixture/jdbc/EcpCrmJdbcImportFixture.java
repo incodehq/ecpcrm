@@ -13,7 +13,7 @@ public class EcpCrmJdbcImportFixture extends DiscoverableFixtureScript {
     protected void execute(final ExecutionContext executionContext) {
 
                 final JdbcFixture jdbcFixture = new JdbcFixture(
-                        "pdt-import",
+                        "les-atlantes-import",
                         "ecpcrm",
                         "ecpcrm",
                         getClasses()

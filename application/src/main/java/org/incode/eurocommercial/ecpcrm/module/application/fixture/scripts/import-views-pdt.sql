@@ -26,7 +26,7 @@ FROM `crm-import`.`child` AS child
 INNER JOIN `crm-import`.`user` AS parent ON child.parentReference = parent.reference
 WHERE parent.centerCode = 096;
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`cardrequest` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`cardRequest` AS
 SELECT *
-FROM `crm-import`.`cardrequest` AS cardRequest
+FROM `crm-import`.`cardRequest` AS cardRequest
 WHERE cardRequest.centerCode = 096;
