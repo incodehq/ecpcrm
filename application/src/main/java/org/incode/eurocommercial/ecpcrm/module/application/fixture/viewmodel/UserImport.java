@@ -141,6 +141,7 @@ public class UserImport implements ExcelFixtureRowHandler, Importable {
                 }
 
             } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
         } else {

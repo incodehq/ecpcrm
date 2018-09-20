@@ -40,7 +40,7 @@ SELECT
  INNER JOIN `center` AS c ON c.id = u.center_id)
  LEFT JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
  LEFT JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id
- WHERE u.email IS NOT NULL AND u.email NOT LIKE "CARD-%" AND u.email REGEXP '[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]'
+ WHERE u.email IS NOT NULL AND u.email NOT LIKE "CARD-%" AND u.email REGEXP '[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]@[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]\.[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]'
  ORDER BY reference DESC;
  
 -- Create card view
