@@ -96,7 +96,6 @@ public class ApiService {
             }
 
             return Result.ok(CardCheckResponseViewModel.fromCard(card));
-
         } else {
             if (device.getType() != AuthenticationDeviceType.APP && cardNumber.startsWith("3922")) {
                 return Result.error(319, "Outdated card");

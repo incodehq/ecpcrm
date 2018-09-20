@@ -25,7 +25,7 @@ SELECT
  IFNULL(UCASE(u.title),"UNKNOWN_IMPORT") AS title,
  IFNULL(u.first_name,"UNKNOWN_IMPORT") AS firstName,
  IFNULL(u.last_name,"UNKNOWN_IMPORT") AS lastName,
- u.email AS email,
+ LCASE(REPLACE(u.email, ".C0M", ".COM")) AS email,
  u.birthdate AS birthDate,
  IFNULL(u.address, "UNKNOWN_IMPORT") AS address,
  IFNULL(u.zipcode, "UNKNOWN_IMPORT") AS zipcode,
@@ -35,11 +35,13 @@ SELECT
  u.optin AS promotionalEmails,
  car.field_car_value AS hasCar,
  c.code AS centerCode
- FROM `crm`.`eurocommercial_crm_user_view5` AS u
- INNER JOIN `center` AS c ON c.id = u.center_id
- INNER JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
- INNER JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id
- WHERE u.email IS NOT NULL AND u.email NOT LIKE "CARD-%";
+ FROM (
+ `crm`.`eurocommercial_crm_user_view5` AS u
+ INNER JOIN `center` AS c ON c.id = u.center_id)
+ LEFT JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
+ LEFT JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id
+ WHERE u.email IS NOT NULL AND u.email NOT LIKE "CARD-%" AND u.email REGEXP '[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]@[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]\.[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]'
+ ORDER BY reference DESC;
  
 -- Create card view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS
@@ -73,8 +75,8 @@ SELECT
  child.start_at AS startTime,
  child.stop_at AS endTime
  FROM `crm`.`children` AS child
- INNER JOIN `crm`.`field_data_field_birthdate` AS bd ON child.id = bd.entity_id
- INNER JOIN `crm`.`field_data_field_genre` AS gender ON child.id = gender.entity_id;
+ LEFT JOIN `crm`.`field_data_field_birthdate` AS bd ON child.id = bd.entity_id
+ LEFT JOIN `crm`.`field_data_field_genre` AS gender ON child.id = gender.entity_id;
  
 -- Create cardRequest view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`cardRequest` AS
