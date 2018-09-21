@@ -37,7 +37,7 @@ SELECT
  c.code AS centerCode
  FROM (
  `crm`.`eurocommercial_crm_user_view5` AS u
- INNER JOIN `center` AS c ON c.id = u.center_id)
+ INNER JOIN `Center` AS c ON c.id = u.center_id)
  LEFT JOIN `crm`.`field_data_field_phone` AS p ON p.entity_id = u.user_id
  LEFT JOIN `crm`.`field_data_field_car` AS car ON car.entity_id = u.user_id
  WHERE u.email IS NOT NULL AND u.email NOT LIKE "CARD-%" AND u.email REGEXP '[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]@[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]\.[0-9a-zA-Z!#$%&()<>@*+/=?^_{|}~@\.-]'
@@ -56,8 +56,8 @@ SELECT
  card.given_at AS givenToUserAt,
  card.sent_at AS sentToUserAt
  FROM `crm`.`eurocommercial_crm_user_card` AS card
- INNER JOIN `center` AS center ON center.id = card.center_id
- INNER JOIN `user` AS user ON card.user_id = user.id;
+ INNER JOIN `Center` AS center ON center.id = card.center_id
+ INNER JOIN `User` AS user ON card.user_id = user.id;
  
 -- Create child view
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`Child` AS
@@ -97,6 +97,6 @@ SELECT
  END AS approved,
  user.cardNumber AS assignedCard
  FROM `crm`.`eurocommercial_crm_user_request` AS request
- INNER JOIN `center` AS center ON center.id = request.center_id
- INNER JOIN `user` AS user ON user.id = request.user_id
+ INNER JOIN `Center` AS center ON center.id = request.center_id
+ INNER JOIN `User` AS user ON user.id = request.user_id
  WHERE request.user_id IS NOT NULL;
