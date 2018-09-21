@@ -79,7 +79,7 @@ public class ChildImport implements ExcelFixtureRowHandler, Importable {
         }
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDate birthdate = dtf.parseLocalDate(getBirthdate().replace("T", " ").replace(".000", ""));
+        LocalDate birthdate = getBirthdate() == null ? null : dtf.parseLocalDate(getBirthdate().replace("T", " ").replace(".000", ""));
         LocalDateTime checkIn = getStartTime() == null ? null : dtf.parseLocalDateTime(getStartTime().replace("T", " ").replace(".000", ""));
         LocalDateTime checkOut = getEndTime() == null ? null : dtf.parseLocalDateTime(getEndTime().replace("T", " ").replace(".000", ""));
         Gender gender = Gender.valueOf(getGender());
