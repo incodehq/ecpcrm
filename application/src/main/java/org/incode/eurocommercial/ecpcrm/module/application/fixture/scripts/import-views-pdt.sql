@@ -1,32 +1,32 @@
 USE `pdt-import`;
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`center` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`Center` AS
 SELECT
  center.id AS id,
  center.name AS name,
  center.code AS code,
  "36e3192f10" AS mailchimpListId,
  "contact@lesportesdetaverny.com" AS contactEmail
-FROM `crm-import`.`center` AS center
+FROM `crm-import`.`Center` AS center
 WHERE code = 096;
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`user` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`User` AS
 SELECT *
-FROM `crm-import`.`user` AS user
+FROM `crm-import`.`User` AS user
 WHERE user.centerCode = 096;
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`card` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`Card` AS
 SELECT *
-FROM `crm-import`.`card` AS card
+FROM `crm-import`.`Card` AS card
 WHERE card.centerCode = 096;
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`child` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`Child` AS
 SELECT child.*
-FROM `crm-import`.`child` AS child
-INNER JOIN `crm-import`.`user` AS parent ON child.parentReference = parent.reference
+FROM `crm-import`.`Child` AS child
+INNER JOIN `crm-import`.`User` AS parent ON child.parentReference = parent.reference
 WHERE parent.centerCode = 096;
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`cardRequest` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pdt-import`.`CardRequest` AS
 SELECT *
-FROM `crm-import`.`cardRequest` AS cardRequest
+FROM `crm-import`.`CardRequest` AS cardRequest
 WHERE cardRequest.centerCode = 096;

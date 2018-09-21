@@ -60,7 +60,6 @@ public class JdbcFixture extends FixtureScript {
     }
 
     protected void execute(FixtureScript.ExecutionContext ec) {
-
         final JdbcClient client = JdbcClient.withDatabase(database, userName, password);
 
         for (Class cls : this.classes) {

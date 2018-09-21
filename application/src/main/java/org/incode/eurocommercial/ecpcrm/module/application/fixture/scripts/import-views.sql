@@ -1,7 +1,7 @@
 USE `crm-import`;
 
 -- Create center view
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`center` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`Center` AS
 SELECT
  center.id AS id,
  center.label AS name,
@@ -12,7 +12,7 @@ SELECT
 
 
 -- Create user view
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`user` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`User` AS
 SELECT
  u.user_id AS id,
  u.user_id AS reference,
@@ -44,7 +44,7 @@ SELECT
  ORDER BY reference DESC;
  
 -- Create card view
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`card` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`Card` AS
 SELECT
  card.id AS id,
  card.number AS number,
@@ -60,7 +60,7 @@ SELECT
  INNER JOIN `user` AS user ON card.user_id = user.id;
  
 -- Create child view
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`child` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`Child` AS
 SELECT
  child.id AS id,
  CASE gender.field_genre_value
@@ -79,7 +79,7 @@ SELECT
  LEFT JOIN `crm`.`field_data_field_genre` AS gender ON child.id = gender.entity_id;
  
 -- Create cardRequest view
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`cardRequest` AS
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `crm-import`.`CardRequest` AS
 SELECT
  request.id AS id,
  center.code AS centerCode,
