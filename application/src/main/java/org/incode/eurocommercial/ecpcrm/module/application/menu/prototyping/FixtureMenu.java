@@ -54,10 +54,10 @@ public class FixtureMenu {
     }
 
     @Action(restrictTo = RestrictTo.PROTOTYPING)
-    @ActionLayout(cssClassFa="fa fa-refresh")
+    @ActionLayout(cssClassFa="fa fa-download")
     @MemberOrder(sequence = "500.10.2")
-    public Object rerunImport() {
-        fixtureScripts.runFixtureScript(new EcpCrmJdbcImportFixture(), null);
+    public Object runImport(String database, String username, String password) {
+        fixtureScripts.runFixtureScript(new EcpCrmJdbcImportFixture(database, username, password), null);
         return homePageService.homePage();
     }
 

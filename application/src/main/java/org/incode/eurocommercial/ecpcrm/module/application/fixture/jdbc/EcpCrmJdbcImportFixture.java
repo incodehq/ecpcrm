@@ -8,17 +8,24 @@ import org.incode.eurocommercial.ecpcrm.module.application.fixture.viewmodel.Cen
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.viewmodel.ChildImport;
 import org.incode.eurocommercial.ecpcrm.module.application.fixture.viewmodel.UserImport;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class EcpCrmJdbcImportFixture extends DiscoverableFixtureScript {
+
+    private String database;
+    private String username;
+    private String password;
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
                 final JdbcFixture jdbcFixture = new JdbcFixture(
-                        "les-atlantes-import",
-                        "ecpcrm",
-                        "ecpcrm",
+                        database,
+                        username,
+                        password,
                         getClasses()
-                        );
+                );
                 executionContext.executeChild(this, jdbcFixture);
     }
 
