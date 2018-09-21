@@ -13,11 +13,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.joda.time.Instant;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+
+import org.apache.isis.core.commons.config.IsisConfiguration;
 
 public class JdbcClient {
     private Connection connection;
@@ -49,7 +53,7 @@ public class JdbcClient {
         this.databaseName = databaseName;
         this.password = password;
         this.userName = userName;
-        this.connectionUrl = "jdbc:mysql://mysql:3306/" + databaseName + "?profileSQL=true";
+        this.connectionUrl = "jdbc:mysql://mysql:3306/" + databaseName + "?profileSQL=true&amp;UseUnicode=true&amp;characterEncoding=utf8";
     }
 
     public Connection getConnection() {
@@ -174,4 +178,5 @@ public class JdbcClient {
         return rs.getObject(i);
     }
 
+    @Inject IsisConfiguration configuration;
 }
