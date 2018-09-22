@@ -137,7 +137,7 @@ public class UserRepository {
             final Boolean hasCar,
             String reference
     ) {
-        Numerator userNumerator = numeratorRepository.findOrCreate("userNumerator", "%d", 0);
+        Numerator userNumerator = numeratorRepository.findOrCreate("userNumerator", "%d", 70000);
 
         final User user = repositoryService.instantiate(User.class);
 
@@ -155,7 +155,7 @@ public class UserRepository {
         user.setHasCar(hasCar);
         user.setPromotionalEmails(promotionalEmails);
 
-        if(reference == null) {
+        if(reference == null || findByReference(reference) != null) {
             reference = userNumerator.nextIncrementStr();
         }
         user.setReference(reference);
