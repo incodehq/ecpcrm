@@ -112,7 +112,9 @@ public class JdbcClient {
         List<Object> objects = new ArrayList<>();
         Connection con = null;
         try {
-            int count = 0;
+            int count_passed = 0;
+            int count_error = 0;
+
             con = getConnection();
             final String tableName = cls.getSimpleName().replace("Import", "");
             final String SQL = String.format("SELECT * FROM `%s`", tableName);
@@ -131,15 +133,20 @@ public class JdbcClient {
                         BeanUtils.setProperty(object, columnName, value);
                     }
                     objects.add(object);
-                    count++;
+                    count_passed += 1;
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
+                    System.out.println(e);
+                    count_error += 1;
                 }
             }
+            System.out.println("Count of passed : " + String.valueOf(count_passed));
+            System.out.println("Count of error : " + String.valueOf(count_error));
             Interval interval = new Interval(start, Instant.now());
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e);
         } finally {
             closeConnection();
         }

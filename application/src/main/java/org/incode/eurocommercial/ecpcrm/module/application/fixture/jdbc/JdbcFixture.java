@@ -76,6 +76,7 @@ public class JdbcFixture extends FixtureScript {
             }
         }
         LOG.info("Finished import");
+        System.out.println("Finished import");
 
     }
 
