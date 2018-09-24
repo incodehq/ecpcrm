@@ -8,25 +8,25 @@ SELECT
  "def11f2a03" AS mailchimpListId,
  "accueil@chassesud.com" AS contactEmail
 FROM `crm-import`.`Center` AS center
-WHERE code = 096;
+WHERE code = 023;
 
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chasse-sud-import`.`User` AS
 SELECT *
 FROM `crm-import`.`User` AS user
-WHERE user.centerCode = 096;
+WHERE user.centerCode = 023;
 
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chasse-sud-import`.`Card` AS
 SELECT *
 FROM `crm-import`.`Card` AS card
-WHERE card.centerCode = 096;
+WHERE card.centerCode = 023;
 
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chasse-sud-import`.`Child` AS
 SELECT child.*
 FROM `crm-import`.`Child` AS child
 INNER JOIN `crm-import`.`User` AS parent ON child.parentReference = parent.reference
-WHERE parent.centerCode = 096;
+WHERE parent.centerCode = 023;
 
 CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chasse-sud-import`.`CardRequest` AS
 SELECT *
 FROM `crm-import`.`CardRequest` AS cardRequest
-WHERE cardRequest.centerCode = 096;
+WHERE cardRequest.centerCode = 023;
