@@ -60,7 +60,7 @@ public class MailServiceIntegTest extends LoyaltyCardModuleIntegTestAbstract {
             user.setPromotionalEmails(true);
 
             // when
-            mailService.mailchimpWebhookCallback(center.getMailchimpListId(), user.getEmail());
+            mailService.mailchimpWebhookCallback(center.getMailchimpListId(), user.getEmail(), false);
 
             // then
             assertThat(user.isPromotionalEmails()).isFalse();

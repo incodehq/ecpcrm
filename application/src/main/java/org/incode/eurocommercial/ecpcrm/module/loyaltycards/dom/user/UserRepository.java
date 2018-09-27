@@ -37,6 +37,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardReposit
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.NumeratorRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.services.MailService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -305,7 +306,18 @@ public class UserRepository {
         repositoryService.remove(user);
     }
 
+    public List<User> reSyncMailchimp(Center center){
+
+        List<User> usersToSync = findByCenter(center);
+        for (User user : usersToSync){
+            mailService.mailchimpWebhookCallback(center.getMailchimpListId(), user.getEmail(), user.isPromotionalEmails());
+        }
+
+        return usersToSync;
+    }
+
     @Inject private RepositoryService repositoryService;
     @Inject private CardRepository cardRepository;
     @Inject private NumeratorRepository numeratorRepository;
+    @Inject private MailService mailService;
 }
