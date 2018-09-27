@@ -40,7 +40,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserReposit
 public class MailService {
 
     @Action(semantics = SemanticsOf.SAFE)
-    public List<User> mailchimpWebhookCallback(String listId, String email, boolean status) {
+    public List<User> mailchimpWebhookCallback(String listId, String email) {
         List<Center> centers = centerRepository.findByMailchimpListId(listId);
 
         List<User> users = centers.stream()
@@ -49,7 +49,7 @@ public class MailService {
                 .collect(Collectors.toList());
 
         for (User user : users) {
-            user.setPromotionalEmails(status);
+            user.setPromotionalEmails(false);
         }
 
         return users;
