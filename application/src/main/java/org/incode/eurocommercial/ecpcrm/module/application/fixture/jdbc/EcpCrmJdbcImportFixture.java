@@ -31,7 +31,7 @@ public class EcpCrmJdbcImportFixture extends DiscoverableFixtureScript {
 
     public static Class[] getClasses() {
         return new Class[] {
-                CenterImport.class,
+//                CenterImport.class,
                 CardImport.class,
                 UserImport.class,
                 ChildImport.class,

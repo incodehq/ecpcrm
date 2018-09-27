@@ -82,7 +82,7 @@ public class JdbcClient {
                 System.out.println("\nDatabase Information ");
                 System.out.println("\tDatabase Name: " + dm.getDatabaseProductName());
                 System.out.println("\tDatabase Version: " + dm.getDatabaseProductVersion());
-                System.out.println("Avalilable Catalogs ");
+                System.out.println("Available Catalogs ");
                 rs = dm.getCatalogs();
                 while (rs.next()) {
                     System.out.println("\tcatalog: " + rs.getString(1));
