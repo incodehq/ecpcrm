@@ -169,6 +169,7 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private boolean enabled;
 
+
     @Column(allowsNull = "false")
     @Getter @Setter
     private boolean promotionalEmails;
@@ -183,6 +184,11 @@ public class User implements Comparable<User>, HasAtPath {
     public User unsubscribeFromPromotionalEmails() {
         promotionalEmails = false;
         return this;
+    }
+
+    @Action(publishing = Publishing.ENABLED)
+    public boolean getPromotionalEmails(){
+        return promotionalEmails;
     }
 
     public boolean hideSubscribeToPromotionalEmails() {

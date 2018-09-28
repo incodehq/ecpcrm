@@ -311,12 +311,7 @@ public class UserRepository {
 
         List<User> usersToSync = findByCenter(center);
         for (User user : usersToSync){
-            if(user.isPromotionalEmails()){
-                wrapperFactory.wrap(user).subscribeToPromotionalEmails();
-            }
-            else{
-                wrapperFactory.wrap(user).unsubscribeFromPromotionalEmails();
-            }
+            user.isPromotionalEmails();
         }
 
         return usersToSync;
