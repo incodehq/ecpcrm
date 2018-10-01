@@ -148,7 +148,7 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private String city;
 
-    @Column(allowsNull = "true")
+        @Column(allowsNull = "true")
     @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String phoneNumber;
@@ -169,10 +169,15 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private boolean enabled;
 
+    @Column(allowsNull = "false")
+    @Setter
+    private boolean promotionalEmails;
 
     @Column(allowsNull = "false")
-    @Getter @Setter
-    private boolean promotionalEmails;
+    @Action(publishing = Publishing.ENABLED)
+    public boolean isPromotionalEmails(){
+        return promotionalEmails;
+    }
 
     @Action(publishing = Publishing.ENABLED)
     public User subscribeToPromotionalEmails() {
@@ -184,11 +189,6 @@ public class User implements Comparable<User>, HasAtPath {
     public User unsubscribeFromPromotionalEmails() {
         promotionalEmails = false;
         return this;
-    }
-
-    @Action(publishing = Publishing.ENABLED)
-    public boolean getPromotionalEmails(){
-        return promotionalEmails;
     }
 
     public boolean hideSubscribeToPromotionalEmails() {
