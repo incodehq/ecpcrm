@@ -42,10 +42,12 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.UserDtoFactory;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
@@ -169,23 +171,24 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private boolean enabled;
 
+    public static class CreateDomainEvent extends ActionDomainEvent<User> {}
+
     @Column(allowsNull = "false")
     @Setter
     private boolean promotionalEmails;
 
     @Column(allowsNull = "false")
-    @Action(publishing = Publishing.ENABLED)
     public boolean isPromotionalEmails(){
         return promotionalEmails;
     }
 
-    @Action(publishing = Publishing.ENABLED)
+    @Action(domainEvent = User.CreateDomainEvent.class, publishing = Publishing.ENABLED)
     public User subscribeToPromotionalEmails() {
         promotionalEmails = true;
         return this;
     }
 
-    @Action(publishing = Publishing.ENABLED)
+    @Action(domainEvent = User.CreateDomainEvent.class, publishing = Publishing.ENABLED)
     public User unsubscribeFromPromotionalEmails() {
         promotionalEmails = false;
         return this;
@@ -305,4 +308,5 @@ public class User implements Comparable<User>, HasAtPath {
     @Inject private CardRepository cardRepository;
     @Inject private ChildRepository childRepository;
     @Inject private CardRequestRepository cardRequestRepository;
+    @Inject private UserDtoFactory userDtoFactory;
 }

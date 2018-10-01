@@ -307,13 +307,18 @@ public class UserRepository {
         repositoryService.remove(user);
     }
 
-    public List<User> reSyncMailchimp(Center center){
-
+    public List<User> resyncMailchimp(Center center){
         List<User> usersToSync = findByCenter(center);
         for (User user : usersToSync){
-            user.isPromotionalEmails();
+            if(user.isPromotionalEmails()){
+                user.unsubscribeFromPromotionalEmails();
+                wrapperFactory.wrap(user).isPromotionalEmails();
+            }
+            else{
+                user.subscribeToPromotionalEmails();
+                wrapperFactory.wrap(user).unsubscribeFromPromotionalEmails();
+            }
         }
-
         return usersToSync;
     }
 
