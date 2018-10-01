@@ -16,14 +16,18 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.dom.authentication;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
@@ -78,7 +82,18 @@ public class AuthenticationDevice implements HasAtPath {
     @Column(allowsNull = "false")
     private boolean active;
 
+    @Action(semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE)
+    public void delete(){
+        repositoryService.remove(this);
+    }
+    public String disableDelete(){
+        return active ? "This authentication device cannot be deleted because it is active." : null;
+    }
+
     @Override public String getAtPath() {
         return getCenter().getAtPath();
     }
+
+    @Inject RepositoryService repositoryService;
+
 }
