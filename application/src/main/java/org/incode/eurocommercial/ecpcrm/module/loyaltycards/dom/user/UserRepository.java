@@ -31,6 +31,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
@@ -306,13 +307,18 @@ public class UserRepository {
         repositoryService.remove(user);
     }
 
-    public List<User> reSyncMailchimp(Center center){
-
+    public List<User> resyncMailchimp(Center center){
         List<User> usersToSync = findByCenter(center);
         for (User user : usersToSync){
-            mailService.mailchimpWebhookCallback(center.getMailchimpListId(), user.getEmail(), user.isPromotionalEmails());
+            if(user.isPromotionalEmails()){
+                user.unsubscribeFromPromotionalEmails();
+                wrapperFactory.wrap(user).isPromotionalEmails();
+            }
+            else{
+                user.subscribeToPromotionalEmails();
+                wrapperFactory.wrap(user).unsubscribeFromPromotionalEmails();
+            }
         }
-
         return usersToSync;
     }
 
@@ -320,4 +326,5 @@ public class UserRepository {
     @Inject private CardRepository cardRepository;
     @Inject private NumeratorRepository numeratorRepository;
     @Inject private MailService mailService;
+    @Inject private WrapperFactory wrapperFactory;
 }

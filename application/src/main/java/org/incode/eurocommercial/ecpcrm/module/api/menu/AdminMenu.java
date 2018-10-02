@@ -27,7 +27,7 @@ public class AdminMenu {
 
     @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
     public List<User> resyncCenterUsers(final Center center){
-        return userRepository.reSyncMailchimp(center);
+        return userRepository.resyncMailchimp(center);
     }
 
     @Inject private UserRepository userRepository;
