@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.applib.RestfulMediaType;
@@ -119,6 +121,15 @@ public class EcpCrmResource extends ResourceAbstract  {
             requestViewModel = new CardRequestRequestViewModel();
         }
 
+        LocalDate birthdate;
+        try {
+            birthdate = ApiService.asLocalDate(requestViewModel.getBirthdate());
+        }
+        catch(IllegalArgumentException e) {
+            // See ECPCRM-173 => birthdate is optional, no need to error if we can't parse it.
+            birthdate = null;
+        }
+
         return apiService.cardRequest(
                 deviceName,
                 deviceSecret,
@@ -128,7 +139,7 @@ public class EcpCrmResource extends ResourceAbstract  {
                 requestViewModel.getFirstName(),
                 requestViewModel.getLastName(),
                 requestViewModel.getEmail(),
-                ApiService.asLocalDate(requestViewModel.getBirthdate()),
+                birthdate,
                 requestViewModel.getChildren(),
                 requestViewModel.getNbChildren(),
                 ApiService.asBoolean(requestViewModel.getHasCar()),
