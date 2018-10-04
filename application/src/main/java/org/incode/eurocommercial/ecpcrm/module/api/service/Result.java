@@ -33,6 +33,8 @@ public class Result {
     public static final int STATUS_INVALID_CARD = 303;
     public static final int STATUS_INVALID_USER = 304;
     public static final int STATUS_CARD_ALREADY_PLAYED = 315;
+    public static final int STATUS_INCORRECT_CHECK_CODE = 402;
+    public static final int STATUS_EMAIL_ALREADY_EXISTS = 305;
 
     @Getter
     private final int status;

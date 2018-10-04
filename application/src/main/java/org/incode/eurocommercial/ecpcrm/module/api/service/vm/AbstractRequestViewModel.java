@@ -10,7 +10,7 @@ import org.joda.time.format.DateTimeFormat;
 
 public abstract class AbstractRequestViewModel {
 
-    abstract public Result isValid(AuthenticationDevice device);
+    abstract public Result isValid(AuthenticationDevice device, User user);
 
     public LocalDate asLocalDate(final String localDate) {
         try {

@@ -28,6 +28,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
 import javax.inject.Inject;
 
@@ -50,7 +51,7 @@ public class CardGameRequestViewModel extends AbstractRequestViewModel {
     private final String desc;
 
 
-    public Result isValid(AuthenticationDevice device){
+    public Result isValid(AuthenticationDevice device, User user){
 
         if (Strings.isNullOrEmpty(getCardNumber())) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid Parameter");

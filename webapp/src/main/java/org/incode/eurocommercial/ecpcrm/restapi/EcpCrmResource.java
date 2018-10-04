@@ -1,27 +1,14 @@
 package org.incode.eurocommercial.ecpcrm.restapi;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import com.google.gson.Gson;
-
-import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
-import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
-import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.applib.RestfulMediaType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService;
 import org.apache.isis.viewer.restfulobjects.rendering.service.conneg.PrettyPrinting;
 import org.apache.isis.viewer.restfulobjects.server.resources.ResourceAbstract;
-
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
@@ -30,6 +17,11 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel;
+
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/crm/api/7.0")
 public class EcpCrmResource extends ResourceAbstract  {
@@ -60,11 +52,9 @@ public class EcpCrmResource extends ResourceAbstract  {
             @FormParam("request") String request
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         CardCheckRequestViewModel requestViewModel = gson.fromJson(request, CardCheckRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new CardCheckRequestViewModel();
-        }
 
         return apiService.cardCheck(
                 deviceName,
@@ -130,34 +120,12 @@ public class EcpCrmResource extends ResourceAbstract  {
             @FormParam("request") String request
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         WebsiteCardRequestRequestViewModel requestViewModel = gson.fromJson(request, WebsiteCardRequestRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new WebsiteCardRequestRequestViewModel();
-        }
 
-        return apiService.websiteCardRequest(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getOrigin(),
-                requestViewModel.getCenterId(),
-                ApiService.asTitle(requestViewModel.getTitle()),
-                requestViewModel.getFirstName(),
-                requestViewModel.getLastName(),
-                requestViewModel.getEmail(),
-                requestViewModel.getPasswword(),
-                ApiService.asLocalDate(requestViewModel.getBirthdate()),
-                requestViewModel.getChildren(),
-                requestViewModel.getNbChildren(),
-                ApiService.asBoolean(requestViewModel.getHasCar()),
-                requestViewModel.getAddress(),
-                requestViewModel.getZipcode(),
-                requestViewModel.getCity(),
-                requestViewModel.getPhoneNumber(),
-                ApiService.asBoolean(requestViewModel.getPromotionalEmails()),
-                requestViewModel.getCheckCode(),
-                requestViewModel.getBoutiques()
-        ).asResponse();
+        return apiService.websiteCardRequest(device, requestViewModel).asResponse()
+
     }
 
     @POST
@@ -175,30 +143,11 @@ public class EcpCrmResource extends ResourceAbstract  {
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
-        WebsiteUserCreateRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserCreateRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new WebsiteUserCreateRequestViewModel();
-        }
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        return apiService.websiteUserCreate(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getCenterId(),
-                requestViewModel.getCheckCode(),
-                ApiService.asTitle(requestViewModel.getTitle()),
-                requestViewModel.getFirstName(),
-                requestViewModel.getLastName(),
-                requestViewModel.getEmail(),
-                ApiService.asLocalDate(requestViewModel.getBirthdate()),
-                requestViewModel.getChildren(),
-                requestViewModel.getNbChildren(),
-                ApiService.asBoolean(requestViewModel.getHasCar()),
-                requestViewModel.getAddress(),
-                requestViewModel.getZipcode(),
-                requestViewModel.getCity(),
-                requestViewModel.getPhoneNumber(),
-                ApiService.asBoolean(requestViewModel.getPromotionalEmails())
-        ).asResponse();
+        WebsiteUserCreateRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserCreateRequestViewModel.class);
+
+        return apiService.websiteUserCreate(device, requestViewModel).asResponse();
     }
 
     @POST

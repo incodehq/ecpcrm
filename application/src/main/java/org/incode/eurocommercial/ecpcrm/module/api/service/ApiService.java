@@ -27,6 +27,8 @@ import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.Authentica
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
@@ -49,7 +51,7 @@ import javax.inject.Inject;
 )
 public class ApiService {
 
-    public String computeCheckCode(String email) {
+    public static String computeCheckCode(String email) {
         String secret = "320498FJEZR458FNBLA895HFLR48G";
         String toBeHashed = email + secret;
         return DigestUtils.md5Hex(toBeHashed);
@@ -105,12 +107,15 @@ public class ApiService {
 
     public Result cardGame(AuthenticationDevice device, CardGameRequestViewModel requestViewModel) {
 
-        if (device == null || !device.isActive()) {
-            return Result.error(301, "Invalid device");
+        if (requestViewModel == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Failed to parse parameters");
         }
 
+        if (device == null || !device.isActive()) {
+            return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
+        }
 
-        final Result validationResult = requestViewModel.isValid(device);
+        final Result validationResult = requestViewModel.isValid(device, null);
 
         if (validationResult.getStatus() != Result.STATUS_OK) {
             // validation failed
@@ -136,7 +141,7 @@ public class ApiService {
         Center center = device.getCenter();
         User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), center);
 
-        final Result validationResult = requestViewModel.isValid(device);
+        final Result validationResult = requestViewModel.isValid(device, user);
         if (validationResult.getStatus() != Result.STATUS_OK) {
             // validation failed
             return validationResult;
@@ -167,50 +172,25 @@ public class ApiService {
     }
 
     public Result websiteCardRequest(
-            String deviceName,
-            String deviceSecret,
-            String origin,
-            String centerId,
-            Title title,
-            String firstName,
-            String lastName,
-            String email,
-            String password,
-            LocalDate birthdate,
-            String children,
-            String nbChildren,
-            Boolean hasCar,
-            String address,
-            String zipcode,
-            String city,
-            String phoneNumber,
-            Boolean promotionalEmails,
-            String checkCode,cardGame
-            String boutiques
-    ) {
-        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+            AuthenticationDevice device,
+            WebsiteCardRequestRequestViewModel requestViewModel){
+
+        if (requestViewModel == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Failed to parse parameters");
+        }
 
         if (device == null || !device.isActive()) {
-            return Result.error(301, "Invalid device");
+            return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
         }
 
-        if (Strings.isNullOrEmpty(centerId) || title == null || Strings.isNullOrEmpty(firstName) ||
-                Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
-                Strings.isNullOrEmpty(zipcode) || Strings.isNullOrEmpty(city) || Strings.isNullOrEmpty(checkCode)
-        ) {
-            return Result.error(302, "Invalid parameter");
+
+        final Result validationResult = requestViewModel.isValid(device, null);
+        if (validationResult.getStatus() != Result.STATUS_OK) {
+            // validation failed
+            return validationResult;
         }
 
-        Center center = device.getCenter();
-        User user = userRepository.findByExactEmailAndCenter(email, center);
-
-        if (user == null) {
-            return Result.error(304, "Invalid user");
-        }
-
-        if (!checkCode.equals(this.computeCheckCode(email))) {
-            return Result.error(402, "Incorrect check code");
-        }
+        User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter());
 
         cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
 
@@ -218,68 +198,45 @@ public class ApiService {
     }
 
     public Result websiteUserCreate(
-            String deviceName,
-            String deviceSecret,
-            String centerId,
-            String checkCode,
-            Title title,
-            String firstName,
-            String lastName,
-            String email,
-            LocalDate birthdate,
-            String children,
-            String nbChildren,
-            Boolean hasCar,
-            String address,
-            String zipcode,
-            String city,
-            String phoneNumber,
-            Boolean promotionalEmails
-    ) {
-        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+            AuthenticationDevice device,
+            WebsiteUserCreateRequestViewModel requestViewModel) {
+
+        if (requestViewModel == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Failed to parse parameters");
+        }
 
         if (device == null || !device.isActive()) {
-            return Result.error(301, "Invalid device");
+            return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
         }
 
-        if (Strings.isNullOrEmpty(centerId) || Strings.isNullOrEmpty(checkCode) || title == null ||
-                Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)
-        ) {
-            return Result.error(302, "Invalid parameter");
+        final Result validationResult = requestViewModel.isValid(device, null);
+        if (validationResult.getStatus() != Result.STATUS_OK) {
+            // validation failed
+            return validationResult;
         }
 
-        if (!checkCode.equals(this.computeCheckCode(email))) {
-            return Result.error(402, "Incorrect check code");
-        }
-
-        Center center = device.getCenter();
-
-        if (userRepository.findByExactEmailAndCenter(email, center) != null) {
-            return Result.error(305, "Email already exists");
-        }
-
-        User user = userRepository.findByExactEmailAndCenter(email, center);
+        User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter());
 
         if (user == null) {
             user = wrapperFactory.wrap(userMenu).newUser(
                     true,
-                    title,
-                    firstName,
-                    lastName,
-                    email,
-                    birthdate,
-                    address,
-                    zipcode,
-                    city,
-                    phoneNumber,
-                    center,
+                    requestViewModel.getTitle(),
+                    requestViewModel.getFirstName(),
+                    requestViewModel.getLastName(),
+                    requestViewModel.getEmail(),
+                    requestViewModel.getBirthdate(),
+                    requestViewModel.getAddress(),
+                    requestViewModel.getZipcode(),
+                    requestViewModel.getCity(),
+                    requestViewModel.getPhoneNumber(),
+                    device.getCenter(),
                     null,
-                    promotionalEmails,
-                    hasCar
+                    requestViewModel.getPromotionalEmails(),
+                    requestViewModel.hasCar()
             );
         }
 
-        Card card = cardRepository.newFakeCard(CardStatus.ENABLED, center);
+        Card card = cardRepository.newFakeCard(CardStatus.ENABLED, device.getCenter());
         user.newCard(card.getNumber());
 
         return Result.ok(WebsiteUserCreateResponseViewModel.fromUser(user));

@@ -16,15 +16,25 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class WebsiteCardRequestRequestViewModel {
+public class WebsiteCardRequestRequestViewModel extends AbstractRequestViewModel {
     @Getter
     private final String origin;
 
@@ -86,4 +96,30 @@ public class WebsiteCardRequestRequestViewModel {
 
     @Getter
     private final String boutiques;
+
+    @Override
+    public Result isValid(AuthenticationDevice device, User user) {
+        if (Strings.isNullOrEmpty(getCenterId()) || title == null || Strings.isNullOrEmpty(getFirstName()) ||
+                Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
+                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || Strings.isNullOrEmpty(getCheckCode())
+        ) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
+        }
+
+        Center center = device.getCenter();
+        user = userRepository.findByExactEmailAndCenter(email, center);
+
+        if (user == null) {
+            return Result.error(Result.STATUS_INVALID_USER, "Invalid user");
+        }
+
+        if (!getCheckCode().equals(ApiService.computeCheckCode(getEmail()))) {
+            return Result.error(Result.STATUS_INCORRECT_CHECK_CODE, "Incorrect check code");
+        }
+
+        return Result.ok();
+    }
+
+    @Inject
+    UserRepository userRepository;
 }
