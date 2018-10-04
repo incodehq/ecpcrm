@@ -23,8 +23,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
-import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
-import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel;
@@ -57,52 +56,24 @@ public class ApiService {
         return DigestUtils.md5Hex(toBeHashed);
     }
 
-    public Result cardCheck(
-            String deviceName,
-            String deviceSecret,
-            String cardNumber,
-            String origin
-    ) {
-        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+    /*
+    deviceName,
+    deviceSecret,
+    requestViewModel.getCardNumber(),
+    requestViewModel.getOrigin()
+     */
+
+    public Result cardCheck(AuthenticationDevice device, CardCheckRequestViewModel requestViewModel) {
+        if (requestViewModel == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Failed to parse parameters");
+        }
 
         if (device == null || !device.isActive()) {
             return Result.error(301, "Invalid device");
         }
 
-        if (Strings.isNullOrEmpty(cardNumber) || Strings.isNullOrEmpty(origin)) {
-            return Result.error(302, "Invalid parameter");
-        }
-
-        Center center = device.getCenter();
-
-        Card card = cardRepository.findByExactNumber(cardNumber);
-
-        if (card != null) {
-            if (card.getStatus() == CardStatus.TOCHANGE) {
-                return Result.error(319, "Outdated card");
-            }
-            if (card.getStatus() != CardStatus.ENABLED) {
-                return Result.error(303, "Invalid card");
-            }
-            if (card.getCenter() != center) {
-                return Result.error(317, "Card center is not equal to device center");
-            }
-            if (card.getOwner() == null || !card.getOwner().isEnabled()) {
-                return Result.error(304, "Invalid user");
-            }
-
-            return Result.ok(CardCheckResponseViewModel.fromCard(card));
-        } else {
-            if (device.getType() != AuthenticationDeviceType.APP && cardNumber.startsWith("3922")) {
-                return Result.error(319, "Outdated card");
-            }
-            if (!cardRepository.cardNumberIsValid(cardNumber)) {
-                return Result.error(312, "Invalid card number");
-            }
-
-            //TODO: In the old code, a new blank user is created for a nonexisting card, why?
-            return Result.error(314, "Unable to bind user to card");
-        }
+        final Result validationResult = requestViewModel.isValid(device, null);
+        return validationResult;
     }
 
     public Result cardGame(AuthenticationDevice device, CardGameRequestViewModel requestViewModel) {
@@ -323,6 +294,7 @@ public class ApiService {
         return Result.ok();
     }
 
+
     public Result websiteUserDetail(
             String deviceName,
             String deviceSecret,
@@ -350,6 +322,8 @@ public class ApiService {
         if (!checkCode.equals(this.computeCheckCode(email))) {
             return Result.error(402, "Incorrect check code");
         }
+
+        //TODO: Refactor this code to use the ResponseViewModels should be pretty easy
 
         return Result.ok(WebsiteUserDetailResponseViewModel.fromUser(user));
     }

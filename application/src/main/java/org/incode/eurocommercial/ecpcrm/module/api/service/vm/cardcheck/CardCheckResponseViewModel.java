@@ -1,10 +1,9 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck;
 
+import lombok.Data;
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
-
-import lombok.Data;
 
 @Data(staticConstructor = "create")
 public class CardCheckResponseViewModel {

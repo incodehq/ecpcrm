@@ -56,12 +56,7 @@ public class EcpCrmResource extends ResourceAbstract  {
 
         CardCheckRequestViewModel requestViewModel = gson.fromJson(request, CardCheckRequestViewModel.class);
 
-        return apiService.cardCheck(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getCardNumber(),
-                requestViewModel.getOrigin()
-        ).asResponse();
+        return apiService.cardCheck(device, requestViewModel).asResponse();
     }
 
     @POST

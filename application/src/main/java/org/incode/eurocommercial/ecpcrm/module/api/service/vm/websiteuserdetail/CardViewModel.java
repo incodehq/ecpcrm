@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail;
+package org.incode.eurocommercial.ecpcrm.module.api.service.vm.webs2iteuserdetail;
 
 import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;

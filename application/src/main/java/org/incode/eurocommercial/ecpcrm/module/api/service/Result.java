@@ -35,6 +35,9 @@ public class Result {
     public static final int STATUS_CARD_ALREADY_PLAYED = 315;
     public static final int STATUS_INCORRECT_CHECK_CODE = 402;
     public static final int STATUS_EMAIL_ALREADY_EXISTS = 305;
+    public static final int STATUS_CARD_CENTER_NOT_EQUAL_TO_DEVICE_CENTER = 317;
+    public static final int STATUS_OUTDATED_CARD = 319;
+    public static final int STATUS_UNABLE_TO_BIND_USER = 314;
 
     @Getter
     private final int status;
