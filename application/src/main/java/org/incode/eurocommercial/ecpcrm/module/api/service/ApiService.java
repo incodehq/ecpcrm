@@ -25,6 +25,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.Authentica
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailResponseViewModel;
@@ -102,40 +103,22 @@ public class ApiService {
         }
     }
 
-    public Result cardGame(
-            String deviceName,
-            String deviceSecret,
-            String cardNumber,
-            Boolean win,
-            String desc
-    ) {
-        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+    public Result cardGame(AuthenticationDevice device, CardGameRequestViewModel requestViewModel) {
 
         if (device == null || !device.isActive()) {
             return Result.error(301, "Invalid device");
         }
 
-        if (Strings.isNullOrEmpty(cardNumber)) {
-            return Result.error(302, "Invalid Parameter");
+
+        final Result validationResult = requestViewModel.isValid(device);
+
+        if (validationResult.getStatus() != Result.STATUS_OK) {
+            // validation failed
+            return validationResult;
         }
 
-        Center center = device.getCenter();
-        Card card = cardRepository.findByExactNumber(cardNumber);
-
-        if (card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
-            return Result.error(303, "Invalid card");
-        }
-
-        if (!card.getOwner().isEnabled()) {
-            return Result.error(304, "Invalid user");
-        }
-
-        if (!card.canPlay()) {
-            return Result.error(315, "Card has already played");
-        }
-
-        card.play(win);
-
+        Card card = cardRepository.findByExactNumber(requestViewModel.getCardNumber());
+        card.play(requestViewModel.getWin());
         return Result.ok();
     }
 
@@ -153,7 +136,7 @@ public class ApiService {
         Center center = device.getCenter();
         User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), center);
 
-        final Result validationResult = requestViewModel.isValidCardRequest(user);
+        final Result validationResult = requestViewModel.isValid(device);
         if (validationResult.getStatus() != Result.STATUS_OK) {
             // validation failed
             return validationResult;
@@ -202,7 +185,7 @@ public class ApiService {
             String city,
             String phoneNumber,
             Boolean promotionalEmails,
-            String checkCode,
+            String checkCode,cardGame
             String boutiques
     ) {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);

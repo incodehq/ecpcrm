@@ -16,22 +16,68 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class CardGameRequestViewModel {
+public class CardGameRequestViewModel extends AbstractRequestViewModel {
+
     @Getter
     @SerializedName("card")
     private final String cardNumber;
 
-    @Getter
+
     private final String win;
+
+    public Boolean getWin() {
+        return asBoolean(win);
+    }
 
     @Getter
     private final String desc;
+
+
+    public Result isValid(AuthenticationDevice device){
+
+        if (Strings.isNullOrEmpty(getCardNumber())) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid Parameter");
+        }
+
+        Center center = device.getCenter();
+        Card card = cardRepository.findByExactNumber(getCardNumber());
+
+        if (card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
+            return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
+        }
+
+        if (!card.getOwner().isEnabled()) {
+            return Result.error(Result.STATUS_INVALID_USER, "Invalid user");
+        }
+
+        if (!card.canPlay()) {
+            return Result.error(Result.STATUS_CARD_ALREADY_PLAYED, "Card has already played");
+        }
+
+        return Result.ok();
+
+    }
+
+
+    @Inject
+    CardRepository cardRepository;
+
+
 }

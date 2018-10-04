@@ -30,6 +30,9 @@ public class Result {
     public static final int STATUS_OK = 200;
     public static final int STATUS_INVALID_PARAMETER = 302;
     public static final int STATUS_INVALID_DEVICE = 301;
+    public static final int STATUS_INVALID_CARD = 303;
+    public static final int STATUS_INVALID_USER = 304;
+    public static final int STATUS_CARD_ALREADY_PLAYED = 315;
 
     @Getter
     private final int status;

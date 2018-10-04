@@ -88,19 +88,11 @@ public class EcpCrmResource extends ResourceAbstract  {
             @FormParam("request") String request
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         CardGameRequestViewModel requestViewModel = gson.fromJson(request, CardGameRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new CardGameRequestViewModel();
-        }
 
-        return apiService.cardGame(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getCardNumber(),
-                ApiService.asBoolean(requestViewModel.getWin()),
-                requestViewModel.getDesc()
-        ).asResponse();
+        return apiService.cardGame(device, requestViewModel).asResponse();
     }
 
     @POST

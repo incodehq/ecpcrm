@@ -1,5 +1,6 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm;
 
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
@@ -9,7 +10,7 @@ import org.joda.time.format.DateTimeFormat;
 
 public abstract class AbstractRequestViewModel {
 
-    abstract public Result isValidCardRequest(User user);
+    abstract public Result isValid(AuthenticationDevice device);
 
     public LocalDate asLocalDate(final String localDate) {
         try {

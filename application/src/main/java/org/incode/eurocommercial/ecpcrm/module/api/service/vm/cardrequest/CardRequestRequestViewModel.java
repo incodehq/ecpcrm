@@ -21,6 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
@@ -108,7 +109,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
     }
 
     @Override
-    public Result isValidCardRequest(User user) {
+    public Result isValid(AuthenticationDevice device, User user) {
         if (Strings.isNullOrEmpty(getOrigin()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
                 Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
                 Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null
