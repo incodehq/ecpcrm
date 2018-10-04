@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-01 16:16:49+\n"
+"POT-Creation-Date: 2018-10-04 10:42:13+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2134,16 +2134,6 @@ msgid "Put If Absent"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.menu.AdminMenu#reSyncCenterUsers()
-msgid "Re Sync Center Users"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#reSyncMailchimp()
-msgid "Re Sync Mailchimp"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updatePassword(org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password)
 msgid "Re-enter password"
 msgstr ""
@@ -2485,6 +2475,16 @@ msgstr ""
 
 #: org.apache.isis.applib.fixturescripts.FixtureResult#key
 msgid "Result key"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.api.menu.AdminMenu#resyncCenterUsers()
+msgid "Resync Center Users"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#resyncMailchimp()
+msgid "Resync Mailchimp"
 msgstr ""
 
 

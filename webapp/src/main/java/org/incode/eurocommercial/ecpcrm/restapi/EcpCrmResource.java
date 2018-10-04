@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Where;
@@ -32,7 +34,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.
 @Path("/crm/api/7.0")
 public class EcpCrmResource extends ResourceAbstract  {
 
-    private Gson gson = new Gson();
+    Gson gson = new Gson();
 
     @Override
     protected void init(
@@ -115,42 +117,11 @@ public class EcpCrmResource extends ResourceAbstract  {
             @FormParam("request") String request
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         CardRequestRequestViewModel requestViewModel = gson.fromJson(request, CardRequestRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new CardRequestRequestViewModel();
-        }
 
-        LocalDate birthdate;
-        try {
-            birthdate = ApiService.asLocalDate(requestViewModel.getBirthdate());
-        }
-        catch(IllegalArgumentException e) {
-            // See ECPCRM-173 => birthdate is optional, no need to error if we can't parse it.
-            birthdate = null;
-        }
-
-        return apiService.cardRequest(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getOrigin(),
-                requestViewModel.getHostess(),
-                ApiService.asTitle(requestViewModel.getTitle()),
-                requestViewModel.getFirstName(),
-                requestViewModel.getLastName(),
-                requestViewModel.getEmail(),
-                birthdate,
-                requestViewModel.getChildren(),
-                requestViewModel.getNbChildren(),
-                ApiService.asBoolean(requestViewModel.getHasCar()),
-                requestViewModel.getAddress(),
-                requestViewModel.getZipcode(),
-                requestViewModel.getCity(),
-                requestViewModel.getPhoneNumber(),
-                ApiService.asBoolean(requestViewModel.getPromotionalEmails()),
-                requestViewModel.getCheckItem(),
-                ApiService.asBoolean(requestViewModel.getLost())
-        ).asResponse();
+        return apiService.cardRequest(device, requestViewModel).asResponse();
     }
 
     @POST
@@ -307,5 +278,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         ).asResponse();
     }
 
+    @Inject
+    AuthenticationDeviceRepository authenticationDeviceRepository;
     @Inject ApiService apiService;
 }

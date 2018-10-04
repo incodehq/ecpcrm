@@ -16,23 +16,35 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.joda.time.LocalDate;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class CardRequestRequestViewModel {
+public class CardRequestRequestViewModel extends AbstractRequestViewModel {
     @Getter
     private final String origin;
 
     @Getter
     private final String hostess;
 
-    @Getter
     private final String title;
+
+    public Title getTitle() {
+        return asTitle(title);
+    }
 
     @Getter
     @SerializedName("first_name")
@@ -45,8 +57,11 @@ public class CardRequestRequestViewModel {
     @Getter
     private final String email;
 
-    @Getter
     private final String birthdate;
+
+    public LocalDate getBirthdate() {
+        return asLocalDate(birthdate);
+    }
 
     @Getter
     private final String children;
@@ -56,8 +71,11 @@ public class CardRequestRequestViewModel {
     private final String nbChildren;
 
     @SerializedName("car")
-    @Getter
     private final String hasCar;
+
+    public Boolean getHasCar() {
+        return asBoolean(hasCar);
+    }
 
     @Getter
     private final String address;
@@ -72,14 +90,60 @@ public class CardRequestRequestViewModel {
     @SerializedName("phone")
     private final String phoneNumber;
 
-    @Getter
     @SerializedName("optin")
     private final String promotionalEmails;
+
+    public Boolean getPromotionalEmails() {
+        return asBoolean(promotionalEmails);
+    }
 
     @Getter
     @SerializedName("check_item")
     private final String checkItem;
 
-    @Getter
     private final String lost;
+
+    public Boolean getLost() {
+        return asBoolean(lost);
+    }
+
+    @Override
+    public Result isValidCardRequest(User user) {
+        if (Strings.isNullOrEmpty(getOrigin()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
+                Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
+                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null
+        ) {
+            return Result.error(302, "Invalid parameter");
+        }
+
+        if (user != null) {
+            if (getLost()) {
+                if (!user.getCards().isEmpty()) {
+                    user.getCards().first().setStatus(CardStatus.LOST);
+                }
+                if (!cardRequestRepository.findByUser(user).isEmpty()) {
+                    return Result.error(307, "Duplicate request for replacement of lost card");
+                }
+            } else {
+                if (Strings.isNullOrEmpty(getCheckItem())) {
+                    if (getFirstName().equals(user.getFirstName()) && getLastName().equals(user.getLastName())) {
+                        return Result.error(318, "Email exists, valid check, ask if lost");
+                    } else {
+                        return Result.error(305, "Email already exists");
+                    }
+                } else {
+                    if (getCheckItem().equals(user.getFirstName() + " " + user.getLastName())) {
+                        return Result.error(318, "Email exists, valid check, ask if lost");
+                    } else {
+                        return Result.error(306, "Email already exists, invalid check");
+                    }
+                }
+            }
+        }
+
+        return Result.ok();
+    }
+
+    @Inject
+    CardRequestRepository cardRequestRepository;
 }

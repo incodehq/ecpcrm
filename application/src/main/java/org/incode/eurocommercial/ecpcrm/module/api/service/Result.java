@@ -26,6 +26,11 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class Result {
+
+    public static final int STATUS_OK = 200;
+    public static final int STATUS_INVALID_PARAMETER = 302;
+    public static final int STATUS_INVALID_DEVICE = 301;
+
     @Getter
     private final int status;
 
@@ -39,7 +44,7 @@ public class Result {
         return new Result(status, message, null);
     }
     public static Result ok(String  message, Object viewModel) {
-        return new Result(200, message, viewModel);
+        return new Result(STATUS_OK, message, viewModel);
     }
     public static Result ok(Object viewModel) {
         return ok(null, viewModel);

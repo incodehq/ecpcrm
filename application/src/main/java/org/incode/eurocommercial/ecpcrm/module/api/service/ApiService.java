@@ -16,31 +16,21 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.google.common.base.Strings;
-
 import org.apache.commons.codec.digest.DigestUtils;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
-
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
@@ -48,6 +38,9 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu;
+import org.joda.time.LocalDate;
+
+import javax.inject.Inject;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -147,87 +140,45 @@ public class ApiService {
     }
 
     public Result cardRequest(
-            String deviceName,
-            String deviceSecret,
-            String origin,
-            String hostess,
-            Title title,
-            String firstName,
-            String lastName,
-            String email,
-            LocalDate birthdate,
-            String children,
-            String nbChildren,
-            Boolean hasCar,
-            String address,
-            String zipcode,
-            String city,
-            String phoneNumber,
-            Boolean promotionalEmails,
-            String checkItem,
-            Boolean lost
-    ) {
-        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
-
-        if (device == null || !device.isActive()) {
-            return Result.error(301, "Invalid device");
+            AuthenticationDevice device,
+            CardRequestRequestViewModel requestViewModel) {
+        if (requestViewModel == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Failed to parse parameters");
         }
 
-        if (Strings.isNullOrEmpty(origin) || title == null || Strings.isNullOrEmpty(firstName) ||
-            Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
-            Strings.isNullOrEmpty(zipcode) || Strings.isNullOrEmpty(city) || promotionalEmails == null
-        ) {
-            return Result.error(302, "Invalid parameter");
+        if (device == null || !device.isActive()) {
+            return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
         }
 
         Center center = device.getCenter();
-        User user = userRepository.findByExactEmailAndCenter(email, center);
+        User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), center);
 
-        if (user != null) {
-            if (lost) {
-                if (!user.getCards().isEmpty()) {
-                    user.getCards().first().setStatus(CardStatus.LOST);
-                }
-                List<CardRequest> existingRequests = cardRequestRepository.findByUser(user);
-                if (existingRequests.isEmpty()) {
-                    cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
-                } else {
-                    return Result.error(307, "TODO");
-                }
-            } else {
-                if (Strings.isNullOrEmpty(checkItem)) {
-                    if (firstName.equals(user.getFirstName()) && lastName.equals(user.getLastName())) {
-                        return Result.error(318, "Email exists, valid check, ask if lost");
-                    } else {
-                        return Result.error(305, "Email already exists");
-                    }
-                } else {
-                    if (checkItem.equals(user.getFirstName() + " " + user.getLastName())) {
-                        return Result.error(318, "Email exists, valid check, ask if lost");
-                    } else {
-                        return Result.error(306, "Email already exists, invalid check");
-                    }
-                }
-            }
-        } else {
+        final Result validationResult = requestViewModel.isValidCardRequest(user);
+        if (validationResult.getStatus() != Result.STATUS_OK) {
+            // validation failed
+            return validationResult;
+        }
+
+        if (user == null) {
             user = wrapperFactory.wrap(userMenu).newUser(
                     true,
-                    title,
-                    firstName,
-                    lastName,
-                    email,
-                    birthdate,
-                    address,
-                    zipcode,
-                    city,
-                    phoneNumber,
+                    requestViewModel.getTitle(),
+                    requestViewModel.getFirstName(),
+                    requestViewModel.getLastName(),
+                    requestViewModel.getEmail(),
+                    requestViewModel.getBirthdate(),
+                    requestViewModel.getAddress(),
+                    requestViewModel.getZipcode(),
+                    requestViewModel.getCity(),
+                    requestViewModel.getPhoneNumber(),
                     center,
                     null,
-                    promotionalEmails,
-                    hasCar
+                    requestViewModel.getPromotionalEmails(),
+                    requestViewModel.getHasCar()
             );
-            cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
         }
+
+        cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
 
         return Result.ok();
     }
@@ -261,8 +212,8 @@ public class ApiService {
         }
 
         if (Strings.isNullOrEmpty(centerId) || title == null || Strings.isNullOrEmpty(firstName) ||
-            Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
-            Strings.isNullOrEmpty(zipcode)  || Strings.isNullOrEmpty(city) || Strings.isNullOrEmpty(checkCode)
+                Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(address) ||
+                Strings.isNullOrEmpty(zipcode) || Strings.isNullOrEmpty(city) || Strings.isNullOrEmpty(checkCode)
         ) {
             return Result.error(302, "Invalid parameter");
         }
@@ -309,7 +260,7 @@ public class ApiService {
         }
 
         if (Strings.isNullOrEmpty(centerId) || Strings.isNullOrEmpty(checkCode) || title == null ||
-            Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)
+                Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)
         ) {
             return Result.error(302, "Invalid parameter");
         }
@@ -463,37 +414,16 @@ public class ApiService {
         return Result.ok(WebsiteUserDetailResponseViewModel.fromUser(user));
     }
 
-    public static Boolean asBoolean(final int i) {
-        return i > 0;
-    }
-    public static Boolean asBoolean(final String s) {
-        return s == null ? null : s.toUpperCase().equals("TRUE");
-    }
-    public static Title asTitle(final String title) {
-        return title == null ? null : Title.valueOf(title.toUpperCase());
-    }
-    public static LocalDate asLocalDate(final String localDate) {
-        return DateTimeFormat.forPattern("dd/MM/yyyy").parseLocalDate(localDate);
-    }
-
-
-    public static String asString(final int i) {
-        return "" + i;
-    }
-    public static String asString(final boolean bool) {
-        return bool ? "true" : "false";
-    }
-    public static String asString(final LocalDate localDate) {
-        return localDate == null ? null : localDate.toString("dd/MM/yyyy");
-    }
-    public static String asDateString(final LocalDateTime localDateTime) {
-        return localDateTime == null ? null : localDateTime.toString("dd/MM/yyyy");
-    }
-
-    @Inject private CardRepository cardRepository;
-    @Inject private CardRequestRepository cardRequestRepository;
-    @Inject private UserRepository userRepository;
-    @Inject private AuthenticationDeviceRepository authenticationDeviceRepository;
-    @Inject private WrapperFactory wrapperFactory;
-    @Inject private UserMenu userMenu;
+    @Inject
+    private CardRepository cardRepository;
+    @Inject
+    private CardRequestRepository cardRequestRepository;
+    @Inject
+    private UserRepository userRepository;
+    @Inject
+    private AuthenticationDeviceRepository authenticationDeviceRepository;
+    @Inject
+    private WrapperFactory wrapperFactory;
+    @Inject
+    private UserMenu userMenu;
 }
