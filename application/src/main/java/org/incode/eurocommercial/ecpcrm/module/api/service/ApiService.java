@@ -196,7 +196,7 @@ public class ApiService {
         Card card = cardRepository.newFakeCard(CardStatus.ENABLED, device.getCenter());
         user.newCard(card.getNumber());
 
-        return Result.ok(WebsiteUserCreateResponseViewModel.fromUser(user));
+        return Result.ok(new WebsiteUserCreateResponseViewModel(user));
     }
 
     public Result websiteUserModify(AuthenticationDevice device, WebsiteUserModifyRequestViewModel requestViewModel)
@@ -237,7 +237,7 @@ public class ApiService {
             // validation failed
             return validationResult;
         }
-        
+
         return Result.ok(new WebsiteUserDetailResponseViewModel(user));
     }
 

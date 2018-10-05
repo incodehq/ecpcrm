@@ -18,7 +18,6 @@ package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardreques
 
 import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

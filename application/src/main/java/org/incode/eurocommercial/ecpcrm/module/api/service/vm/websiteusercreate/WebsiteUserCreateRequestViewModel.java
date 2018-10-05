@@ -106,7 +106,6 @@ public class WebsiteUserCreateRequestViewModel extends AbstractRequestViewModel 
 
     @Override
     public Result isValid(AuthenticationDevice device, User user) {
-
         if (Strings.isNullOrEmpty(getCenterId()) || Strings.isNullOrEmpty(getCheckCode()) || getTitle() == null ||
                 Strings.isNullOrEmpty(getFirstName()) || Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail())
         ) {
@@ -124,7 +123,6 @@ public class WebsiteUserCreateRequestViewModel extends AbstractRequestViewModel 
         }
 
         return Result.ok();
-
     }
 
     @Inject

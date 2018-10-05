@@ -39,7 +39,6 @@ public class WebsiteUserDetailRequestViewModel extends AbstractRequestViewModel 
     @SerializedName("check_code")
     private final String checkCode;
 
-
     @Override
     public Result isValid(AuthenticationDevice device, User user) {
         if (Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getCheckCode())) {
@@ -47,7 +46,6 @@ public class WebsiteUserDetailRequestViewModel extends AbstractRequestViewModel 
         }
 
         Center center = device.getCenter();
-
         if (user == null) {
             return Result.error(Result.STATUS_INVALID_USER, "Invalid user");
         }
@@ -55,7 +53,7 @@ public class WebsiteUserDetailRequestViewModel extends AbstractRequestViewModel 
         if (!getCheckCode().equals(computeCheckCode(getEmail()))) {
             return Result.error(Result.STATUS_INCORRECT_CHECK_CODE, "Incorrect check code");
         }
-
+        
         return  Result.ok();
     }
 }

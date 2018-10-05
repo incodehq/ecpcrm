@@ -18,7 +18,6 @@ package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck;
 
 import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -79,8 +78,7 @@ public class CardCheckRequestViewModel  extends AbstractRequestViewModel {
             return Result.error(Result.STATUS_UNABLE_TO_BIND_USER, "Unable to bind user to card");
         }
 
-        return Result.ok(CardCheckResponseViewModel.fromCard(card));
-
+        return Result.ok(new CardCheckResponseViewModel(card));
     }
 
     @Inject

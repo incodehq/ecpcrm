@@ -52,7 +52,6 @@ public class CardGameRequestViewModel extends AbstractRequestViewModel {
 
 
     public Result isValid(AuthenticationDevice device, User user){
-
         if (Strings.isNullOrEmpty(getCardNumber())) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid Parameter");
         }
@@ -73,7 +72,6 @@ public class CardGameRequestViewModel extends AbstractRequestViewModel {
         }
 
         return Result.ok();
-
     }
 
 
