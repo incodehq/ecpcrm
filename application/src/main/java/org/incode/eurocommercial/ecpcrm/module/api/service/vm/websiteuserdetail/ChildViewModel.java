@@ -1,25 +1,24 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
-import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child;
 
-import lombok.Data;
+public class ChildViewModel extends AbstractBaseViewModel {
+    @Getter @Setter
+    String age;
+    @Getter @Setter
+    String birthdate;
+    @Getter @Setter
+    String genre;
 
-@Data(staticConstructor = "create")
-public class ChildViewModel {
-    private final String age;
-    private final String birthdate;
-    private final String genre;
-
-    public static ChildViewModel fromChild(Child child) {
-        int age = Years.yearsBetween(child.getBirthdate(), LocalDate.now()).getYears();
-        return ChildViewModel.create(
-                ApiService.asString(age),
-                ApiService.asString(child.getBirthdate()),
-                child.getGender().getValue()
-        );
+    public ChildViewModel(Child child){
+        setAge(asString(Years.yearsBetween(child.getBirthdate(), LocalDate.now()).getYears()));
+        setBirthdate(asString(child.getBirthdate()));
+        setGenre(child.getGender().getValue());
     }
 }

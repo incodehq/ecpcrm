@@ -1,68 +1,85 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+public class WebsiteUserDetailResponseViewModel extends AbstractBaseViewModel {
+    @Getter @Setter
+    String id;
+    @Getter @Setter
+    String name;
+    @Getter @Setter
+    String email;
+    @Getter @Setter
+    String title;
+    @Getter @Setter
+    String first_name;
+    @Getter @Setter
+    String last_name;
+    @Getter @Setter
+    String birthdate;
+    @Getter @Setter
+    String optin;
+    @Getter @Setter
+    String car;
+    @Getter @Setter
+    List<String> boutiques;
+    @Getter @Setter
+    String address;
+    @Getter @Setter
+    String zipcode;
+    @Getter @Setter
+    String city;
+    @Getter @Setter
+    String full_address;
+    @Getter @Setter
+    String phone;
+    @Getter @Setter
+    String haschildren;
+    @Getter @Setter
+    String nb_children;
+    @Getter @Setter
+    List<ChildViewModel> children;
+    @Getter @Setter
+    List<CardViewModel> cards;
+    @Getter @Setter
+    String request;
 
-import lombok.Data;
+    public WebsiteUserDetailResponseViewModel(User user){
+        setId(user.getReference());
+        setEmail(user.getEmail());
+        setName(user.getEmail());
+        setTitle(user.getTitle().toString().toLowerCase());
+        setFirst_name(user.getFirstName());
+        setLast_name(user.getLastName());
+        setBirthdate(asString(user.getBirthDate()));
+        setOptin(asString(user.isPromotionalEmails()));
+        setCar(asString(user.getHasCar()));
+        setAddress(user.getAddress());
+        setZipcode(user.getZipcode());
+        setCity(user.getCity());
+        setFull_address(user.getAddress() + " - " + user.getZipcode() + " - " + user.getCity());
+        setPhone(user.getPhoneNumber());
 
-@Data(staticConstructor = "create")
-public class WebsiteUserDetailResponseViewModel {
-    private final String id;
-    private final String name;
-    private final String email;
-    private final String title;
-    private final String first_name;
-    private final String last_name;
-    private final String birthdate;
-    private final String optin;
-    private final String car;
-    private final List<String> boutiques;
-    private final String address;
-    private final String zipcode;
-    private final String city;
-    private final String full_address;
-    private final String phone;
-    private final String haschildren;
-    private final String nb_children;
-    private final List<ChildViewModel> children;
-    private final List<CardViewModel> cards;
-    private final String request;
+        setChildren(user.getChildren()
+                .stream()
+                .map(child -> {ChildViewModel cvm = new ChildViewModel(child);
+                    return cvm;})
+                .collect(Collectors.toList()));
 
-    public static WebsiteUserDetailResponseViewModel fromUser(final User user) {
-        List<ChildViewModel> userChildren = user.getChildren().stream()
-                .map(ChildViewModel::fromChild)
-                .collect(Collectors.toList());
-        List<CardViewModel> userCards = user.getCards().stream()
-                .map(CardViewModel::fromCard)
-                .collect(Collectors.toList());
-        List<String> boutiques = new ArrayList<>();
-        String requestStatus = user.getOpenCardRequest() != null ? "new" : null;
+        setCards(user.getCards()
+                .stream()
+                .map(card -> {CardViewModel vm = new CardViewModel(card);
+                    return vm;})
+                .collect(Collectors.toList()));
 
-        return WebsiteUserDetailResponseViewModel.create(
-                user.getReference(),
-                user.getEmail(),
-                user.getEmail(),
-                user.getTitle().toString().toLowerCase(),
-                user.getFirstName(),
-                user.getLastName(),
-                ApiService.asString(user.getBirthDate()),
-                ApiService.asString(user.isPromotionalEmails()),
-                ApiService.asString(user.getHasCar()),
-                boutiques,
-                user.getAddress(),
-                user.getZipcode(),
-                user.getCity(),
-                user.getAddress() + " - " + user.getZipcode() + " - " + user.getCity(),
-                user.getPhoneNumber(),
-                ApiService.asString(userChildren.size() != 0),
-                ApiService.asString(userChildren.size()),
-                userChildren,
-                userCards,
-                requestStatus
-        );
+        setBoutiques(new ArrayList<>());
+
     }
 }

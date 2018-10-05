@@ -119,7 +119,7 @@ public class EcpCrmResource extends ResourceAbstract  {
 
         WebsiteCardRequestRequestViewModel requestViewModel = gson.fromJson(request, WebsiteCardRequestRequestViewModel.class);
 
-        return apiService.websiteCardRequest(device, requestViewModel).asResponse()
+        return apiService.websiteCardRequest(device, requestViewModel).asResponse();
 
     }
 
@@ -160,30 +160,11 @@ public class EcpCrmResource extends ResourceAbstract  {
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
-        WebsiteUserModifyRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserModifyRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new WebsiteUserModifyRequestViewModel();
-        }
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        return apiService.websiteUserModify(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getCheckCode(),
-                requestViewModel.getCardNumber(),
-                requestViewModel.getEmail(),
-                ApiService.asTitle(requestViewModel.getTitle()),
-                requestViewModel.getFirstName(),
-                requestViewModel.getLastName(),
-                ApiService.asLocalDate(requestViewModel.getBirthdate()),
-                requestViewModel.getChildren(),
-                requestViewModel.getNbChildren(),
-                ApiService.asBoolean(requestViewModel.getHasCar()),
-                requestViewModel.getAddress(),
-                requestViewModel.getZipcode(),
-                requestViewModel.getCity(),
-                requestViewModel.getPhoneNumber(),
-                ApiService.asBoolean(requestViewModel.getPromotionalEmails())
-        ).asResponse();
+        WebsiteUserModifyRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserModifyRequestViewModel.class);
+
+        return apiService.websiteUserModify(device, requestViewModel).asResponse();
     }
 
     @POST
@@ -201,17 +182,11 @@ public class EcpCrmResource extends ResourceAbstract  {
     ) {
         init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
 
-        WebsiteUserDetailRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserDetailRequestViewModel.class);
-        if (requestViewModel == null) {
-            requestViewModel = new WebsiteUserDetailRequestViewModel();
-        }
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
-        return apiService.websiteUserDetail(
-                deviceName,
-                deviceSecret,
-                requestViewModel.getEmail(),
-                requestViewModel.getCheckCode()
-        ).asResponse();
+        WebsiteUserDetailRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserDetailRequestViewModel.class);
+
+        return apiService.websiteUserDetail(device, requestViewModel).asResponse();
     }
 
     @Inject

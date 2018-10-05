@@ -5,10 +5,9 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 
-public abstract class AbstractRequestViewModel {
+public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
 
     abstract public Result isValid(AuthenticationDevice device, User user);
 
@@ -27,22 +26,6 @@ public abstract class AbstractRequestViewModel {
 
     public Title asTitle(final String title) {
         return title == null ? null : Title.valueOf(title.toUpperCase());
-    }
-
-    public String asString(final int i) {
-        return "" + i;
-    }
-
-    public String asString(final boolean bool) {
-        return bool ? "true" : "false";
-    }
-
-    public String asString(final LocalDate localDate) {
-        return localDate == null ? null : localDate.toString("dd/MM/yyyy");
-    }
-
-    public String asDateString(final LocalDateTime localDateTime) {
-        return localDateTime == null ? null : localDateTime.toString("dd/MM/yyyy");
     }
 
 }
