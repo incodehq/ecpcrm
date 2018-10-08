@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-01 16:16:49+\n"
+"POT-Creation-Date: 2018-10-08 14:19:21+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -547,11 +547,6 @@ msgid "Current"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#customers
-msgid "Customers"
-msgstr ""
-
-
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection
 #: org.isisaddons.module.security.app.feature.ApplicationClassProperty
@@ -575,7 +570,6 @@ msgstr ""
 
 
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#delete()
-#: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#deleteCustomer()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#delete()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#delete()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#delete()
@@ -2134,16 +2128,6 @@ msgid "Put If Absent"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.menu.AdminMenu#reSyncCenterUsers()
-msgid "Re Sync Center Users"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#reSyncMailchimp()
-msgid "Re Sync Mailchimp"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updatePassword(org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password)
 msgid "Re-enter password"
 msgstr ""
@@ -2485,6 +2469,16 @@ msgstr ""
 
 #: org.apache.isis.applib.fixturescripts.FixtureResult#key
 msgid "Result key"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.api.menu.AdminMenu#resyncCenterUsers()
+msgid "Resync Center Users"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#resyncMailchimp()
+msgid "Resync Mailchimp"
 msgstr ""
 
 
@@ -3090,11 +3084,6 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 msgid "atPath"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel
-msgid "customers"
 msgstr ""
 
 
