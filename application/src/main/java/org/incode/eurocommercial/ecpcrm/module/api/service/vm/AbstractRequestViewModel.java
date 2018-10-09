@@ -7,6 +7,9 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
 
     abstract public Result isValid(AuthenticationDevice device, User user);
@@ -21,11 +24,15 @@ public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
     }
 
     public Boolean asBoolean(final String s) {
-        return s == null ? null : s.toUpperCase().equals("TRUE");
-    }
-
-    public Boolean asDeterministicBoolean(final String s) {
-        return s == null ? s.toUpperCase().equals("FALSE") : s.toUpperCase().equals("TRUE");
+        if (s.toUpperCase().equals("TRUE")){
+            return Boolean.TRUE;
+        }
+        else if (s.toUpperCase().equals("FALSE")){
+            return Boolean.FALSE;
+        }
+        else {
+            return null;
+        }
     }
 
     public Title asTitle(final String title) {

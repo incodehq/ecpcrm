@@ -80,7 +80,7 @@ public class WebsiteUserCreateRequestViewModel extends AbstractRequestViewModel 
     @SerializedName("car")
     private final String hasCar;
 
-    public boolean hasCar(){
+    public Boolean hasCar(){
         return asBoolean(hasCar);
     }
 
@@ -100,8 +100,8 @@ public class WebsiteUserCreateRequestViewModel extends AbstractRequestViewModel 
     @SerializedName("optin")
     private final String promotionalEmails;
 
-    public boolean getPromotionalEmails(){
-        return asDeterministicBoolean(promotionalEmails);
+    public Boolean getPromotionalEmails(){
+        return asBoolean(promotionalEmails);
     }
 
     @Override
