@@ -2,6 +2,7 @@ package org.incode.eurocommercial.ecpcrm.restapi;
 
 import com.google.gson.Gson;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.applib.RestfulMediaType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService;
@@ -55,6 +56,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         CardCheckRequestViewModel requestViewModel = gson.fromJson(request, CardCheckRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
 
         return apiService.cardCheck(device, requestViewModel).asResponse();
     }
@@ -76,6 +78,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         CardGameRequestViewModel requestViewModel = gson.fromJson(request, CardGameRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
 
         return apiService.cardGame(device, requestViewModel).asResponse();
     }
@@ -97,6 +100,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         CardRequestRequestViewModel requestViewModel = gson.fromJson(request, CardRequestRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
 
         return apiService.cardRequest(device, requestViewModel).asResponse();
     }
@@ -118,6 +122,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         WebsiteCardRequestRequestViewModel requestViewModel = gson.fromJson(request, WebsiteCardRequestRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
 
         return apiService.websiteCardRequest(device, requestViewModel).asResponse();
 
@@ -141,6 +146,7 @@ public class EcpCrmResource extends ResourceAbstract  {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         WebsiteUserCreateRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserCreateRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
 
         return apiService.websiteUserCreate(device, requestViewModel).asResponse();
     }
@@ -192,4 +198,6 @@ public class EcpCrmResource extends ResourceAbstract  {
     @Inject
     AuthenticationDeviceRepository authenticationDeviceRepository;
     @Inject ApiService apiService;
+    @Inject
+    ServiceRegistry2 serviceRegistry;
 }

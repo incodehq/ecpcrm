@@ -48,7 +48,7 @@ public class CardCheckRequestViewModel  extends AbstractRequestViewModel {
         if (Strings.isNullOrEmpty(getCardNumber()) || Strings.isNullOrEmpty(getOrigin())) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }
-
+        
         Center center = device.getCenter();
         Card card = cardRepository.findByExactNumber(getCardNumber());
 
@@ -81,6 +81,5 @@ public class CardCheckRequestViewModel  extends AbstractRequestViewModel {
         return Result.ok(new CardCheckResponseViewModel(card));
     }
 
-    @Inject
-    CardRepository cardRepository;
+    @Inject private CardRepository cardRepository;
 }

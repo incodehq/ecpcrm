@@ -95,7 +95,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
     private final String promotionalEmails;
 
     public Boolean getPromotionalEmails() {
-        return asBoolean(promotionalEmails);
+        return asDeterministicBoolean(promotionalEmails);
     }
 
     @Getter

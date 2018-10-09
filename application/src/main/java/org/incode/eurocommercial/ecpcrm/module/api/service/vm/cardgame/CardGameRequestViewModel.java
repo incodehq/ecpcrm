@@ -78,5 +78,4 @@ public class CardGameRequestViewModel extends AbstractRequestViewModel {
     @Inject
     CardRepository cardRepository;
 
-
 }

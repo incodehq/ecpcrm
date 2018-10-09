@@ -56,7 +56,7 @@ public class WebsiteCardRequestRequestViewModel extends AbstractRequestViewModel
     private final String email;
 
     @Getter
-    private final String passwword;
+    private final String password;
 
     @Getter
     private final String birthdate;

@@ -51,15 +51,9 @@ public class ApiService {
     public static String computeCheckCode(String email) {
         String secret = "320498FJEZR458FNBLA895HFLR48G";
         String toBeHashed = email + secret;
+        System.out.println(DigestUtils.md5Hex(toBeHashed));
         return DigestUtils.md5Hex(toBeHashed);
     }
-
-    /*
-    deviceName,
-    deviceSecret,
-    requestViewModel.getCardNumber(),
-    requestViewModel.getOrigin()
-     */
 
     public Result cardCheck(AuthenticationDevice device, CardCheckRequestViewModel requestViewModel) {
         if (requestViewModel == null) {
@@ -144,7 +138,7 @@ public class ApiService {
             return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
         }
 
-        final Result validationResult = requestViewModel.isValid(device, null);
+        final Result validationResult = requestViewModel.isValid(device, userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter()));
         if (validationResult.getStatus() != Result.STATUS_OK) {
             // validation failed
             return validationResult;
@@ -166,7 +160,7 @@ public class ApiService {
             return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
         }
 
-        final Result validationResult = requestViewModel.isValid(device, null);
+        final Result validationResult = requestViewModel.isValid(device, userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter()));
         if (validationResult.getStatus() != Result.STATUS_OK) {
             // validation failed
             return validationResult;

@@ -14,7 +14,7 @@ public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
     public LocalDate asLocalDate(final String localDate) {
         try {
             return DateTimeFormat.forPattern("dd/MM/yyyy").parseLocalDate(localDate);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             // See ECPCRM-173 => birthdate is optional, no need to error if we can't parse it.
             return null;
         }
@@ -24,8 +24,16 @@ public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
         return s == null ? null : s.toUpperCase().equals("TRUE");
     }
 
-    public Title asTitle(final String title) {
-        return title == null ? null : Title.valueOf(title.toUpperCase());
+    public Boolean asDeterministicBoolean(final String s) {
+        return s == null ? s.toUpperCase().equals("FALSE") : s.toUpperCase().equals("TRUE");
     }
 
+    public Title asTitle(final String title) {
+        try {
+            return Title.valueOf(title.toUpperCase());
+        }
+        catch(IllegalArgumentException e){
+            return null;
+        }
+    }
 }

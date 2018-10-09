@@ -94,7 +94,7 @@ public class WebsiteUserModifyRequestViewModel extends AbstractRequestViewModel 
     @SerializedName("optin")
     private final String promotionalEmails;
     public boolean getPromotionalEmails(){
-        return asBoolean(promotionalEmails);
+        return asDeterministicBoolean(promotionalEmails);
     }
 
     @Override
