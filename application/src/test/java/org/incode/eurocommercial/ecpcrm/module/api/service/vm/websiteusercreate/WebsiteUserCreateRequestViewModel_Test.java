@@ -66,7 +66,7 @@ public class WebsiteUserCreateRequestViewModel_Test {
     }
 
     @Test
-    public void isValid_302_cast_title_cast_invalid_parameter_case(){
+    public void isValid_302_cast_title_cast_invalid_parameter_sadCase(){
         // given
         WebsiteUserCreateRequestViewModel viewModel = new WebsiteUserCreateRequestViewModel(
                 "fooUserId",
