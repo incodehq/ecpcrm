@@ -97,13 +97,13 @@ public class ApiService {
             return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
         }
 
-        User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter());
-
-        final Result validationResult = requestViewModel.isValid(device, user);
+        final Result validationResult = requestViewModel.isValid(device, null);
         if (validationResult.getStatus() != Result.STATUS_OK) {
             // validation failed
             return validationResult;
         }
+
+        User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter());
 
         if (user == null) {
             user = wrapperFactory.wrap(userMenu).newUser(

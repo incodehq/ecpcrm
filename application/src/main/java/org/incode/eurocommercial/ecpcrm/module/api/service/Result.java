@@ -28,16 +28,19 @@ import lombok.Getter;
 public class Result {
 
     public static final int STATUS_OK = 200;
-    public static final int STATUS_INVALID_PARAMETER = 302;
     public static final int STATUS_INVALID_DEVICE = 301;
+    public static final int STATUS_INVALID_PARAMETER = 302;
     public static final int STATUS_INVALID_CARD = 303;
     public static final int STATUS_INVALID_USER = 304;
-    public static final int STATUS_CARD_ALREADY_PLAYED = 315;
-    public static final int STATUS_INCORRECT_CHECK_CODE = 402;
     public static final int STATUS_EMAIL_ALREADY_EXISTS = 305;
-    public static final int STATUS_CARD_CENTER_NOT_EQUAL_TO_DEVICE_CENTER = 317;
-    public static final int STATUS_OUTDATED_CARD = 319;
+    public static final int STATUS_EMAIL_ALREADY_EXISTS_INVALID_CHECK = 306;
+    public static final int STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD = 307;
     public static final int STATUS_UNABLE_TO_BIND_USER = 314;
+    public static final int STATUS_CARD_ALREADY_PLAYED = 315;
+    public static final int STATUS_CARD_CENTER_NOT_EQUAL_TO_DEVICE_CENTER = 317;
+    public static final int STATUS_EMAIL_ALREADY_EXISTS_VALID_CHECK_ASK_IF_LOST = 318;
+    public static final int STATUS_OUTDATED_CARD = 319;
+    public static final int STATUS_INCORRECT_CHECK_CODE = 402;
 
     @Getter
     private final int status;

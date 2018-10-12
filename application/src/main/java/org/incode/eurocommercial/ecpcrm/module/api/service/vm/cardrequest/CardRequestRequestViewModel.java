@@ -28,6 +28,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 import org.joda.time.LocalDate;
 
 import javax.inject.Inject;
@@ -110,11 +111,14 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
 
     @Override
     public Result isValid(AuthenticationDevice device, User user) {
+
+        user = userRepository.findByExactEmailAndCenter(getEmail(), device.getCenter());
+
         if (Strings.isNullOrEmpty(getOrigin()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
                 Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
-                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null
+                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null || getLost() == null
         ) {
-            return Result.error(302, "Invalid parameter");
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }
 
         if (user != null) {
@@ -123,20 +127,20 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
                     user.getCards().first().setStatus(CardStatus.LOST);
                 }
                 if (!cardRequestRepository.findByUser(user).isEmpty()) {
-                    return Result.error(307, "Duplicate request for replacement of lost card");
+                    return Result.error(Result.STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD, "Duplicate request for replacement of lost card");
                 }
             } else {
                 if (Strings.isNullOrEmpty(getCheckItem())) {
                     if (getFirstName().equals(user.getFirstName()) && getLastName().equals(user.getLastName())) {
-                        return Result.error(318, "Email exists, valid check, ask if lost");
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_VALID_CHECK_ASK_IF_LOST, "Email exists, valid check, ask if lost");
                     } else {
-                        return Result.error(305, "Email already exists");
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS, "Email already exists");
                     }
                 } else {
                     if (getCheckItem().equals(user.getFirstName() + " " + user.getLastName())) {
-                        return Result.error(318, "Email exists, valid check, ask if lost");
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_VALID_CHECK_ASK_IF_LOST, "Email exists, valid check, ask if lost");
                     } else {
-                        return Result.error(306, "Email already exists, invalid check");
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_INVALID_CHECK, "Email already exists, invalid check");
                     }
                 }
             }
@@ -147,4 +151,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
 
     @Inject
     CardRequestRepository cardRequestRepository;
+
+    @Inject
+    UserRepository userRepository;
 }
