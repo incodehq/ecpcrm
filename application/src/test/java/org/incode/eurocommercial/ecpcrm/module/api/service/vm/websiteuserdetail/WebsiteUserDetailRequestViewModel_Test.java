@@ -63,7 +63,7 @@ public class WebsiteUserDetailRequestViewModel_Test {
     @Test
     public void isValid_304_sadCase (){
         //given
-        final User user = null;
+        final User user = null; //null user will case test to invalid user
 
         Center center = new Center();
         AuthenticationDevice device = new AuthenticationDevice();

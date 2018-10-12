@@ -219,5 +219,14 @@ public class Card implements Comparable<Card>, HasAtPath {
     }
 
     @Inject private CardGameRepository cardGameRepository;
+
+    public void setCardGameRepository(final CardGameRepository cardGameRepository) {
+        this.cardGameRepository = cardGameRepository;
+    }
+
     @Inject private ClockService clockService;
+
+    public void setClockService(final ClockService clockService) {
+        this.clockService = clockService;
+    }
 }

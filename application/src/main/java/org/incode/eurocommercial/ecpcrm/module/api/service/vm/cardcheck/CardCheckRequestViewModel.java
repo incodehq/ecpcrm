@@ -81,5 +81,5 @@ public class CardCheckRequestViewModel  extends AbstractRequestViewModel {
         return Result.ok(new CardCheckResponseViewModel(card));
     }
 
-    @Inject private CardRepository cardRepository;
+    @Inject CardRepository cardRepository;
 }
