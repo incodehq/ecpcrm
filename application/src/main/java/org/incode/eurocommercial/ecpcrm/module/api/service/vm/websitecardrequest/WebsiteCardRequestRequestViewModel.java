@@ -26,6 +26,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
@@ -41,8 +42,11 @@ public class WebsiteCardRequestRequestViewModel extends AbstractRequestViewModel
     @SerializedName("center_id")
     private final String centerId;
 
-    @Getter
     private final String title;
+
+    public Title getTitle(){
+        return asTitle(title);
+    }
 
     @Getter
     @SerializedName("first_name")
@@ -98,7 +102,7 @@ public class WebsiteCardRequestRequestViewModel extends AbstractRequestViewModel
 
     @Override
     public Result isValid(AuthenticationDevice device, User user) {
-        if (Strings.isNullOrEmpty(getCenterId()) || title == null || Strings.isNullOrEmpty(getFirstName()) ||
+        if (Strings.isNullOrEmpty(getCenterId()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
                 Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
                 Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || Strings.isNullOrEmpty(getCheckCode())
         ) {
