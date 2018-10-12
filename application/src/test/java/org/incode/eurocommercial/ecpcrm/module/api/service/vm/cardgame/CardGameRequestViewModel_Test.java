@@ -1,13 +1,13 @@
-package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck;
+package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame;
 
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
-import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGameRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CardCheckRequestViewModel_Test {
+public class CardGameRequestViewModel_Test {
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
@@ -37,9 +37,10 @@ public class CardCheckRequestViewModel_Test {
     @Test
     public void isValid_happyCase(){
         //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
+        CardGameRequestViewModel viewModel = new CardGameRequestViewModel(
                 "2050000000065",
-                "fooOrigin",
+                "fooGame",
+                "fooDesc",
                 null
         );
 
@@ -72,20 +73,20 @@ public class CardCheckRequestViewModel_Test {
             will(returnValue(searchDate));
         }});
 
-        // when
+        //when
         final Result result = viewModel.isValid(device, user);
 
-        // then
+        //then
         assertThat(result.getStatus()).isEqualTo(Result.STATUS_OK);
     }
 
-
     @Test
-    public void isValid_319_outdated_card_sadCase(){
+    public void isValid_302_invalid_parameter_sadCase(){
         //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
-                "2050000000065",
-                "fooOrigin",
+        CardGameRequestViewModel viewModel = new CardGameRequestViewModel(
+                null, //cardNumber is null
+                "fooGame",
+                "fooDesc",
                 null
         );
 
@@ -99,28 +100,20 @@ public class CardCheckRequestViewModel_Test {
         AuthenticationDevice device = new AuthenticationDevice();
         device.setCenter(center);
 
-        Card card = new Card();
-        card.setStatus(CardStatus.TOCHANGE);
-
-        // expected
-        context.checking(new Expectations() {{
-            oneOf(mockCardRepository).findByExactNumber(viewModel.getCardNumber());
-            will(returnValue(card));
-        }});
-
-        // when
+        //when
         final Result result = viewModel.isValid(device, user);
 
-        // then
-        assertThat(result.getStatus()).isEqualTo(Result.STATUS_OUTDATED_CARD);
+        //then
+        assertThat(result.getStatus()).isEqualTo(Result.STATUS_INVALID_PARAMETER);
     }
 
     @Test
-    public void isValid_303_invalid_card_sadCase(){
+    public void isValid_invalid_card_sadCase(){
         //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
+        CardGameRequestViewModel viewModel = new CardGameRequestViewModel(
                 "2050000000065",
-                "fooOrigin",
+                "fooGame",
+                "fooDesc",
                 null
         );
 
@@ -134,71 +127,33 @@ public class CardCheckRequestViewModel_Test {
         AuthenticationDevice device = new AuthenticationDevice();
         device.setCenter(center);
 
-        Card card = new Card();
-        card.setStatus(CardStatus.DISABLED);
-
         // expected
         context.checking(new Expectations() {{
             oneOf(mockCardRepository).findByExactNumber(viewModel.getCardNumber());
-            will(returnValue(card));
+            will(returnValue(null)); //card not found
         }});
 
-        // when
+        //when
         final Result result = viewModel.isValid(device, user);
 
-        // then
+        //then
         assertThat(result.getStatus()).isEqualTo(Result.STATUS_INVALID_CARD);
     }
 
     @Test
-    public void isValid_317_unequal_center_sadCase(){
+    public void isValid_invalid_user_sadCase(){
         //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
+        CardGameRequestViewModel viewModel = new CardGameRequestViewModel(
                 "2050000000065",
-                "fooOrigin",
+                "fooGame",
+                "fooDesc",
                 null
         );
 
         viewModel.cardRepository = mockCardRepository;
 
         final User user = new User();
-        user.setEnabled(true);
-        user.setTitle(Title.MR);
-
-        Center center = new Center();
-        AuthenticationDevice device = new AuthenticationDevice();
-        device.setCenter(center);
-
-        Card card = new Card();
-        card.setStatus(CardStatus.ENABLED);
-        card.setCenter(new Center());
-
-        // expected
-        context.checking(new Expectations() {{
-            oneOf(mockCardRepository).findByExactNumber(viewModel.getCardNumber());
-            will(returnValue(card));
-        }});
-
-        // when
-        final Result result = viewModel.isValid(device, user);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(Result.STATUS_CARD_CENTER_NOT_EQUAL_TO_DEVICE_CENTER);
-    }
-
-    @Test
-    public void isValid_304_invalid_user_sadCase(){
-        //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
-                "2050000000065",
-                "fooOrigin",
-                null
-        );
-
-        viewModel.cardRepository = mockCardRepository;
-
-        final User user = new User();
-        user.setEnabled(false);
+        user.setEnabled(false); //user not enabled
         user.setTitle(Title.MR);
 
         Center center = new Center();
@@ -208,7 +163,7 @@ public class CardCheckRequestViewModel_Test {
         Card card = new Card();
         card.setStatus(CardStatus.ENABLED);
         card.setCenter(center);
-
+        card.setOwner(user);
 
         // expected
         context.checking(new Expectations() {{
@@ -216,112 +171,57 @@ public class CardCheckRequestViewModel_Test {
             will(returnValue(card));
         }});
 
-        // when
+        //when
         final Result result = viewModel.isValid(device, user);
 
-        // then
+        //then
         assertThat(result.getStatus()).isEqualTo(Result.STATUS_INVALID_USER);
     }
 
     @Test
-    public void isValid_319_outdated_startsWith_card_sadCase(){
+    public void isValid_card_has_been_played_sadCase(){
         //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
-                "3922000000065",
-                "fooOrigin",
+        CardGameRequestViewModel viewModel = new CardGameRequestViewModel(
+                "2050000000065",
+                "fooGame",
+                "fooDesc",
                 null
         );
 
         viewModel.cardRepository = mockCardRepository;
 
         final User user = new User();
-        user.setEnabled(false);
-        user.setTitle(Title.MR);
-
-        Center center = new Center();
-        AuthenticationDevice device = new AuthenticationDevice();
-        device.setCenter(center); //device does not have type
-
-
-        // expected
-        context.checking(new Expectations() {{
-            oneOf(mockCardRepository).findByExactNumber(viewModel.getCardNumber());
-            will(returnValue(null));
-        }});
-
-        // when
-        final Result result = viewModel.isValid(device, user);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(Result.STATUS_OUTDATED_CARD);
-    }
-
-    @Test
-    public void isValid_303_invalid_card_number_sadCase(){
-        //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
-                "fooNumber", //invalid card number
-                "fooOrigin",
-                null
-        );
-
-        viewModel.cardRepository = mockCardRepository;
-
-        final User user = new User();
-        user.setEnabled(false);
+        user.setEnabled(true);
         user.setTitle(Title.MR);
 
         Center center = new Center();
         AuthenticationDevice device = new AuthenticationDevice();
         device.setCenter(center);
 
-        // expected
-        context.checking(new Expectations() {{
-            oneOf(mockCardRepository).findByExactNumber(viewModel.getCardNumber());
-            will(returnValue(null));
-            oneOf(mockCardRepository).cardNumberIsValid("fooNumber");
-            will(returnValue(false));
-        }});
+        Card card = new Card();
+        card.setStatus(CardStatus.ENABLED);
+        card.setCenter(center);
+        card.setOwner(user);
+        card.setCardGameRepository(mockCardGameRepository);
+        card.setClockService(mockClockService);
 
-        // when
-        final Result result = viewModel.isValid(device, user);
-
-        // then
-        assertThat(result.getStatus()).isEqualTo(Result.STATUS_INVALID_CARD);
-    }
-
-    @Test
-    public void isValid_314_unable_to_bind_card_to_user_sadCase(){
-        //given
-        CardCheckRequestViewModel  viewModel = new CardCheckRequestViewModel(
-                "fooNumber", //invalid card number
-                "fooOrigin",
-                null
-        );
-
-        viewModel.cardRepository = mockCardRepository;
-
-        final User user = new User();
-        user.setEnabled(false);
-        user.setTitle(Title.MR);
-
-        Center center = new Center();
-        AuthenticationDevice device = new AuthenticationDevice();
-        device.setCenter(center);
+        LocalDate searchDate = LocalDate.parse("2018-01-01");
 
         // expected
         context.checking(new Expectations() {{
             oneOf(mockCardRepository).findByExactNumber(viewModel.getCardNumber());
-            will(returnValue(null));
-            oneOf(mockCardRepository).cardNumberIsValid("fooNumber");
-            will(returnValue(true));
+            will(returnValue(card));
+            oneOf(mockCardGameRepository).findByCardAndDate(card, searchDate);
+            will(returnValue(new CardGame())); //return an already found cardgame for "today"
+            oneOf(mockClockService).now();
+            will(returnValue(searchDate));
         }});
 
-        // when
+        //when
         final Result result = viewModel.isValid(device, user);
 
-        // then
-        assertThat(result.getStatus()).isEqualTo(Result.STATUS_UNABLE_TO_BIND_USER);
+        //then
+        assertThat(result.getStatus()).isEqualTo(Result.STATUS_CARD_ALREADY_PLAYED);
     }
 
 }
