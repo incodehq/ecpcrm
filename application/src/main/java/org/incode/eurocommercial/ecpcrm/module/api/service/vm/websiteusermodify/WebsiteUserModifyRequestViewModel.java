@@ -156,5 +156,5 @@ public class WebsiteUserModifyRequestViewModel extends AbstractRequestViewModel 
     }
 
     @Inject
-    private WrapperFactory wrapperFactory;
+    WrapperFactory wrapperFactory;
 }

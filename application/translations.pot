@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-05 15:41:31+\n"
+"POT-Creation-Date: 2018-10-12 18:12:37+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2147,13 +2147,9 @@ msgid "Partial Name Or Path"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#password
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newLocalUser(java.lang.String,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.isisaddons.module.security.dom.role.ApplicationRole,java.lang.Boolean,java.lang.String)
 msgid "Password"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#passwword
-msgid "Passwword"
 msgstr ""
 
 
