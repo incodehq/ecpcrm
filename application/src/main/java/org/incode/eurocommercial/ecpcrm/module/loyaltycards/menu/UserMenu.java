@@ -86,6 +86,8 @@ public class UserMenu {
 
     public static class CreateDomainEvent extends ActionDomainEvent<UserMenu> {}
 
+    public boolean default0NewUser(){ return true; }
+
     @Action(domainEvent = CreateDomainEvent.class, publishing = Publishing.ENABLED)
     @MemberOrder(sequence = "4")
     public User newUser(

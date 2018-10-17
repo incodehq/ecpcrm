@@ -150,7 +150,7 @@ public class User implements Comparable<User>, HasAtPath {
     @Getter @Setter
     private String city;
 
-        @Column(allowsNull = "true")
+    @Column(allowsNull = "true")
     @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String phoneNumber;
@@ -167,7 +167,7 @@ public class User implements Comparable<User>, HasAtPath {
     private Center center;
 
     @Column(allowsNull = "false")
-    @Property
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private boolean enabled;
 
