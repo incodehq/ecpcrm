@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.restapi;
+package org.incode.eurocommercial.ecpcrm.module.api;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -28,7 +28,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel;
 
 @Path("/crm/api/7.0")
-public class EcpCrmResource extends ResourceAbstract  {
+public class EcpCrmResource extends ResourceAbstract {
 
     private Gson gson = new Gson();
 
