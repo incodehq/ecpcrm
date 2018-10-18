@@ -123,7 +123,7 @@ public class WebsiteUserModifyRequestViewModel extends AbstractRequestViewModel 
             user.setBirthDate(getBirthdate());
         }
 
-        if (hasCar != null) {
+        if (getHasCar() != null) {
             user.setHasCar(getHasCar());
         }
 
@@ -143,7 +143,7 @@ public class WebsiteUserModifyRequestViewModel extends AbstractRequestViewModel 
             user.setPhoneNumber(getPhoneNumber());
         }
 
-        if (promotionalEmails != null && getPromotionalEmails() != user.isPromotionalEmails()) {
+        if (getPromotionalEmails() != null && getPromotionalEmails() != user.isPromotionalEmails()) {
             if (getPromotionalEmails()) {
                 wrapperFactory.wrap(user).subscribeToPromotionalEmails();
             } else {
