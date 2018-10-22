@@ -1,4 +1,4 @@
-package org.incode.eurocommercial.ecpcrm.restapi;
+package org.incode.eurocommercial.ecpcrm.module.api;
 
 import com.google.gson.Gson;
 import org.apache.isis.applib.annotation.Where;
@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/crm/api/7.0")
-public class EcpCrmResource extends ResourceAbstract  {
+public class EcpCrmResource extends ResourceAbstract {
 
     Gson gson = new Gson();
 

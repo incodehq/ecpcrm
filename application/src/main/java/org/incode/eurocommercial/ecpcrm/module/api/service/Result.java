@@ -35,6 +35,7 @@ public class Result {
     public static final int STATUS_EMAIL_ALREADY_EXISTS = 305;
     public static final int STATUS_EMAIL_ALREADY_EXISTS_INVALID_CHECK = 306;
     public static final int STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD = 307;
+    public static final int STATUS_INVALID_CARD_NUMBER = 312;
     public static final int STATUS_UNABLE_TO_BIND_USER = 314;
     public static final int STATUS_CARD_ALREADY_PLAYED = 315;
     public static final int STATUS_CARD_CENTER_NOT_EQUAL_TO_DEVICE_CENTER = 317;

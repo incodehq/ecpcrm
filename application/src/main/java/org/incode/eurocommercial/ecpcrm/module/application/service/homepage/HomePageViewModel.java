@@ -36,46 +36,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserReposit
 
 @ViewModel
 public class HomePageViewModel {
-
     public String title() {
-        return "Customers";
+        return "Homepage";
     }
-
-
-    @Collection(editing = Editing.DISABLED)
-    @CollectionLayout(paged=200)
-    @HomePage
-    public List<User> getCustomers() {
-        return userRepository.listAll();
-    }
-
-    @Action(semantics = SemanticsOf.IDEMPOTENT)
-    @ActionLayout(named = "Delete")
-    @MemberOrder(name = "customers", sequence = "2")
-    public HomePageViewModel deleteCustomer(
-            final User user,
-            final boolean delete) {
-        if (delete) {
-            userRepository.delete(user);
-        }
-        return this;
-    }
-
-    public TranslatableString validateDeleteCustomer(final User user, final boolean delete) {
-        return delete ? null : TranslatableString.tr("You have to agree");
-    }
-
-    public List<User> choices0DeleteCustomer() {
-        return userRepository.listAll();
-    }
-    public User default0DeleteCustomer() {
-        final List<User> choices = choices0DeleteCustomer();
-        return choices.isEmpty() ? null: choices.get(0);
-    }
-
-    public TranslatableString disableDeleteCustomer() {
-        return choices0DeleteCustomer().isEmpty() ? TranslatableString.tr("No customers"): null;
-    }
-
-    @Inject UserRepository userRepository;
 }

@@ -71,7 +71,7 @@ public class CardCheckRequestViewModel  extends AbstractRequestViewModel {
                 return Result.error(Result.STATUS_OUTDATED_CARD, "Outdated card");
             }
             if (!cardRepository.cardNumberIsValid(cardNumber)) {
-                return Result.error(Result.STATUS_INVALID_CARD, "Invalid card number");
+                return Result.error(Result.STATUS_INVALID_CARD_NUMBER, "Invalid card number");
             }
 
             //TODO: In the old code, a new blank user is created for a nonexisting card, why?

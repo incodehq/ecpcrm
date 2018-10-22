@@ -287,7 +287,7 @@ public class CardCheckRequestViewModel_Test {
         final Result result = viewModel.isValid(device, user);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(Result.STATUS_INVALID_CARD);
+        assertThat(result.getStatus()).isEqualTo(Result.STATUS_INVALID_CARD_NUMBER);
     }
 
     @Test
