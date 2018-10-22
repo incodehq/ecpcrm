@@ -33,7 +33,6 @@ import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.Authentica
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
-import org.incode.eurocommercial.ecpcrm.module.api.integtests.ApiModuleIntegTestAbstract;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
