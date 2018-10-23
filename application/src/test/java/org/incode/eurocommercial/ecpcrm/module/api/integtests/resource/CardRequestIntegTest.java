@@ -212,6 +212,7 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
                 lost
         );
 
+        //when
         Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
 
         // then
@@ -292,6 +293,7 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
                 lost
         );
 
+        //when
         Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
 
         // then
