@@ -103,11 +103,15 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String cardNumber = "";
+        String cardNumber = ""; // missing in Json
         boolean win = true;
         String desc = "";
 
-        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+        String requestJson = String.format("{\"win\": \"%s\"," +
+                "\"desc\": \"%s\"}",
+                win,
+                desc
+        );
 
         // when
         Response response = resource.cardGame(deviceName, deviceSecret, requestJson);

@@ -101,9 +101,10 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = "";
-        String origin = "";
+        String origin = ""; // missing in Json
 
-        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+        String requestJson = String.format("{\"card\": \"%s\"}",
+                cardNumber);
 
         // when
         Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);

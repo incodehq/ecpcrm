@@ -25,7 +25,9 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
@@ -161,11 +163,11 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String deviceSecret = device.getSecret();
         String origin = "borne";
         String hostess = "";
-        Title title = Title.MR;
+        Title title = Title.MR; // missing in Json
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
-        LocalDate birthdate = user.getBirthDate();
+        LocalDate birthdate = user.getBirthDate(); // missing in Json
         String children = "";
         String nbChildren = "";
         Boolean hasCar = user.getHasCar();
@@ -180,11 +182,9 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String requestJson = String.format(
                 "{\"origin\": \"%s\"," +
                         "\"hostess\": \"%s\"," +
-                        "\"title\": \"%s\"," +
                         "\"first_name\": \"%s\"," +
                         "\"last_name\": \"%s\"," +
                         "\"email\": \"%s\"," +
-                        "\"birthdate\": \"%s\"," +
                         "\"children\": \"%s\"," +
                         "\"nb_children\": \"%s\"," +
                         "\"car\": \"%s\"," +
@@ -197,11 +197,9 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
                         "\"lost\": \"%s\" }",
                 origin,
                 hostess,
-                null,
                 firstName,
                 lastName,
                 email,
-                null,
                 children,
                 nbChildren,
                 hasCar,
@@ -376,247 +374,512 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         assertThat(response).isEqualToComparingFieldByField(expectedResponse);
 
     }
-//
-//    @Test
-//    /* When checkItem is not present, it checks the first and last name */
-//    public void when_email_exists_and_card_is_not_lost_and_check_is_not_set_and_user_does_not_match_we_expect_305_error() throws Exception {
-//        // given
-//        Card cardWithOwner = cardList.stream()
-//                .filter(c -> c.getOwner() != null)
-//                .findAny().get();
-//        cardWithOwner.setStatus(CardStatus.ENABLED);
-//        User userWithCard = cardWithOwner.getOwner();
-//
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String origin = "borne";
-//        String hostess = "";
-//        Title title = Title.MR;
-//        String firstName = "INCORRECT FIRST NAME";
-//        String lastName = "INCORRECT LAST NAME";
-//        String email = userWithCard.getEmail();
-//        LocalDate birthdate = userWithCard.getBirthDate();
-//        String children = "";
-//        String nbChildren = "";
-//        Boolean hasCar = userWithCard.getHasCar();
-//        String address = userWithCard.getAddress();
-//        String zipcode = userWithCard.getZipcode();
-//        String city = userWithCard.getCity();
-//        String phoneNumber = userWithCard.getPhoneNumber();
-//        Boolean promotionalEmails = userWithCard.isPromotionalEmails();
-//        String checkItem = null;
-//        Boolean lost = false;
-//
-//        // when
-//        Result result = apiService.cardRequest(
-//                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
-//                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
-//        );
-//
-//        // then
-//        assertThat(result.getStatus()).isEqualTo(305);
-//    }
-//
-//    @Test
-//    /* When checkItem is not present, it checks the first and last name */
-//    public void when_email_exists_and_card_is_not_lost_and_check_is_not_set_and_user_matches_we_expect_318_error() throws Exception {
-//        // given
-//        Card cardWithOwner = cardList.stream()
-//                .filter(c -> c.getOwner() != null)
-//                .findAny().get();
-//        cardWithOwner.setStatus(CardStatus.ENABLED);
-//        User userWithCard = cardWithOwner.getOwner();
-//
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String origin = "borne";
-//        String hostess = "";
-//        Title title = Title.MR;
-//        String firstName = userWithCard.getFirstName();
-//        String lastName = userWithCard.getLastName();
-//        String email = userWithCard.getEmail();
-//        LocalDate birthdate = userWithCard.getBirthDate();
-//        String children = "";
-//        String nbChildren = "";
-//        Boolean hasCar = userWithCard.getHasCar();
-//        String address = userWithCard.getAddress();
-//        String zipcode = userWithCard.getZipcode();
-//        String city = userWithCard.getCity();
-//        String phoneNumber = userWithCard.getPhoneNumber();
-//        Boolean promotionalEmails = userWithCard.isPromotionalEmails();
-//        String checkItem = null;
-//        Boolean lost = false;
-//
-//        // when
-//        Result result = apiService.cardRequest(
-//                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
-//                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
-//        );
-//
-//        // then
-//        assertThat(result.getStatus()).isEqualTo(318);
-//    }
-//
-//    @Test
-//    public void when_email_exists_and_lost_is_true_we_expect_card_to_be_tagged_as_lost() throws Exception {
-//        // given
-//        Card cardWithOwner = cardList.stream()
-//                .filter(c -> c.getOwner() != null)
-//                .findAny().get();
-//        cardWithOwner.setStatus(CardStatus.ENABLED);
-//        User userWithCard = cardWithOwner.getOwner();
-//
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String origin = "borne";
-//        String hostess = "";
-//        Title title = Title.MR;
-//        String firstName = userWithCard.getFirstName();
-//        String lastName = userWithCard.getLastName();
-//        String email = userWithCard.getEmail();
-//        LocalDate birthdate = userWithCard.getBirthDate();
-//        String children = "";
-//        String nbChildren = "";
-//        Boolean hasCar = userWithCard.getHasCar();
-//        String address = userWithCard.getAddress();
-//        String zipcode = userWithCard.getZipcode();
-//        String city = userWithCard.getCity();
-//        String phoneNumber = userWithCard.getPhoneNumber();
-//        Boolean promotionalEmails = userWithCard.isPromotionalEmails();
-//        String checkItem = null;
-//        Boolean lost = true;
-//
-//        // when
-//        Result result = apiService.cardRequest(
-//                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
-//                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
-//        );
-//
-//        // then
-//        assertThat(cardWithOwner.getStatus()).isEqualTo(CardStatus.LOST);
-//    }
-//
-//    @Test
-//    /* Can't request duplicate cards */
-//    public void when_email_exists_but_user_already_has_a_handled_request_we_expect_307_error() throws Exception {
-//        // given
-//        Card cardWithoutOwner = cardList.stream()
-//                .filter(c -> c.getOwner() == null)
-//                .findAny().get();
-//
-//        cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
-//        CardRequest cardRequest = cardRequestRepository.openRequestForUser(user);
-//        cardRequest.approve(cardWithoutOwner.getNumber());
-//
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String origin = "borne";
-//        String hostess = "";
-//        Title title = Title.MR;
-//        String firstName = user.getFirstName();
-//        String lastName = user.getLastName();
-//        String email = user.getEmail();
-//        LocalDate birthdate = user.getBirthDate();
-//        String children = "";
-//        String nbChildren = "";
-//        Boolean hasCar = user.getHasCar();
-//        String address = user.getAddress();
-//        String zipcode = user.getZipcode();
-//        String city = user.getCity();
-//        String phoneNumber = user.getPhoneNumber();
-//        Boolean promotionalEmails = user.isPromotionalEmails();
-//        String checkItem = null;
-//        Boolean lost = true;
-//
-//        // when
-//        Result result = apiService.cardRequest(
-//                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
-//                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
-//        );
-//
-//        // then
-//        assertThat(result.getStatus()).isEqualTo(307);
-//    }
-//
-//    @Test
-//    @Ignore
-//    // TODO: This can not happen in the new system
-//    public void when_email_does_not_exist_but_user_cant_be_created_we_expect_316_error() throws Exception {
-//    }
-//
-//    @Test
-//    /* If we want to use an existing user without card, we need to set lost = true */
-//    public void when_email_exists_and_lost_is_true_and_user_has_no_requests_we_expect_happy_response() throws Exception {
-//        // given
-//        User userWithoutCard = userList.stream()
-//                .filter(u -> u.getCards().isEmpty() && u.getOpenCardRequest() == null)
-//                .findAny().get();
-//
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String origin = "borne";
-//        String hostess = "";
-//        Title title = userWithoutCard.getTitle();
-//        String firstName = userWithoutCard.getFirstName();
-//        String lastName = userWithoutCard.getLastName();
-//        String email = userWithoutCard.getEmail();
-//        LocalDate birthdate = userWithoutCard.getBirthDate();
-//        String children = "";
-//        String nbChildren = "";
-//        Boolean hasCar = userWithoutCard.getHasCar();
-//        String address = userWithoutCard.getAddress();
-//        String zipcode = userWithoutCard.getZipcode();
-//        String city = userWithoutCard.getCity();
-//        String phoneNumber = userWithoutCard.getPhoneNumber();
-//        boolean promotionalEmails = userWithoutCard.isPromotionalEmails();
-//        String checkItem = "";
-//        /* If we want to use an existing user without card, we need to set lost = true */
-//        boolean lost = true;
-//
-//        // when
-//        Result result = apiService.cardRequest(
-//                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
-//                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
-//        );
-//
-//        // then
-//        assertThat(result.getStatus()).isEqualTo(200);
-//        assertThat(cardRequestRepository.openRequestForUser(userWithoutCard)).isNotNull();
-//    }
-//
-//    @Test
-//    public void when_email_does_not_exist_and_user_can_be_created_we_expect_happy_response() throws Exception {
-//        // given
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String origin = "borne";
-//        String hostess = "";
-//        Title title = Title.MR;
-//        String firstName = "Testy";
-//        String lastName = "McTestFace";
-//        String email = "testymctestface1991@emailio.com";
-//        LocalDate birthdate = user.getBirthDate();
-//        String children = "";
-//        String nbChildren = "";
-//        Boolean hasCar = user.getHasCar();
-//        String address = user.getAddress();
-//        String zipcode = user.getZipcode();
-//        String city = user.getCity();
-//        String phoneNumber = user.getPhoneNumber();
-//        boolean promotionalEmails = user.isPromotionalEmails();
-//        String checkItem = "";
-//        boolean lost = false;
-//
-//        // when
-//        Result result = apiService.cardRequest(
-//                deviceName, deviceSecret, origin, hostess, title, firstName, lastName, email, birthdate, children,
-//                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails, checkItem, lost
-//        );
-//
-//        // then
-//        assertThat(result.getStatus()).isEqualTo(200);
-//        User newUser = userRepository.findByExactEmailAndCenter(email, center);
-//        assertThat(newUser).isNotNull();
-//        assertThat(newUser.getOpenCardRequest()).isNotNull();
-//    }
+
+    @Test
+    /* When checkItem is not present, it checks the first and last name */
+    public void when_email_exists_and_card_is_not_lost_and_check_is_not_set_and_user_does_not_match_we_expect_305_error() throws Exception {
+        // given
+        Card cardWithOwner = cardList.stream()
+                .filter(c -> c.getOwner() != null)
+                .findAny().get();
+        cardWithOwner.setStatus(CardStatus.ENABLED);
+        User userWithCard = cardWithOwner.getOwner();
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = Title.MR;
+        String firstName = "INCORRECT FIRST NAME";
+        String lastName = "INCORRECT LAST NAME";
+        String email = userWithCard.getEmail();
+        LocalDate birthdate = userWithCard.getBirthDate();
+        String children = "";
+        String nbChildren = "";
+        Boolean hasCar = userWithCard.getHasCar();
+        String address = userWithCard.getAddress();
+        String zipcode = userWithCard.getZipcode();
+        String city = userWithCard.getCity();
+        String phoneNumber = userWithCard.getPhoneNumber();
+        Boolean promotionalEmails = userWithCard.isPromotionalEmails();
+        String checkItem = null; // missing in Json
+        Boolean lost = false;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\"," +
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails,
+                lost
+        );
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS, "Email already exists").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+    }
+
+    @Test
+    /* When checkItem is not present, it checks the first and last name */
+    public void when_email_exists_and_card_is_not_lost_and_check_is_not_set_and_user_matches_we_expect_318_error() throws Exception {
+        // given
+        Card cardWithOwner = cardList.stream()
+                .filter(c -> c.getOwner() != null)
+                .findAny().get();
+        cardWithOwner.setStatus(CardStatus.ENABLED);
+        User userWithCard = cardWithOwner.getOwner();
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = Title.MR;
+        String firstName = userWithCard.getFirstName();
+        String lastName = userWithCard.getLastName();
+        String email = userWithCard.getEmail();
+        LocalDate birthdate = userWithCard.getBirthDate();
+        String children = "";
+        String nbChildren = "";
+        Boolean hasCar = userWithCard.getHasCar();
+        String address = userWithCard.getAddress();
+        String zipcode = userWithCard.getZipcode();
+        String city = userWithCard.getCity();
+        String phoneNumber = userWithCard.getPhoneNumber();
+        Boolean promotionalEmails = userWithCard.isPromotionalEmails();
+        String checkItem = null; //not set in Json
+        Boolean lost = false;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\"," +
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails,
+                lost
+        );
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_VALID_CHECK_ASK_IF_LOST, "Email exists, valid check, ask if lost").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+    }
+
+    @Test
+    public void when_email_exists_and_lost_is_true_we_expect_card_to_be_tagged_as_lost() throws Exception {
+        // given
+        Card cardWithOwner = cardList.stream()
+                .filter(c -> c.getOwner() != null)
+                .findAny().get();
+        cardWithOwner.setStatus(CardStatus.ENABLED);
+        User userWithCard = cardWithOwner.getOwner();
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = Title.MR;
+        String firstName = userWithCard.getFirstName();
+        String lastName = userWithCard.getLastName();
+        String email = userWithCard.getEmail();
+        LocalDate birthdate = userWithCard.getBirthDate();
+        String children = "";
+        String nbChildren = "";
+        Boolean hasCar = userWithCard.getHasCar();
+        String address = userWithCard.getAddress();
+        String zipcode = userWithCard.getZipcode();
+        String city = userWithCard.getCity();
+        String phoneNumber = userWithCard.getPhoneNumber();
+        Boolean promotionalEmails = userWithCard.isPromotionalEmails();
+        String checkItem = null;
+        Boolean lost = true;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\"," +
+                        "\"check_item\": \"%s\"," +
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails,
+                checkItem,
+                lost
+        );
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        assertThat(cardWithOwner.getStatus()).isEqualTo(CardStatus.LOST);
+    }
+
+    @Test
+    /* Can't request duplicate cards */
+    public void when_email_exists_but_user_already_has_a_handled_request_we_expect_307_error() throws Exception {
+        // given
+        Card cardWithoutOwner = cardList.stream()
+                .filter(c -> c.getOwner() == null)
+                .findAny().get();
+
+        cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
+        CardRequest cardRequest = cardRequestRepository.openRequestForUser(user);
+        cardRequest.approve(cardWithoutOwner.getNumber());
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = Title.MR;
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getEmail();
+        LocalDate birthdate = user.getBirthDate();
+        String children = "";
+        String nbChildren = "";
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        Boolean promotionalEmails = user.isPromotionalEmails();
+        String checkItem = null;
+        Boolean lost = true;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\"," +
+                        "\"check_item\": \"%s\"," +
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails,
+                checkItem,
+                lost
+        );
+
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.error(Result.STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD, "Duplicate request for replacement of lost card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+    }
+
+    @Test
+    @Ignore
+    // TODO: This can not happen in the new system
+    public void when_email_does_not_exist_but_user_cant_be_created_we_expect_316_error() throws Exception {
+    }
+
+    @Test
+    /* If we want to use an existing user without card, we need to set lost = true */
+    public void when_email_exists_and_lost_is_true_and_user_has_no_requests_we_expect_happy_response() throws Exception {
+        // given
+        User userWithoutCard = userList.stream()
+                .filter(u -> u.getCards().isEmpty() && u.getOpenCardRequest() == null)
+                .findAny().get();
+
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = userWithoutCard.getTitle();
+        String firstName = userWithoutCard.getFirstName();
+        String lastName = userWithoutCard.getLastName();
+        String email = userWithoutCard.getEmail();
+        LocalDate birthdate = userWithoutCard.getBirthDate();
+        String children = "";
+        String nbChildren = "";
+        Boolean hasCar = userWithoutCard.getHasCar();
+        String address = userWithoutCard.getAddress();
+        String zipcode = userWithoutCard.getZipcode();
+        String city = userWithoutCard.getCity();
+        String phoneNumber = userWithoutCard.getPhoneNumber();
+        boolean promotionalEmails = userWithoutCard.isPromotionalEmails();
+        String checkItem = "";
+        /* If we want to use an existing user without card, we need to set lost = true */
+        boolean lost = true;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\"," +
+                        "\"check_item\": \"%s\"," +
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails,
+                checkItem,
+                lost
+        );
+
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        assertThat(cardRequestRepository.openRequestForUser(userWithoutCard)).isNotNull();
+    }
+
+    @Test
+    public void when_email_does_not_exist_and_user_can_be_created_we_expect_happy_response() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = Title.MR;
+        String firstName = "Testy";
+        String lastName = "McTestFace";
+        String email = "testymctestface1991@emailio.com";
+        LocalDate birthdate = user.getBirthDate();
+        String children = "";
+        String nbChildren = "";
+        Boolean hasCar = user.getHasCar();
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        String phoneNumber = user.getPhoneNumber();
+        boolean promotionalEmails = user.isPromotionalEmails();
+        String checkItem = "";
+        boolean lost = false;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\"," +
+                        "\"check_item\": \"%s\"," +
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails,
+                checkItem,
+                lost
+        );
+
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+
+        User newUser = userRepository.findByExactEmailAndCenter(email, center);
+        assertThat(newUser).isNotNull();
+        assertThat(newUser.getOpenCardRequest()).isNotNull();
+    }
+
+    //this was a test which returned a nullpointer on birthdate for BB. Case is fixed, with this proof.
+    @Test
+    public void when_email_does_not_exist_and_bare_minimum_params_user_can_be_created_we_expect_happy_response() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String origin = "borne";
+        String hostess = "";
+        Title title = Title.MR;
+        String firstName = "fooFirstName";
+        String lastName = "barLastName";
+        String email = "foo@bar.com";
+        String address = user.getAddress();
+        String zipcode = user.getZipcode();
+        String city = user.getCity();
+        boolean promotionalEmails = user.isPromotionalEmails();
+        boolean lost = false;
+
+        String requestJson = String.format(
+                "{\"origin\": \"%s\"," +
+                        "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"optin\": \"%s\","+
+                        "\"lost\": \"%s\" }",
+                origin,
+                hostess,
+                title,
+                firstName,
+                lastName,
+                email,
+                address,
+                zipcode,
+                city,
+                promotionalEmails,
+                lost
+        );
+
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+
+        User newUser = userRepository.findByExactEmailAndCenter(email, center);
+        assertThat(newUser).isNotNull();
+        assertThat(newUser.getOpenCardRequest()).isNotNull();
+    }
+
 }
