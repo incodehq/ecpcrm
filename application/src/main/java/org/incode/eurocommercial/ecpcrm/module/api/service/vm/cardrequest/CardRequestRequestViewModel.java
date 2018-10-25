@@ -116,7 +116,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
 
         if (Strings.isNullOrEmpty(getOrigin()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
                 Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
-                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null || getLost() == null
+                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null
         ) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }

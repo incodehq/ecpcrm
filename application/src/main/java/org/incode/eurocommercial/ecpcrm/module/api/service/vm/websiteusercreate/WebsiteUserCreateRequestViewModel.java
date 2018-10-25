@@ -104,11 +104,11 @@ public class WebsiteUserCreateRequestViewModel extends AbstractRequestViewModel 
         return asBoolean(promotionalEmails);
     }
 
+    //TODO: review => || getPromotionalEmails() == null
     @Override
     public Result isValid(AuthenticationDevice device, User user) {
         if (Strings.isNullOrEmpty(getCenterId()) || Strings.isNullOrEmpty(getCheckCode()) || getTitle() == null ||
-                Strings.isNullOrEmpty(getFirstName()) || Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) ||
-                getPromotionalEmails() == null
+                Strings.isNullOrEmpty(getFirstName()) || Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail())
         ) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }

@@ -884,4 +884,24 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         assertThat(newUser.getOpenCardRequest()).isNotNull();
     }
 
+    @Test
+    public void real_kiosk_json_happy_response() throws Exception {
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+
+        //given
+        String requestJson = "{\"origin\":\"borne\",\"title\":\"mr\",\"first_name\":\"DDDDDD\",\"last_name\":\"DDDDDDDD\",\"email\":\"ademus@freee.fr\",\"address\":\"dddddddddd\",\"zipcode\":\"83000\",\"city\":\"MLKJFMJF\",\"phone\":\"11111111111111\",\"optin\":\"false\",\"check_item\":\"\",\"hostess\":\"false\",\"lost\":\"\"}";
+
+        // when
+        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+
+        //then
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+
+        User newUser = userRepository.findByExactEmailAndCenter("ademus@freee.fr", center);
+        assertThat(newUser).isNotNull();
+        assertThat(newUser.getOpenCardRequest()).isNotNull();
+    }
+
 }

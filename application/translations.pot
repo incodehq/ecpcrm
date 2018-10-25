@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-23 18:09:30+\n"
+"POT-Creation-Date: 2018-10-25 11:08:56+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -406,6 +406,25 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu
 msgid "Card Requests"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
+msgid "Card number is invalid"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#approve()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#reapprove()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "Card number {cardNumber} is invalid"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "Card with number {cardNumber} is already assigned to {cardUserEmail}"
 msgstr ""
 
 
@@ -2858,6 +2877,11 @@ msgid "TargetStr"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "This email address is invalid"
+msgstr ""
+
+
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#timestamp
@@ -3062,6 +3086,11 @@ msgstr ""
 
 #: org.isisaddons.module.settings.dom.jdo.UserSettingJdo
 msgid "User Setting"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "User with email {email} already exists"
 msgstr ""
 
 
