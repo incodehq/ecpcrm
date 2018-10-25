@@ -122,7 +122,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
         }
 
         if (user != null) {
-            if (getLost()) {
+            if (getLost() != null && getLost()) {
                 if (!user.getCards().isEmpty()) {
                     user.getCards().first().setStatus(CardStatus.LOST);
                 }

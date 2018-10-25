@@ -40,7 +40,7 @@ public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
         try {
             return Title.valueOf(title.toUpperCase());
         }
-        catch(Exception e){
+        catch(Exception e) {
             return null;
         }
     }

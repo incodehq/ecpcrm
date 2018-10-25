@@ -103,8 +103,6 @@ public class WebsiteUserModifyRequestViewModel extends AbstractRequestViewModel 
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }
 
-        Center center = device.getCenter();
-
         if (user == null) {
             return Result.error(Result.STATUS_INVALID_USER, "Invalid user");
         }
