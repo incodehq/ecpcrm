@@ -16,7 +16,19 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
+import org.joda.time.LocalDate;
+import org.junit.Before;
+import org.junit.Test;
+
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -30,15 +42,6 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
-import org.joda.time.LocalDate;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,7 +53,6 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
     @Inject UserRepository userRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
-    @Inject ApiService apiService;
     private EcpCrmResource resource;
 
     private ApiIntegTestFixture fs;
@@ -111,7 +113,7 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
         String boutiques = "";
 
         String requestJson = String.format(
@@ -168,12 +170,12 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String deviceSecret = device.getSecret();
         String origin = "site";
         String centerId = center.getId();
-        Title title = user.getTitle(); //missing in Json
+        Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
-        String email = user.getEmail(); //missing in Json
+        String email = user.getEmail();
         String password = "";
-        LocalDate birthdate = user.getBirthDate(); //missing in Json
+        LocalDate birthdate = user.getBirthDate();
         String children = "";
         String nbChildren = "";
         Boolean hasCar = user.getHasCar();
@@ -182,15 +184,18 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
         String boutiques = "";
 
         String requestJson = String.format(
                 "{\"origin\": \"%s\"," +
                         "\"center_id\": \"%s\"," +
+                        "\"title\": \"%s\"," +
                         "\"first_name\": \"%s\"," +
                         "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
                         "\"password\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
                         "\"children\": \"%s\"," +
                         "\"nb_children\": \"%s\"," +
                         "\"car\": \"%s\"," +
@@ -203,9 +208,12 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
                         "\"boutiques\": \"%s\" }" ,
                 origin,
                 centerId,
+                title,
                 firstName,
                 lastName,
+                email,
                 password,
+                birthdate,
                 children,
                 nbChildren,
                 hasCar,
@@ -218,12 +226,19 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
                 boutiques
         );
 
-        //when
-        Response response = resource.websiteCardRequest(deviceName, deviceSecret, requestJson);
+        String[] requiredParameters = {"center_id", "title", "first_name", "last_name", "email", "address", "zipcode", "city", "check_code"};
 
-        // then
-        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
-        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        for (String parameter : requiredParameters) {
+            String replaceRegex = String.format("\"%s\": \".*?\",?", parameter);
+            String newRequestJson = requestJson.replaceAll(replaceRegex, "");
+
+            // when
+            Response response = resource.websiteCardRequest(deviceName, deviceSecret, newRequestJson);
+
+            // then
+            Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+            assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        }
     }
 
     @Test
@@ -247,7 +262,7 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
         String boutiques = "";
 
         String requestJson = String.format(
@@ -368,7 +383,6 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
-
     @Test
     public void when_user_exists_and_check_code_matches_we_expect_card_request_to_be_created() throws Exception {
         // given
@@ -390,7 +404,7 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
         String boutiques = "";
 
 
@@ -458,7 +472,7 @@ public class WebsiteCardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String zipcode = user.getZipcode();
         String city = user.getCity();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
 
         String requestJson = String.format(
                 "{\"origin\": \"%s\"," +

@@ -16,7 +16,18 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
+import org.joda.time.LocalDate;
+import org.junit.Before;
+import org.junit.Test;
+
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -30,14 +41,6 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
-import org.joda.time.LocalDate;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,7 +51,6 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
     @Inject UserRepository userRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
-    @Inject ApiService apiService;
     private EcpCrmResource resource;
 
     private ApiIntegTestFixture fs;
@@ -89,7 +91,7 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
         String centerId = center.getId();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
         Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
@@ -151,10 +153,11 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String centerId = center.getId();
-        Title title = user.getTitle(); //missing in Json
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
+        Title title = user.getTitle();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
-        String email = user.getEmail(); //missing in Json
+        String email = user.getEmail();
         LocalDate birthdate = user.getBirthDate();
         String children = "";
         String nbChildren = "" + user.getChildren().size();
@@ -164,13 +167,14 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
 
         String requestJson = String.format(
                 "{\"center_id\": \"%s\"," +
                         "\"check_code\": \"%s\"," +
+                        "\"title\": \"%s\"," +
                         "\"first_name\": \"%s\"," +
                         "\"last_name\": \"%s\"," +
+                        "\"email\": \"%s\"," +
                         "\"birthdate\": \"%s\"," +
                         "\"children\": \"%s\"," +
                         "\"nb_children\": \"%s\"," +
@@ -182,8 +186,10 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
                         "\"optin\": \"%s\" }" ,
                 centerId,
                 checkCode,
+                title,
                 firstName,
                 lastName,
+                email,
                 birthdate,
                 children,
                 nbChildren,
@@ -195,12 +201,19 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
                 promotionalEmails
         );
 
-        // when
-        Response response = resource.websiteUserCreate(deviceName, deviceSecret, requestJson);
+        String[] requiredParameters = {"center_id", "check_code", "title", "first_name", "last_name", "email"};
 
-        // then
-        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
-        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        for (String parameter : requiredParameters) {
+            String replaceRegex = String.format("\"%s\": \".*?\",?", parameter);
+            String newRequestJson = requestJson.replaceAll(replaceRegex, "");
+
+            // when
+            Response response = resource.websiteUserCreate(deviceName, deviceSecret, newRequestJson);
+
+            // then
+            Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+            assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        }
     }
 
     @Test
@@ -222,7 +235,7 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(user.getEmail()) + "NOT A CORRECT CHECK CODE";
+        String checkCode = ApiService.computeCheckCode(user.getEmail()) + "NOT A CORRECT CHECK CODE";
 
         String requestJson = String.format(
                 "{\"center_id\": \"%s\"," +
@@ -284,7 +297,7 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
 
         String requestJson = String.format(
                 "{\"center_id\": \"%s\"," +
@@ -349,7 +362,7 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
 
         String expectedCardNumber = center.nextFakeCardNumber(); //TODO: remove this in correspondence with ECPCRM-191
 
@@ -418,7 +431,7 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String city = user.getCity();
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
 
         String expectedCardNumber = center.nextFakeCardNumber(); //TODO: remove this in correspondence with ECPCRM-191
 

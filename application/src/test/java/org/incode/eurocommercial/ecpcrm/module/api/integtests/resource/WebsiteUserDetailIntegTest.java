@@ -16,19 +16,18 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
@@ -47,10 +46,7 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
     @Inject UserRepository userRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
-    @Inject ApiService apiService;
-
     private EcpCrmResource resource;
-
 
     private ApiIntegTestFixture fs;
     private Center center;
@@ -87,7 +83,7 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
         String email = user.getEmail();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
 
         String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
 
@@ -99,30 +95,24 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
-//    @Test
-//    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
-//        // given
-//        String deviceName = device.getName();
-//        String deviceSecret = device.getSecret();
-//        String email = user.getEmail();
-//        String checkCode = apiService.computeCheckCode(user.getEmail());
-//
-//        /* Testing every required argument individually */
-//        Object[] args = {deviceName, deviceSecret, email, checkCode};
-//        int[] mandatory = {2, 3};
-//        for(int i : mandatory) {
-//            Object[] a = args.clone();
-//            a[i] = null;
-//
-//            // when
-//            Method m = ApiService.class.getMethod(
-//                    "websiteUserDetail", String.class, String.class, String.class, String.class);
-//            Result result = (Result) m.invoke(apiService, a);
-//
-//            // then
-//            assertThat(result.getStatus()).isEqualTo(302);
-//        }
-//    }
+    @Test
+    public void when_required_parameter_is_missing_we_expect_302_error() throws Exception {
+        // given
+        String deviceName = device.getName();
+        String deviceSecret = device.getSecret();
+        String email = user.getEmail();
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
+
+        String onlyEmailJson = String.format("{\"email\": \"%s\"}", email);
+        String onlyCheckCodeJson = String.format("{\"check_code\": \"%s\"}", checkCode);
+
+        Response onlyEmailResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyEmailJson);
+        Response onlyCheckCodeResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyCheckCodeJson);
+
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+        assertThat(onlyEmailResponse).isEqualToComparingFieldByField(expectedResponse);
+        assertThat(onlyCheckCodeResponse).isEqualToComparingFieldByField(expectedResponse);
+    }
 
     @Test
     public void when_user_does_not_exist_we_expect_304_error() throws Exception {
@@ -130,7 +120,7 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String email = "THIS IS DEFINITELY NOT AN EXISTING EMAIL";
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
 
         String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
 
@@ -166,7 +156,7 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String email = user.getEmail();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
 
         String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
 

@@ -100,18 +100,19 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String cardNumber = "";
-        String origin = ""; // missing in Json
+        String cardNumber = card.getNumber();
+        String origin = "borne";
 
-        String requestJson = String.format("{\"card\": \"%s\"}",
-                cardNumber);
+        String onlyCardNumberJson = String.format("{\"card\": \"%s\"}", cardNumber);
+        String onlyOriginJson = String.format("{\"origin\": \"%s\"}", origin);
 
-        // when
-        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
+        Response onlyCardNumberResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyCardNumberJson);
+        Response onlyOriginResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyOriginJson);
 
-        // then
         Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
-        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        assertThat(onlyCardNumberResponse).isEqualToComparingFieldByField(expectedResponse);
+        assertThat(onlyOriginResponse).isEqualToComparingFieldByField(expectedResponse);
+
     }
 
     @Test

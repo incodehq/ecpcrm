@@ -16,7 +16,19 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
+import org.joda.time.LocalDate;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -32,15 +44,6 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
-import org.joda.time.LocalDate;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -163,11 +166,11 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String deviceSecret = device.getSecret();
         String origin = "borne";
         String hostess = "";
-        Title title = Title.MR; // missing in Json
+        Title title = Title.MR;
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
-        LocalDate birthdate = user.getBirthDate(); // missing in Json
+        LocalDate birthdate = user.getBirthDate();
         String children = "";
         String nbChildren = "";
         Boolean hasCar = user.getHasCar();
@@ -182,9 +185,11 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
         String requestJson = String.format(
                 "{\"origin\": \"%s\"," +
                         "\"hostess\": \"%s\"," +
+                        "\"title\": \"%s\"," +
                         "\"first_name\": \"%s\"," +
                         "\"last_name\": \"%s\"," +
                         "\"email\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
                         "\"children\": \"%s\"," +
                         "\"nb_children\": \"%s\"," +
                         "\"car\": \"%s\"," +
@@ -197,9 +202,11 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
                         "\"lost\": \"%s\" }",
                 origin,
                 hostess,
+                title,
                 firstName,
                 lastName,
                 email,
+                birthdate,
                 children,
                 nbChildren,
                 hasCar,
@@ -212,12 +219,19 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
                 lost
         );
 
-        //when
-        Response response = resource.cardRequest(deviceName, deviceSecret, requestJson);
+        String[] requiredParameters = {"origin", "title", "first_name", "last_name", "email", "address", "zipcode", "city", "optin"};
 
-        // then
-        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
-        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        for (String parameter : requiredParameters) {
+            String replaceRegex = String.format("\"%s\": \".*?\",?", parameter);
+            String newRequestJson = requestJson.replaceAll(replaceRegex, "");
+
+            // when
+            Response response = resource.cardRequest(deviceName, deviceSecret, newRequestJson);
+
+            // then
+            Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+            assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+        }
     }
 
     @Test

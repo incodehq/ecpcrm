@@ -16,8 +16,19 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
+
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
@@ -29,14 +40,6 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGameRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -86,9 +89,8 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = card.getNumber();
         boolean win = true;
         String desc = "";
-        String origin = "";
 
-        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\",\"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, origin, win, desc);
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\", \"desc\": \"%s\"}", cardNumber, win, desc);
 
         // when
         Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
@@ -103,15 +105,11 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String cardNumber = ""; // missing in Json
+        String cardNumber = card.getNumber();
         boolean win = true;
         String desc = "";
 
-        String requestJson = String.format("{\"win\": \"%s\"," +
-                "\"desc\": \"%s\"}",
-                win,
-                desc
-        );
+        String requestJson = String.format("{\"win\": \"%s\", \"desc\": \"%s\"}", win, desc);
 
         // when
         Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
