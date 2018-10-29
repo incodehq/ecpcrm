@@ -162,7 +162,10 @@ public class WebsiteUserCardDisableIntegTest extends ApiModuleIntegTestAbstract 
 
         //then
         Response expectedResponse = Result.ok().asResponse();
+        for (Card card : user.getCards()){
+            System.out.println("CS for nr:" + card.getNumber() + " " + card.getStatus().toString());
+            assertThat(card.getStatus()).isNotEqualByComparingTo(CardStatus.ENABLED);
+        }
         assertThat(response).isEqualToComparingFieldByField(expectedResponse);
-        user.getCards().forEach(card -> assertThat(card.getStatus()).isNotEqualByComparingTo(CardStatus.ENABLED));
     }
 }
