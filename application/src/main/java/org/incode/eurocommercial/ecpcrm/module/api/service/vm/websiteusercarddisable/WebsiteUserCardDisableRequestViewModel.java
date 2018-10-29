@@ -44,13 +44,9 @@ public class WebsiteUserCardDisableRequestViewModel extends AbstractRequestViewM
             return Result.error(Result.STATUS_INCORRECT_CHECK_CODE, "Incorrect check code");
         }
 
-        List<Card> cards = cardRepository.findByOwner(user);
-        List<Card> enabledCards = cards
-                .stream()
-                .filter(card -> card.getStatus() == CardStatus.ENABLED)
-                .collect(Collectors.toList());
-
-        enabledCards.forEach(card -> card.setStatus(CardStatus.DISABLED));
+        for (Card card : user.getCards()){
+            card.setStatus(CardStatus.DISABLED);
+        }
 
         return Result.ok();
     }

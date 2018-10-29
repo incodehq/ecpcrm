@@ -9,8 +9,8 @@ public abstract class AbstractBaseViewModel {
         return "" + i;
     }
 
-    public String asString(final boolean bool) {
-        return bool ? "true" : "false";
+    public String asString(final Boolean bool) {
+        return bool == null ? null : Boolean.toString(bool);
     }
 
     public String asString(final LocalDate localDate) {
