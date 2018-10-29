@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
@@ -124,7 +125,11 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
         if (user != null) {
             if (getLost() != null && getLost()) {
                 if (!user.getCards().isEmpty()) {
-                    user.getCards().first().setStatus(CardStatus.LOST);
+                    for (Card card : user.getCards()){
+                        if(card.getStatus() == CardStatus.ENABLED){
+                            card.setStatus(CardStatus.LOST);
+                        }
+                    }
                 }
                 if (!cardRequestRepository.findByUser(user).isEmpty()) {
                     return Result.error(Result.STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD, "Duplicate request for replacement of lost card");
