@@ -29,10 +29,7 @@ public class Result {
 
     public static final int STATUS_OK = 200;
     public static final int STATUS_INVALID_DEVICE = 301;
-
-
     public static final int STATUS_INVALID_PARAMETER = 302;
-
     public static final int STATUS_INVALID_CARD = 303;
     public static final int STATUS_INVALID_USER = 304;
     public static final int STATUS_EMAIL_ALREADY_EXISTS = 305;

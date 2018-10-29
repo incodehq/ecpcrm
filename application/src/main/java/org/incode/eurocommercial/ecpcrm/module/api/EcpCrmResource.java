@@ -15,6 +15,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardChec
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel;
@@ -193,6 +194,30 @@ public class EcpCrmResource extends ResourceAbstract {
         WebsiteUserDetailRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserDetailRequestViewModel.class);
 
         return apiService.websiteUserDetail(device, requestViewModel).asResponse();
+    }
+
+
+    @POST
+    @Path("/website-user-card-disable")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.WILDCARD })
+    @Produces({
+            MediaType.APPLICATION_JSON, RestfulMediaType.APPLICATION_JSON_OBJECT, RestfulMediaType.APPLICATION_JSON_ERROR,
+            MediaType.APPLICATION_XML, RestfulMediaType.APPLICATION_XML_OBJECT, RestfulMediaType.APPLICATION_XML_ERROR
+    })
+    @PrettyPrinting
+    public Response websiteUserCardDisable(
+            @FormParam("device") String deviceName,
+            @FormParam("key") String deviceSecret,
+            @FormParam("request") String request
+    ){
+        init(RepresentationType.DOMAIN_OBJECT, Where.OBJECT_FORMS, RepresentationService.Intent.ALREADY_PERSISTENT);
+
+        AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
+
+        WebsiteUserCardDisableRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserCardDisableRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
+
+        return apiService.websiteUserCardDisable(device, requestViewModel).asResponse();
     }
 
     @Inject

@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-25 16:30:11+\n"
+"POT-Creation-Date: 2018-10-26 17:54:08+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -244,6 +244,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asBoolean()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asBoolean()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asBoolean()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asBoolean()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asBoolean()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asBoolean()
@@ -257,6 +258,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asDateString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asDateString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asDateString()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asDateString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asDateString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asDateString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asDateString()
@@ -269,6 +271,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asLocalDate()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asLocalDate()
@@ -287,6 +290,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asString()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asString()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asString()
@@ -299,6 +303,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asTitle()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asTitle()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asTitle()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asTitle()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asTitle()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asTitle()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asTitle()
@@ -409,25 +414,6 @@ msgid "Card Requests"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
-msgid "Card number is invalid"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#approve()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#reapprove()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "Card number {cardNumber} is invalid"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "Card with number {cardNumber} is already assigned to {cardUserEmail}"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#cards
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu
 msgid "Cards"
@@ -474,6 +460,7 @@ msgstr ""
 
 
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#checkCode
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#checkCode
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#checkCode
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#checkCode
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#checkCode
@@ -922,6 +909,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#downloadLayoutXml()
@@ -1003,6 +991,7 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#email
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#email
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#email
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#email
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#email
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#email
@@ -1420,6 +1409,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#isValid()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#isValid()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#isValid()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#isValid()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#isValid()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#isValid()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#isValid()
@@ -2014,6 +2004,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#openRestApi()
@@ -2463,6 +2454,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#rebuildMetamodel()
@@ -2545,6 +2537,7 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#recentActivity()
@@ -2877,11 +2870,6 @@ msgid "TargetStr"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "This email address is invalid"
-msgstr ""
-
-
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#timestamp
@@ -3089,11 +3077,6 @@ msgid "User Setting"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
-msgid "User with email {email} already exists"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updateUsername(java.lang.String)
 #: org.isisaddons.module.security.dom.user.ApplicationUser#username
 msgid "Username"
@@ -3256,6 +3239,11 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteCardRequest()
 msgid "Website Card Request"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteUserCardDisable()
+msgid "Website User Card Disable"
 msgstr ""
 
 

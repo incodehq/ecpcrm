@@ -26,6 +26,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardChec
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel;
@@ -233,6 +234,25 @@ public class ApiService {
         }
 
         return Result.ok(new WebsiteUserDetailResponseViewModel(user));
+    }
+
+    public Result websiteUserCardDisable(AuthenticationDevice device, WebsiteUserCardDisableRequestViewModel requestViewModel){
+
+        if(requestViewModel == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Failed to parse parameters");
+        }
+
+        if(device == null || !device.isActive()){
+            return Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device");
+        }
+
+        final Result validationResult = requestViewModel.isValid(device, null);
+
+        if (validationResult.getStatus() != Result.STATUS_OK) {
+            // validation failed
+            return validationResult;
+        }
+        return validationResult;
     }
 
     @Inject
