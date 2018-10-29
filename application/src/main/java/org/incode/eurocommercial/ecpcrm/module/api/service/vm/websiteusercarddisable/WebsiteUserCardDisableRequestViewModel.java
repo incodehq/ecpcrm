@@ -34,7 +34,6 @@ public class WebsiteUserCardDisableRequestViewModel extends AbstractRequestViewM
         if (Strings.isNullOrEmpty(getCheckCode()) || Strings.isNullOrEmpty(getEmail())) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }
-        System.out.println(ApiService.computeCheckCode(getEmail()));
 
         user = userRepository.findByExactEmailAndCenter(getEmail(), device.getCenter());
         if(user == null){
