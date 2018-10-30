@@ -17,7 +17,7 @@ public class ChildViewModel extends AbstractBaseViewModel {
     String genre;
 
     public ChildViewModel(Child child){
-        setAge(asString(Years.yearsBetween(child.getBirthdate(), LocalDate.now()).getYears()));
+        setAge(child.getBirthdate() == null ? null : asString(Years.yearsBetween(child.getBirthdate(), LocalDate.now()).getYears()));
         setBirthdate(asString(child.getBirthdate()));
         setGenre(child.getGender().getValue());
     }
