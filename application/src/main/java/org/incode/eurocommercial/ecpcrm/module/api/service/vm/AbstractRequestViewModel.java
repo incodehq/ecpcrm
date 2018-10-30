@@ -36,6 +36,16 @@ public abstract class AbstractRequestViewModel extends AbstractBaseViewModel {
         }
     }
 
+    public Boolean asDeterministicBoolean(String s) {
+        s = Strings.nullToEmpty(s);
+        switch (s.toUpperCase()) {
+            case "TRUE":
+                return Boolean.TRUE;
+            default:
+                return Boolean.FALSE;
+        }
+    }
+
     public Title asTitle(final String title) {
         try {
             return Title.valueOf(title.toUpperCase());

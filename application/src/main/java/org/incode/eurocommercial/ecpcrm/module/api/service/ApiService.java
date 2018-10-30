@@ -169,6 +169,7 @@ public class ApiService {
 
         User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter());
 
+        //TODO: handle Isis validation on email here
         if (user == null) {
             user = wrapperFactory.wrap(userMenu).newUser(
                     true,

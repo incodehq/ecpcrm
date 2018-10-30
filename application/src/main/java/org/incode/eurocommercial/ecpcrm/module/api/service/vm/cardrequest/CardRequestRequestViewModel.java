@@ -97,7 +97,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
     private final String promotionalEmails;
 
     public Boolean getPromotionalEmails() {
-        return asBoolean(promotionalEmails);
+        return asDeterministicBoolean(promotionalEmails);
     }
 
     @Getter
@@ -117,7 +117,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
 
         if (Strings.isNullOrEmpty(getOrigin()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
                 Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
-                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || getPromotionalEmails() == null
+                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || promotionalEmails == null
         ) {
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }

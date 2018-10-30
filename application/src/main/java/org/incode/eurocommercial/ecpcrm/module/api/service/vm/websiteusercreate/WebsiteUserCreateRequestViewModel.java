@@ -101,10 +101,10 @@ public class WebsiteUserCreateRequestViewModel extends AbstractRequestViewModel 
     private final String promotionalEmails;
 
     public Boolean getPromotionalEmails(){
-        return asBoolean(promotionalEmails);
+        return asDeterministicBoolean(promotionalEmails);
     }
 
-    //TODO: review => || getPromotionalEmails() == null
+    // TODO: talk with BB if we want to keep promotional emails a non-default param. This has implications that everyone is opt-out when making a new acc.
     @Override
     public Result isValid(AuthenticationDevice device, User user) {
         if (Strings.isNullOrEmpty(getCenterId()) || Strings.isNullOrEmpty(getCheckCode()) || getTitle() == null ||
