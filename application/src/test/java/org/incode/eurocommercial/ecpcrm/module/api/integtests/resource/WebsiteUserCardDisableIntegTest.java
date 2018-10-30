@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -140,7 +139,6 @@ public class WebsiteUserCardDisableIntegTest extends ApiModuleIntegTestAbstract 
         assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
-
     @Test
     public void if_user_has_card_we_expect_happyCase(){
         // given
@@ -162,8 +160,7 @@ public class WebsiteUserCardDisableIntegTest extends ApiModuleIntegTestAbstract 
 
         //then
         Response expectedResponse = Result.ok().asResponse();
-        for (Card card : user.getCards()){
-            System.out.println("CS for nr:" + card.getNumber() + " " + card.getStatus().toString());
+        for (Card card : userWithCard.getCards()){
             assertThat(card.getStatus()).isNotEqualByComparingTo(CardStatus.ENABLED);
         }
         assertThat(response).isEqualToComparingFieldByField(expectedResponse);

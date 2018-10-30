@@ -16,8 +16,6 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
