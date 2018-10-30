@@ -170,6 +170,7 @@ public class EcpCrmResource extends ResourceAbstract {
         AuthenticationDevice device = authenticationDeviceRepository.findByNameAndSecret(deviceName, deviceSecret);
 
         WebsiteUserModifyRequestViewModel requestViewModel = gson.fromJson(request, WebsiteUserModifyRequestViewModel.class);
+        serviceRegistry.injectServicesInto(requestViewModel);
 
         return apiService.websiteUserModify(device, requestViewModel).asResponse();
     }
