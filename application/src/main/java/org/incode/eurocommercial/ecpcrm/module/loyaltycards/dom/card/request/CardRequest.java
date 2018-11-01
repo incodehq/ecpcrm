@@ -51,6 +51,12 @@ import lombok.Setter;
 )
 @Queries({
         @Query(
+                name = "findAll", language =  "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "
+                        + "ORDER BY issueDate desc"
+        ),
+        @Query(
                 name = "findByApproved", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "
