@@ -55,7 +55,7 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "
                         + "WHERE approved == :approved "
-                        + "ORDER BY issueDate "),
+                        + "ORDER BY issueDate desc"),
         @Query(
                 name = "findByUser", language = "JDOQL",
                 value = "SELECT "
@@ -79,7 +79,7 @@ import lombok.Setter;
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest "
                         + "WHERE handleDate >= :startDate "
                         + "&& handleDate <= :endDate "
-                        + "ORDER BY issueDate")
+                        + "ORDER BY issueDate desc")
 })
 @DomainObject(
         editing = Editing.DISABLED
