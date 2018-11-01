@@ -13,7 +13,7 @@ import org.jmock.auto.Mock;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +27,9 @@ public class CardRequestRequestViewModel_Test {
 
     @Mock
     UserRepository mockUserRepository;
+
+    @Mock
+    User mockUser;
 
     @Test
     public void isValid_happyCase() {
@@ -152,14 +155,14 @@ public class CardRequestRequestViewModel_Test {
         AuthenticationDevice device = new AuthenticationDevice();
         device.setCenter(center);
 
-        User user = new User();
-
         // expected
         context.checking(new Expectations() {{
             oneOf(mockUserRepository).findByExactEmailAndCenter("johndoe@crm.com", device.getCenter());
-            will(returnValue(user));
-            oneOf(mockCardRequestRepository).findByUser(user);
-            will(returnValue(Arrays.asList(new CardRequest()))); //already finds lost card request
+            will(returnValue(mockUser));
+            oneOf(mockUser).getCards().isEmpty();
+            will(returnValue(new TreeSet<>()));
+            oneOf(mockCardRequestRepository).openRequestForUser(mockUser);
+            will(returnValue((new CardRequest()))); //already finds lost cards request
         }});
 
         //when

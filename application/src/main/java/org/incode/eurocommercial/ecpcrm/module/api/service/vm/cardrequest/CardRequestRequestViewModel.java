@@ -131,7 +131,7 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
                         }
                     }
                 }
-                if (!cardRequestRepository.findByUser(user).isEmpty()) {
+                if (cardRequestRepository.openRequestForUser(user) != null) {
                     return Result.error(Result.STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD, "Duplicate request for replacement of lost card");
                 }
             } else {

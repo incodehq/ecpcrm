@@ -618,8 +618,6 @@ public class CardRequestIntegTest extends ApiModuleIntegTestAbstract {
                 .findAny().get();
 
         cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
-        CardRequest cardRequest = cardRequestRepository.openRequestForUser(user);
-        cardRequest.approve(cardWithoutOwner.getNumber());
 
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
