@@ -74,11 +74,6 @@ public class Center implements Comparable<Center>, HasAtPath {
 
     @Getter @Setter
     @Column(allowsNull = "false")
-    @PropertyLayout(hidden = Where.EVERYWHERE)
-    private Numerator fakeNumerator;
-
-    @Getter @Setter
-    @Column(allowsNull = "false")
     private String atPath;
 
     @Getter @Setter
@@ -94,11 +89,6 @@ public class Center implements Comparable<Center>, HasAtPath {
     @Programmatic
     public String nextValidCardNumber() {
         return cardRepository.nextCardNumber(numerator);
-    }
-
-    @Programmatic
-    public String nextFakeCardNumber() {
-        return cardRepository.nextCardNumber(fakeNumerator);
     }
 
     @Override

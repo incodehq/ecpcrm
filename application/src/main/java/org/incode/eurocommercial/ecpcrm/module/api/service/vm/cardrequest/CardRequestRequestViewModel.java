@@ -119,16 +119,6 @@ public class CardRequestRequestViewModel extends AbstractRequestViewModel {
                 Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
                 Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || promotionalEmails == null
         ) {
-
-            System.out.println(getOrigin());
-            System.out.println(getTitle());
-            System.out.println(getFirstName());
-            System.out.println(getLastName());
-            System.out.println(getEmail());
-            System.out.println(getAddress());
-            System.out.println(getZipcode());
-            System.out.println(getCity());
-            System.out.println(getPromotionalEmails());
             return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
         }
 

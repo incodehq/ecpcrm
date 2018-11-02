@@ -189,9 +189,6 @@ public class ApiService {
             );
         }
 
-        Card card = cardRepository.newFakeCard(CardStatus.ENABLED, device.getCenter());
-        user.newCard(card.getNumber());
-
         return Result.ok(new WebsiteUserCreateResponseViewModel(user));
     }
 
