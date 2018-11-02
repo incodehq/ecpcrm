@@ -364,8 +364,6 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         Boolean promotionalEmails = user.isPromotionalEmails();
         String checkCode = ApiService.computeCheckCode(email);
 
-        String expectedCardNumber = center.nextFakeCardNumber(); //TODO: remove this in correspondence with ECPCRM-191
-
         String requestJson = String.format(
                 "{\"center_id\": \"%s\"," +
                         "\"check_code\": \"%s\"," +
@@ -432,8 +430,6 @@ public class WebsiteUserCreateIntegTest extends ApiModuleIntegTestAbstract {
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
         String checkCode = ApiService.computeCheckCode(email);
-
-        String expectedCardNumber = center.nextFakeCardNumber(); //TODO: remove this in correspondence with ECPCRM-191
 
         String requestJson = String.format(
                 "{\"center_id\": \"%s\"," +

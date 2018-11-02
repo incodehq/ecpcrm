@@ -12,7 +12,8 @@ public class WebsiteUserCreateResponseViewModel {
     String number;
 
     public WebsiteUserCreateResponseViewModel(final User user) {
-        Card card = user.getCards().first();
+
+        Card card = user.getCards().isEmpty() ? null : user.getCards().first();
         String cardNumber = card != null ? card.getNumber() : "";
 
         setUser_id(user.getReference());
