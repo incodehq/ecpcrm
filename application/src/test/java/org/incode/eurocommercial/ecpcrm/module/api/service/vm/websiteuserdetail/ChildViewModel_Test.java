@@ -20,10 +20,11 @@ public class ChildViewModel_Test extends AbstractBaseViewModel {
         //given
         final Child child = new Child();
         child.setBirthdate(LocalDate.parse("1970-01-01"));
-
         child.setGender(Gender.FEMALE);
+
         //when
         final ChildViewModel viewModel = new ChildViewModel(child);
+
         //then
         assertThat(viewModel.getBirthdate()).isEqualTo(asString(child.getBirthdate()));
         assertThat(viewModel.getGenre()).isEqualTo(child.getGender().getValue());
@@ -39,6 +40,7 @@ public class ChildViewModel_Test extends AbstractBaseViewModel {
 
         //when
         final ChildViewModel viewModel = new ChildViewModel(child);
+        
         //then
         assertThat(viewModel.getBirthdate()).isNull();
     }
