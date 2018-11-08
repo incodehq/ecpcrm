@@ -14,23 +14,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.api.integtests;
+package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
 import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType;
 import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
-import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckResponseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
@@ -42,11 +44,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
     @Inject FixtureScripts fixtureScripts;
+    @Inject ServiceRegistry2 serviceRegistry;
 
     @Inject CardRepository cardRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
-    @Inject ApiService apiService;
+    private EcpCrmResource resource;
 
     private ApiIntegTestFixture fs;
     private Card card;
@@ -57,8 +60,12 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
+        resource = new EcpCrmResourceForTesting();
+        serviceRegistry.injectServicesInto(resource);
+
         fs = new ApiIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
+
         card = fs.getCards().stream()
                 .filter(c -> c.canPlay() && c.getOwner() != null)
                 .findAny()
@@ -68,10 +75,6 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
 
         deviceList = authenticationDeviceRepository.findByCenter(center);
         device = deviceList.get(new Random().nextInt(deviceList.size()));
-
-        assertThat(card).isNotNull();
-        assertThat(center).isNotNull();
-        assertThat(device).isNotNull();
     }
 
     @Test
@@ -82,11 +85,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = card.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(301);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -94,14 +100,19 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String cardNumber = "";
-        String origin = "";
+        String cardNumber = card.getNumber();
+        String origin = "borne";
 
-        // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        String onlyCardNumberJson = String.format("{\"card\": \"%s\"}", cardNumber);
+        String onlyOriginJson = String.format("{\"origin\": \"%s\"}", origin);
 
-        // then
-        assertThat(result.getStatus()).isEqualTo(302);
+        Response onlyCardNumberResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyCardNumberJson);
+        Response onlyOriginResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyOriginJson);
+
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+        assertThat(onlyCardNumberResponse).isEqualToComparingFieldByField(expectedResponse);
+        assertThat(onlyOriginResponse).isEqualToComparingFieldByField(expectedResponse);
+
     }
 
     @Test
@@ -115,11 +126,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = "3922000000000";
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(319);
+        Response expectedResponse = Result.error(Result.STATUS_OUTDATED_CARD, "Outdated card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -131,11 +145,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = "10";
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(312);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_CARD_NUMBER, "Invalid card number").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -150,11 +167,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = card.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(319);
+        Response expectedResponse = Result.error(Result.STATUS_OUTDATED_CARD, "Outdated card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -167,11 +187,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = card.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(303);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_CARD, "Invalid card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -189,11 +212,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = otherCard.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(317);
+        Response expectedResponse = Result.error(Result.STATUS_CARD_CENTER_NOT_EQUAL_TO_DEVICE_CENTER, "Card center is not equal to device center").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
 //    @Test
@@ -217,11 +243,14 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = card.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(304);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_USER, "Invalid user").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     /* These two give regular responses */
@@ -229,21 +258,20 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
     @Test
     public void when_card_exists_but_cant_play_game_we_expect_sad_response() throws Exception {
         // given
-        card.play();
+        card.play(false);
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String cardNumber = card.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse()).isInstanceOf(CardCheckResponseViewModel.class);
-        CardCheckResponseViewModel response = (CardCheckResponseViewModel) result.getResponse();
-        assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
-        assertThat(response.isGame()).isFalse();
+        Response expectedResponse = Result.ok(new CardCheckResponseViewModel(card)).asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -254,14 +282,13 @@ public class CardCheckIntegTest extends ApiModuleIntegTestAbstract {
         String cardNumber = card.getNumber();
         String origin = "borne";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"origin\": \"%s\"}", cardNumber, origin);
+
         // when
-        Result result = apiService.cardCheck(deviceName, deviceSecret, cardNumber, origin);
+        Response response = resource.cardCheck(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse()).isInstanceOf(CardCheckResponseViewModel.class);
-        CardCheckResponseViewModel response = (CardCheckResponseViewModel) result.getResponse();
-        assertThat(response.getId()).isEqualTo(card.getOwner().getReference());
-        assertThat(response.isGame()).isTrue();
+        Response expectedResponse = Result.ok(new CardCheckResponseViewModel(card)).asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 }

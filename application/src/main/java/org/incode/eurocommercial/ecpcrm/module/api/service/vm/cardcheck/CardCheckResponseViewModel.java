@@ -1,41 +1,48 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck;
 
-import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
+import lombok.Getter;
+import lombok.Setter;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 
-import lombok.Data;
+public class CardCheckResponseViewModel extends AbstractBaseViewModel {
+    @Getter @Setter
+    String id;
+    @Getter @Setter
+    String name;
+    @Getter @Setter
+    String email;
+    @Getter @Setter
+    String title;
+    @Getter @Setter
+    String first_name;
+    @Getter @Setter
+    String last_name;
+    @Getter @Setter
+    String birthdate;
+    @Getter @Setter
+    String optin;
+    @Getter @Setter
+    boolean game;
+    @Getter @Setter
+    String card_image;
 
-@Data(staticConstructor = "create")
-public class CardCheckResponseViewModel {
-    private final String id;
-    private final String name;
-    private final String email;
-    private final String title;
-    private final String first_name;
-    private final String last_name;
-    private final String birthdate;
-    private final String optin;
-    private final boolean game;
-    private final String card_image;
-
-    public static CardCheckResponseViewModel fromCard(final Card card) {
+    public CardCheckResponseViewModel(final Card card) {
         User user = card.getOwner();
         if(user == null) {
-            return null;
+            return;
         }
 
-        return CardCheckResponseViewModel.create(
-                user.getReference(),
-                user.getFirstName() + " " + user.getLastName(),
-                user.getEmail(),
-                user.getTitle().toString().toLowerCase(),
-                user.getFirstName(),
-                user.getLastName(),
-                ApiService.asString(user.getBirthDate()),
-                ApiService.asString(user.isPromotionalEmails()),
-                card.canPlay(),
-                ""
-        );
+        setId(user.getReference());
+        setName(user.getFirstName() + " " + user.getLastName());
+        setEmail(user.getEmail());
+        setTitle(user.getTitle().toString().toLowerCase());
+        setFirst_name(user.getFirstName());
+        setLast_name(user.getLastName());
+        setBirthdate(asString(user.getBirthDate()));
+        setOptin(asString(user.isPromotionalEmails()));
+        setGame(card.canPlay());
+        setCard_image("");
     }
 }

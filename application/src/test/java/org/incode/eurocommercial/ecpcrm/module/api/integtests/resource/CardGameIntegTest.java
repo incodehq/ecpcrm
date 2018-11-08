@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015-2016 Eurocommercial Properties NV
  * <p>
  * Licensed under the Apache License, Version 2.0 (the
@@ -14,13 +14,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.api.integtests;
+package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,10 +29,10 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
-import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
 import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
@@ -50,7 +51,7 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
     @Inject CardGameRepository cardGameRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
-    @Inject ApiService apiService;
+    private EcpCrmResource resource;
 
     private ApiIntegTestFixture fs;
     private Card card;
@@ -61,6 +62,10 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
+        resource = new EcpCrmResourceForTesting();
+        serviceRegistry.injectServicesInto(resource);
+
+
         fs = new ApiIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
@@ -85,11 +90,14 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\", \"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(301);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -97,15 +105,18 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String cardNumber = "";
+        String cardNumber = card.getNumber();
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"win\": \"%s\", \"desc\": \"%s\"}", win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret,cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(302);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid Parameter").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -117,11 +128,14 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(303);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_CARD, "Invalid card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -134,11 +148,14 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(303);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_CARD, "Invalid card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -155,11 +172,13 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
-        // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
 
+        // when
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
         // then
-        assertThat(result.getStatus()).isEqualTo(303);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_CARD, "Invalid card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -175,11 +194,14 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(303);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_CARD, "Invalid card").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -199,11 +221,14 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(304);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_USER, "Invalid user").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -213,7 +238,7 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
                 .filter(card -> card.getOwner() != null)
                 .collect(Collectors.toList())
                 .get(0);
-        cardWithOwner.play();
+        cardWithOwner.play(null);
         Center center = cardWithOwner.getCenter();
         AuthenticationDevice device = authenticationDeviceRepository.findByCenter(center).get(0);
 
@@ -223,11 +248,14 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(315);
+        Response expectedResponse = Result.error(Result.STATUS_CARD_ALREADY_PLAYED, "Card has already played").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -245,12 +273,16 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = true;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
         CardGame createdCardGame = cardGameRepository.findByCardAndDate(cardWithOwnerWhichCanPlay, clockService.now());
 
         // then
-        assertThat(result.getStatus()).isEqualTo(200);
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+
         assertThat(createdCardGame).isNotNull();
         assertThat(createdCardGame.isOutcome()).isTrue();
         assertThat(cardWithOwnerWhichCanPlay.canPlay()).isFalse();
@@ -271,12 +303,16 @@ public class CardGameIntegTest extends ApiModuleIntegTestAbstract {
         boolean win = false;
         String desc = "";
 
+        String requestJson = String.format("{\"card\": \"%s\", \"win\": \"%s\",\"desc\": \"%s\"}", cardNumber, win, desc);
+
         // when
-        Result result = apiService.cardGame(deviceName, deviceSecret, cardNumber, win, desc);
+        Response response = resource.cardGame(deviceName, deviceSecret, requestJson);
         CardGame createdCardGame = cardGameRepository.findByCardAndDate(cardWithOwnerWhichCanPlay, clockService.now());
 
         // then
-        assertThat(result.getStatus()).isEqualTo(200);
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+
         assertThat(createdCardGame).isNotNull();
         assertThat(createdCardGame.isOutcome()).isFalse();
         assertThat(cardWithOwnerWhichCanPlay.canPlay()).isFalse();

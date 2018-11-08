@@ -1,28 +1,26 @@
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail;
-
-import org.incode.eurocommercial.ecpcrm.module.api.service.ApiService;
+import lombok.Getter;
+import lombok.Setter;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 
-import lombok.Data;
+public class CardViewModel extends AbstractBaseViewModel {
+    @Getter @Setter
+    String number;
+    @Getter @Setter
+    String status;
+    @Getter @Setter
+    String created_at;
+    @Getter @Setter
+    String given_at;
+    @Getter @Setter
+    String sent_at;
 
-@Data(staticConstructor = "create")
-public class CardViewModel {
-    private final String number;
-    private final String status;
-    private final String created_at;
-    private final String given_at;
-    private final String sent_at;
-
-    public static CardViewModel fromCard(final Card card) {
-        String createdAt = ApiService.asDateString(card.getCreatedAt());
-        String givenAt = ApiService.asDateString(card.getGivenToUserAt());
-        String sentAt = ApiService.asDateString(card.getSentToUserAt());
-        return CardViewModel.create(
-                card.getNumber(),
-                card.getStatus().toString().toLowerCase(),
-                createdAt,
-                givenAt,
-                sentAt
-        );
+    public CardViewModel(final Card card) {
+        setNumber(card.getNumber());
+        setStatus(card.getStatus().toString().toLowerCase());
+        setCreated_at(asDateString(card.getCreatedAt()));
+        setGiven_at(asDateString(card.getGivenToUserAt()));
+        setSent_at(asDateString(card.getSentToUserAt()));
     }
 }

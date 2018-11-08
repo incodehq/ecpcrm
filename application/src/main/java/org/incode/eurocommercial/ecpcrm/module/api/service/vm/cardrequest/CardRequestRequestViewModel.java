@@ -16,23 +16,38 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+import org.joda.time.LocalDate;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class CardRequestRequestViewModel {
+public class CardRequestRequestViewModel extends AbstractRequestViewModel {
     @Getter
     private final String origin;
 
     @Getter
     private final String hostess;
 
-    @Getter
     private final String title;
+
+    public Title getTitle() {
+        return asTitle(title);
+    }
 
     @Getter
     @SerializedName("first_name")
@@ -45,8 +60,11 @@ public class CardRequestRequestViewModel {
     @Getter
     private final String email;
 
-    @Getter
     private final String birthdate;
+
+    public LocalDate getBirthdate() {
+        return asLocalDate(birthdate);
+    }
 
     @Getter
     private final String children;
@@ -56,8 +74,11 @@ public class CardRequestRequestViewModel {
     private final String nbChildren;
 
     @SerializedName("car")
-    @Getter
     private final String hasCar;
+
+    public Boolean getHasCar() {
+        return asBoolean(hasCar);
+    }
 
     @Getter
     private final String address;
@@ -72,14 +93,70 @@ public class CardRequestRequestViewModel {
     @SerializedName("phone")
     private final String phoneNumber;
 
-    @Getter
     @SerializedName("optin")
     private final String promotionalEmails;
+
+    public Boolean getPromotionalEmails() {
+        return asDeterministicBoolean(promotionalEmails);
+    }
 
     @Getter
     @SerializedName("check_item")
     private final String checkItem;
 
-    @Getter
     private final String lost;
+
+    public Boolean getLost() {
+        return asBoolean(lost);
+    }
+
+    @Override
+    public Result isValid(AuthenticationDevice device, User user) {
+
+        user = userRepository.findByExactEmailAndCenter(getEmail(), device.getCenter());
+
+        if (Strings.isNullOrEmpty(getOrigin()) || getTitle() == null || Strings.isNullOrEmpty(getFirstName()) ||
+                Strings.isNullOrEmpty(getLastName()) || Strings.isNullOrEmpty(getEmail()) || Strings.isNullOrEmpty(getAddress()) ||
+                Strings.isNullOrEmpty(getZipcode()) || Strings.isNullOrEmpty(getCity()) || promotionalEmails == null
+        ) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
+        }
+
+        if (user != null) {
+            if (getLost() != null && getLost()) {
+                if (!user.getCards().isEmpty()) {
+                    for (Card card : user.getCards()){
+                        if(card.getStatus() == CardStatus.ENABLED){
+                            card.setStatus(CardStatus.LOST);
+                        }
+                    }
+                }
+                if (cardRequestRepository.openRequestForUser(user) != null) {
+                    return Result.error(Result.STATUS_DUPLICATE_REQUEST_FOR_REPLACEMENT_LOST_CARD, "Duplicate request for replacement of lost card");
+                }
+            } else {
+                if (Strings.isNullOrEmpty(getCheckItem())) {
+                    if (getFirstName().equals(user.getFirstName()) && getLastName().equals(user.getLastName())) {
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_VALID_CHECK_ASK_IF_LOST, "Email exists, valid check, ask if lost");
+                    } else {
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS, "Email already exists");
+                    }
+                } else {
+                    if (getCheckItem().equals(user.getFirstName() + " " + user.getLastName())) {
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_VALID_CHECK_ASK_IF_LOST, "Email exists, valid check, ask if lost");
+                    } else {
+                        return Result.error(Result.STATUS_EMAIL_ALREADY_EXISTS_INVALID_CHECK, "Email already exists, invalid check");
+                    }
+                }
+            }
+        }
+
+        return Result.ok();
+    }
+
+    @Inject
+    CardRequestRepository cardRequestRepository;
+
+    @Inject
+    UserRepository userRepository;
 }

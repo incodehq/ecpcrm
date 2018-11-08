@@ -40,7 +40,11 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 public class CardRequestRepository {
     @Programmatic
     public List<CardRequest> listAll() {
-        return repositoryService.allInstances(CardRequest.class);
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        CardRequest.class,
+                        "findAll"
+                ));
     }
 
     @Programmatic

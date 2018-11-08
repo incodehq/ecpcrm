@@ -14,13 +14,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.api.integtests;
+package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 import org.joda.time.LocalDate;
 import org.junit.Before;
@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
@@ -49,7 +50,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
     @Inject UserRepository userRepository;
 
-    @Inject ApiService apiService;
+    EcpCrmResource resource;
 
     private ApiIntegTestFixture fs;
     private Card card;
@@ -63,6 +64,9 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
+        resource = new EcpCrmResourceForTesting();
+        serviceRegistry.injectServicesInto(resource);
+
         fs = new ApiIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
@@ -85,7 +89,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
         String cardNumber = card.getNumber();
         String email = user.getEmail();
         Title title = user.getTitle();
@@ -101,14 +105,45 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
 
+        String requestJson = String.format(
+                "{\"check_code\": \"%s\"," +
+                        "\"card\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\" }" ,
+                checkCode,
+                cardNumber,
+                email,
+                title,
+                firstName,
+                lastName,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails
+        );
+
         // when
-        Result result = apiService.websiteUserModify(
-                deviceName, deviceSecret, checkCode, cardNumber, email, title, firstName, lastName,
-                birthdate, children, nbChildren, hasCar, address, zipcode, city, phoneNumber,
-                promotionalEmails);
+        Response response = resource.websiteUserModify(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(301);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -116,7 +151,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
         String cardNumber = card.getNumber();
         String email = user.getEmail();
         Title title = user.getTitle();
@@ -132,26 +167,51 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
 
-        /* Testing every required argument individually */
-        Object[] args = {
-                deviceName, deviceSecret, checkCode, cardNumber, email, title, firstName, lastName, birthdate, children,
-                nbChildren, hasCar, address, zipcode, city, phoneNumber, promotionalEmails
-        };
-        int[] mandatory = {2, 4, 5};
-        for(int i : mandatory) {
-            Object[] a = args.clone();
-            a[i] = null;
+        String requestJson = String.format(
+                "{\"check_code\": \"%s\"," +
+                        "\"card\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\" }" ,
+                checkCode,
+                cardNumber,
+                email,
+                title,
+                firstName,
+                lastName,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails
+        );
+
+        String[] requiredParameters = {"check_code", "email", "title"};
+
+        for (String parameter : requiredParameters) {
+            String replaceRegex = String.format("\"%s\": \".*?\",?", parameter);
+            String newRequestJson = requestJson.replaceAll(replaceRegex, "");
 
             // when
-            Method m = ApiService.class.getMethod(
-                    "websiteUserModify",
-                    String.class, String.class, String.class, String.class, String.class, Title.class,
-                    String.class, String.class, LocalDate.class, String.class, String.class, Boolean.class,
-                    String.class, String.class, String.class, String.class, Boolean.class);
-            Result result = (Result) m.invoke(apiService, a);
+            Response response = resource.websiteUserModify(deviceName, deviceSecret, newRequestJson);
 
             // then
-            assertThat(result.getStatus()).isEqualTo(302);
+            Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+            assertThat(response).isEqualToComparingFieldByField(expectedResponse);
         }
     }
 
@@ -160,7 +220,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
         String cardNumber = card.getNumber();
         String email = user.getFirstName() + user.getLastName() + "8732583265@gmail.com";
         Title title = user.getTitle();
@@ -176,14 +236,45 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         String phoneNumber = user.getPhoneNumber();
         Boolean promotionalEmails = user.isPromotionalEmails();
 
+        String requestJson = String.format(
+                "{\"check_code\": \"%s\"," +
+                        "\"card\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\" }" ,
+                checkCode,
+                cardNumber,
+                email,
+                title,
+                firstName,
+                lastName,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails
+        );
+
         // when
-        Result result = apiService.websiteUserModify(
-                deviceName, deviceSecret, checkCode, cardNumber, email, title, firstName, lastName,
-                birthdate, children, nbChildren, hasCar, address, zipcode, city, phoneNumber,
-                promotionalEmails);
+        Response response = resource.websiteUserModify(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(304);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_USER, "Invalid user").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -191,7 +282,7 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         // given
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
         String cardNumber = card.getNumber();
         String email = user.getEmail();
         Title title = user.getTitle();
@@ -207,14 +298,46 @@ public class WebsiteUserModifyIntegTest extends ApiModuleIntegTestAbstract {
         String phoneNumber = "New Phone Number";
         Boolean promotionalEmails = user.isPromotionalEmails();
 
+        String requestJson = String.format(
+                "{\"check_code\": \"%s\"," +
+                        "\"card\": \"%s\"," +
+                        "\"email\": \"%s\"," +
+                        "\"title\": \"%s\"," +
+                        "\"first_name\": \"%s\"," +
+                        "\"last_name\": \"%s\"," +
+                        "\"birthdate\": \"%s\"," +
+                        "\"children\": \"%s\"," +
+                        "\"nb_children\": \"%s\"," +
+                        "\"car\": \"%s\"," +
+                        "\"address\": \"%s\"," +
+                        "\"zipcode\": \"%s\"," +
+                        "\"city\": \"%s\"," +
+                        "\"phone\": \"%s\"," +
+                        "\"optin\": \"%s\" }" ,
+                checkCode,
+                cardNumber,
+                email,
+                title,
+                firstName,
+                lastName,
+                birthdate,
+                children,
+                nbChildren,
+                hasCar,
+                address,
+                zipcode,
+                city,
+                phoneNumber,
+                promotionalEmails
+        );
+
         // when
-        Result result = apiService.websiteUserModify(
-                deviceName, deviceSecret, checkCode, cardNumber, email, title, firstName, lastName,
-                birthdate, children, nbChildren, hasCar, address, zipcode, city, phoneNumber,
-                promotionalEmails);
+        Response response = resource.websiteUserModify(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(200);
+        Response expectedResponse = Result.ok().asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
+
         assertThat(user.getAddress()).isEqualTo(address);
         assertThat(user.getZipcode()).isEqualTo(zipcode);
         assertThat(user.getCity()).isEqualTo(city);

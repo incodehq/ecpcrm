@@ -14,15 +14,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.api.integtests;
+package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
+import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
+import org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService;
 
-import org.incode.eurocommercial.ecpcrm.module.application.EcpCrmApplicationModule;
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 
-public abstract class ApiModuleIntegTestAbstract extends IntegrationTestAbstract3 {
-
-    protected ApiModuleIntegTestAbstract() {
-        super(new EcpCrmApplicationModule());
-    }
+public class EcpCrmResourceForTesting extends EcpCrmResource {
+    @Override
+    protected void init(
+            final RepresentationType representationType,
+            final Where where,
+            final RepresentationService.Intent intent
+    ) {}
 }

@@ -163,23 +163,6 @@ public class CardRepository {
     }
 
     @Programmatic
-    public Card newFakeCard(final CardStatus status, final Center center) {
-        String number = nextCardNumber(center.getFakeNumerator());
-
-        final Card card = repositoryService.instantiate(Card.class);
-
-        card.setNumber(number);
-        card.setStatus(status);
-        card.setCenter(center);
-        card.setCreatedAt(clockService.nowAsLocalDateTime());
-
-        repositoryService.persist(card);
-
-        center.getFakeNumerator().setLastIncrement(Long.parseLong(number));
-        return card;
-    }
-
-    @Programmatic
     public List<Card> newBatch(
             final String startNumber,
             final int batchSize,

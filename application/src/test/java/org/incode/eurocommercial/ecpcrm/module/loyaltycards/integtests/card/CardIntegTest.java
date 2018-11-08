@@ -72,7 +72,7 @@ public class CardIntegTest extends LoyaltyCardModuleIntegTestAbstract {
         public void when_card_has_played_it_can_not_play() throws Exception {
             // given
             card.setStatus(CardStatus.ENABLED);
-            card.play();
+            card.play(null);
 
             // when
             boolean canPlay = card.canPlay();
@@ -110,7 +110,7 @@ public class CardIntegTest extends LoyaltyCardModuleIntegTestAbstract {
                     .get();
 
             // when
-            CardGame cardGame = card.play();
+            CardGame cardGame = card.play(null);
 
             // then
             assertThat(card.canPlay()).isFalse();
@@ -122,14 +122,14 @@ public class CardIntegTest extends LoyaltyCardModuleIntegTestAbstract {
         @Test
         public void when_card_can_not_play_and_plays_no_card_game_is_created() throws Exception {
             // given
-            card.play();
+            card.play(null);
             int sizeOnCard = card.getCardGames().size();
             int sizeOnRepository = cardGameRepository.listAll().size();
 
             assertThat(card.canPlay()).isFalse();
 
             // when
-            CardGame cardGame = card.play();
+            CardGame cardGame = card.play(null);
 
             // then
             assertThat(cardGame).isNull();

@@ -14,19 +14,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.incode.eurocommercial.ecpcrm.module.api.integtests;
+package org.incode.eurocommercial.ecpcrm.module.api.integtests.resource;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmResource;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
 import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceRepository;
 import org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture;
@@ -45,7 +46,7 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
     @Inject UserRepository userRepository;
     @Inject AuthenticationDeviceRepository authenticationDeviceRepository;
 
-    @Inject ApiService apiService;
+    private EcpCrmResource resource;
 
     private ApiIntegTestFixture fs;
     private Center center;
@@ -57,6 +58,9 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
+        resource = new EcpCrmResourceForTesting();
+        serviceRegistry.injectServicesInto(resource);
+
         fs = new ApiIntegTestFixture();
         fixtureScripts.runFixtureScript(fs, null);
 
@@ -79,13 +83,16 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret() + "NOT A REAL SECRET";
         String email = user.getEmail();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
+
+        String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
 
         // when
-        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
+        Response response = resource.websiteUserDetail(deviceName, deviceSecret, requestJson);
 
-        // then
-        assertThat(result.getStatus()).isEqualTo(301);
+        //then
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_DEVICE, "Invalid device").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -94,23 +101,17 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String email = user.getEmail();
-        String checkCode = apiService.computeCheckCode(user.getEmail());
+        String checkCode = ApiService.computeCheckCode(user.getEmail());
 
-        /* Testing every required argument individually */
-        Object[] args = {deviceName, deviceSecret, email, checkCode};
-        int[] mandatory = {2, 3};
-        for(int i : mandatory) {
-            Object[] a = args.clone();
-            a[i] = null;
+        String onlyEmailJson = String.format("{\"email\": \"%s\"}", email);
+        String onlyCheckCodeJson = String.format("{\"check_code\": \"%s\"}", checkCode);
 
-            // when
-            Method m = ApiService.class.getMethod(
-                    "websiteUserDetail", String.class, String.class, String.class, String.class);
-            Result result = (Result) m.invoke(apiService, a);
+        Response onlyEmailResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyEmailJson);
+        Response onlyCheckCodeResponse = resource.websiteUserDetail(deviceName, deviceSecret, onlyCheckCodeJson);
 
-            // then
-            assertThat(result.getStatus()).isEqualTo(302);
-        }
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter").asResponse();
+        assertThat(onlyEmailResponse).isEqualToComparingFieldByField(expectedResponse);
+        assertThat(onlyCheckCodeResponse).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -119,13 +120,16 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String email = "THIS IS DEFINITELY NOT AN EXISTING EMAIL";
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
+
+        String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
 
         // when
-        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
+        Response response = resource.websiteUserDetail(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(304);
+        Response expectedResponse = Result.error(Result.STATUS_INVALID_USER, "Invalid user").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -136,11 +140,14 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String email = user.getEmail();
         String checkCode = "INCORRECT CHECK CODE";
 
+        String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
+
         // when
-        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
+        Response response = resource.websiteUserDetail(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(402);
+        Response expectedResponse = Result.error(Result.STATUS_INCORRECT_CHECK_CODE, "Incorrect check code").asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 
     @Test
@@ -149,17 +156,15 @@ public class WebsiteUserDetailIntegTest extends ApiModuleIntegTestAbstract {
         String deviceName = device.getName();
         String deviceSecret = device.getSecret();
         String email = user.getEmail();
-        String checkCode = apiService.computeCheckCode(email);
+        String checkCode = ApiService.computeCheckCode(email);
+
+        String requestJson = String.format("{\"email\": \"%s\", \"check_code\": \"%s\"}", email, checkCode);
 
         // when
-        Result result = apiService.websiteUserDetail(deviceName, deviceSecret, email, checkCode);
+        Response response = resource.websiteUserDetail(deviceName, deviceSecret, requestJson);
 
         // then
-        assertThat(result.getStatus()).isEqualTo(200);
-        assertThat(result.getResponse()).isInstanceOf(WebsiteUserDetailResponseViewModel.class);
-
-        WebsiteUserDetailResponseViewModel response = (WebsiteUserDetailResponseViewModel) result.getResponse();
-        assertThat(response.getId()).isEqualTo(user.getReference());
-        assertThat(response).isEqualTo(WebsiteUserDetailResponseViewModel.fromUser(user));
+        Response expectedResponse = Result.ok(new WebsiteUserDetailResponseViewModel(user)).asResponse();
+        assertThat(response).isEqualToComparingFieldByField(expectedResponse);
     }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015-2016 Eurocommercial Properties NV
  * <p>
  * Licensed under the Apache License, Version 2.0 (the
@@ -16,15 +16,25 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
+import org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice;
+import org.incode.eurocommercial.ecpcrm.module.api.service.Result;
+import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
+import org.joda.time.LocalDate;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class WebsiteUserModifyRequestViewModel {
+public class WebsiteUserModifyRequestViewModel extends AbstractRequestViewModel {
     @Getter
     @SerializedName("check_code")
     private final String checkCode;
@@ -36,8 +46,11 @@ public class WebsiteUserModifyRequestViewModel {
     @Getter
     private final String email;
 
-    @Getter
     private final String title;
+
+    public Title getTitle() {
+        return asTitle(title);
+    }
 
     @Getter
     @SerializedName("first_name")
@@ -47,8 +60,10 @@ public class WebsiteUserModifyRequestViewModel {
     @SerializedName("last_name")
     private final String lastName;
 
-    @Getter
     private final String birthdate;
+    public LocalDate getBirthdate(){
+        return asLocalDate(birthdate);
+    }
 
     @Getter
     private final String children;
@@ -58,8 +73,10 @@ public class WebsiteUserModifyRequestViewModel {
     private final String nbChildren;
 
     @SerializedName("car")
-    @Getter
     private final String hasCar;
+    public Boolean getHasCar(){
+        return asBoolean(hasCar);
+    }
 
     @Getter
     private final String address;
@@ -74,7 +91,68 @@ public class WebsiteUserModifyRequestViewModel {
     @SerializedName("phone")
     private final String phoneNumber;
 
-    @Getter
     @SerializedName("optin")
     private final String promotionalEmails;
+    public Boolean getPromotionalEmails(){
+        return asDeterministicBoolean(promotionalEmails);
+    }
+
+    @Override
+    public Result isValid(AuthenticationDevice device, User user) {
+        if (Strings.isNullOrEmpty(getCheckCode()) || Strings.isNullOrEmpty(getEmail()) || getTitle() == null) {
+            return Result.error(Result.STATUS_INVALID_PARAMETER, "Invalid parameter");
+        }
+
+        if (user == null) {
+            return Result.error(Result.STATUS_INVALID_USER, "Invalid user");
+        }
+
+        user.setTitle(getTitle());
+
+        if (!Strings.isNullOrEmpty(getFirstName())) {
+            user.setFirstName(getFirstName());
+        }
+
+        if (!Strings.isNullOrEmpty(getLastName())) {
+            user.setLastName(getLastName());
+        }
+
+        if (getBirthdate() != null) {
+            user.setBirthDate(getBirthdate());
+        }
+
+        if (getHasCar() != null) {
+            user.setHasCar(getHasCar());
+        }
+
+        if (!Strings.isNullOrEmpty(getAddress())) {
+            user.setAddress(getAddress());
+        }
+
+        if (!Strings.isNullOrEmpty(getZipcode())) {
+            user.setZipcode(getZipcode());
+        }
+
+        if (!Strings.isNullOrEmpty(getCity())) {
+            user.setCity(getCity());
+        }
+
+        if (!Strings.isNullOrEmpty(getPhoneNumber())) {
+            user.setPhoneNumber(getPhoneNumber());
+        }
+
+        if (getPromotionalEmails() != null && getPromotionalEmails() != user.isPromotionalEmails()) {
+            if (getPromotionalEmails()) {
+                wrapperFactory.wrap(user).subscribeToPromotionalEmails();
+            } else {
+                wrapperFactory.wrap(user).unsubscribeFromPromotionalEmails();
+            }
+        }
+
+        return Result.ok();
+
+    }
+
+    @Inject
+    WrapperFactory wrapperFactory;
 }
