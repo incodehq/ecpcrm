@@ -18,30 +18,17 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import org.joda.time.LocalDate;
-
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.BookmarkPolicy;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.Publishing;
-import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
-
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+import org.joda.time.LocalDate;
+
+import javax.inject.Inject;
+import java.util.List;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
@@ -88,7 +75,7 @@ public class UserMenu {
 
     public boolean default0NewUser(){ return true; }
 
-    @Action(domainEvent = CreateDomainEvent.class, publishing = Publishing.ENABLED)
+    @Action(domainEvent = CreateDomainEvent.class, publishing = Publishing.ENABLED, semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE)
     @MemberOrder(sequence = "4")
     public User newUser(
             final boolean enabled,
