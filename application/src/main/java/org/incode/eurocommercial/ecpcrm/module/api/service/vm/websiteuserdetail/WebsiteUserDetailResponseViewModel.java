@@ -49,6 +49,8 @@ public class WebsiteUserDetailResponseViewModel extends AbstractBaseViewModel {
     @Getter @Setter
     List<CardViewModel> cards;
     @Getter @Setter
+    String open_card_request;
+    @Getter @Setter
     String request;
 
     public WebsiteUserDetailResponseViewModel(User user){
@@ -80,6 +82,6 @@ public class WebsiteUserDetailResponseViewModel extends AbstractBaseViewModel {
                 .collect(Collectors.toList()));
 
         setBoutiques(new ArrayList<>());
-
+        setOpen_card_request(user.getOpenCardRequest() == null ? "false" : "true");
     }
 }
