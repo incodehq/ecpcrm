@@ -1445,6 +1445,8 @@ msgstr "Ouvrir"
 msgid "Open Card Request"
 msgstr "Demande de carte ouverte"
 
+#: com.ecwid.maleorang.MailchimpObject#openRestApi()
+#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#openRestApi()
 #: java.io.Closeable#openRestApi()
 #: java.io.InputStream#openRestApi()
 #: java.io.Serializable#openRestApi()
@@ -1835,6 +1837,9 @@ msgstr "Retaper le mot de passe"
 msgid "Reapprove"
 msgstr "Réapprouver"
 
+
+#: com.ecwid.maleorang.MailchimpObject#rebuildMetamodel()
+#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#rebuildMetamodel()
 #: java.io.Closeable#rebuildMetamodel()
 #: java.io.InputStream#rebuildMetamodel()
 #: java.io.Serializable#rebuildMetamodel()
@@ -2014,6 +2019,9 @@ msgstr "Réapprouver"
 msgid "Rebuild Metamodel"
 msgstr "Reconstruire le métamodèle"
 
+
+#: com.ecwid.maleorang.MailchimpObject#recentActivity()
+#: com.ecwid.maleorang.method.v3_0.lists.members.MemberInfo#recentActivity()
 #: java.io.InputStream#recentActivity()
 #: java.lang.Class#recentActivity()
 #: java.lang.Object#recentActivity()
@@ -2715,7 +2723,7 @@ msgstr "parent"
 
 #: org.isisaddons.module.security.app.user.ApplicationUser_filterPermissions
 msgid "permissions"
-msgstr "permissions"
+msgstr "Autorisations"
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 msgid "phoneNumber"
