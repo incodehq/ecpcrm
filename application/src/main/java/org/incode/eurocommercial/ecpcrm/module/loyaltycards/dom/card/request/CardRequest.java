@@ -135,7 +135,8 @@ public class CardRequest implements Comparable<CardRequest>, HasAtPath {
         /* Check if the creation was successful */
         if(card != null && card.getOwner().equals(requestingUser)) {
             setAssignedCard(card);
-            card.setGivenToUserAt(null);
+            //TODO: refactor this card.handleDate
+            card.setGivenToUserAt(clockService.nowAsLocalDateTime());
             card.setSentToUserAt(clockService.nowAsLocalDateTime());
             this.setHandleDate(clockService.nowAsLocalDateTime());
             setApproved(true);

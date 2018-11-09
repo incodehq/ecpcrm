@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.joda.time.LocalDateTime;
 
 import org.apache.isis.applib.annotation.Action;
@@ -122,7 +123,9 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    @Action(publishing = Publishing.ENABLED)
+    public static class CreateDomainEvent extends ActionDomainEvent<CardRequestRepository> {}
+
+    @Action(domainEvent = CardRequestRepository.CreateDomainEvent.class, publishing = Publishing.ENABLED)
     public CardRequest findOrCreate(
             User user,
             CardRequestType type

@@ -16,24 +16,22 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.integtests.card.request;
 
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.clock.ClockService;
-
-import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.integtests.LoyaltyCardModuleIntegTestAbstract;
+import org.joda.time.LocalDateTime;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -112,7 +110,7 @@ public class CardRequestIntegTest extends LoyaltyCardModuleIntegTestAbstract {
             cardRequest.approve(card.getNumber());
 
             // then
-            assertThat(cardRequest.getAssignedCard().getGivenToUserAt()).isNull();
+            assertThat(cardRequest.getAssignedCard().getGivenToUserAt()).isInstanceOf(LocalDateTime.class);
         }
     }
 
