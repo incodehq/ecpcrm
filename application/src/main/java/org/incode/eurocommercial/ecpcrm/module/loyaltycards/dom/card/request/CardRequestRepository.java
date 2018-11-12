@@ -123,9 +123,7 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<CardRequestRepository> {}
-
-    @Action(domainEvent = CardRequestRepository.CreateDomainEvent.class, publishing = Publishing.ENABLED)
+    @Action(publishing = Publishing.ENABLED)
     public CardRequest findOrCreate(
             User user,
             CardRequestType type
