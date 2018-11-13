@@ -12,6 +12,7 @@ import org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestVie
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
 
@@ -44,6 +45,11 @@ public class WebsiteUserCardDisableRequestViewModel extends AbstractRequestViewM
 
         for (Card card : user.getCards()){
             card.setStatus(CardStatus.DISABLED);
+        }
+
+        CardRequest cardRequestForUser = user.getOpenCardRequest();
+        if(cardRequestForUser != null){
+            cardRequestForUser.deny();
         }
 
         return Result.ok();
