@@ -125,7 +125,7 @@ public class ApiService {
             );
         }
 
-        cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
+        wrapperFactory.wrap(cardRequestRepository).findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
 
         return Result.ok();
     }
@@ -147,7 +147,7 @@ public class ApiService {
 
         User user = userRepository.findByExactEmailAndCenter(requestViewModel.getEmail(), device.getCenter());
 
-        cardRequestRepository.findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
+        wrapperFactory.wrap(cardRequestRepository).findOrCreate(user, CardRequestType.PICK_UP_IN_CENTER);
 
         return Result.ok();
     }
