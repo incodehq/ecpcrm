@@ -83,8 +83,9 @@ public class CardGameRequestViewModel extends AbstractRequestViewModel {
             System.out.println("missmatching centers");
             System.out.println(device.getName());
             System.out.println(device.getSecret());
-            System.out.println("auth dev center: " + device.getCenter());
-            System.out.println("card center:" + card.getCenter());
+            System.out.println("auth dev center: " + device.getCenter().getName());
+            System.out.println("card center :" + card.getCenter().getName());
+            System.out.println("card-nr: " + card.getNumber());
             return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
         }
 
