@@ -1,6 +1,7 @@
 package org.incode.eurocommercial.ecpcrm.webapp;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.services.user.UserService;
 import org.apache.isis.core.metamodel.services.ServicesInjector;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 
@@ -83,8 +84,8 @@ public class EcpCrmUserSettingsThemeProvider implements ActiveThemeProvider {
     }
 
     protected String currentUserName() {
-        final DomainObjectContainer container = getServicesInjector().lookupService(DomainObjectContainer.class);
-        return container.getUser().getName();
+        final UserService userService = getServicesInjector().lookupService(UserService.class);
+        return userService.getUser().getName();
     }
 
     // //////////////////////////////////////

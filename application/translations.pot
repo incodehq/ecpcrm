@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-26 17:54:08+\n"
+"POT-Creation-Date: 2018-11-29 16:26:19+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -266,6 +266,19 @@ msgid "As Date String"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asDeterministicBoolean()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asDeterministicBoolean()
+msgid "As Deterministic Boolean"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asLocalDate()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asLocalDate()
@@ -411,6 +424,25 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu
 msgid "Card Requests"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
+msgid "Card number is invalid"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#approve()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#reapprove()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "Card number {cardNumber} is invalid"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "Card with number {cardNumber} is already assigned to {cardUserEmail}"
 msgstr ""
 
 
@@ -812,7 +844,6 @@ msgstr ""
 #: org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository#downloadLayoutXml()
 #: org.apache.isis.applib.services.audit.AuditerService#downloadLayoutXml()
 #: org.apache.isis.applib.services.background.BackgroundService#downloadLayoutXml()
-#: org.apache.isis.applib.services.background.BackgroundService2#downloadLayoutXml()
 #: org.apache.isis.applib.services.bookmark.BookmarkService#downloadLayoutXml()
 #: org.apache.isis.applib.services.bookmark.BookmarkService2#downloadLayoutXml()
 #: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService#downloadLayoutXml()
@@ -824,9 +855,6 @@ msgstr ""
 #: org.apache.isis.applib.services.config.ConfigurationService#downloadLayoutXml()
 #: org.apache.isis.applib.services.email.EmailService#downloadLayoutXml()
 #: org.apache.isis.applib.services.eventbus.EventBusService#downloadLayoutXml()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer#downloadLayoutXml()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer2#downloadLayoutXml()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#downloadLayoutXml()
 #: org.apache.isis.applib.services.factory.FactoryService#downloadLayoutXml()
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider#downloadLayoutXml()
 #: org.apache.isis.applib.services.grid.GridLoaderService#downloadLayoutXml()
@@ -1049,11 +1077,6 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updatePassword(org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password)
 msgid "Existing password"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center#fakeNumerator
-msgid "Fake Numerator"
 msgstr ""
 
 
@@ -1906,7 +1929,6 @@ msgstr ""
 #: org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository#openRestApi()
 #: org.apache.isis.applib.services.audit.AuditerService#openRestApi()
 #: org.apache.isis.applib.services.background.BackgroundService#openRestApi()
-#: org.apache.isis.applib.services.background.BackgroundService2#openRestApi()
 #: org.apache.isis.applib.services.bookmark.BookmarkService#openRestApi()
 #: org.apache.isis.applib.services.bookmark.BookmarkService2#openRestApi()
 #: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService#openRestApi()
@@ -1918,9 +1940,6 @@ msgstr ""
 #: org.apache.isis.applib.services.config.ConfigurationService#openRestApi()
 #: org.apache.isis.applib.services.email.EmailService#openRestApi()
 #: org.apache.isis.applib.services.eventbus.EventBusService#openRestApi()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer#openRestApi()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer2#openRestApi()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#openRestApi()
 #: org.apache.isis.applib.services.factory.FactoryService#openRestApi()
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider#openRestApi()
 #: org.apache.isis.applib.services.grid.GridLoaderService#openRestApi()
@@ -2357,7 +2376,6 @@ msgstr ""
 #: org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository#rebuildMetamodel()
 #: org.apache.isis.applib.services.audit.AuditerService#rebuildMetamodel()
 #: org.apache.isis.applib.services.background.BackgroundService#rebuildMetamodel()
-#: org.apache.isis.applib.services.background.BackgroundService2#rebuildMetamodel()
 #: org.apache.isis.applib.services.bookmark.BookmarkService#rebuildMetamodel()
 #: org.apache.isis.applib.services.bookmark.BookmarkService2#rebuildMetamodel()
 #: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService#rebuildMetamodel()
@@ -2369,9 +2387,6 @@ msgstr ""
 #: org.apache.isis.applib.services.config.ConfigurationService#rebuildMetamodel()
 #: org.apache.isis.applib.services.email.EmailService#rebuildMetamodel()
 #: org.apache.isis.applib.services.eventbus.EventBusService#rebuildMetamodel()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer#rebuildMetamodel()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer2#rebuildMetamodel()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#rebuildMetamodel()
 #: org.apache.isis.applib.services.factory.FactoryService#rebuildMetamodel()
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider#rebuildMetamodel()
 #: org.apache.isis.applib.services.grid.GridLoaderService#rebuildMetamodel()
@@ -2518,7 +2533,6 @@ msgstr ""
 #: org.apache.isis.applib.fixturescripts.FixtureScripts#recentActivity()
 #: org.apache.isis.applib.services.config.ConfigurationProperty#recentActivity()
 #: org.apache.isis.applib.services.eventbus.EventBusService#recentActivity()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#recentActivity()
 #: org.apache.isis.applib.services.jaxb.JaxbService$Simple#recentActivity()
 #: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotServiceAbstract#recentActivity()
 #: org.apache.isis.core.commons.config.IsisConfigurationDefault#recentActivity()
@@ -2870,6 +2884,11 @@ msgid "TargetStr"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "This email address is invalid"
+msgstr ""
+
+
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#timestamp
@@ -3074,6 +3093,11 @@ msgstr ""
 
 #: org.isisaddons.module.settings.dom.jdo.UserSettingJdo
 msgid "User Setting"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "User with email {email} already exists"
 msgstr ""
 
 
