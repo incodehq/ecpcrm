@@ -5,7 +5,7 @@ drop index Center_N50
 on [dbo].[Center]
 
 delete
- FROM [ecpcrm_prod].[dbo].[Numerator]
+ FROM [dbo].[Numerator]
  WHERE name like 'fake%'
 
 ALTER TABLE [dbo].[Center]
