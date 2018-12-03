@@ -60,35 +60,9 @@ public class CardGameRequestViewModel extends AbstractRequestViewModel {
         Center center = device.getCenter();
         Card card = cardRepository.findByExactNumber(getCardNumber());
 
-//        if (card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
-//            return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
-//        }
-
-        if(card == null){
-            System.out.println("card is null");
+        if (card == null || card.getOwner() == null || card.getStatus() != CardStatus.ENABLED || card.getCenter() != center) {
             return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
         }
-
-        if(card.getOwner() == null){
-            System.out.println("Owner is null");
-            return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
-        }
-
-        if(card.getStatus() != CardStatus.ENABLED){
-            System.out.println("Card is not enabled");
-            return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
-        }
-
-        if(card.getCenter() != center){
-            System.out.println("missmatching centers");
-            System.out.println(device.getName());
-            System.out.println(device.getSecret());
-            System.out.println("auth dev center: " + device.getCenter().getName());
-            System.out.println("card center :" + card.getCenter().getName());
-            System.out.println("card-nr: " + card.getNumber());
-            return Result.error(Result.STATUS_INVALID_CARD, "Invalid card");
-        }
-
 
         if (!card.getOwner().isEnabled()) {
             return Result.error(Result.STATUS_INVALID_USER, "Invalid user");
