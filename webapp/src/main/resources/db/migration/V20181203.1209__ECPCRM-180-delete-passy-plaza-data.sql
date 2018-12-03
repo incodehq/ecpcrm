@@ -54,3 +54,28 @@ drop constraint Card_FK1
 Delete
 FROm [dbo].[Center]
 Where [dbo].[Center].[Center_ID]='4'
+
+-- Re-add constraints
+
+ALTER TABLE [dbo].[CardRequest]  WITH CHECK ADD  CONSTRAINT [CardRequest_FK2] FOREIGN KEY([requestingUser_User_ID_OID])
+REFERENCES [dbo].[User] ([User_ID])
+GO
+
+ALTER TABLE [dbo].[CardRequest] CHECK CONSTRAINT [CardRequest_FK2]
+GO
+
+
+ALTER TABLE [dbo].[Card]  WITH CHECK ADD  CONSTRAINT [Card_FK1] FOREIGN KEY([center_Center_ID_OID])
+REFERENCES [dbo].[Center] ([Center_ID])
+GO
+
+ALTER TABLE [dbo].[Card] CHECK CONSTRAINT [Card_FK1]
+GO
+
+
+ALTER TABLE [dbo].[Card]  WITH CHECK ADD  CONSTRAINT [Card_FK2] FOREIGN KEY([owner_User_ID_OID])
+REFERENCES [dbo].[User] ([User_ID])
+GO
+
+ALTER TABLE [dbo].[Card] CHECK CONSTRAINT [Card_FK2]
+GO
