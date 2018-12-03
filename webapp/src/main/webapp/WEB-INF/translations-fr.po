@@ -32,6 +32,7 @@ msgid "Act"
 msgstr "Acte"
 
 #: org.apache.isis.applib.services.appfeat.ApplicationMemberType#ACTION
+#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#targetAction
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addAction(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String,java.lang.String)
 msgid "Action"
 msgstr "Action"
@@ -83,6 +84,11 @@ msgstr "Ajouter un package"
 msgid "Add Property"
 msgstr "Ajouter une propriété"
 
+
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#address
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#address
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#address
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#address
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#address
 msgid "Address"
 msgstr "Adresse"
@@ -205,6 +211,11 @@ msgstr "Périphériques d'authentification"
 msgid "Birth Date"
 msgstr "Date de naissance"
 
+
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#birthdate
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#birthdate
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#birthdate
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#birthdate
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#birthdate
 msgid "Birthdate"
 msgstr "Date de naissance"
@@ -453,7 +464,8 @@ msgstr "Défaut"
 msgid "Delegated"
 msgstr "Délégué"
 
-#: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#deleteCustomer()
+
+#: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#delete()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#delete()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#delete()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#delete()
@@ -680,6 +692,16 @@ msgstr "Télécharger Jdo Metadata"
 #: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.service.Result#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadLayoutXml()
@@ -796,10 +818,6 @@ msgstr "Exécuter dans la transaction"
 msgid "Existing password"
 msgstr "Mot de passe existant"
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center#fakeNumerator
-msgid "Fake Numerator"
-msgstr "Faux Numérateur"
-
 #: org.apache.isis.applib.services.menu.MenuBarsService$Type#FALLBACK
 msgid "Fallback"
 msgstr "Se retirer"
@@ -896,6 +914,8 @@ msgstr "Trouver par référence"
 msgid "Find Matching"
 msgstr "Trouver les correspondances"
 
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository#findOrCreate()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findOrCreate()
 msgid "Find Or Create"
 msgstr "Trouver ou créer"
@@ -2158,6 +2178,17 @@ msgstr "Classe de résultat"
 msgid "Result key"
 msgstr "Clé de résultat"
 
+
+#: org.incode.eurocommercial.ecpcrm.module.api.menu.AdminMenu#resyncCenterUsers()
+msgid "Resync Center Users"
+msgstr "Resynchroniser les utilisateurs du centre"
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#resyncMailchimp()
+msgid "Resync Mailchimp"
+msgstr "Resynchroniser Mailchimp"
+
+
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#returnType
 #: org.isisaddons.module.security.app.feature.ApplicationClassProperty#returnType
 msgid "Return Type"
@@ -2187,7 +2218,13 @@ msgstr "Règle"
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsDefault#runFixtureScript()
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsDefault#runFixtureScriptWithAutoComplete()
 msgid "Run Fixture Script"
-msgstr "Exécuter un script de montage"
+msgstr "Exécuter le script de montage"
+
+
+#: org.incode.eurocommercial.ecpcrm.module.application.menu.prototyping.FixtureMenu#runImport()
+msgid "Run Import"
+msgstr "Exécuter l'importation"
+
 
 #: org.apache.isis.applib.annotation.SemanticsOf#SAFE
 msgid "Safe"
@@ -2312,7 +2349,13 @@ msgstr "Target"
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
 msgid "TargetStr"
-msgstr "TargetStr"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "This email address is invalid"
+msgstr "Cette adresse email est invalide"
+
 
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#timestamp
