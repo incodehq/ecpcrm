@@ -1,81 +1,76 @@
---Deletes childcare
-DELETE cc
-FROM [dbo].[ChildCare] cc 
-FULL JOIN [dbo].[Child] 
-	on cc.child_Child_ID_OID=[dbo].[Child].[Child_ID]
-FULL JOIN [dbo].[User]
-	on [dbo].[Child].[parent_User_ID_OID]=[dbo].[User].[User_ID]
-Where [dbo].[User].[center_Center_ID_OID]='4'
+SELECT u.[User_ID], c.[Card_ID], cr.[CardRequest_ID], cg.[card_Card_ID_OID], ch.[Child_ID], cc.[ChildCare_ID]
+ 
+into #TempTable
+
+from [dbo].[User] u
+
+FULL JOIN [dbo].[Card] c
+	on c.[owner_User_ID_OID]=u.[User_ID]
+
+FULL JOIN [dbo].[CardRequest] cr
+	on cr.requestingUser_User_ID_OID=u.[User_ID]
+
+FULL JOIN [dbo].[CardGame] cg
+	on cg.card_Card_ID_OID=c.[Card_ID]
+
+FULL JOIN [dbo].[Child] ch
+	on ch.parent_User_ID_OID=u.[User_ID]
+
+FULL JOIN [dbo].[ChildCare] cc
+	on cc.child_Child_ID_OID=ch.[Child_ID]
+
+Where u.[center_Center_ID_OID]='4'
 
 
---Deletes children 
-DELETE cld
-FROM [dbo].[Child] cld 
-FULL JOIN [dbo].[User] 
-	on cld.parent_User_ID_OID=[dbo].[User].[User_ID]
-Where [dbo].[User].[center_Center_ID_OID]='4'
-
---deletes cardGame
 DELETE cg
-FROM [dbo].[CardGame] cg  
-	INNER JOIN [dbo].[Card] ON cg.card_Card_ID_OID=[dbo].[Card].[Card_ID]
-	INNER JOIN [dbo].[User] ON [dbo].[User].[User_ID]=[dbo].[Card].[owner_User_ID_OID]
-WHERE [dbo].[User].[center_Center_ID_OID] ='4'
+FROM [dbo].[CardGame] cg
 
---Deletes cardRequests
-ALTER TABLE [dbo].[Card]
-drop constraint Card_FK2
+INNER JOIN #TempTable tt
+	on cg.card_Card_ID_OID=tt.[card_Card_ID_OID]
 
-ALTER TABLE [dbo].[CardRequest]
-drop constraint CardRequest_FK2
 
+---------------
 DELETE cr
-FROM [dbo].[CardRequest] cr 
-INNER JOIN [dbo].[User] 
-	on cr.requestingUser_User_ID_OID=[dbo].[User].[User_ID]
+FROM [dbo].[CardRequest] cr
 
-WHERE [dbo].[User].[center_Center_ID_OID] ='4'
-
---deletes cards
+INNER JOIN #TempTable tt
+	on cr.CardRequest_ID=tt.[CardRequest_ID]
+---------------
 DELETE c
-FROM [dbo].[Card] c 
-	INNER JOIN [dbo].[User] ON c.[owner_User_ID_OID]=[dbo].[User].[User_ID]
-WHERE [dbo].[User].[center_Center_ID_OID] ='4'
+FROM [dbo].[Card] c
 
---deletes users
-Delete 
-FROM [dbo].[User]
-Where [dbo].[User].center_Center_ID_OID='4'
+INNER JOIN #TempTable tt
+	on c.Card_ID=tt.[Card_ID]
 
---delete center
-ALTER TABLE [dbo].[Card]
-drop constraint Card_FK1
+DELETE c
+FROM [dbo].[Card] c
+Where c.center_Center_ID_OID='4'
 
-Delete
-FROm [dbo].[Center]
-Where [dbo].[Center].[Center_ID]='4'
+------
+DELETE cc
+FROM [dbo].[ChildCare] cc
 
--- Re-add constraints
+INNER JOIN #TempTable tt
+	on cc.ChildCare_ID=tt.ChildCare_ID
+------
 
-ALTER TABLE [dbo].[CardRequest]  WITH CHECK ADD  CONSTRAINT [CardRequest_FK2] FOREIGN KEY([requestingUser_User_ID_OID])
-REFERENCES [dbo].[User] ([User_ID])
-GO
+DELETE ch
+FROM [dbo].[Child] ch
 
-ALTER TABLE [dbo].[CardRequest] CHECK CONSTRAINT [CardRequest_FK2]
-GO
+INNER JOIN #TempTable tt
+	on ch.Child_ID=tt.Child_ID
 
+-------
 
-ALTER TABLE [dbo].[Card]  WITH CHECK ADD  CONSTRAINT [Card_FK1] FOREIGN KEY([center_Center_ID_OID])
-REFERENCES [dbo].[Center] ([Center_ID])
-GO
+DELETE u
+FROM [dbo].[User] u
+WHERE u.center_Center_ID_OID='4'
 
-ALTER TABLE [dbo].[Card] CHECK CONSTRAINT [Card_FK1]
-GO
+------
 
+Delete ce
+FROM [dbo].[Center] ce
+WHERE ce.Center_ID='4'
 
-ALTER TABLE [dbo].[Card]  WITH CHECK ADD  CONSTRAINT [Card_FK2] FOREIGN KEY([owner_User_ID_OID])
-REFERENCES [dbo].[User] ([User_ID])
-GO
-
-ALTER TABLE [dbo].[Card] CHECK CONSTRAINT [Card_FK2]
-GO
+----
+DROP TABLE #TempTable
