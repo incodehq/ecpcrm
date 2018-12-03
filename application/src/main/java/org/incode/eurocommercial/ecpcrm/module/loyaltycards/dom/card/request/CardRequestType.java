@@ -18,6 +18,5 @@ package org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request;
 
 public enum CardRequestType {
     PICK_UP_IN_CENTER,
-    SEND_TO_HOME,
     UNKNOWN_IMPORT
 }
