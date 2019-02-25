@@ -1,2 +1,2 @@
 DELETE FROM [dbo].[CardRequest]
-WHERE [type]='SEND_TO_HOME'
+WHERE [dbo].[CardRequest].[type] ='SEND_TO_HOME'
