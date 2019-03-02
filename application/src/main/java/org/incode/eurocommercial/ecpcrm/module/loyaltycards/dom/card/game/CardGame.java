@@ -58,7 +58,11 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame "
                         + "WHERE card == :card "
-                        + "&& date == :date")
+                        + "&& date == :date"),
+        @Query(name = "findByDateRange", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame "
+                        + "WHERE date >= :startDate && date <= :endDate")
 })
 @DomainObject(
         editing = Editing.DISABLED

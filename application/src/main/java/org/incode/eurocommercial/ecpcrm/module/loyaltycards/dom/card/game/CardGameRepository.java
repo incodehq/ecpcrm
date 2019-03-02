@@ -55,6 +55,19 @@ public class CardGameRepository {
     }
 
     @Programmatic
+    public List<CardGame> findByDateRange(
+            final LocalDate startDate,
+            final LocalDate endDate
+    ) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        CardGame.class,
+                        "findByDateRange",
+                        "startDate", startDate,
+                        "endDate", endDate));
+    }
+
+    @Programmatic
     public CardGame newCardGame(
             final Card card,
             final LocalDate date,
