@@ -39,6 +39,14 @@ import java.util.List;
 )
 public class UserMenu {
 
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "1")
+    public List<User> listAllUsers(){
+        return userRepository.listAll();
+    }
+
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")

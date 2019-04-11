@@ -52,13 +52,20 @@ public class CardMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
+    public List<Card> listAllCards() {
+        return cardRepository.listAll();
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "1.1")
     public List<Card> listUnassignedCards() {
         return cardRepository.listUnassignedCards();
     }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    @MemberOrder(sequence = "1.1")
+    @MemberOrder(sequence = "1.2")
     public List<Card> allEnabledCardsWithoutOwner() {
         return cardRepository.allEnabledCardsWithoutOwner();
     }
