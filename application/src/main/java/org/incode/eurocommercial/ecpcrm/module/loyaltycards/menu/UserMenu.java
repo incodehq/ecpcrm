@@ -18,13 +18,25 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu;
 
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.Publishing;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.value.Blob;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.Title;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository;
+import org.isisaddons.module.excel.dom.ExcelService;
 import org.joda.time.LocalDate;
 
 import javax.inject.Inject;
@@ -39,13 +51,15 @@ import java.util.List;
 )
 public class UserMenu {
 
-
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<User> listAllUsers(){
-        return userRepository.listAll();
+    public Blob downloadAllUsers(){
+        final List<User> allUsers = userRepository.listAll();
+        final String fileName = "AllUsersInECPCRM" + ".xlsx";
+        return excelService.toExcel(allUsers, User.class, "users", fileName);
     }
+
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
@@ -156,4 +170,6 @@ public class UserMenu {
     }
 
     @Inject private UserRepository userRepository;
+    @Inject private ExcelService excelService;
+
 }

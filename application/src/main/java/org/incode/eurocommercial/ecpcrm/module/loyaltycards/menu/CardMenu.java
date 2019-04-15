@@ -18,10 +18,6 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -34,11 +30,15 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
-
+import org.apache.isis.applib.value.Blob;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardRepository;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center;
+import org.isisaddons.module.excel.dom.ExcelService;
+
+import javax.inject.Inject;
+import java.util.List;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
@@ -52,8 +52,10 @@ public class CardMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<Card> listAllCards() {
-        return cardRepository.listAll();
+    public Blob downloadAllCards() {
+        final List<Card> allCards = cardRepository.listAll();
+        final String fileName = "AllCardsInECPCRM" + ".xlsx";
+        return excelService.toExcel(allCards, Card.class, "cards", fileName);
     }
 
     @Action(semantics = SemanticsOf.SAFE)
@@ -105,4 +107,6 @@ public class CardMenu {
     }
 
     @Inject private CardRepository cardRepository;
+    @Inject private ExcelService excelService;
 }
+
