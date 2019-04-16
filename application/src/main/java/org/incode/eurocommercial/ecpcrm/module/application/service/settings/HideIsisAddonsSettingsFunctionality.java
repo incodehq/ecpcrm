@@ -28,11 +28,13 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.eventbus.AbstractDomainEvent;
 
-import org.isisaddons.module.settings.SettingsModule;
+import org.incode.module.settings.SettingsModule;
+import org.incode.module.settings.dom.ApplicationSettingsService;
+import org.incode.module.settings.dom.UserSettingsService;
 
 /**
- * This service simply permanently hides the menus from the {@link org.isisaddons.module.settings.dom.ApplicationSettingsService} and
- * {@link org.isisaddons.module.settings.dom.UserSettingsService} implementations.
+ * This service simply permanently hides the menus from the {@link ApplicationSettingsService} and
+ * {@link UserSettingsService} implementations.
  *
  * <p>
  *     Instead we expose settings using the {@link EcpCrmSettingsService} wrapper.

@@ -51,7 +51,7 @@ public class CardRequestCreate extends FixtureScript {
         if(type == null)
             type = CardRequestType.values()[new Random().nextInt(CardRequestType.values().length)];
 
-        cardRequest = wrap(cardRequestRepository).findOrCreate(user, type);
+        cardRequest = cardRequestRepository.findOrCreate(user, type);
 
         ec.addResult(this, cardRequest);
     }

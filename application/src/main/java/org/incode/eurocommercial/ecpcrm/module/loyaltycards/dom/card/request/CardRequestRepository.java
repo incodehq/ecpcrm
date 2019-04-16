@@ -20,14 +20,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.joda.time.LocalDateTime;
 
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -39,7 +35,7 @@ import org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User;
         repositoryFor = CardRequest.class
 )
 public class CardRequestRepository {
-    @Programmatic
+
     public List<CardRequest> listAll() {
         return repositoryService.allMatches(
                 new QueryDefault<>(
@@ -48,7 +44,6 @@ public class CardRequestRepository {
                 ));
     }
 
-    @Programmatic
     public List<CardRequest> listOpenRequests() {
         return repositoryService.allMatches(
                 new QueryDefault<>(
@@ -57,7 +52,6 @@ public class CardRequestRepository {
                         "approved", null));
     }
 
-    @Programmatic
     public List<CardRequest> listRecentlyIssuedRequests() {
         LocalDateTime end = clockService.nowAsLocalDateTime();
         LocalDateTime start = end.minusDays(7);
@@ -69,7 +63,6 @@ public class CardRequestRepository {
                         "endDate", end));
     }
 
-    @Programmatic
     public List<CardRequest> listRecentlyHandledRequests() {
         LocalDateTime end = clockService.nowAsLocalDateTime();
         LocalDateTime start = end.minusDays(7);
@@ -81,7 +74,6 @@ public class CardRequestRepository {
                         "endDate", end));
     }
 
-    @Programmatic
     public List<CardRequest> findByUser(
             User user
     ) {
@@ -92,7 +84,6 @@ public class CardRequestRepository {
                         "requestingUser", user));
     }
 
-    @Programmatic
     public CardRequest openRequestForUser(
             User user
     ) {
@@ -104,7 +95,6 @@ public class CardRequestRepository {
                         "requestingUser", user));
     }
 
-    @Programmatic
     private CardRequest newCardRequest(
             User user,
             CardRequestType type
@@ -123,9 +113,6 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<CardRequestRepository> {}
-
-    @Action(domainEvent = CardRequestRepository.CreateDomainEvent.class, publishing = Publishing.ENABLED)
     public CardRequest findOrCreate(
             User user,
             CardRequestType type
@@ -135,6 +122,6 @@ public class CardRequestRepository {
         return cardRequest;
     }
 
-    @Inject private RepositoryService repositoryService;
-    @Inject private ClockService clockService;
+    @Inject RepositoryService repositoryService;
+    @Inject ClockService clockService;
 }

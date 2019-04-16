@@ -30,27 +30,13 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
-import org.isisaddons.module.settings.SettingsModule;
 
 import org.incode.eurocommercial.ecpcrm.module.api.EcpCrmApiModule;
 import org.incode.eurocommercial.ecpcrm.module.loyaltycards.EcpCrmLoyaltyCardsModule;
+import org.incode.module.settings.SettingsModule;
 
 @XmlRootElement(name = "module")
 public final class EcpCrmApplicationModule extends ModuleAbstract {
-
-    @Override
-    public Set<Class<?>> getAdditionalModules() {
-        return Sets.newHashSet(
-                SettingsModule.class
-        );
-    }
-
-    @Override
-    public Set<Class<?>> getAdditionalServices() {
-        return Sets.newHashSet(
-                PasswordEncryptionServiceUsingJBcrypt.class
-        );
-    }
 
     @Override
     public Set<Module> getDependencies() {
@@ -58,7 +44,9 @@ public final class EcpCrmApplicationModule extends ModuleAbstract {
                 new EcpCrmLoyaltyCardsModule(),
                 new EcpCrmApiModule(),
                 new ExcelModule(),
-                new PublishMqModule()
+                new PublishMqModule(),
+                new SettingsModule(),
+                new PasswordEncryptionServiceUsingJBcrypt.Module()
         );
     }
 }

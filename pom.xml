@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.2.20180707-1320-eca4c55a</version>
+        <version>1.17.0.20190305-1828-b0e9bc8d</version>
     </parent>
 
     <groupId>org.incode.eurocommercial</groupId>
@@ -59,18 +59,11 @@
     </developers>
 
     <properties>
-        <revision>1.16.2-SNAPSHOT</revision>
-        <isis.version>1.16.2</isis.version>
+        <revision>1.0.0-SNAPSHOT</revision>
+        <isis.version>1.17.0.20190207-2036-bccfeda5</isis.version>
 
         <!-- NB: also update the parent of this pom.  -->
-        <incode-platform.version>1.16.2.20180710-1343-21c38b2f</incode-platform.version>
-
-
-        <!--For some reason this does not work above version 1.14.0-->
-        <isis-module-security.version>${incode-platform.version}</isis-module-security.version>
-        <!--This has no version over 1.15.0-->
-        <isis-module-settings.version>1.15.0</isis-module-settings.version>
-
+        <incode-platform.version>1.17.0.20190305-1828-b0e9bc8d</incode-platform.version>
 
         <jbcrypt.version>0.3m</jbcrypt.version>
 
@@ -194,12 +187,78 @@
                 <version>${commons-beanutils.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>org.isisaddons.module.audit</groupId>
+                <artifactId>isis-module-audit-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.docx</groupId>
+                <artifactId>isis-module-docx-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.excel</groupId>
+                <artifactId>isis-module-excel-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom</artifactId>
                 <version>${incode-platform.version}</version>
-                <type>pom</type>
                 <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.security</groupId>
+                <artifactId>isis-module-security-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mindrot</groupId>
+                <artifactId>jbcrypt</artifactId>
+                <version>${jbcrypt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.sessionlogger</groupId>
+                <artifactId>isis-module-sessionlogger-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.settings</groupId>
+                <artifactId>incode-module-settings-dom</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.wicket.excel</groupId>
+                <artifactId>isis-wicket-excel-cpt</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+                <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.wicket.gmap3</groupId>
+                <artifactId>isis-wicket-gmap3-cpt</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
 
         </dependencies>
@@ -208,17 +267,17 @@
     <profiles>
         <!-- required to pull down parent pom (incode-parent) -->
         <profile>
-            <id>incode-cloud-maven</id>
+            <id>incode-work-maven</id>
             <activation>
                 <property>
-                    <name>!skip.incode-cloud-maven</name>
+                    <name>!skip.incode-work-maven</name>
                 </property>
             </activation>
             <repositories>
                 <repository>
-                    <id>incode-cloud-maven</id>
-                    <url>https://repo.incode.cloud/repository/maven/</url>
-                    <name>Incode Cloud (maven)</name>
+                    <id>incode-work-maven</id>
+                    <url>https://repo.incode.work</url>
+                    <name>Incode Work (maven)</name>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>always</updatePolicy>
@@ -234,248 +293,17 @@
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
-                    <id>incode-cloud-maven</id>
-                    <name>Incode Cloud (maven)</name>
+                    <id>incode-work-maven</id>
+                    <url>https://repo.incode.work</url>
+                    <name>Incode Work (maven)</name>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>never</updatePolicy>
                         <checksumPolicy>fail</checksumPolicy>
                     </releases>
-                    <url>https://repo.incode.cloud/repository/maven/</url>
                     <layout>default</layout>
                 </pluginRepository>
             </pluginRepositories>
-        </profile>
-
-        <profile>
-            <id>isisaddons-module-audit</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-audit</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.audit</groupId>
-                        <artifactId>isis-module-audit-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-command</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-command</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.command</groupId>
-                        <artifactId>isis-module-command-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-docx</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-docx</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.docx</groupId>
-                        <artifactId>isis-module-docx-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-excel</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-excel</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.excel</groupId>
-                        <artifactId>isis-module-excel-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-fakedata</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-fakedata</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.fakedata</groupId>
-                        <artifactId>isis-module-fakedata-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-publishmq</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-publishmq</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.publishmq</groupId>
-                        <artifactId>isis-module-publishmq-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                        <scope>import</scope>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-security</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-security</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.security</groupId>
-                        <artifactId>isis-module-security-dom</artifactId>
-                        <version>${isis-module-security.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.mindrot</groupId>
-                        <artifactId>jbcrypt</artifactId>
-                        <version>${jbcrypt.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-sessionlogger</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-sessionlogger</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.sessionlogger</groupId>
-                        <artifactId>isis-module-sessionlogger-dom</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-module-settings</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-module-settings</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.module.settings</groupId>
-                        <artifactId>isis-module-settings-dom</artifactId>
-                        <version>${isis-module-settings.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>isisaddons-wicket-excel</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-wicket-excel</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.wicket.excel</groupId>
-                        <artifactId>isis-wicket-excel-cpt</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-wicket-fullcalendar2</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-wicket-fullcalendar2</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
-                        <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>isisaddons-wicket-gmap3</id>
-            <activation>
-                <property>
-                    <name>!skip.isisaddons-wicket-gmap3</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.isisaddons.wicket.gmap3</groupId>
-                        <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                        <version>${incode-platform.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>lombok</id>
-            <activation>
-                <property>
-                    <name>!skip.lombok</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                        <version>${lombok.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
         </profile>
 
         <profile>
