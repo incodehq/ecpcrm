@@ -1,3 +1,17 @@
+#
+# This CI config has been renamed because it needs to be refactored.
+#
+# as written, it push an image to a Sonatype Nexus on repo.incode.cloud, but that server is to be/has been decommissioned.
+#
+# An alternative would be to build to GCR (on GCP), see for example gitlab.com/hal-ioc/identity for configuration.
+#
+# Note that this involves switching out the mavenmixin-docker mixin and instead simply use com.spotify:dockerfile-maven-plugin
+#
+#
+#
+
+
+
 # not required, since no releasable libraries
 #
 # - NEXUS_USERNAME
