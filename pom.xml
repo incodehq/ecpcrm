@@ -24,6 +24,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
+        <!-- NB: also update incode-platform.version property below. -->
         <version>1.17.0.20190305-1828-b0e9bc8d</version>
     </parent>
 
