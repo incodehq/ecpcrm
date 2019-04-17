@@ -31,7 +31,7 @@
 
     <properties>
         <axon-core.version>2.4</axon-core.version>
-        <ecpcrm-canonical.version>2.0.0-M1.20180808-1244-df59937d</ecpcrm-canonical.version>
+        <ecpcrm-canonical.version>2.0.0.20190416-1657-83b7ee37</ecpcrm-canonical.version>
         <mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
     </properties>
 
