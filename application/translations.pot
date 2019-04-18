@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-10-26 17:54:08+\n"
+"POT-Creation-Date: 2019-04-17 12:04:05+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,6 +37,11 @@ msgstr ""
 
 #: org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu#downloadTranslations(java.lang.String)
 msgid ".pot file name"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModelXml(java.util.List,java.lang.String)
+msgid ".xml file name"
 msgstr ""
 
 
@@ -57,15 +62,29 @@ msgid "Act"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.appfeat.ApplicationMemberType#ACTION
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#targetAction
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addAction(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String,java.lang.String)
 msgid "Action"
 msgstr ""
 
 
+#: org.apache.isis.applib.domain.DomainObjectList#actionArguments
+msgid "Action Arguments"
+msgstr ""
+
+
+#: org.apache.isis.applib.domain.DomainObjectList#actionId
+msgid "Action Id"
+msgstr ""
+
+
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventType#ACTION_INVOCATION
 msgid "Action Invocation"
+msgstr ""
+
+
+#: org.apache.isis.applib.domain.DomainObjectList#actionOwningType
+msgid "Action Owning Type"
 msgstr ""
 
 
@@ -122,10 +141,6 @@ msgid "Add Property"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#address
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#address
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#address
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#address
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#address
 msgid "Address"
 msgstr ""
@@ -167,7 +182,6 @@ msgstr ""
 
 
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionMenu#allPermissions()
-#: org.isisaddons.module.security.dom.permission.ApplicationPermissions#allPermissions()
 msgid "All Permissions"
 msgstr ""
 
@@ -187,7 +201,6 @@ msgid "All Roles"
 msgstr ""
 
 
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#allTenancies()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu#allTenancies()
 msgid "All Tenancies"
 msgstr ""
@@ -204,17 +217,12 @@ msgid "Allow"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.xactn.TransactionService3$Policy#ALWAYS
-msgid "Always"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#APP
 msgid "App"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo
 msgid "Application Setting"
 msgstr ""
 
@@ -236,78 +244,6 @@ msgstr ""
 
 #: org.apache.isis.core.runtime.system.session.IsisSessionFactoryBuilder
 msgid "Are you sure?"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asBoolean()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asBoolean()
-msgid "As Boolean"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asDateString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asDateString()
-msgid "As Date String"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asLocalDate()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asLocalDate()
-msgid "As Local Date"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#asResponse()
-msgid "As Response"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asString()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asString()
-msgid "As String"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#asTitle()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#asTitle()
-msgid "As Title"
 msgstr ""
 
 
@@ -348,27 +284,18 @@ msgid "Birth Date"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#birthdate
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#birthdate
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#birthdate
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#birthdate
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#birthdate
 msgid "Birthdate"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingType#BOOLEAN
+#: org.incode.module.settings.dom.SettingType#BOOLEAN
 msgid "Boolean"
 msgstr ""
 
 
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#BORNE
 msgid "Borne"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#boutiques
-msgid "Boutiques"
 msgstr ""
 
 
@@ -382,35 +309,32 @@ msgid "Card"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#cardCheck()
-msgid "Card Check"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#cardGame()
-msgid "Card Game"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#cardGames
 msgid "Card Games"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#cardNumber
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#cardNumber
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#cardNumber
-msgid "Card Number"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#cardRequest()
-msgid "Card Request"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu
 msgid "Card Requests"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#newCard()
+msgid "Card number is invalid"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#approve()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#reapprove()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "Card number {cardNumber} is invalid"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#newCard()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "Card with number {cardNumber} is already assigned to {cardUserEmail}"
 msgstr ""
 
 
@@ -429,12 +353,6 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#center
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#center
 msgid "Center"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#centerId
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#centerId
-msgid "Center Id"
 msgstr ""
 
 
@@ -459,23 +377,9 @@ msgid "Changing Permission"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#checkCode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#checkCode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#checkCode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#checkCode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#checkCode
-msgid "Check Code"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#checkIn()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#checkIn
 msgid "Check In"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#checkItem
-msgid "Check Item"
 msgstr ""
 
 
@@ -496,10 +400,6 @@ msgid "Child Cares"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#children
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#children
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#children
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#children
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#children
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#children
@@ -507,10 +407,6 @@ msgid "Children"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#city
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#city
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#city
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#city
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#city
 msgid "City"
 msgstr ""
@@ -549,7 +445,6 @@ msgid "Code"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.appfeat.ApplicationMemberType#COLLECTION
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addCollection(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String,java.lang.String)
 msgid "Collection"
 msgstr ""
@@ -567,21 +462,6 @@ msgstr ""
 
 #: org.apache.isis.applib.services.layout.LayoutService$Style#COMPLETE
 msgid "Complete"
-msgstr ""
-
-
-#: javax.ws.rs.core.MultivaluedMap#compute()
-msgid "Compute"
-msgstr ""
-
-
-#: javax.ws.rs.core.MultivaluedMap#computeIfAbsent()
-msgid "Compute If Absent"
-msgstr ""
-
-
-#: javax.ws.rs.core.MultivaluedMap#computeIfPresent()
-msgid "Compute If Present"
 msgstr ""
 
 
@@ -661,13 +541,13 @@ msgstr ""
 
 
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#delete()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#delete()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#delete()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#delete()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#delete()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#delete()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#delete()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#delete()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#delete()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#delete()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#delete()
 msgid "Delete"
 msgstr ""
 
@@ -683,40 +563,35 @@ msgid "Derived"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#desc
-msgid "Desc"
-msgstr ""
-
-
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#description
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateDescription(java.lang.String)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#description
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateDescription(java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#description
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateDescription(java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 #: org.isisaddons.module.security.dom.role.ApplicationRole#description
 #: org.isisaddons.module.security.dom.role.ApplicationRole#updateDescription(java.lang.String)
 #: org.isisaddons.module.security.dom.role.ApplicationRoleMenu#newRole(java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#description
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateDescription(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#description
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateDescription(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#description
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateDescription(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 msgid "Description"
 msgstr ""
 
@@ -748,6 +623,16 @@ msgid "Domain Change"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu#downloadAllCards()
+msgid "Download All Cards"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#downloadAllUsers()
+msgid "Download All Users"
+msgstr ""
+
+
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#downloadJdoMetadata()
@@ -757,164 +642,48 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#downloadJdoMetadata()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#downloadJdoMetadata()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#downloadJdoMetadata()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#downloadJdoMetadata()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#downloadJdoMetadata()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#downloadJdoMetadata()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#downloadJdoMetadata()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#downloadJdoMetadata()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#downloadJdoMetadata()
 msgid "Download Jdo Metadata"
 msgstr ""
 
 
-#: java.io.Closeable#downloadLayoutXml()
-#: java.io.InputStream#downloadLayoutXml()
-#: java.io.Serializable#downloadLayoutXml()
-#: java.lang.AutoCloseable#downloadLayoutXml()
-#: java.lang.Class#downloadLayoutXml()
-#: java.lang.Comparable#downloadLayoutXml()
-#: java.lang.Iterable#downloadLayoutXml()
-#: java.lang.Object#downloadLayoutXml()
-#: java.lang.reflect.AnnotatedElement#downloadLayoutXml()
-#: java.lang.reflect.GenericDeclaration#downloadLayoutXml()
-#: java.lang.reflect.Type#downloadLayoutXml()
-#: java.util.Collection#downloadLayoutXml()
-#: java.util.List#downloadLayoutXml()
-#: java.util.Map#downloadLayoutXml()
-#: java.util.Set#downloadLayoutXml()
-#: java.util.SortedSet#downloadLayoutXml()
-#: java.util.function.BiConsumer#downloadLayoutXml()
-#: java.util.function.BiFunction#downloadLayoutXml()
-#: java.util.function.Function#downloadLayoutXml()
-#: javax.jdo.listener.InstanceLifecycleListener#downloadLayoutXml()
-#: javax.jdo.listener.LoadLifecycleListener#downloadLayoutXml()
-#: javax.jdo.listener.StoreLifecycleListener#downloadLayoutXml()
-#: javax.ws.rs.core.MultivaluedMap#downloadLayoutXml()
-#: javax.ws.rs.core.Response#downloadLayoutXml()
-#: org.apache.isis.applib.AbstractContainedObject#downloadLayoutXml()
-#: org.apache.isis.applib.AbstractFactoryAndRepository#downloadLayoutXml()
-#: org.apache.isis.applib.AbstractService#downloadLayoutXml()
-#: org.apache.isis.applib.AbstractSubscriber#downloadLayoutXml()
 #: org.apache.isis.applib.AbstractViewModel#downloadLayoutXml()
 #: org.apache.isis.applib.ViewModel#downloadLayoutXml()
-#: org.apache.isis.applib.conmap.ContentMappingService#downloadLayoutXml()
-#: org.apache.isis.applib.conmap.spi.CommandDtoProcessorService#downloadLayoutXml()
-#: org.apache.isis.applib.fixtures.InstallableFixture#downloadLayoutXml()
+#: org.apache.isis.applib.domain.DomainObjectList#downloadLayoutXml()
+#: org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript#downloadLayoutXml()
 #: org.apache.isis.applib.fixturescripts.FixtureResult#downloadLayoutXml()
 #: org.apache.isis.applib.fixturescripts.FixtureScript#downloadLayoutXml()
-#: org.apache.isis.applib.fixturescripts.FixtureScripts#downloadLayoutXml()
-#: org.apache.isis.applib.services.HasTransactionId#downloadLayoutXml()
-#: org.apache.isis.applib.services.HasUsername#downloadLayoutXml()
-#: org.apache.isis.applib.services.WithTransactionScope#downloadLayoutXml()
-#: org.apache.isis.applib.services.acceptheader.AcceptHeaderService#downloadLayoutXml()
-#: org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository#downloadLayoutXml()
-#: org.apache.isis.applib.services.audit.AuditerService#downloadLayoutXml()
-#: org.apache.isis.applib.services.background.BackgroundService#downloadLayoutXml()
-#: org.apache.isis.applib.services.background.BackgroundService2#downloadLayoutXml()
-#: org.apache.isis.applib.services.bookmark.BookmarkService#downloadLayoutXml()
-#: org.apache.isis.applib.services.bookmark.BookmarkService2#downloadLayoutXml()
-#: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService#downloadLayoutXml()
-#: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService2#downloadLayoutXml()
-#: org.apache.isis.applib.services.command.Command#downloadLayoutXml()
-#: org.apache.isis.applib.services.command.CommandExecutorService#downloadLayoutXml()
-#: org.apache.isis.applib.services.command.spi.CommandService#downloadLayoutXml()
+#: org.apache.isis.applib.fixturescripts.SimpleFixtureScript#downloadLayoutXml()
 #: org.apache.isis.applib.services.config.ConfigurationProperty#downloadLayoutXml()
-#: org.apache.isis.applib.services.config.ConfigurationService#downloadLayoutXml()
-#: org.apache.isis.applib.services.email.EmailService#downloadLayoutXml()
-#: org.apache.isis.applib.services.eventbus.EventBusService#downloadLayoutXml()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer#downloadLayoutXml()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer2#downloadLayoutXml()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#downloadLayoutXml()
-#: org.apache.isis.applib.services.factory.FactoryService#downloadLayoutXml()
-#: org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider#downloadLayoutXml()
-#: org.apache.isis.applib.services.grid.GridLoaderService#downloadLayoutXml()
-#: org.apache.isis.applib.services.grid.GridService#downloadLayoutXml()
-#: org.apache.isis.applib.services.grid.GridSystemService#downloadLayoutXml()
-#: org.apache.isis.applib.services.homepage.HomePageProviderService#downloadLayoutXml()
-#: org.apache.isis.applib.services.i18n.TranslationService#downloadLayoutXml()
-#: org.apache.isis.applib.services.jaxb.JaxbService#downloadLayoutXml()
-#: org.apache.isis.applib.services.jaxb.JaxbService$Simple#downloadLayoutXml()
-#: org.apache.isis.applib.services.jdosupport.IsisJdoSupport#downloadLayoutXml()
-#: org.apache.isis.applib.services.layout.LayoutService#downloadLayoutXml()
-#: org.apache.isis.applib.services.layout.LayoutService2#downloadLayoutXml()
-#: org.apache.isis.applib.services.memento.MementoService#downloadLayoutXml()
-#: org.apache.isis.applib.services.menu.MenuBarsLoaderService#downloadLayoutXml()
-#: org.apache.isis.applib.services.menu.MenuBarsService#downloadLayoutXml()
-#: org.apache.isis.applib.services.message.MessageService#downloadLayoutXml()
-#: org.apache.isis.applib.services.metamodel.MetaModelService#downloadLayoutXml()
-#: org.apache.isis.applib.services.metamodel.MetaModelService2#downloadLayoutXml()
-#: org.apache.isis.applib.services.metamodel.MetaModelService3#downloadLayoutXml()
-#: org.apache.isis.applib.services.metamodel.MetaModelService4#downloadLayoutXml()
-#: org.apache.isis.applib.services.metamodel.MetaModelService5#downloadLayoutXml()
-#: org.apache.isis.applib.services.metrics.MetricsService#downloadLayoutXml()
-#: org.apache.isis.applib.services.publish.PublisherService#downloadLayoutXml()
-#: org.apache.isis.applib.services.registry.ServiceRegistry#downloadLayoutXml()
-#: org.apache.isis.applib.services.registry.ServiceRegistry2#downloadLayoutXml()
-#: org.apache.isis.applib.services.repository.RepositoryService#downloadLayoutXml()
-#: org.apache.isis.applib.services.routing.RoutingService#downloadLayoutXml()
-#: org.apache.isis.applib.services.sessmgmt.SessionManagementService#downloadLayoutXml()
-#: org.apache.isis.applib.services.sudo.SudoService#downloadLayoutXml()
-#: org.apache.isis.applib.services.sudo.SudoService$Spi#downloadLayoutXml()
-#: org.apache.isis.applib.services.swagger.SwaggerService#downloadLayoutXml()
-#: org.apache.isis.applib.services.tablecol.TableColumnOrderService#downloadLayoutXml()
-#: org.apache.isis.applib.services.title.TitleService#downloadLayoutXml()
-#: org.apache.isis.applib.services.urlencoding.UrlEncodingService#downloadLayoutXml()
-#: org.apache.isis.applib.services.user.UserService#downloadLayoutXml()
-#: org.apache.isis.applib.services.userprof.UserProfileService#downloadLayoutXml()
-#: org.apache.isis.applib.services.userreg.EmailNotificationService#downloadLayoutXml()
-#: org.apache.isis.applib.services.wrapper.WrapperFactory#downloadLayoutXml()
-#: org.apache.isis.applib.services.xactn.TransactionService#downloadLayoutXml()
-#: org.apache.isis.applib.services.xactn.TransactionService2#downloadLayoutXml()
-#: org.apache.isis.applib.services.xactn.TransactionService3#downloadLayoutXml()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotService#downloadLayoutXml()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotServiceAbstract#downloadLayoutXml()
-#: org.apache.isis.core.commons.authentication.AuthenticationSessionProvider#downloadLayoutXml()
-#: org.apache.isis.core.commons.components.ApplicationScopedComponent#downloadLayoutXml()
-#: org.apache.isis.core.commons.components.Component#downloadLayoutXml()
-#: org.apache.isis.core.commons.config.IsisConfiguration#downloadLayoutXml()
-#: org.apache.isis.core.commons.config.IsisConfigurationDefault#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.adapter.mgr.AdapterManager#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.adapter.mgr.AdapterManagerBase#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.deployment.DeploymentCategoryProvider#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.facetapi.MetaModelRefiner#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.facetapi.MetaModelValidatorRefiner#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.ServicesInjectorAware#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.appmanifest.AppManifestProvider#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.command.CommandDtoServiceInternal#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.configinternal.ConfigurationServiceInternal#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.grid.GridSystemServiceAbstract#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.ixn.InteractionDtoServiceInternal#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.persistsession.PersistenceSessionServiceInternal#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.services.publishing.PublishingServiceInternal#downloadLayoutXml()
-#: org.apache.isis.core.metamodel.spec.FreeStandingList#downloadLayoutXml()
-#: org.apache.isis.core.runtime.authentication.AuthenticationManager#downloadLayoutXml()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManager#downloadLayoutXml()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManagerAbstract#downloadLayoutXml()
-#: org.apache.isis.core.runtime.persistence.FixturesInstalledFlag#downloadLayoutXml()
-#: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#downloadLayoutXml()
-#: org.apache.isis.core.runtime.system.transaction.TransactionalClosure#downloadLayoutXml()
-#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#downloadLayoutXml()
-#: org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport#downloadLayoutXml()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService#downloadLayoutXml()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationService#downloadLayoutXml()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationDemoFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationTestFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.JdbcFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.EcpCrmRolesAndPermissionsSeedService$SeedFixtureScript#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.AuditModuleRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.CommandModuleRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.DevUtilsModuleRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.PublishingModuleRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SessionLoggerModuleRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SettingsModuleRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.TranslationServicePoMenuRoleAndPermissions#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.MaryHostessUser#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#downloadLayoutXml()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#downloadLayoutXml()
@@ -923,10 +692,29 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#downloadLayoutXml()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsModuleFixture#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardTearDown#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestTearDown#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterTearDown#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildTearDown#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareTearDown#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.numerator.NumeratorTearDown#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserCreate#downloadLayoutXml()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserTearDown#downloadLayoutXml()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#downloadLayoutXml()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#downloadLayoutXml()
+#: org.incode.module.settings.fixture.ApplicationSetting_and_UserSetting_create5#downloadLayoutXml()
+#: org.isisaddons.module.excel.dom.ExcelFixture#downloadLayoutXml()
+#: org.isisaddons.module.excel.dom.ExcelFixture2#downloadLayoutXml()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#downloadLayoutXml()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#downloadLayoutXml()
-#: org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository#downloadLayoutXml()
-#: org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#downloadLayoutXml()
@@ -935,26 +723,20 @@ msgstr ""
 #: org.isisaddons.module.security.app.feature.ApplicationFeatureViewModel#downloadLayoutXml()
 #: org.isisaddons.module.security.app.feature.ApplicationPackage#downloadLayoutXml()
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#downloadLayoutXml()
-#: org.isisaddons.module.security.dom.password.PasswordEncryptionService#downloadLayoutXml()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#downloadLayoutXml()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#downloadLayoutXml()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#downloadLayoutXml()
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyEvaluator#downloadLayoutXml()
-#: org.isisaddons.module.security.dom.tenancy.HasAtPath#downloadLayoutXml()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.ApplicationSetting#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.ApplicationSettingsService#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.Setting#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.SettingAbstract#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.UserSetting#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.UserSettingsService#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.UserSettingsServiceRW#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#downloadLayoutXml()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.AbstractTenancyFixtureScript#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.GlobalTenancy#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.IsisApplibFixtureResultsRoleAndPermissions#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminUser#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityFixtureRoleAndPermissions#downloadLayoutXml()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityRegularUserRoleAndPermissions#downloadLayoutXml()
 msgid "Download Layout Xml"
 msgstr ""
 
@@ -966,6 +748,11 @@ msgstr ""
 
 #: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModel()
 msgid "Download Meta Model (CSV)"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModelXml()
+msgid "Download Meta Model (XML)"
 msgstr ""
 
 
@@ -984,17 +771,16 @@ msgid "Download Translations"
 msgstr ""
 
 
+#: org.apache.isis.applib.domain.DomainObjectList#elementObjectType
+msgid "Element Object Type"
+msgstr ""
+
+
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#elementType
 msgid "Element Type"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#email
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#email
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#email
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#email
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#email
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#email
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#email
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updateEmailAddress(java.lang.String)
 msgid "Email"
@@ -1041,19 +827,8 @@ msgid "Exec"
 msgstr ""
 
 
-#: org.apache.isis.core.metamodel.services.persistsession.PersistenceSessionServiceInternalNoop#executeWithinTransaction()
-#: org.apache.isis.core.runtime.services.persistsession.PersistenceSessionServiceInternalDefault#executeWithinTransaction()
-msgid "Execute Within Transaction"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.user.ApplicationUser#updatePassword(org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password)
 msgid "Existing password"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.center.Center#fakeNumerator
-msgid "Fake Numerator"
 msgstr ""
 
 
@@ -1115,33 +890,12 @@ msgid "Filter Permissions"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findActiveChildCareByChild()
-msgid "Find Active Child Care By Child"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findActiveChildCares()
-msgid "Find Active Child Cares"
-msgstr ""
-
-
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#find()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#find()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#find()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#find()
 msgid "Find Application Setting"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findByChild()
-msgid "Find By Child"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findByChildAndDateRange()
-msgid "Find By Child And Date Range"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findByDateRange()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.ChildCareMenu#findByDateRange()
 msgid "Find By Date Range"
 msgstr ""
@@ -1167,19 +921,6 @@ msgid "Find By Reference"
 msgstr ""
 
 
-#: org.isisaddons.module.security.dom.role.ApplicationRoleRepository#findMatching()
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository#findMatching()
-#: org.isisaddons.module.security.dom.user.ApplicationUserRepository#findMatching()
-msgid "Find Matching"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestRepository#findOrCreate()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#findOrCreate()
-msgid "Find Or Create"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.permission.ApplicationPermissionMenu#findOrphanedPermissions()
 msgid "Find Orphaned Permissions"
 msgstr ""
@@ -1195,11 +936,6 @@ msgid "Find Published Events By Transaction Id"
 msgstr ""
 
 
-#: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository#findRecentByTarget()
-msgid "Find Recent By Target"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.role.ApplicationRoleMenu#findRoles()
 msgid "Find Roles"
 msgstr ""
@@ -1210,18 +946,8 @@ msgid "Find Tenancies"
 msgstr ""
 
 
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#findTenancyByName()
-msgid "Find Tenancy By Name"
-msgstr ""
-
-
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#findTenancyByPath()
-msgid "Find Tenancy By Path"
-msgstr ""
-
-
-#: org.isisaddons.module.settings.dom.UserSettingMenu#find()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#find()
+#: org.incode.module.settings.dom.UserSettingMenu#find()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#find()
 msgid "Find User Setting"
 msgstr ""
 
@@ -1231,10 +957,6 @@ msgid "Find Users"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#firstName
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#firstName
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#firstName
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#firstName
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#firstName
 msgid "First Name"
 msgstr ""
@@ -1245,18 +967,8 @@ msgid "Fixture script"
 msgstr ""
 
 
-#: javax.ws.rs.core.MultivaluedMap#forEach()
-msgid "For Each"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#format
 msgid "Format"
-msgstr ""
-
-
-#: org.apache.isis.applib.fixturescripts.FixtureScript#friendlyName
-msgid "Friendly Name"
 msgstr ""
 
 
@@ -1267,11 +979,6 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.Child#gender
 msgid "Gender"
-msgstr ""
-
-
-#: javax.ws.rs.core.MultivaluedMap#getOrDefault()
-msgid "Get Or Default"
 msgstr ""
 
 
@@ -1307,10 +1014,6 @@ msgid "Handle Date"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#hasCar
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#hasCar
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#hasCar()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#hasCar
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#hasCar
 msgid "Has Car"
 msgstr ""
@@ -1321,18 +1024,8 @@ msgid "Has Password"
 msgstr ""
 
 
-#: javax.ws.rs.core.Response#headers
-msgid "Headers"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageService#homePage()
 msgid "Home Page"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#hostess
-msgid "Hostess"
 msgstr ""
 
 
@@ -1347,6 +1040,8 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#datanucleusIdLong()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusIdLong()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#datanucleusIdLong()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#datanucleusIdLong()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#datanucleusIdLong()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#datanucleusIdLong()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#datanucleusIdLong()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#id()
@@ -1362,8 +1057,6 @@ msgstr ""
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#datanucleusIdLong()
 #: org.isisaddons.module.security.dom.user.ApplicationUser
 #: org.isisaddons.module.security.dom.user.ApplicationUser#datanucleusIdLong()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#datanucleusIdLong()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#datanucleusIdLong()
 msgid "Id"
 msgstr ""
 
@@ -1400,20 +1093,8 @@ msgid "Initial role"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingType#INT
+#: org.incode.module.settings.dom.SettingType#INT
 msgid "Int"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#isValid()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#isValid()
-msgid "Is Valid"
 msgstr ""
 
 
@@ -1433,33 +1114,33 @@ msgstr ""
 
 
 #: org.apache.isis.applib.services.config.ConfigurationProperty#key
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#find(java.lang.String)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#find(java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#key
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#find(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#key
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#key
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#find(java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#find(java.lang.String)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.UserSettingMenu#find(java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#key
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#find(java.lang.String)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#key
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#key
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#find(java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 msgid "Key"
 msgstr ""
 
@@ -1475,10 +1156,6 @@ msgid "Last Increment"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#lastName
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#lastName
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#lastName
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#lastName
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#lastName
 msgid "Last Name"
 msgstr ""
@@ -1490,7 +1167,6 @@ msgstr ""
 
 
 #: org.incode.eurocommercial.ecpcrm.module.api.menu.AuthenticationDeviceMenu#listAll()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#listAll()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardRequestMenu#listAll()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CenterMenu#listAll()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.ChildCareMenu#listAll()
@@ -1498,20 +1174,20 @@ msgid "List All"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#listAll()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#listAll()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#listAll()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#listAll()
 msgid "List All Application Settings"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.UserSettingMenu#listAllFor()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#listAllFor()
+#: org.incode.module.settings.dom.UserSettingMenu#listAllFor()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#listAllFor()
 msgid "List All Settings For User"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.UserSettingMenu#listAll()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#listAll()
+#: org.incode.module.settings.dom.UserSettingMenu#listAll()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#listAll()
 msgid "List All User Settings"
 msgstr ""
 
@@ -1526,7 +1202,7 @@ msgid "Local"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingType#LOCAL_DATE
+#: org.incode.module.settings.dom.SettingType#LOCAL_DATE
 msgid "Local Date"
 msgstr ""
 
@@ -1536,7 +1212,12 @@ msgid "Log"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingType#LONG
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage()
+msgid "Log Message"
+msgstr ""
+
+
+#: org.incode.module.settings.dom.SettingType#LONG
 msgid "Long"
 msgstr ""
 
@@ -1546,7 +1227,6 @@ msgid "Looks up ApplicationUser entity corresponding to your user account"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#lost
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.CardStatus#LOST
 msgid "Lost"
 msgstr ""
@@ -1599,12 +1279,6 @@ msgid "Member Name"
 msgstr ""
 
 
-#: javax.ws.rs.core.MultivaluedMap#merge()
-msgid "Merge"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#message
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#message
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#messageOnForm
 msgid "Message"
@@ -1656,8 +1330,6 @@ msgstr ""
 #: org.isisaddons.module.security.dom.role.ApplicationRole#name
 #: org.isisaddons.module.security.dom.role.ApplicationRole#updateName(java.lang.String)
 #: org.isisaddons.module.security.dom.role.ApplicationRoleMenu#newRole(java.lang.String,java.lang.String)
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#findTenancyByName(java.lang.String)
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#newTenancy(java.lang.String,java.lang.String,org.isisaddons.module.security.dom.tenancy.ApplicationTenancy)
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#name
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#updateName(java.lang.String)
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu#newTenancy(java.lang.String,java.lang.String,org.isisaddons.module.security.dom.tenancy.ApplicationTenancy)
@@ -1666,19 +1338,6 @@ msgstr ""
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newDelegateUser(java.lang.String,org.isisaddons.module.security.dom.role.ApplicationRole,java.lang.Boolean)
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newLocalUser(java.lang.String,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.isisaddons.module.security.dom.role.ApplicationRole,java.lang.Boolean,java.lang.String)
 msgid "Name"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#nbChildren
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#nbChildren
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#nbChildren
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#nbChildren
-msgid "Nb Children"
-msgstr ""
-
-
-#: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureFactory#newApplicationFeature()
-msgid "New Application Feature"
 msgstr ""
 
 
@@ -1692,10 +1351,10 @@ msgid "New Batch"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newBoolean()
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newBoolean()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newBoolean()
+#: org.incode.module.settings.dom.UserSettingMenu#newBoolean()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean()
 msgid "New Boolean"
 msgstr ""
 
@@ -1715,28 +1374,23 @@ msgid "New Child"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCareRepository#newChildCare()
-msgid "New Child Care"
-msgstr ""
-
-
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newDelegateUser()
 msgid "New Delegate User"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newInt()
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newInt()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newInt()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newInt()
+#: org.incode.module.settings.dom.UserSettingMenu#newInt()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newInt()
 msgid "New Int"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLocalDate()
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLocalDate()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLocalDate()
+#: org.incode.module.settings.dom.UserSettingMenu#newLocalDate()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate()
 msgid "New Local Date"
 msgstr ""
 
@@ -1746,15 +1400,10 @@ msgid "New Local User"
 msgstr ""
 
 
-#: org.isisaddons.module.security.dom.user.ApplicationUserRepository#newLocalUserBasedOn()
-msgid "New Local User Based On"
-msgstr ""
-
-
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLong()
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLong()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLong()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLong()
+#: org.incode.module.settings.dom.UserSettingMenu#newLong()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLong()
 msgid "New Long"
 msgstr ""
 
@@ -1764,15 +1413,14 @@ msgid "New Role"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newString()
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newString()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newString()
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newString()
+#: org.incode.module.settings.dom.UserSettingMenu#newString()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString()
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newString()
 msgid "New String"
 msgstr ""
 
 
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#newTenancy()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu#newTenancy()
 msgid "New Tenancy"
 msgstr ""
@@ -1789,16 +1437,9 @@ msgid "New password"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSetting#next()
-#: org.isisaddons.module.settings.dom.UserSetting#next()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#next()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#next()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#next()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#next()
 msgid "Next"
-msgstr ""
-
-
-#: org.apache.isis.core.metamodel.services.xactn.TransactionServiceDefault#nextTransaction()
-msgid "Next Transaction"
 msgstr ""
 
 
@@ -1843,17 +1484,21 @@ msgid "Object"
 msgstr ""
 
 
+#: org.apache.isis.applib.domain.DomainObjectList#objects
+msgid "Objects"
+msgstr ""
+
+
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#oid
 msgid "Oid"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.HasUsername#open()
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#openTargetObject()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#open()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#open()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#openTargetObject()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#open()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#open()
 msgid "Open"
 msgstr ""
 
@@ -1863,153 +1508,37 @@ msgid "Open Card Request"
 msgstr ""
 
 
-#: java.io.Closeable#openRestApi()
-#: java.io.InputStream#openRestApi()
-#: java.io.Serializable#openRestApi()
-#: java.lang.AutoCloseable#openRestApi()
-#: java.lang.Class#openRestApi()
-#: java.lang.Comparable#openRestApi()
-#: java.lang.Iterable#openRestApi()
-#: java.lang.Object#openRestApi()
-#: java.lang.reflect.AnnotatedElement#openRestApi()
-#: java.lang.reflect.GenericDeclaration#openRestApi()
-#: java.lang.reflect.Type#openRestApi()
-#: java.util.Collection#openRestApi()
-#: java.util.List#openRestApi()
-#: java.util.Map#openRestApi()
-#: java.util.Set#openRestApi()
-#: java.util.SortedSet#openRestApi()
-#: java.util.function.BiConsumer#openRestApi()
-#: java.util.function.BiFunction#openRestApi()
-#: java.util.function.Function#openRestApi()
-#: javax.jdo.listener.InstanceLifecycleListener#openRestApi()
-#: javax.jdo.listener.LoadLifecycleListener#openRestApi()
-#: javax.jdo.listener.StoreLifecycleListener#openRestApi()
-#: javax.ws.rs.core.MultivaluedMap#openRestApi()
-#: javax.ws.rs.core.Response#openRestApi()
-#: org.apache.isis.applib.AbstractContainedObject#openRestApi()
-#: org.apache.isis.applib.AbstractFactoryAndRepository#openRestApi()
-#: org.apache.isis.applib.AbstractService#openRestApi()
-#: org.apache.isis.applib.AbstractSubscriber#openRestApi()
 #: org.apache.isis.applib.AbstractViewModel#openRestApi()
 #: org.apache.isis.applib.ViewModel#openRestApi()
-#: org.apache.isis.applib.conmap.ContentMappingService#openRestApi()
-#: org.apache.isis.applib.conmap.spi.CommandDtoProcessorService#openRestApi()
-#: org.apache.isis.applib.fixtures.InstallableFixture#openRestApi()
+#: org.apache.isis.applib.domain.DomainObjectList#openRestApi()
+#: org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript#openRestApi()
 #: org.apache.isis.applib.fixturescripts.FixtureResult#openRestApi()
 #: org.apache.isis.applib.fixturescripts.FixtureScript#openRestApi()
-#: org.apache.isis.applib.fixturescripts.FixtureScripts#openRestApi()
-#: org.apache.isis.applib.services.HasTransactionId#openRestApi()
-#: org.apache.isis.applib.services.HasUsername#openRestApi()
-#: org.apache.isis.applib.services.WithTransactionScope#openRestApi()
-#: org.apache.isis.applib.services.acceptheader.AcceptHeaderService#openRestApi()
-#: org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository#openRestApi()
-#: org.apache.isis.applib.services.audit.AuditerService#openRestApi()
-#: org.apache.isis.applib.services.background.BackgroundService#openRestApi()
-#: org.apache.isis.applib.services.background.BackgroundService2#openRestApi()
-#: org.apache.isis.applib.services.bookmark.BookmarkService#openRestApi()
-#: org.apache.isis.applib.services.bookmark.BookmarkService2#openRestApi()
-#: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService#openRestApi()
-#: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService2#openRestApi()
-#: org.apache.isis.applib.services.command.Command#openRestApi()
-#: org.apache.isis.applib.services.command.CommandExecutorService#openRestApi()
-#: org.apache.isis.applib.services.command.spi.CommandService#openRestApi()
+#: org.apache.isis.applib.fixturescripts.SimpleFixtureScript#openRestApi()
 #: org.apache.isis.applib.services.config.ConfigurationProperty#openRestApi()
-#: org.apache.isis.applib.services.config.ConfigurationService#openRestApi()
-#: org.apache.isis.applib.services.email.EmailService#openRestApi()
-#: org.apache.isis.applib.services.eventbus.EventBusService#openRestApi()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer#openRestApi()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer2#openRestApi()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#openRestApi()
-#: org.apache.isis.applib.services.factory.FactoryService#openRestApi()
-#: org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider#openRestApi()
-#: org.apache.isis.applib.services.grid.GridLoaderService#openRestApi()
-#: org.apache.isis.applib.services.grid.GridService#openRestApi()
-#: org.apache.isis.applib.services.grid.GridSystemService#openRestApi()
-#: org.apache.isis.applib.services.homepage.HomePageProviderService#openRestApi()
-#: org.apache.isis.applib.services.i18n.TranslationService#openRestApi()
-#: org.apache.isis.applib.services.jaxb.JaxbService#openRestApi()
-#: org.apache.isis.applib.services.jaxb.JaxbService$Simple#openRestApi()
-#: org.apache.isis.applib.services.jdosupport.IsisJdoSupport#openRestApi()
-#: org.apache.isis.applib.services.layout.LayoutService#openRestApi()
-#: org.apache.isis.applib.services.layout.LayoutService2#openRestApi()
-#: org.apache.isis.applib.services.memento.MementoService#openRestApi()
-#: org.apache.isis.applib.services.menu.MenuBarsLoaderService#openRestApi()
-#: org.apache.isis.applib.services.menu.MenuBarsService#openRestApi()
-#: org.apache.isis.applib.services.message.MessageService#openRestApi()
-#: org.apache.isis.applib.services.metamodel.MetaModelService#openRestApi()
-#: org.apache.isis.applib.services.metamodel.MetaModelService2#openRestApi()
-#: org.apache.isis.applib.services.metamodel.MetaModelService3#openRestApi()
-#: org.apache.isis.applib.services.metamodel.MetaModelService4#openRestApi()
-#: org.apache.isis.applib.services.metamodel.MetaModelService5#openRestApi()
-#: org.apache.isis.applib.services.metrics.MetricsService#openRestApi()
-#: org.apache.isis.applib.services.publish.PublisherService#openRestApi()
-#: org.apache.isis.applib.services.registry.ServiceRegistry#openRestApi()
-#: org.apache.isis.applib.services.registry.ServiceRegistry2#openRestApi()
-#: org.apache.isis.applib.services.repository.RepositoryService#openRestApi()
-#: org.apache.isis.applib.services.routing.RoutingService#openRestApi()
-#: org.apache.isis.applib.services.sessmgmt.SessionManagementService#openRestApi()
-#: org.apache.isis.applib.services.sudo.SudoService#openRestApi()
-#: org.apache.isis.applib.services.sudo.SudoService$Spi#openRestApi()
-#: org.apache.isis.applib.services.swagger.SwaggerService#openRestApi()
 #: org.apache.isis.applib.services.swagger.SwaggerServiceMenu#openRestApi()
-#: org.apache.isis.applib.services.tablecol.TableColumnOrderService#openRestApi()
-#: org.apache.isis.applib.services.title.TitleService#openRestApi()
-#: org.apache.isis.applib.services.urlencoding.UrlEncodingService#openRestApi()
-#: org.apache.isis.applib.services.user.UserService#openRestApi()
-#: org.apache.isis.applib.services.userprof.UserProfileService#openRestApi()
-#: org.apache.isis.applib.services.userreg.EmailNotificationService#openRestApi()
-#: org.apache.isis.applib.services.wrapper.WrapperFactory#openRestApi()
-#: org.apache.isis.applib.services.xactn.TransactionService#openRestApi()
-#: org.apache.isis.applib.services.xactn.TransactionService2#openRestApi()
-#: org.apache.isis.applib.services.xactn.TransactionService3#openRestApi()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotService#openRestApi()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotServiceAbstract#openRestApi()
-#: org.apache.isis.core.commons.authentication.AuthenticationSessionProvider#openRestApi()
-#: org.apache.isis.core.commons.components.ApplicationScopedComponent#openRestApi()
-#: org.apache.isis.core.commons.components.Component#openRestApi()
-#: org.apache.isis.core.commons.config.IsisConfiguration#openRestApi()
-#: org.apache.isis.core.commons.config.IsisConfigurationDefault#openRestApi()
-#: org.apache.isis.core.metamodel.adapter.mgr.AdapterManager#openRestApi()
-#: org.apache.isis.core.metamodel.adapter.mgr.AdapterManagerBase#openRestApi()
-#: org.apache.isis.core.metamodel.deployment.DeploymentCategoryProvider#openRestApi()
-#: org.apache.isis.core.metamodel.facetapi.MetaModelRefiner#openRestApi()
-#: org.apache.isis.core.metamodel.facetapi.MetaModelValidatorRefiner#openRestApi()
-#: org.apache.isis.core.metamodel.services.ServicesInjectorAware#openRestApi()
-#: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature#openRestApi()
-#: org.apache.isis.core.metamodel.services.appmanifest.AppManifestProvider#openRestApi()
-#: org.apache.isis.core.metamodel.services.command.CommandDtoServiceInternal#openRestApi()
-#: org.apache.isis.core.metamodel.services.configinternal.ConfigurationServiceInternal#openRestApi()
-#: org.apache.isis.core.metamodel.services.grid.GridSystemServiceAbstract#openRestApi()
-#: org.apache.isis.core.metamodel.services.ixn.InteractionDtoServiceInternal#openRestApi()
-#: org.apache.isis.core.metamodel.services.persistsession.PersistenceSessionServiceInternal#openRestApi()
-#: org.apache.isis.core.metamodel.services.publishing.PublishingServiceInternal#openRestApi()
-#: org.apache.isis.core.metamodel.spec.FreeStandingList#openRestApi()
-#: org.apache.isis.core.runtime.authentication.AuthenticationManager#openRestApi()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManager#openRestApi()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManagerAbstract#openRestApi()
-#: org.apache.isis.core.runtime.persistence.FixturesInstalledFlag#openRestApi()
-#: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#openRestApi()
-#: org.apache.isis.core.runtime.system.transaction.TransactionalClosure#openRestApi()
-#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#openRestApi()
-#: org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport#openRestApi()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService#openRestApi()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationService#openRestApi()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationDemoFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationTestFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.JdbcFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.EcpCrmRolesAndPermissionsSeedService$SeedFixtureScript#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.AuditModuleRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.CommandModuleRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.DevUtilsModuleRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.PublishingModuleRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SessionLoggerModuleRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SettingsModuleRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.TranslationServicePoMenuRoleAndPermissions#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.MaryHostessUser#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#openRestApi()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#openRestApi()
@@ -2018,10 +1547,29 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#openRestApi()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsModuleFixture#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardTearDown#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestTearDown#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterTearDown#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildTearDown#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareTearDown#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.numerator.NumeratorTearDown#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserCreate#openRestApi()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserTearDown#openRestApi()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#openRestApi()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#openRestApi()
+#: org.incode.module.settings.fixture.ApplicationSetting_and_UserSetting_create5#openRestApi()
+#: org.isisaddons.module.excel.dom.ExcelFixture#openRestApi()
+#: org.isisaddons.module.excel.dom.ExcelFixture2#openRestApi()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#openRestApi()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#openRestApi()
-#: org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository#openRestApi()
-#: org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#openRestApi()
@@ -2030,39 +1578,26 @@ msgstr ""
 #: org.isisaddons.module.security.app.feature.ApplicationFeatureViewModel#openRestApi()
 #: org.isisaddons.module.security.app.feature.ApplicationPackage#openRestApi()
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#openRestApi()
-#: org.isisaddons.module.security.dom.password.PasswordEncryptionService#openRestApi()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#openRestApi()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#openRestApi()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#openRestApi()
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyEvaluator#openRestApi()
-#: org.isisaddons.module.security.dom.tenancy.HasAtPath#openRestApi()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#openRestApi()
-#: org.isisaddons.module.settings.dom.ApplicationSetting#openRestApi()
-#: org.isisaddons.module.settings.dom.ApplicationSettingsService#openRestApi()
-#: org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW#openRestApi()
-#: org.isisaddons.module.settings.dom.Setting#openRestApi()
-#: org.isisaddons.module.settings.dom.SettingAbstract#openRestApi()
-#: org.isisaddons.module.settings.dom.UserSetting#openRestApi()
-#: org.isisaddons.module.settings.dom.UserSettingsService#openRestApi()
-#: org.isisaddons.module.settings.dom.UserSettingsServiceRW#openRestApi()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#openRestApi()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#openRestApi()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#openRestApi()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#openRestApi()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#openRestApi()
+#: org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.AbstractTenancyFixtureScript#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.GlobalTenancy#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.IsisApplibFixtureResultsRoleAndPermissions#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminUser#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityFixtureRoleAndPermissions#openRestApi()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityRegularUserRoleAndPermissions#openRestApi()
 msgid "Open Rest Api"
 msgstr ""
 
 
 #: org.apache.isis.applib.services.swagger.SwaggerServiceMenu#openSwaggerUi()
 msgid "Open Swagger Ui"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#origin
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#origin
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#origin
-msgid "Origin"
 msgstr ""
 
 
@@ -2098,6 +1633,11 @@ msgid "Package Name"
 msgstr ""
 
 
+#: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModelXml(java.util.List,java.lang.String)
+msgid "Packages"
+msgstr ""
+
+
 #: org.apache.isis.applib.fixturescripts.FixtureScripts#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsDefault#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
 #: org.apache.isis.applib.services.fixturespec.FixtureScriptsDefault#runFixtureScriptWithAutoComplete(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
@@ -2120,7 +1660,6 @@ msgstr ""
 #: org.isisaddons.module.security.app.feature.ApplicationFeatureViewModel#parent
 #: org.isisaddons.module.security.app.feature.ApplicationPackage
 #: org.isisaddons.module.security.app.feature.ApplicationPackage#parent
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#newTenancy(java.lang.String,java.lang.String,org.isisaddons.module.security.dom.tenancy.ApplicationTenancy)
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#parent
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu#newTenancy(java.lang.String,java.lang.String,org.isisaddons.module.security.dom.tenancy.ApplicationTenancy)
 msgid "Parent"
@@ -2132,14 +1671,11 @@ msgid "Partial Name Or Path"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#password
 #: org.isisaddons.module.security.dom.user.ApplicationUserMenu#newLocalUser(java.lang.String,org.apache.isis.applib.value.Password,org.apache.isis.applib.value.Password,org.isisaddons.module.security.dom.role.ApplicationRole,java.lang.Boolean,java.lang.String)
 msgid "Password"
 msgstr ""
 
 
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#findTenancyByPath(java.lang.String)
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancies#newTenancy(java.lang.String,java.lang.String,org.isisaddons.module.security.dom.tenancy.ApplicationTenancy)
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#path
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu#newTenancy(java.lang.String,java.lang.String,org.isisaddons.module.security.dom.tenancy.ApplicationTenancy)
 msgid "Path"
@@ -2171,10 +1707,6 @@ msgid "Phone"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#phoneNumber
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#phoneNumber
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#phoneNumber
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#phoneNumber
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#phoneNumber
 #: org.isisaddons.module.security.dom.user.ApplicationUser#phoneNumber
 msgid "Phone Number"
@@ -2198,10 +1730,8 @@ msgid "Pre Value"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.ApplicationSetting#previous()
-#: org.isisaddons.module.settings.dom.UserSetting#previous()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#previous()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#previous()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#previous()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#previous()
 msgid "Previous"
 msgstr ""
 
@@ -2221,10 +1751,6 @@ msgid "Project On Github"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#promotionalEmails
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#promotionalEmails
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#promotionalEmails
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#promotionalEmails
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#promotionalEmails
 msgid "Promotional Emails"
 msgstr ""
@@ -2240,7 +1766,6 @@ msgid "Properties"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.appfeat.ApplicationMemberType#PROPERTY
 #: org.isisaddons.module.security.dom.role.ApplicationRole#addProperty(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.isisaddons.module.security.dom.permission.ApplicationPermissionMode,java.lang.String,java.lang.String,java.lang.String)
 msgid "Property"
 msgstr ""
@@ -2276,8 +1801,6 @@ msgid "Public"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.HasTransactionId#publishedEvent()
-#: org.apache.isis.applib.services.command.Command#publishedEvent()
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract$ChangeType#PUBLISHED_EVENT
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#publishedEvent()
@@ -2286,8 +1809,6 @@ msgid "Published Event"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.HasTransactionId#publishedEventsInTransaction()
-#: org.apache.isis.applib.services.command.Command#publishedEventsInTransaction()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#publishedEventsInTransaction()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#publishedEventsInTransaction()
 msgid "Published Events In Transaction"
@@ -2296,11 +1817,6 @@ msgstr ""
 
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract$ChangeType#PUBLISHED_INTERACTION
 msgid "Published Interaction"
-msgstr ""
-
-
-#: javax.ws.rs.core.MultivaluedMap#putIfAbsent()
-msgid "Put If Absent"
 msgstr ""
 
 
@@ -2314,152 +1830,36 @@ msgid "Reapprove"
 msgstr ""
 
 
-#: java.io.Closeable#rebuildMetamodel()
-#: java.io.InputStream#rebuildMetamodel()
-#: java.io.Serializable#rebuildMetamodel()
-#: java.lang.AutoCloseable#rebuildMetamodel()
-#: java.lang.Class#rebuildMetamodel()
-#: java.lang.Comparable#rebuildMetamodel()
-#: java.lang.Iterable#rebuildMetamodel()
-#: java.lang.Object#rebuildMetamodel()
-#: java.lang.reflect.AnnotatedElement#rebuildMetamodel()
-#: java.lang.reflect.GenericDeclaration#rebuildMetamodel()
-#: java.lang.reflect.Type#rebuildMetamodel()
-#: java.util.Collection#rebuildMetamodel()
-#: java.util.List#rebuildMetamodel()
-#: java.util.Map#rebuildMetamodel()
-#: java.util.Set#rebuildMetamodel()
-#: java.util.SortedSet#rebuildMetamodel()
-#: java.util.function.BiConsumer#rebuildMetamodel()
-#: java.util.function.BiFunction#rebuildMetamodel()
-#: java.util.function.Function#rebuildMetamodel()
-#: javax.jdo.listener.InstanceLifecycleListener#rebuildMetamodel()
-#: javax.jdo.listener.LoadLifecycleListener#rebuildMetamodel()
-#: javax.jdo.listener.StoreLifecycleListener#rebuildMetamodel()
-#: javax.ws.rs.core.MultivaluedMap#rebuildMetamodel()
-#: javax.ws.rs.core.Response#rebuildMetamodel()
-#: org.apache.isis.applib.AbstractContainedObject#rebuildMetamodel()
-#: org.apache.isis.applib.AbstractFactoryAndRepository#rebuildMetamodel()
-#: org.apache.isis.applib.AbstractService#rebuildMetamodel()
-#: org.apache.isis.applib.AbstractSubscriber#rebuildMetamodel()
 #: org.apache.isis.applib.AbstractViewModel#rebuildMetamodel()
 #: org.apache.isis.applib.ViewModel#rebuildMetamodel()
-#: org.apache.isis.applib.conmap.ContentMappingService#rebuildMetamodel()
-#: org.apache.isis.applib.conmap.spi.CommandDtoProcessorService#rebuildMetamodel()
-#: org.apache.isis.applib.fixtures.InstallableFixture#rebuildMetamodel()
+#: org.apache.isis.applib.domain.DomainObjectList#rebuildMetamodel()
+#: org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript#rebuildMetamodel()
 #: org.apache.isis.applib.fixturescripts.FixtureResult#rebuildMetamodel()
 #: org.apache.isis.applib.fixturescripts.FixtureScript#rebuildMetamodel()
-#: org.apache.isis.applib.fixturescripts.FixtureScripts#rebuildMetamodel()
-#: org.apache.isis.applib.services.HasTransactionId#rebuildMetamodel()
-#: org.apache.isis.applib.services.HasUsername#rebuildMetamodel()
-#: org.apache.isis.applib.services.WithTransactionScope#rebuildMetamodel()
-#: org.apache.isis.applib.services.acceptheader.AcceptHeaderService#rebuildMetamodel()
-#: org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository#rebuildMetamodel()
-#: org.apache.isis.applib.services.audit.AuditerService#rebuildMetamodel()
-#: org.apache.isis.applib.services.background.BackgroundService#rebuildMetamodel()
-#: org.apache.isis.applib.services.background.BackgroundService2#rebuildMetamodel()
-#: org.apache.isis.applib.services.bookmark.BookmarkService#rebuildMetamodel()
-#: org.apache.isis.applib.services.bookmark.BookmarkService2#rebuildMetamodel()
-#: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService#rebuildMetamodel()
-#: org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService2#rebuildMetamodel()
-#: org.apache.isis.applib.services.command.Command#rebuildMetamodel()
-#: org.apache.isis.applib.services.command.CommandExecutorService#rebuildMetamodel()
-#: org.apache.isis.applib.services.command.spi.CommandService#rebuildMetamodel()
+#: org.apache.isis.applib.fixturescripts.SimpleFixtureScript#rebuildMetamodel()
 #: org.apache.isis.applib.services.config.ConfigurationProperty#rebuildMetamodel()
-#: org.apache.isis.applib.services.config.ConfigurationService#rebuildMetamodel()
-#: org.apache.isis.applib.services.email.EmailService#rebuildMetamodel()
-#: org.apache.isis.applib.services.eventbus.EventBusService#rebuildMetamodel()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer#rebuildMetamodel()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizer2#rebuildMetamodel()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#rebuildMetamodel()
-#: org.apache.isis.applib.services.factory.FactoryService#rebuildMetamodel()
-#: org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider#rebuildMetamodel()
-#: org.apache.isis.applib.services.grid.GridLoaderService#rebuildMetamodel()
-#: org.apache.isis.applib.services.grid.GridService#rebuildMetamodel()
-#: org.apache.isis.applib.services.grid.GridSystemService#rebuildMetamodel()
-#: org.apache.isis.applib.services.homepage.HomePageProviderService#rebuildMetamodel()
-#: org.apache.isis.applib.services.i18n.TranslationService#rebuildMetamodel()
-#: org.apache.isis.applib.services.jaxb.JaxbService#rebuildMetamodel()
-#: org.apache.isis.applib.services.jaxb.JaxbService$Simple#rebuildMetamodel()
-#: org.apache.isis.applib.services.jdosupport.IsisJdoSupport#rebuildMetamodel()
-#: org.apache.isis.applib.services.layout.LayoutService#rebuildMetamodel()
-#: org.apache.isis.applib.services.layout.LayoutService2#rebuildMetamodel()
-#: org.apache.isis.applib.services.memento.MementoService#rebuildMetamodel()
-#: org.apache.isis.applib.services.menu.MenuBarsLoaderService#rebuildMetamodel()
-#: org.apache.isis.applib.services.menu.MenuBarsService#rebuildMetamodel()
-#: org.apache.isis.applib.services.message.MessageService#rebuildMetamodel()
-#: org.apache.isis.applib.services.metamodel.MetaModelService#rebuildMetamodel()
-#: org.apache.isis.applib.services.metamodel.MetaModelService2#rebuildMetamodel()
-#: org.apache.isis.applib.services.metamodel.MetaModelService3#rebuildMetamodel()
-#: org.apache.isis.applib.services.metamodel.MetaModelService4#rebuildMetamodel()
-#: org.apache.isis.applib.services.metamodel.MetaModelService5#rebuildMetamodel()
-#: org.apache.isis.applib.services.metrics.MetricsService#rebuildMetamodel()
-#: org.apache.isis.applib.services.publish.PublisherService#rebuildMetamodel()
-#: org.apache.isis.applib.services.registry.ServiceRegistry#rebuildMetamodel()
-#: org.apache.isis.applib.services.registry.ServiceRegistry2#rebuildMetamodel()
-#: org.apache.isis.applib.services.repository.RepositoryService#rebuildMetamodel()
-#: org.apache.isis.applib.services.routing.RoutingService#rebuildMetamodel()
-#: org.apache.isis.applib.services.sessmgmt.SessionManagementService#rebuildMetamodel()
-#: org.apache.isis.applib.services.sudo.SudoService#rebuildMetamodel()
-#: org.apache.isis.applib.services.sudo.SudoService$Spi#rebuildMetamodel()
-#: org.apache.isis.applib.services.swagger.SwaggerService#rebuildMetamodel()
-#: org.apache.isis.applib.services.tablecol.TableColumnOrderService#rebuildMetamodel()
-#: org.apache.isis.applib.services.title.TitleService#rebuildMetamodel()
-#: org.apache.isis.applib.services.urlencoding.UrlEncodingService#rebuildMetamodel()
-#: org.apache.isis.applib.services.user.UserService#rebuildMetamodel()
-#: org.apache.isis.applib.services.userprof.UserProfileService#rebuildMetamodel()
-#: org.apache.isis.applib.services.userreg.EmailNotificationService#rebuildMetamodel()
-#: org.apache.isis.applib.services.wrapper.WrapperFactory#rebuildMetamodel()
-#: org.apache.isis.applib.services.xactn.TransactionService#rebuildMetamodel()
-#: org.apache.isis.applib.services.xactn.TransactionService2#rebuildMetamodel()
-#: org.apache.isis.applib.services.xactn.TransactionService3#rebuildMetamodel()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotService#rebuildMetamodel()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotServiceAbstract#rebuildMetamodel()
-#: org.apache.isis.core.commons.authentication.AuthenticationSessionProvider#rebuildMetamodel()
-#: org.apache.isis.core.commons.components.ApplicationScopedComponent#rebuildMetamodel()
-#: org.apache.isis.core.commons.components.Component#rebuildMetamodel()
-#: org.apache.isis.core.commons.config.IsisConfiguration#rebuildMetamodel()
-#: org.apache.isis.core.commons.config.IsisConfigurationDefault#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.adapter.mgr.AdapterManager#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.adapter.mgr.AdapterManagerBase#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.deployment.DeploymentCategoryProvider#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.facetapi.MetaModelRefiner#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.facetapi.MetaModelValidatorRefiner#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.ServicesInjectorAware#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.appmanifest.AppManifestProvider#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.command.CommandDtoServiceInternal#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.configinternal.ConfigurationServiceInternal#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.grid.GridSystemServiceAbstract#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.ixn.InteractionDtoServiceInternal#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.persistsession.PersistenceSessionServiceInternal#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.services.publishing.PublishingServiceInternal#rebuildMetamodel()
-#: org.apache.isis.core.metamodel.spec.FreeStandingList#rebuildMetamodel()
-#: org.apache.isis.core.runtime.authentication.AuthenticationManager#rebuildMetamodel()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManager#rebuildMetamodel()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManagerAbstract#rebuildMetamodel()
-#: org.apache.isis.core.runtime.persistence.FixturesInstalledFlag#rebuildMetamodel()
-#: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#rebuildMetamodel()
-#: org.apache.isis.core.runtime.system.transaction.TransactionalClosure#rebuildMetamodel()
-#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#rebuildMetamodel()
-#: org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport#rebuildMetamodel()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.RepresentationService#rebuildMetamodel()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationService#rebuildMetamodel()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationDemoFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationTestFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.JdbcFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.EcpCrmRolesAndPermissionsSeedService$SeedFixtureScript#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.AuditModuleRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.CommandModuleRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.DevUtilsModuleRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.PublishingModuleRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SessionLoggerModuleRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SettingsModuleRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.TranslationServicePoMenuRoleAndPermissions#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.MaryHostessUser#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#rebuildMetamodel()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#rebuildMetamodel()
@@ -2468,10 +1868,29 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#rebuildMetamodel()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsModuleFixture#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardTearDown#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestTearDown#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterTearDown#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildTearDown#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareTearDown#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.numerator.NumeratorTearDown#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserCreate#rebuildMetamodel()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserTearDown#rebuildMetamodel()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#rebuildMetamodel()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#rebuildMetamodel()
+#: org.incode.module.settings.fixture.ApplicationSetting_and_UserSetting_create5#rebuildMetamodel()
+#: org.isisaddons.module.excel.dom.ExcelFixture#rebuildMetamodel()
+#: org.isisaddons.module.excel.dom.ExcelFixture2#rebuildMetamodel()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#rebuildMetamodel()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#rebuildMetamodel()
-#: org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository#rebuildMetamodel()
-#: org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClassAction#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationClassCollection#rebuildMetamodel()
@@ -2480,70 +1899,54 @@ msgstr ""
 #: org.isisaddons.module.security.app.feature.ApplicationFeatureViewModel#rebuildMetamodel()
 #: org.isisaddons.module.security.app.feature.ApplicationPackage#rebuildMetamodel()
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#rebuildMetamodel()
-#: org.isisaddons.module.security.dom.password.PasswordEncryptionService#rebuildMetamodel()
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#rebuildMetamodel()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#rebuildMetamodel()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#rebuildMetamodel()
-#: org.isisaddons.module.security.dom.tenancy.ApplicationTenancyEvaluator#rebuildMetamodel()
-#: org.isisaddons.module.security.dom.tenancy.HasAtPath#rebuildMetamodel()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.ApplicationSetting#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.ApplicationSettingsService#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.Setting#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.SettingAbstract#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.UserSetting#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.UserSettingsService#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.UserSettingsServiceRW#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#rebuildMetamodel()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.AbstractTenancyFixtureScript#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.GlobalTenancy#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.IsisApplibFixtureResultsRoleAndPermissions#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminUser#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityFixtureRoleAndPermissions#rebuildMetamodel()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityRegularUserRoleAndPermissions#rebuildMetamodel()
 msgid "Rebuild Metamodel"
 msgstr ""
 
 
-#: java.io.InputStream#recentActivity()
-#: java.lang.Class#recentActivity()
-#: java.lang.Object#recentActivity()
-#: javax.ws.rs.core.Response#recentActivity()
-#: org.apache.isis.applib.AbstractContainedObject#recentActivity()
-#: org.apache.isis.applib.AbstractFactoryAndRepository#recentActivity()
-#: org.apache.isis.applib.AbstractService#recentActivity()
-#: org.apache.isis.applib.AbstractSubscriber#recentActivity()
 #: org.apache.isis.applib.AbstractViewModel#recentActivity()
+#: org.apache.isis.applib.domain.DomainObjectList#recentActivity()
+#: org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript#recentActivity()
 #: org.apache.isis.applib.fixturescripts.FixtureResult#recentActivity()
 #: org.apache.isis.applib.fixturescripts.FixtureScript#recentActivity()
-#: org.apache.isis.applib.fixturescripts.FixtureScripts#recentActivity()
+#: org.apache.isis.applib.fixturescripts.SimpleFixtureScript#recentActivity()
 #: org.apache.isis.applib.services.config.ConfigurationProperty#recentActivity()
-#: org.apache.isis.applib.services.eventbus.EventBusService#recentActivity()
-#: org.apache.isis.applib.services.exceprecog.ExceptionRecognizerComposite#recentActivity()
-#: org.apache.isis.applib.services.jaxb.JaxbService$Simple#recentActivity()
-#: org.apache.isis.applib.services.xmlsnapshot.XmlSnapshotServiceAbstract#recentActivity()
-#: org.apache.isis.core.commons.config.IsisConfigurationDefault#recentActivity()
-#: org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature#recentActivity()
-#: org.apache.isis.core.metamodel.services.grid.GridSystemServiceAbstract#recentActivity()
-#: org.apache.isis.core.metamodel.spec.FreeStandingList#recentActivity()
-#: org.apache.isis.core.runtime.authorization.AuthorizationManagerAbstract#recentActivity()
-#: org.apache.isis.core.runtime.services.eventbus.EventBusServiceDefault#recentActivity()
-#: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#recentActivity()
-#: org.apache.isis.viewer.restfulobjects.rendering.service.conneg.ContentNegotiationServiceAbstract#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractBaseViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.AbstractRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardcheck.CardCheckRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercarddisable.WebsiteUserCardDisableRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteuserdetail.WebsiteUserDetailRequestViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationDemoFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationTestFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.JdbcFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.EcpCrmRolesAndPermissionsSeedService$SeedFixtureScript#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.AuditModuleRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.CommandModuleRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.DevUtilsModuleRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.PublishingModuleRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SessionLoggerModuleRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SettingsModuleRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.TranslationServicePoMenuRoleAndPermissions#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.MaryHostessUser#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.activity.RecentActivityContributions#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.application.service.homepage.HomePageViewModel#recentActivity()
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.canonical.v1.DtoFactoryAbstract#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.game.CardGame#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#recentActivity()
@@ -2552,6 +1955,27 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.child.childcare.ChildCare#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#recentActivity()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsModuleFixture#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardTearDown#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestTearDown#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterTearDown#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildTearDown#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareTearDown#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.numerator.NumeratorTearDown#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserCreate#recentActivity()
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserTearDown#recentActivity()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#recentActivity()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#recentActivity()
+#: org.incode.module.settings.fixture.ApplicationSetting_and_UserSetting_create5#recentActivity()
+#: org.isisaddons.module.excel.dom.ExcelFixture#recentActivity()
+#: org.isisaddons.module.excel.dom.ExcelFixture2#recentActivity()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#recentActivity()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#recentActivity()
 #: org.isisaddons.module.security.app.feature.ApplicationClass#recentActivity()
@@ -2566,20 +1990,23 @@ msgstr ""
 #: org.isisaddons.module.security.dom.role.ApplicationRole#recentActivity()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#recentActivity()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#recentActivity()
-#: org.isisaddons.module.settings.dom.SettingAbstract#recentActivity()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#recentActivity()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#recentActivity()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#recentActivity()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#recentActivity()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#recentActivity()
+#: org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.AbstractTenancyFixtureScript#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.GlobalTenancy#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.IsisApplibFixtureResultsRoleAndPermissions#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminUser#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityFixtureRoleAndPermissions#recentActivity()
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityRegularUserRoleAndPermissions#recentActivity()
 msgid "Recent Activity"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.HasUsername#recentEventsPublishedByUser()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#recentEventsPublishedByUser()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#recentEventsPublishedByUser()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#recentEventsPublishedByUser()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#recentEventsPublishedByUser()
 msgid "Recent Events Published By User"
 msgstr ""
 
@@ -2599,7 +2026,6 @@ msgid "Reference"
 msgstr ""
 
 
-#: javax.ws.rs.core.MultivaluedMap#remove()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#removeUser()
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#removeUser()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#removeRole()
@@ -2623,16 +2049,6 @@ msgid "Repeat password"
 msgstr ""
 
 
-#: javax.ws.rs.core.MultivaluedMap#replace()
-msgid "Replace"
-msgstr ""
-
-
-#: javax.ws.rs.core.MultivaluedMap#replaceAll()
-msgid "Replace All"
-msgstr ""
-
-
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#republish()
 msgid "Republish"
 msgstr ""
@@ -2645,11 +2061,6 @@ msgstr ""
 
 #: org.isisaddons.module.security.dom.user.ApplicationUser#resetPassword()
 msgid "Reset Password"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#response
-msgid "Response"
 msgstr ""
 
 
@@ -2670,11 +2081,6 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.api.menu.AdminMenu#resyncCenterUsers()
 msgid "Resync Center Users"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.UserRepository#resyncMailchimp()
-msgid "Resync Mailchimp"
 msgstr ""
 
 
@@ -2729,7 +2135,58 @@ msgid "Safe And Request Cacheable"
 msgstr ""
 
 
+#: org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript
 #: org.apache.isis.applib.fixturescripts.FixtureScript
+#: org.apache.isis.applib.fixturescripts.SimpleFixtureScript
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.ApiIntegTestFixture
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceCreate
+#: org.incode.eurocommercial.ecpcrm.module.api.fixture.AuthenticationDeviceFixture
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationDemoFixture
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.demo.EcpCrmApplicationTestFixture
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.EcpCrmJdbcImportFixture
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.jdbc.JdbcFixture
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.EcpCrmRolesAndPermissionsSeedService$SeedFixtureScript
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.AuditModuleRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.CommandModuleRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.DevUtilsModuleRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmFixtureServiceRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.EcpCrmRegularRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.HostessRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.PublishingModuleRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SessionLoggerModuleRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.SettingsModuleRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles.TranslationServicePoMenuRoleAndPermissions
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.EcpCrmAdminUser
+#: org.incode.eurocommercial.ecpcrm.module.application.fixture.security.users.MaryHostessUser
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsDemoFixture
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsIntegTestFixture
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.LoyaltyCardsModuleFixture
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardCreate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.CardTearDown
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestCreate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.card.request.CardRequestTearDown
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterCreate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.center.CenterTearDown
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildCreate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.ChildTearDown
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareCreate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.child.childcare.ChildCareTearDown
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.numerator.NumeratorTearDown
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserCreate
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.fixture.user.UserTearDown
+#: org.incode.module.settings.fixture.ApplicationSetting_and_UserSetting_create5
+#: org.isisaddons.module.excel.dom.ExcelFixture
+#: org.isisaddons.module.excel.dom.ExcelFixture2
+#: org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript
+#: org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript
+#: org.isisaddons.module.security.seed.scripts.AbstractTenancyFixtureScript
+#: org.isisaddons.module.security.seed.scripts.AbstractUserAndRolesFixtureScript
+#: org.isisaddons.module.security.seed.scripts.GlobalTenancy
+#: org.isisaddons.module.security.seed.scripts.IsisApplibFixtureResultsRoleAndPermissions
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminUser
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityFixtureRoleAndPermissions
+#: org.isisaddons.module.security.seed.scripts.IsisModuleSecurityRegularUserRoleAndPermissions
 msgid "Script"
 msgstr ""
 
@@ -2762,17 +2219,13 @@ msgid "Security"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequestType#SEND_TO_HOME
-msgid "Send To Home"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#sentToUserAt
 msgid "Sent To User At"
 msgstr ""
 
 
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#sequence
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#sequence
 msgid "Sequence"
 msgstr ""
 
@@ -2784,9 +2237,9 @@ msgstr ""
 
 #: org.incode.eurocommercial.ecpcrm.module.application.service.settings.EcpCrmSettingsService
 #: org.incode.eurocommercial.ecpcrm.module.application.service.settings.EcpCrmUserSettingContributions#userSettingsFor()
+#: org.incode.module.settings.dom.ApplicationSettingMenu
+#: org.incode.module.settings.dom.UserSettingMenu
 #: org.isisaddons.module.security.dom.user.ApplicationUser#userSettingsFor()
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu
-#: org.isisaddons.module.settings.dom.UserSettingMenu
 msgid "Settings"
 msgstr ""
 
@@ -2801,7 +2254,6 @@ msgid "Site"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.Result#status
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.Card#status
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#status
 #: org.isisaddons.module.security.dom.user.ApplicationUser
@@ -2815,15 +2267,13 @@ msgid "Status Message"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.HasTransactionId#statusMessagesInTransaction()
-#: org.apache.isis.applib.services.command.Command#statusMessagesInTransaction()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#statusMessagesInTransaction()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#statusMessagesInTransaction()
 msgid "Status Messages In Transaction"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingType#STRING
+#: org.incode.module.settings.dom.SettingType#STRING
 msgid "String"
 msgstr ""
 
@@ -2870,6 +2320,11 @@ msgid "TargetStr"
 msgstr ""
 
 
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "This email address is invalid"
+msgstr ""
+
+
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#timestamp
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#timestamp
@@ -2877,10 +2332,6 @@ msgid "Timestamp"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#title
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#title
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#title
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#title
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#title
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#title
 msgid "Title"
@@ -2889,16 +2340,6 @@ msgstr ""
 
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishingServiceMenu#findPublishedEvents(org.joda.time.LocalDate,org.joda.time.LocalDate)
 msgid "To"
-msgstr ""
-
-
-#: org.isisaddons.module.excel.dom.ExcelService#toExcel()
-msgid "To Excel"
-msgstr ""
-
-
-#: org.isisaddons.module.excel.dom.ExcelService#toExcelPivot()
-msgid "To Excel Pivot"
 msgstr ""
 
 
@@ -2917,12 +2358,12 @@ msgstr ""
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#type
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDevice#type
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.card.request.CardRequest#type
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#type
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#type
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#type
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#type
 #: org.isisaddons.module.security.dom.permission.ApplicationPermission#type
 #: org.isisaddons.module.security.dom.role.ApplicationRole#removePermission(org.isisaddons.module.security.dom.permission.ApplicationPermissionRule,org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureType,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#type
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#type
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#type
 msgid "Type"
 msgstr ""
 
@@ -2939,11 +2380,6 @@ msgid "Unknown Import"
 msgstr ""
 
 
-#: org.apache.isis.applib.services.xactn.TransactionService3$Policy#UNLESS_MARKED_FOR_ABORT
-msgid "Unless Marked For Abort"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#unsubscribeFromPromotionalEmails()
 msgid "Unsubscribe From Promotional Emails"
 msgstr ""
@@ -2954,37 +2390,37 @@ msgid "Update Account Type"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsBoolean()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsBoolean()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsBoolean()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsBoolean()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsBoolean()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsBoolean()
 msgid "Update As Boolean"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsInt()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsInt()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsInt()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsInt()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsInt()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsInt()
 msgid "Update As Int"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLocalDate()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsLocalDate()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsLocalDate()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLocalDate()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsLocalDate()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsLocalDate()
 msgid "Update As Local Date"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLong()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsLong()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsLong()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLong()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsLong()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsLong()
 msgid "Update As Long"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsString()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsString()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsString()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsString()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsString()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsString()
 msgid "Update As String"
 msgstr ""
 
@@ -2994,10 +2430,10 @@ msgid "Update At Path"
 msgstr ""
 
 
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateDescription()
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateDescription()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateDescription()
 #: org.isisaddons.module.security.dom.role.ApplicationRole#updateDescription()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateDescription()
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateDescription()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateDescription()
 msgid "Update Description"
 msgstr ""
 
@@ -3050,30 +2486,35 @@ msgstr ""
 
 
 #: org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract#user
+#: org.incode.module.settings.dom.UserSettingMenu#find(java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.UserSettingMenu#listAllFor(java.lang.String)
+#: org.incode.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#user
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#find(java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#listAllFor(java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#user
 #: org.isisaddons.module.security.app.user.UserPermissionViewModel#user
 #: org.isisaddons.module.security.dom.user.HasUsername_open
-#: org.isisaddons.module.settings.dom.UserSettingMenu#find(java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#listAllFor(java.lang.String)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#user
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#find(java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#listAllFor(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 msgid "User"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo
+#: org.incode.module.settings.dom.jdo.UserSettingJdo
 msgid "User Setting"
+msgstr ""
+
+
+#: org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu#newUser()
+msgid "User with email {email} already exists"
 msgstr ""
 
 
@@ -3093,84 +2534,84 @@ msgstr ""
 
 
 #: org.apache.isis.applib.services.config.ConfigurationProperty#value
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.ApplicationSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.SettingAbstract#valueAsBoolean
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsBoolean(java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsInt(java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLocalDate(org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLong(java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#updateAsString(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#valueAsBoolean
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsBoolean(java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsInt(java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsLocalDate(org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsLong(java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#updateAsString(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#valueAsBoolean
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsBoolean(java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsInt(java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsLocalDate(org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsLong(java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#updateAsString(java.lang.String)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#valueAsBoolean
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
-#: org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.ApplicationSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.SettingAbstract#valueAsBoolean
+#: org.incode.module.settings.dom.UserSettingMenu#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.UserSettingMenu#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.UserSettingMenu#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.UserSettingMenu#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.UserSettingMenu#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsBoolean(java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsInt(java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLocalDate(org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsLong(java.lang.Long)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#updateAsString(java.lang.String)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#valueAsBoolean
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.ApplicationSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsBoolean(java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsInt(java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsLocalDate(org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsLong(java.lang.Long)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#updateAsString(java.lang.String)
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#valueAsBoolean
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsBoolean(java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsInt(java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsLocalDate(org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsLong(java.lang.Long)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#updateAsString(java.lang.String)
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#valueAsBoolean
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newBoolean(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newInt(java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLocalDate(java.lang.String,java.lang.String,java.lang.String,org.joda.time.LocalDate)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newLong(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+#: org.incode.module.settings.dom.jdo.UserSettingsServiceJdo#newString(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 msgid "Value"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingAbstract#valueAsInt
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#valueAsInt
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#valueAsInt
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#valueAsInt
+#: org.incode.module.settings.dom.SettingAbstract#valueAsInt
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#valueAsInt
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#valueAsInt
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#valueAsInt
 msgid "Value As Int"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingAbstract#valueAsLocalDate
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#valueAsLocalDate
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#valueAsLocalDate
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#valueAsLocalDate
+#: org.incode.module.settings.dom.SettingAbstract#valueAsLocalDate
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#valueAsLocalDate
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#valueAsLocalDate
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#valueAsLocalDate
 msgid "Value As Local Date"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingAbstract#valueAsLong
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#valueAsLong
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#valueAsLong
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#valueAsLong
+#: org.incode.module.settings.dom.SettingAbstract#valueAsLong
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#valueAsLong
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#valueAsLong
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#valueAsLong
 msgid "Value As Long"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.SettingAbstract#valueAsString
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#valueAsString
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#valueAsString
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#valueAsString
+#: org.incode.module.settings.dom.SettingAbstract#valueAsString
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#valueAsString
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#valueAsString
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#valueAsString
 msgid "Value As String"
 msgstr ""
 
 
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#valueRaw
-#: org.isisaddons.module.settings.dom.jdo.SettingAbstractJdo#valueRaw
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#valueRaw
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#valueRaw
+#: org.incode.module.settings.dom.jdo.SettingAbstractJdo#valueRaw
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#valueRaw
 msgid "Value Raw"
 msgstr ""
 
@@ -3200,6 +2641,10 @@ msgstr ""
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.numerator.Numerator#datanucleusVersionTimestamp()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#datanucleusVersionLong()
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#datanucleusVersionTimestamp()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#datanucleusVersionLong()
+#: org.incode.module.settings.dom.jdo.ApplicationSettingJdo#datanucleusVersionTimestamp()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#datanucleusVersionLong()
+#: org.incode.module.settings.dom.jdo.UserSettingJdo#datanucleusVersionTimestamp()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#datanucleusVersionLong()
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent#datanucleusVersionTimestamp()
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage#datanucleusVersionLong()
@@ -3212,10 +2657,6 @@ msgstr ""
 #: org.isisaddons.module.security.dom.tenancy.ApplicationTenancy#datanucleusVersionTimestamp()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#datanucleusVersionLong()
 #: org.isisaddons.module.security.dom.user.ApplicationUser#datanucleusVersionTimestamp()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#datanucleusVersionLong()
-#: org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo#datanucleusVersionTimestamp()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#datanucleusVersionLong()
-#: org.isisaddons.module.settings.dom.jdo.UserSettingJdo#datanucleusVersionTimestamp()
 msgid "Version"
 msgstr ""
 
@@ -3237,38 +2678,8 @@ msgid "Viewing Permission"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteCardRequest()
-msgid "Website Card Request"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteUserCardDisable()
-msgid "Website User Card Disable"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteUserCreate()
-msgid "Website User Create"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteUserDetail()
-msgid "Website User Detail"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.ApiService#websiteUserModify()
-msgid "Website User Modify"
-msgstr ""
-
-
 #: org.incode.eurocommercial.ecpcrm.module.api.dom.authentication.AuthenticationDeviceType#WIFI
 msgid "Wifi"
-msgstr ""
-
-
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardgame.CardGameRequestViewModel#win
-msgid "Win"
 msgstr ""
 
 
@@ -3277,10 +2688,6 @@ msgid "Yaml"
 msgstr ""
 
 
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.cardrequest.CardRequestRequestViewModel#zipcode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websitecardrequest.WebsiteCardRequestRequestViewModel#zipcode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusercreate.WebsiteUserCreateRequestViewModel#zipcode
-#: org.incode.eurocommercial.ecpcrm.module.api.service.vm.websiteusermodify.WebsiteUserModifyRequestViewModel#zipcode
 #: org.incode.eurocommercial.ecpcrm.module.loyaltycards.dom.user.User#zipcode
 msgid "Zipcode"
 msgstr ""
@@ -3305,6 +2712,7 @@ msgstr ""
 
 
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
 msgid "detail"
 msgstr ""
 
@@ -3330,6 +2738,7 @@ msgstr ""
 
 
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
 msgid "message"
 msgstr ""
 
@@ -3341,6 +2750,7 @@ msgstr ""
 
 
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
 msgid "oid"
 msgstr ""
 
@@ -3365,7 +2775,13 @@ msgid "roles"
 msgstr ""
 
 
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+msgid "sequence"
+msgstr ""
+
+
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
 msgid "status"
 msgstr ""
 
@@ -3373,11 +2789,13 @@ msgstr ""
 #: org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent_republish
 #: org.isisaddons.module.publishmq.dom.jdo.mixins.HasTransactionId_publishedEvent
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
 msgid "transactionId"
 msgstr ""
 
 
 #: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#log(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
+#: org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageService#logMessage(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.String)
 msgid "uri"
 msgstr ""
 

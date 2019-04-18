@@ -266,12 +266,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.isisaddons.module.settings</groupId>
-            <artifactId>isis-module-settings-dom</artifactId>
-            <version>${isis-module-settings.version}</version>
-        </dependency>
-
     </dependencies>
 
     <profiles>

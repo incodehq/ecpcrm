@@ -3,17 +3,16 @@ package org.incode.eurocommercial.ecpcrm.webapp;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.core.metamodel.services.ServicesInjector;
 import org.apache.isis.core.runtime.system.context.IsisContext;
-
 import org.apache.isis.core.runtime.system.session.IsisSessionFactory;
-import org.isisaddons.module.settings.dom.UserSetting;
-import org.isisaddons.module.settings.dom.UserSettingsService;
-import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
-import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
+
+import org.incode.module.settings.dom.UserSetting;
+import org.incode.module.settings.dom.UserSettingsService;
+import org.incode.module.settings.dom.UserSettingsServiceRW;
+import org.incode.module.settings.dom.jdo.UserSettingJdo;
 
 import de.agilecoders.wicket.core.settings.ActiveThemeProvider;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.core.settings.SessionThemeProvider;
 import de.agilecoders.wicket.core.settings.ThemeProvider;
 
 public class EcpCrmUserSettingsThemeProvider implements ActiveThemeProvider {
@@ -30,19 +29,16 @@ public class EcpCrmUserSettingsThemeProvider implements ActiveThemeProvider {
 
     @Override
     public ITheme getActiveTheme() {
-        if(getIsisSessionFactory().getSpecificationLoader().isInitialized()) {
-            final String themeName = getIsisSessionFactory().doInSession(() -> {
-                final String currentUserName = currentUserName();
+        final String themeName = getIsisSessionFactory().doInSession(() -> {
+            final String currentUserName = currentUserName();
 
-                final Class<UserSettingsService> serviceClass = UserSettingsService.class;
-                final UserSettingsService userSettingsService = lookupService(serviceClass);
+            final Class<UserSettingsService> serviceClass = UserSettingsService.class;
+            final UserSettingsService userSettingsService = lookupService(serviceClass);
 
-                final UserSetting activeTheme = userSettingsService.find(currentUserName, ACTIVE_THEME);
-                return activeTheme != null ? activeTheme.valueAsString() : null;
-            });
-            return themeFor(themeName);
-        }
-        return new SessionThemeProvider().getActiveTheme();
+            final UserSetting activeTheme = userSettingsService.find(currentUserName, ACTIVE_THEME);
+            return activeTheme != null ? activeTheme.valueAsString() : null;
+        });
+        return themeFor(themeName);
     }
 
     @Override

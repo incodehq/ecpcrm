@@ -31,7 +31,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.isisaddons.module.command.dom.HasUsername_recentCommandsByUser;
 import org.isisaddons.module.sessionlogger.dom.HasUsername_recentSessionsForUser;
-import org.isisaddons.module.settings.dom.UserSetting;
+
+import org.incode.module.settings.dom.UserSetting;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
