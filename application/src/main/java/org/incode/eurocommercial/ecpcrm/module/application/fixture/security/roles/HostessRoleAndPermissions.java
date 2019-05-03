@@ -16,6 +16,8 @@
  */
 package org.incode.eurocommercial.ecpcrm.module.application.fixture.security.roles;
 
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.CardMenu;
+import org.incode.eurocommercial.ecpcrm.module.loyaltycards.menu.UserMenu;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
@@ -68,17 +70,22 @@ public class HostessRoleAndPermissions extends AbstractRoleAndPermissionsFixture
                 "center"
         );
 
-        newMemberPermissions(
-                ApplicationPermissionRule.VETO,
-                ApplicationPermissionMode.VIEWING,
-                HomePageViewModel.class,
-                "deleteCustomer"
-        );
-
         newPackagePermissions(
                 ApplicationPermissionRule.VETO,
                 ApplicationPermissionMode.VIEWING,
                 AdminMenu.class.getPackage().getName()
+        );
+        newMemberPermissions(
+                ApplicationPermissionRule.VETO,
+                ApplicationPermissionMode.VIEWING,
+                CardMenu.class,
+                "downloadAllCards"
+        );
+        newMemberPermissions(
+                ApplicationPermissionRule.VETO,
+                ApplicationPermissionMode.VIEWING,
+                UserMenu.class,
+                "downloadAllUsers"
         );
     }
 }
