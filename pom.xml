@@ -66,7 +66,7 @@
         <!-- NB: also update the parent of this pom.  -->
         <incode-platform.version>1.17.0.20190418-0755-7d3f32e7</incode-platform.version>
 
-        <jbcrypt.version>0.3m</jbcrypt.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
 
         <lombok.version>1.16.10</lombok.version>
         <assertj-core.version>3.6.0</assertj-core.version>
